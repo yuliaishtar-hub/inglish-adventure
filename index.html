@@ -112,8 +112,8 @@
 
         // Настройки голоса для Лили
         let lilyVoice = null;
-        const LILY_PITCH = 1.8; // Высокий тон для детского голоса
-        const LILY_RATE = 0.8; // Медленная скорость
+        const LILY_PITCH = 2.0; // Максимально высокий тон (писклявый детский)
+        const LILY_RATE = 0.7; // Очень медленная скорость
 
         // Все вопросы по школьной программе
         const allLevels = {
@@ -212,10 +212,6 @@
         window.onload = function() {
             loadProgress();
             setupVoice();
-            // Приветствие голосом на главном экране
-            setTimeout(() => {
-                speakText("Hi! I'm Lily! Let's learn English!", true);
-            }, 500);
         };
 
         function loadProgress() {
@@ -239,7 +235,6 @@
             const voices = window.speechSynthesis.getVoices();
             
             // Попробуем найти голос, который звучит как ребёнок или женский голос
-            // Обычно "Google UK English Female", "Zira", "Samantha" или похожие
             for (let i = 0; i < voices.length; i++) {
                 const v = voices[i];
                 if (v.name.includes('Google UK English Female') || 
@@ -258,7 +253,6 @@
                 lilyVoice = voices[0];
             }
             
-            // Обработка случая, когда голоса загружаются позже
             window.speechSynthesis.onvoiceschanged = function() {
                 const voices = window.speechSynthesis.getVoices();
                 for (let i = 0; i < voices.length; i++) {
@@ -283,7 +277,7 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
             utterance.rate = slow ? LILY_RATE : 1.0;
-            utterance.pitch = LILY_PITCH; // Высокий тон = детский голос
+            utterance.pitch = LILY_PITCH; // Максимально высокий тон = детский голос
             utterance.volume = 1.0;
             
             if (lilyVoice) {
