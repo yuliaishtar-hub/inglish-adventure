@@ -110,10 +110,10 @@
         let currentLevelQuestions = [];
         let currentLevelName = "";
 
-        // Настройки голоса для Лили
+        // Настройки голоса
         let lilyVoice = null;
-        const LILY_PITCH = 2.0; // Максимально высокий тон (писклявый детский)
-        const LILY_RATE = 0.7; // Очень медленная скорость
+        const LILY_PITCH = 1.2; // Слегка высокий тон (детский, но не писклявый)
+        const LILY_RATE = 0.95; // Почти нормальная скорость (чуть медленнее, чтобы понять)
 
         // Все вопросы по школьной программе
         const allLevels = {
@@ -212,6 +212,8 @@
         window.onload = function() {
             loadProgress();
             setupVoice();
+            // Приветствие: браузер разрешает звук после клика.
+            // Поэтому мы не запускаем его здесь, а делаем это после нажатия кнопки.
         };
 
         function loadProgress() {
@@ -234,7 +236,6 @@
         function setupVoice() {
             const voices = window.speechSynthesis.getVoices();
             
-            // Попробуем найти голос, который звучит как ребёнок или женский голос
             for (let i = 0; i < voices.length; i++) {
                 const v = voices[i];
                 if (v.name.includes('Google UK English Female') || 
@@ -248,7 +249,6 @@
                 }
             }
             
-            // Если не нашли, используем первый доступный голос
             if (!lilyVoice && voices.length > 0) {
                 lilyVoice = voices[0];
             }
@@ -277,8 +277,8 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
             utterance.rate = slow ? LILY_RATE : 1.0;
-            utterance.pitch = LILY_PITCH; // Максимально высокий тон = детский голос
-            utterance.volume = 1.0;
+            utterance.pitch = LILY_PITCH;
+            utterance.volume = 1.0; // Максимальная громкость
             
             if (lilyVoice) {
                 utterance.voice = lilyVoice;
@@ -289,7 +289,7 @@
 
         // ---------- WELCOME & MAP ----------
         function showMap() {
-            // Приветствие голосом при входе в меню
+            // Приветствие после клика
             speakText("Let's go on an adventure!", true);
             
             document.getElementById('welcome-screen').style.display = 'none';
@@ -302,7 +302,6 @@
             currentLevelName = allLevels[levelKey].name;
             document.getElementById('level-title').innerText = currentLevelName;
             
-            // Скажи название локации
             speakText(currentLevelName.replace(/[^\w\s]/g, ''), true);
             
             document.getElementById('map-screen').style.display = 'none';
