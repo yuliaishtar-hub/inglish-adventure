@@ -16,23 +16,26 @@
         #start-btn { padding: 20px 40px; font-size: 24px; background-color: #4CAF50; color: white; border: none; border-radius: 20px; cursor: pointer; transition: all 0.3s; animation: pulse 2s infinite; }
         #start-btn:hover { transform: scale(1.1); }
         
-        /* Main Game */
+        /* Main Menu Screen */
+        #menu-screen { display: none; }
+        #menu-title { font-size: 32px; color: #4CAF50; margin-bottom: 30px; }
+        #shop-btn-menu { padding: 15px 30px; background-color: #FFC107; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; margin-bottom: 20px; }
+        #topics-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+        .topic-card { background-color: #f0f8ff; border-radius: 15px; padding: 20px; cursor: pointer; transition: all 0.3s; border: 3px solid #ccc; }
+        .topic-card:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .topic-card.locked { opacity: 0.6; cursor: not-allowed; }
+        .topic-card img { font-size: 40px; margin-bottom: 10px; }
+        .topic-card .topic-name { font-size: 18px; font-weight: bold; }
+        .topic-card .topic-xp { font-size: 14px; color: #666; }
+        .topic-card .lock-icon { font-size: 24px; position: absolute; top: 10px; right: 10px; }
+        #back-to-presentation { padding: 15px 30px; background-color: #2196F3; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; margin-top: 20px; }
+        
+        /* Game Screen */
         #game-screen { display: none; }
+        #back-to-menu-btn { position: absolute; top: 20px; left: 20px; padding: 10px 20px; background-color: #4CAF50; border: none; border-radius: 15px; cursor: pointer; font-size: 16px; z-index: 10; color: white; }
         #shop-btn { position: absolute; top: 20px; right: 20px; padding: 10px 20px; background-color: #FFC107; border: none; border-radius: 15px; cursor: pointer; font-size: 16px; z-index: 10; }
         #shop-btn:hover { transform: scale(1.05); }
-        
-        /* Shop Screen */
-        #shop-screen { display: none; }
-        #shop-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
-        .shop-item { background-color: #f0f8ff; border-radius: 15px; padding: 15px; cursor: pointer; transition: all 0.3s; }
-        .shop-item:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .shop-item.bought { opacity: 0.5; cursor: default; }
-        .shop-item img { font-size: 40px; margin-bottom: 10px; }
-        .shop-item .price { color: #FFC107; font-weight: bold; }
-        #back-btn { padding: 15px 30px; background-color: #2196F3; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; }
-        
-        /* Game Elements */
-        #lily-img { font-size: 60px; display: inline-block; transition: transform 0.3s; position: relative; }
+        #lily-img { font-size: 60px; display: inline-block; transition: transform 0.3s; position: relative; margin-top: 40px; }
         #lily-img .accessory { font-size: 30px; position: absolute; }
         #lily-img.jumping { animation: jump 0.8s ease-in-out; }
         #lily-img.shaking { animation: shake 0.5s ease-in-out; }
@@ -51,6 +54,16 @@
         #xp-fill { background: linear-gradient(90deg, #4caf50, #8bc34a); height: 100%; width: 0; border-radius: 10px; transition: width 0.5s ease; }
         #crystal-count { font-size: 20px; animation: crystalSpin 0.5s; }
         
+        /* Shop Screen */
+        #shop-screen { display: none; }
+        #shop-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
+        .shop-item { background-color: #f0f8ff; border-radius: 15px; padding: 15px; cursor: pointer; transition: all 0.3s; }
+        .shop-item:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .shop-item.bought { opacity: 0.5; cursor: default; }
+        .shop-item img { font-size: 40px; margin-bottom: 10px; }
+        .shop-item .price { color: #FFC107; font-weight: bold; }
+        #back-btn { padding: 15px 30px; background-color: #2196F3; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; }
+        
         /* Animations */
         @keyframes lilyWave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-20deg); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -63,7 +76,6 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         @keyframes crystalSpin { from { transform: rotate(0deg) scale(1); } to { transform: rotate(360deg) scale(1.3); } }
         @keyframes fall { to { transform: translateY(500px) rotate(360deg); opacity: 0; } }
-        @keyframes sparkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
@@ -76,10 +88,19 @@
             <button id="start-btn" onclick="startGame()">🚀 Start!</button>
         </div>
 
+        <!-- Main Menu Screen -->
+        <div id="menu-screen">
+            <h1 id="menu-title">🌍 Choose Your Adventure!</h1>
+            <button id="shop-btn-menu" onclick="openShop()">🛍️ Shop</button>
+            <div id="topics-list"></div>
+            <button id="back-to-presentation" onclick="backToPresentation()">⬅️ Back</button>
+        </div>
+
         <!-- Main Game Screen -->
         <div id="game-screen">
+            <button id="back-to-menu-btn" onclick="backToMenu()">🏠 Menu</button>
             <button id="shop-btn" onclick="openShop()">🛍️ Shop</button>
-            <h1>English Adventure</h1>
+            <h1 id="game-title">English Adventure</h1>
             <div id="lily-img">👧🏻<span id="lily-accessories"></span></div>
             <div id="xp-bar"><div id="xp-fill"></div></div>
             <div id="crystal-count">💎 0</div>
@@ -95,7 +116,7 @@
             <h2>Lily's Shop</h2>
             <p id="shop-crystals">💎 0</p>
             <div id="shop-items"></div>
-            <button id="back-btn" onclick="closeShop()">⬅️ Back to Game</button>
+            <button id="back-btn" onclick="closeShop()">⬅️ Back</button>
         </div>
     </div>
 
@@ -106,8 +127,9 @@
         let currentQuestionIndex = 0;
         let currentQuestion = {};
         let correctAnswerText = "";
+        let currentTopic = null;
         
-        // Items for Lily (will be purchased with crystals)
+        // Items for Lily
         let purchasedItems = [];
         
         const shopItems = [
@@ -119,21 +141,50 @@
             { id: 'dog', name: 'Dog', emoji: '🐶', price: 20 }
         ];
 
-        // School vocabulary based on textbook
-        const petWorldQuestions = [
-            { question: "What is it?", image: "🐒", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
-            { question: "What is it?", image: "🐟", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
-            { question: "What is it?", image: "🐦", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
-            { question: "What is it?", image: "🐭", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
-            { question: "What is it?", image: "🐸", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
+        // Topics / Locations
+        const topics = [
+            { id: 'pet-world', name: 'Pet World', emoji: '🐾', xpRequired: 0, questions: [
+                { question: "What is it?", image: "🐒", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
+                { question: "What is it?", image: "🐟", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
+                { question: "What is it?", image: "🐦", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
+                { question: "What is it?", image: "🐭", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
+                { question: "What is it?", image: "🐸", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
+            ]},
+            { id: 'colour-castle', name: 'Colour Castle', emoji: '🎨', xpRequired: 50, questions: [
+                { question: "What colour is it?", image: "🔴", options: ["It's red.", "It's blue.", "It's green."], correctIndex: 0 },
+                { question: "What colour is it?", image: "🟡", options: ["It's brown.", "It's yellow.", "It's black."], correctIndex: 1 },
+                { question: "What colour is it?", image: "🔵", options: ["It's white.", "It's orange.", "It's blue."], correctIndex: 2 },
+                { question: "What colour is it?", image: "⚪", options: ["It's white.", "It's red.", "It's yellow."], correctIndex: 0 },
+                { question: "What colour is it?", image: "🟠", options: ["It's black.", "It's orange.", "It's blue."], correctIndex: 1 }
+            ]},
+            { id: 'family-house', name: 'Family House', emoji: '👨‍👩‍👧', xpRequired: 100, questions: [
+                { question: "Who is she?", image: "👩", options: ["She's my mummy.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
+                { question: "Who is he?", image: "👨", options: ["He's my brother.", "He's my daddy.", "He's my grandpa."], correctIndex: 1 },
+                { question: "Who is she?", image: "👧", options: ["She's my sister.", "She's my mummy.", "She's my grandma."], correctIndex: 0 },
+                { question: "Who is he?", image: "👴", options: ["He's my daddy.", "He's my brother.", "He's my grandpa."], correctIndex: 2 },
+                { question: "Who is she?", image: "👵", options: ["She's my grandma.", "She's my sister.", "She's my mummy."], correctIndex: 0 }
+            ]},
+            { id: 'school', name: 'School', emoji: '🏫', xpRequired: 150, questions: [
+                { question: "What is it?", image: "📚", options: ["It's a book.", "It's a pencil.", "It's a bag."], correctIndex: 0 },
+                { question: "What is it?", image: "✏️", options: ["It's a ruler.", "It's a book.", "It's a pencil."], correctIndex: 2 },
+                { question: "What is it?", image: "🎒", options: ["It's a bag.", "It's a book.", "It's a pencil."], correctIndex: 0 },
+                { question: "What is it?", image: "📏", options: ["It's a pencil.", "It's a ruler.", "It's a book."], correctIndex: 1 },
+                { question: "What is it?", image: "✂️", options: ["It's scissors.", "It's a book.", "It's a bag."], correctIndex: 0 }
+            ]},
+            { id: 'yummy-cafe', name: 'Yummy Café', emoji: '🍕', xpRequired: 200, questions: [
+                { question: "What is it?", image: "🍕", options: ["It's pizza.", "It's a burger.", "It's ice cream."], correctIndex: 0 },
+                { question: "What is it?", image: "🍔", options: ["It's a burger.", "It's pizza.", "It's cake."], correctIndex: 0 },
+                { question: "What is it?", image: "🍦", options: ["It's chips.", "It's ice cream.", "It's a burger."], correctIndex: 1 },
+                { question: "What is it?", image: "🍎", options: ["It's an apple.", "It's a burger.", "It's pizza."], correctIndex: 0 },
+                { question: "What is it?", image: "🍟", options: ["It's ice cream.", "It's pizza.", "It's chips."], correctIndex: 2 }
+            ]}
         ];
-
-        const allQuestions = petWorldQuestions;
 
         // ---------- INITIALIZATION ----------
         window.onload = function() {
             loadProgress();
             loadShop();
+            loadTopics();
         };
 
         function loadProgress() {
@@ -161,21 +212,70 @@
             document.getElementById('crystal-count').style.animation = 'crystalSpin 0.5s';
         }
 
-        // ---------- GAME START ----------
+        // ---------- SCREEN NAVIGATION ----------
         function startGame() {
             document.getElementById('presentation-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'block';
+            loadTopics();
+            speakText("Hi! I'm Lily! Let's choose a topic!", true);
+        }
+
+        function backToPresentation() {
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('presentation-screen').style.display = 'flex';
+        }
+
+        function backToMenu() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'block';
+            loadTopics();
+        }
+
+        // ---------- TOPICS LOGIC ----------
+        function loadTopics() {
+            const topicsDiv = document.getElementById('topics-list');
+            topicsDiv.innerHTML = "";
+            
+            topics.forEach(topic => {
+                const topicCard = document.createElement('div');
+                topicCard.className = 'topic-card';
+                
+                if (xp < topic.xpRequired) {
+                    topicCard.classList.add('locked');
+                }
+                
+                topicCard.innerHTML = `
+                    <div class="topic-emoji">${topic.emoji}</div>
+                    <div class="topic-name">${topic.name}</div>
+                    <div class="topic-xp">Requires: ${topic.xpRequired} XP</div>
+                    ${xp < topic.xpRequired ? '<div class="lock-icon">🔒</div>' : ''}
+                `;
+                
+                if (xp >= topic.xpRequired) {
+                    topicCard.onclick = () => selectTopic(topic);
+                }
+                
+                topicsDiv.appendChild(topicCard);
+            });
+        }
+
+        function selectTopic(topic) {
+            currentTopic = topic;
+            currentQuestionIndex = 0;
+            document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('game-title').innerText = topic.name;
             loadQuestion();
-            speakText("Hi! I'm Lily! Let's play!", true);
+            speakText(topic.name, true);
         }
 
         // ---------- QUESTION LOGIC ----------
         function loadQuestion() {
-            if (currentQuestionIndex >= allQuestions.length) {
+            if (currentQuestionIndex >= currentTopic.questions.length) {
                 currentQuestionIndex = 0;
             }
             
-            currentQuestion = allQuestions[currentQuestionIndex];
+            currentQuestion = currentTopic.questions[currentQuestionIndex];
             correctAnswerText = currentQuestion.options[currentQuestion.correctIndex];
 
             document.getElementById('question-text').innerHTML = currentQuestion.image + "<br>" + currentQuestion.question;
@@ -297,13 +397,15 @@
         // ---------- SHOP LOGIC ----------
         function openShop() {
             document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('shop-screen').style.display = 'block';
             document.getElementById('shop-crystals').innerText = '💎 ' + crystals;
         }
 
         function closeShop() {
             document.getElementById('shop-screen').style.display = 'none';
-            document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('menu-screen').style.display = 'block';
+            loadTopics();
             updateUI();
         }
 
@@ -342,7 +444,6 @@
                 document.getElementById('shop-crystals').innerText = '💎 ' + crystals;
                 updateLilyAccessories();
                 
-                // Celebration animation
                 createConfetti();
                 alert("🎉 You got " + item.name + "!");
             } else {
