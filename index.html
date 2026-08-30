@@ -113,7 +113,7 @@
         // Настройки голоса
         let lilyVoice = null;
         const LILY_PITCH = 1.2; // Слегка высокий тон (детский, но не писклявый)
-        const LILY_RATE = 0.95; // Почти нормальная скорость (чуть медленнее, чтобы понять)
+        const LILY_RATE = 0.85; // Чуть медленнее обычного, чтобы ребёнок успевал
 
         // Все вопросы по школьной программе
         const allLevels = {
@@ -212,8 +212,6 @@
         window.onload = function() {
             loadProgress();
             setupVoice();
-            // Приветствие: браузер разрешает звук после клика.
-            // Поэтому мы не запускаем его здесь, а делаем это после нажатия кнопки.
         };
 
         function loadProgress() {
@@ -289,7 +287,6 @@
 
         // ---------- WELCOME & MAP ----------
         function showMap() {
-            // Приветствие после клика
             speakText("Let's go on an adventure!", true);
             
             document.getElementById('welcome-screen').style.display = 'none';
