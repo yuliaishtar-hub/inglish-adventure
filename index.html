@@ -110,6 +110,11 @@
         let currentLevelQuestions = [];
         let currentLevelName = "";
 
+        // Настройки голоса для Лили
+        let lilyVoice = null;
+        const LILY_PITCH = 1.8; // Высокий тон для детского голоса
+        const LILY_RATE = 0.8; // Медленная скорость
+
         // Все вопросы по школьной программе
         const allLevels = {
             animals: {
@@ -206,6 +211,11 @@
         // ---------- INITIALIZATION ----------
         window.onload = function() {
             loadProgress();
+            setupVoice();
+            // Приветствие голосом на главном экране
+            setTimeout(() => {
+                speakText("Hi! I'm Lily! Let's learn English!", true);
+            }, 500);
         };
 
         function loadProgress() {
@@ -224,8 +234,70 @@
             document.getElementById('crystals').innerText = crystals;
         }
 
+        // ---------- VOICE SETUP ----------
+        function setupVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            
+            // Попробуем найти голос, который звучит как ребёнок или женский голос
+            // Обычно "Google UK English Female", "Zira", "Samantha" или похожие
+            for (let i = 0; i < voices.length; i++) {
+                const v = voices[i];
+                if (v.name.includes('Google UK English Female') || 
+                    v.name.includes('Zira') || 
+                    v.name.includes('Samantha') || 
+                    v.name.includes('Female') ||
+                    v.lang === 'en-US' || 
+                    v.lang === 'en-GB') {
+                    lilyVoice = v;
+                    break;
+                }
+            }
+            
+            // Если не нашли, используем первый доступный голос
+            if (!lilyVoice && voices.length > 0) {
+                lilyVoice = voices[0];
+            }
+            
+            // Обработка случая, когда голоса загружаются позже
+            window.speechSynthesis.onvoiceschanged = function() {
+                const voices = window.speechSynthesis.getVoices();
+                for (let i = 0; i < voices.length; i++) {
+                    const v = voices[i];
+                    if (v.name.includes('Google UK English Female') || 
+                        v.name.includes('Zira') || 
+                        v.name.includes('Samantha') || 
+                        v.name.includes('Female') ||
+                        v.lang === 'en-US' || 
+                        v.lang === 'en-GB') {
+                        lilyVoice = v;
+                        break;
+                    }
+                }
+            };
+        }
+
+        function speakText(text, slow = false) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = slow ? LILY_RATE : 1.0;
+            utterance.pitch = LILY_PITCH; // Высокий тон = детский голос
+            utterance.volume = 1.0;
+            
+            if (lilyVoice) {
+                utterance.voice = lilyVoice;
+            }
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
         // ---------- WELCOME & MAP ----------
         function showMap() {
+            // Приветствие голосом при входе в меню
+            speakText("Let's go on an adventure!", true);
+            
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
@@ -235,6 +307,9 @@
             currentLevelQuestions = allLevels[levelKey].questions;
             currentLevelName = allLevels[levelKey].name;
             document.getElementById('level-title').innerText = currentLevelName;
+            
+            // Скажи название локации
+            speakText(currentLevelName.replace(/[^\w\s]/g, ''), true);
             
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
@@ -297,15 +372,6 @@
         }
 
         // ---------- VOICE LOGIC ----------
-        function speakText(text, slow = false) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = slow ? 0.7 : 1.0;
-            window.speechSynthesis.speak(utterance);
-        }
-
         function startListening() {
             const micBtn = document.getElementById('mic-btn');
             micBtn.classList.add('active');
