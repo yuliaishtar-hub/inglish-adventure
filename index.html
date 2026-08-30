@@ -39,6 +39,7 @@
         #crystal-count { font-size: 20px; margin-bottom: 20px; }
         
         #question-text { font-size: 24px; color: #333; margin-bottom: 20px; }
+        #question-image { margin-bottom: 10px; }
         .answer-btn { display: block; width: 80%; margin: 10px auto; padding: 15px; font-size: 20px; background-color: #eee; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; }
         .answer-btn.correct { background-color: #a5d6a7; border-color: #4caf50; }
         .answer-btn.wrong { background-color: #ef9a9a; border-color: #f44336; }
@@ -92,6 +93,7 @@
             <div id="crystal-count">💎 <span id="crystals">0</span></div>
             
             <div id="question-text">Loading...</div>
+            <div id="question-image"></div>
             <div id="answers"></div>
             <div id="feedback"></div>
             
@@ -112,16 +114,16 @@
 
         // Настройки голоса
         let lilyVoice = null;
-        const LILY_PITCH = 1.2; // Слегка высокий тон (детский, но не писклявый)
-        const LILY_RATE = 0.85; // Чуть медленнее обычного, чтобы ребёнок успевал
+        const LILY_PITCH = 1.2;
+        const LILY_RATE = 0.85;
 
         // Все вопросы по школьной программе
         const allLevels = {
             animals: {
                 name: "🐾 Animals",
                 questions: [
-                    { question: "What is it?", image: "🐒", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
-                    { question: "What is it?", image: "🐟", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/fish.jpg", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
                     { question: "What is it?", image: "🐦", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
                     { question: "What is it?", image: "🐭", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
                     { question: "What is it?", image: "🐸", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
@@ -276,7 +278,7 @@
             utterance.lang = 'en-US';
             utterance.rate = slow ? LILY_RATE : 1.0;
             utterance.pitch = LILY_PITCH;
-            utterance.volume = 1.0; // Максимальная громкость
+            utterance.volume = 1.0;
             
             if (lilyVoice) {
                 utterance.voice = lilyVoice;
@@ -325,10 +327,18 @@
             currentQuestion = currentLevelQuestions[currentLevelIndex];
             correctAnswerText = currentQuestion.options[currentQuestion.correctIndex];
 
-            document.getElementById('question-text').innerHTML = currentQuestion.image + "<br>" + currentQuestion.question;
+            document.getElementById('question-text').innerHTML = currentQuestion.question;
+            document.getElementById('question-image').innerHTML = "";
             document.getElementById('feedback').innerText = "";
             document.getElementById('mic-btn').style.display = 'none';
             document.getElementById('next-btn').style.display = 'none';
+
+            // Вставляем картинку вопроса
+            if (typeof currentQuestion.image === 'string' && currentQuestion.image.startsWith('http')) {
+                document.getElementById('question-image').innerHTML = '<img src="' + currentQuestion.image + '" style="width: 120px; border-radius: 10px;">';
+            } else {
+                document.getElementById('question-image').innerHTML = currentQuestion.image;
+            }
 
             const answersDiv = document.getElementById('answers');
             answersDiv.innerHTML = "";
