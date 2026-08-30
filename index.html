@@ -15,6 +15,7 @@
         #welcome-screen { display: block; }
         #map-screen { display: none; }
         #game-screen { display: none; }
+        #review-screen { display: none; }
         
         /* Приветственный экран */
         #welcome-lily { width: 200px; border-radius: 20px; margin: 20px auto; display: block; }
@@ -48,16 +49,25 @@
         #mic-btn { padding: 15px 30px; font-size: 20px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; display: none; }
         #mic-btn.active { background-color: #ff9800; }
         #next-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; display: none; color: white; }
+        
+        /* Экран повторения */
+        #review-screen h2 { color: #4CAF50; }
+        #review-word-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 20px; }
+        .review-card { background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; padding: 10px; cursor: pointer; transition: 0.3s; }
+        .review-card:hover { background-color: #dcedc8; transform: scale(1.05); }
+        .review-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
+        .review-card .word { font-size: 18px; font-weight: bold; color: #333; }
+        #back-to-map-btn { margin-top: 20px; padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
     <div id="game-container">
-        <!-- Экран Приветствия -->
+        <!-- Экран Приветствия (Старт) -->
         <div id="welcome-screen">
             <h1>English Adventure</h1>
             <img id="welcome-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
-            <p>Hi! I'm Lily! Let's learn English!</p>
-            <button class="location-btn" onclick="showMap()">Back to Map 🗺️</button>
+            <p>Hi! I'm Lily! Let's go on an adventure!</p>
+            <button class="location-btn" onclick="showMap()">Start 🚀</button>
         </div>
 
         <!-- Экран Карты (Выбор локации) -->
@@ -102,6 +112,14 @@
             <button id="mic-btn" onclick="startListening()">🎤 Say it!</button>
             <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
         </div>
+
+        <!-- Экран повторения (словарик) -->
+        <div id="review-screen">
+            <h2>All Words</h2>
+            <p>Tap a word to hear it!</p>
+            <div id="review-word-list"></div>
+            <button id="back-to-map-btn" onclick="backToMapFromReview()">Back to Map 🗺️</button>
+        </div>
     </div>
 
     <script>
@@ -113,6 +131,8 @@
         let correctAnswerText = "";
         let currentLevelQuestions = [];
         let currentLevelName = "";
+        let currentLevelKey = "";
+        let correctAnswersCount = 0;
 
         // Настройки голоса
         let lilyVoice = null;
@@ -124,7 +144,7 @@
             start: {
                 name: "🚀 Start",
                 questions: [
-                    { question: "Hi! I'm Lily! Let's learn English!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 }
+                    { question: "Hi! I'm Lily! Let's go on an adventure!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 }
                 ]
             },
             animals: {
@@ -222,6 +242,8 @@
         window.onload = function() {
             loadProgress();
             setupVoice();
+            // Лили приветствует на старте
+            speakText("Hi! I'm Lily! Let's go on an adventure!", true);
         };
 
         function loadProgress() {
@@ -302,19 +324,23 @@
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('review-screen').style.display = 'none';
         }
 
         function startLevel(levelKey) {
             currentLevelQuestions = allLevels[levelKey].questions;
             currentLevelName = allLevels[levelKey].name;
+            currentLevelKey = levelKey;
             document.getElementById('level-title').innerText = currentLevelName;
             
             speakText(currentLevelName.replace(/[^\w\s]/g, ''), true);
             
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('review-screen').style.display = 'none';
             
             currentLevelIndex = 0;
+            correctAnswersCount = 0;
             loadQuestion();
             updateUI();
         }
@@ -327,8 +353,7 @@
         // ---------- QUESTION LOGIC ----------
         function loadQuestion() {
             if (currentLevelIndex >= currentLevelQuestions.length) {
-                alert("Congratulations! You completed " + currentLevelName + "!");
-                showMap();
+                showReviewScreen();
                 return;
             }
             
@@ -366,10 +391,13 @@
             if (index === currentQuestion.correctIndex) {
                 buttons.forEach(b => b.disabled = true);
                 btn.classList.add('correct');
+                correctAnswersCount++;
                 document.getElementById('feedback').innerHTML = "Great! Now say it aloud!";
                 document.getElementById('feedback').style.color = '#4CAF50';
                 
                 document.getElementById('mic-btn').style.display = 'inline-block';
+                document.getElementById('next-btn').style.display = 'inline-block';
+                
                 speakText(correctAnswerText, true);
             } else {
                 btn.classList.add('wrong');
@@ -431,6 +459,51 @@
             };
         }
 
+        // ---------- REVIEW SCREEN ----------
+        function showReviewScreen() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('map-screen').style.display = 'none';
+            document.getElementById('review-screen').style.display = 'block';
+            
+            const reviewList = document.getElementById('review-word-list');
+            reviewList.innerHTML = "";
+            
+            for (let i = 0; i < currentLevelQuestions.length; i++) {
+                const q = currentLevelQuestions[i];
+                const correctWord = q.options[q.correctIndex];
+                
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.onclick = () => speakText(correctWord, true);
+                
+                let imageHTML = "";
+                if (typeof q.image === 'string' && q.image.startsWith('http')) {
+                    imageHTML = '<img src="' + q.image + '" alt="word">';
+                } else {
+                    imageHTML = q.image;
+                }
+                
+                card.innerHTML = imageHTML + '<div class="word">' + correctWord + '</div>';
+                reviewList.appendChild(card);
+            }
+            
+            // Озвучиваем все слова подряд
+            setTimeout(() => {
+                for (let i = 0; i < currentLevelQuestions.length; i++) {
+                    const q = currentLevelQuestions[i];
+                    const correctWord = q.options[q.correctIndex];
+                    setTimeout(() => {
+                        speakText(correctWord, true);
+                    }, i * 1500);
+                }
+            }, 500);
+        }
+
+        function backToMapFromReview() {
+            showMap();
+        }
+
+        // ---------- NEXT QUESTION ----------
         function nextQuestion() {
             currentLevelIndex++;
             loadQuestion();
