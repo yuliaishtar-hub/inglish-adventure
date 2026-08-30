@@ -3,126 +3,1269 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>English Adventure — MVP</title>
+<title>English Adventure 🌈</title>
+
 <style>
-:root{--bg:#f7f4ff;--card:#fff;--ink:#28233d;--muted:#77718b;--pink:#ff6fae;--purple:#8067ff;--yellow:#ffd45c;--green:#57c99b;--shadow:0 14px 40px #5d4b9a18}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#fff7fb,#f2efff);color:var(--ink)}
-button{font:inherit;border:0;cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.brand{font-weight:900;font-size:25px}.brand span{color:var(--pink)}
-.stats{display:flex;gap:10px;flex-wrap:wrap}.pill{background:#fff;border-radius:18px;padding:10px 14px;box-shadow:var(--shadow);font-weight:800}
-.screen{display:none}.screen.active{display:block}.hero{background:var(--card);border-radius:32px;padding:32px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.25fr .75fr;gap:25px;align-items:center}
-h1{font-size:48px;line-height:1.02;margin:0 0 14px}.sub{color:var(--muted);font-size:18px;line-height:1.5}.cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;padding:16px 25px;border-radius:18px;font-weight:900;margin-top:16px;box-shadow:0 10px 25px #8067ff33}
-.character{min-height:290px;border-radius:28px;background:linear-gradient(145deg,#fff0f7,#eeeaff);display:flex;align-items:center;justify-content:center;font-size:150px}
-.map{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.zone{background:#fff;border-radius:24px;padding:22px;box-shadow:var(--shadow);min-height:150px;transition:.2s}.zone:hover{transform:translateY(-3px)}.zone.locked{opacity:.45;filter:grayscale(.4)}.zone .emoji{font-size:44px}.zone b{display:block;margin-top:10px;font-size:19px}.progress{height:8px;background:#eeeaf7;border-radius:20px;margin-top:12px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));width:0}
-.lesson{background:#fff;border-radius:30px;padding:28px;box-shadow:var(--shadow);max-width:760px;margin:auto;text-align:center}.back{background:#eeeafa;padding:9px 13px;border-radius:12px;font-weight:800;margin-bottom:15px}.mission{color:var(--purple);font-weight:900}.big{font-size:100px;margin:15px}.question{font-size:28px;font-weight:900;margin:12px}.answers{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.answer{background:#f1efff;padding:14px 20px;border-radius:15px;font-weight:800}.answer:hover{background:#e6e1ff}.feedback{min-height:34px;font-weight:900;margin:16px}.speak{background:var(--pink);color:#fff;border-radius:50%;width:76px;height:76px;font-size:30px;box-shadow:0 10px 25px #ff6fae44}.hint{color:var(--muted);font-size:14px;margin-top:10px}.parent{margin-top:20px;background:#fff;border-radius:25px;padding:22px;box-shadow:var(--shadow)}.parent h2{margin-top:0}.meter{display:grid;grid-template-columns:120px 1fr 55px;gap:10px;align-items:center;margin:12px 0}.meterline{height:10px;background:#eeeaf7;border-radius:10px;overflow:hidden}.meterline div{height:100%;background:var(--green)}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.map{grid-template-columns:1fr 1fr}h1{font-size:38px}.character{min-height:180px;font-size:100px}}
+:root{
+  --pink:#ff6fae;
+  --purple:#8067ff;
+  --purple2:#a98cff;
+  --yellow:#ffd45c;
+  --green:#57c99b;
+  --blue:#66c7ff;
+  --ink:#28233d;
+  --muted:#77718b;
+  --bg:#f7f4ff;
+  --card:#fff;
+  --shadow:0 14px 40px #5d4b9a18;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,#ffe8f3 0,transparent 28%),
+    radial-gradient(circle at 90% 20%,#e8e2ff 0,transparent 30%),
+    linear-gradient(145deg,#fff8fb,#f2efff);
+  color:var(--ink);
+  min-height:100vh;
+}
+
+button{
+  font:inherit;
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.brand{
+  font-weight:950;
+  font-size:25px;
+}
+
+.brand span{
+  color:var(--pink);
+}
+
+.stats{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.pill{
+  background:#fff;
+  border-radius:18px;
+  padding:9px 13px;
+  box-shadow:var(--shadow);
+  font-weight:850;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.card{
+  background:rgba(255,255,255,.94);
+  border-radius:32px;
+  padding:30px;
+  box-shadow:var(--shadow);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:25px;
+  align-items:center;
+}
+
+.mission{
+  color:var(--purple);
+  font-weight:950;
+  letter-spacing:.5px;
+}
+
+h1{
+  font-size:48px;
+  line-height:1.02;
+  margin:10px 0 15px;
+}
+
+.sub{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.5;
+}
+
+.cta{
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:white;
+  padding:16px 24px;
+  border-radius:18px;
+  font-weight:900;
+  margin-top:12px;
+  box-shadow:0 10px 25px #8067ff33;
+  transition:.2s;
+}
+
+.cta:hover{
+  transform:translateY(-2px) scale(1.02);
+}
+
+.hero-character{
+  min-height:350px;
+  border-radius:30px;
+  background:linear-gradient(145deg,#fff0f7,#eeeaff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-character:before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:#ffffff88;
+  top:-70px;
+  right:-50px;
+}
+
+.lily-wrap{
+  text-align:center;
+  position:relative;
+  z-index:2;
+  animation:float 3s ease-in-out infinite;
+}
+
+.lily{
+  font-size:145px;
+  filter:drop-shadow(0 12px 12px #8067ff22);
+}
+
+.speech{
+  background:white;
+  border-radius:20px;
+  padding:12px 18px;
+  font-weight:900;
+  box-shadow:0 8px 20px #8067ff22;
+  display:inline-block;
+}
+
+.tip{
+  margin-top:20px;
+  background:#fff;
+  border-radius:24px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.tip h2{
+  margin-top:0;
+}
+
+.map-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.map{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.zone{
+  background:white;
+  border-radius:25px;
+  padding:20px;
+  min-height:165px;
+  box-shadow:var(--shadow);
+  transition:.2s;
+  position:relative;
+  overflow:hidden;
+}
+
+.zone.open{
+  cursor:pointer;
+}
+
+.zone.open:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 40px #8067ff25;
+}
+
+.zone.locked{
+  opacity:.45;
+  filter:grayscale(.5);
+}
+
+.zone .emoji{
+  font-size:48px;
+}
+
+.zone b{
+  display:block;
+  font-size:19px;
+  margin-top:10px;
+}
+
+.zone small{
+  color:var(--muted);
+}
+
+.lock{
+  position:absolute;
+  right:18px;
+  top:18px;
+  font-size:22px;
+}
+
+.progress{
+  height:8px;
+  background:#eeeaf7;
+  border-radius:20px;
+  margin-top:15px;
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  transition:.4s;
+}
+
+.back{
+  background:#eeeafa;
+  padding:9px 14px;
+  border-radius:12px;
+  font-weight:850;
+  margin-bottom:16px;
+}
+
+.lesson{
+  max-width:760px;
+  margin:auto;
+  text-align:center;
+}
+
+.lesson-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.lesson-progress{
+  color:var(--muted);
+  font-weight:800;
+}
+
+.big{
+  font-size:110px;
+  margin:10px;
+  animation:bounce 1.8s infinite;
+}
+
+.lily-small{
+  font-size:65px;
+}
+
+.question{
+  font-size:29px;
+  font-weight:950;
+  margin:10px;
+}
+
+.choices{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.answer{
+  background:#f1efff;
+  padding:14px 19px;
+  border-radius:16px;
+  font-weight:850;
+  transition:.2s;
+}
+
+.answer:hover{
+  background:#e3ddff;
+  transform:translateY(-2px);
+}
+
+.feedback{
+  min-height:40px;
+  margin:17px;
+  font-weight:900;
+  font-size:18px;
+}
+
+.speak{
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:#fff;
+  width:84px;
+  height:84px;
+  border-radius:50%;
+  font-size:34px;
+  box-shadow:0 12px 28px #8067ff44;
+  transition:.2s;
+}
+
+.speak:hover{
+  transform:scale(1.07);
+}
+
+.speak.listening{
+  animation:pulse 1s infinite;
+}
+
+.hint{
+  color:var(--muted);
+  margin-top:10px;
+  font-size:14px;
+}
+
+.reward{
+  display:none;
+  margin-top:20px;
+  background:linear-gradient(135deg,#fff7d9,#ffe9f4);
+  border-radius:24px;
+  padding:22px;
+}
+
+.reward.show{
+  display:block;
+  animation:pop .4s ease;
+}
+
+.reward-icon{
+  font-size:55px;
+}
+
+.reward h2{
+  margin:8px 0;
+}
+
+.celebrate{
+  font-size:42px;
+  letter-spacing:8px;
+}
+
+.parent{
+  margin-top:20px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.stat-card{
+  background:#f8f6ff;
+  border-radius:18px;
+  padding:15px;
+}
+
+.stat-card b{
+  font-size:25px;
+  display:block;
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.secondary{
+  background:#eeeafa;
+  padding:12px 18px;
+  border-radius:14px;
+  font-weight:850;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 #ff6fae55}
+  50%{box-shadow:0 0 0 18px #ff6fae00}
+}
+
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+@media(max-width:760px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:38px;
+  }
+
+  .map{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .hero-character{
+    min-height:250px;
+  }
+
+  .lily{
+    font-size:110px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:480px){
+  .map{
+    grid-template-columns:1fr;
+  }
+
+  .app{
+    padding:12px;
+  }
+
+  .card{
+    padding:20px;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
   <div class="top">
     <div class="brand">🌈 English <span>Adventure</span></div>
-    <div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">💎 <span id="gems">0</span></div></div>
+
+    <div class="stats">
+      <div class="pill">⭐ <span id="xp">0</span> XP</div>
+      <div class="pill">💎 <span id="gems">0</span></div>
+    </div>
   </div>
+
+
+  <!-- HOME -->
 
   <section id="home" class="screen active">
-    <div class="hero">
+
+    <div class="card hero">
+
       <div>
-        <div class="mission">ТВОЁ АНГЛИЙСКОЕ ПРИКЛЮЧЕНИЕ</div>
-        <h1>Английский без страха — через игру.</h1>
-        <p class="sub">Слова, фразы, маленькие диалоги и главное — много говорения. Ошибаться здесь можно.</p>
-        <button class="cta" onclick="show('map')">Начать приключение →</button>
+        <div class="mission">✨ YOUR ENGLISH ADVENTURE</div>
+
+        <h1>English can be an adventure!</h1>
+
+        <p class="sub">
+          Meet Lily, explore magical worlds, complete missions
+          and learn to speak English without fear.
+        </p>
+
+        <button class="cta" onclick="show('map')">
+          Start Adventure 🚀
+        </button>
       </div>
-  <div class="character">
-  <div>
-    <div style="font-size:120px">👧🏻</div>
-    <div style="background:white;padding:12px 18px;border-radius:18px;font-weight:800;font-size:18px;box-shadow:0 8px 20px #8067ff22">
-      Hi! I'm Lily! 💜
+
+
+      <div class="hero-character">
+
+        <div class="lily-wrap">
+
+          <div class="lily">👧🏻</div>
+
+          <div class="speech">
+            Hi! I'm Lily! 💜
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  </div>
-</div>
+
+
+    <div class="card tip">
+
+      <h2>💜 Lily's rule</h2>
+
+      <p class="sub">
+        Don't be afraid of mistakes.
+        Every time you try to speak English,
+        you become stronger!
+      </p>
+
     </div>
-    <div class="parent">
-      <h2>👩 Для родителя</h2>
-      <p class="sub">Это первый MVP: ребёнок проходит короткие миссии, получает XP и тренирует ответы вслух. Ниже уже есть базовая статистика.</p>
+
+
+    <div class="card parent">
+
+      <h2>👩 Parent corner</h2>
+
+      <p class="sub">
+        English Adventure teaches vocabulary, listening
+        and speaking through short game missions.
+      </p>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <b id="statXP">0</b>
+          XP earned
+        </div>
+
+        <div class="stat-card">
+          <b id="statGems">0</b>
+          💎 crystals
+        </div>
+
+        <div class="stat-card">
+          <b id="statMissions">0</b>
+          missions
+        </div>
+
+      </div>
+
     </div>
+
   </section>
+
+
+  <!-- MAP -->
 
   <section id="map" class="screen">
-    <h1>🗺️ Карта приключений</h1>
-    <p class="sub">Открывай мир по одному острову. Начнём с животных.</p>
+
+    <div class="map-title">
+
+      <div>
+        <h1>🗺️ Adventure Map</h1>
+        <p class="sub">
+          Explore the world with Lily!
+        </p>
+      </div>
+
+    </div>
+
     <div class="map" id="zones"></div>
-    <button class="back" onclick="show('home')">← Домой</button>
+
+    <button class="back" onclick="show('home')">
+      ← Home
+    </button>
+
   </section>
 
+
+  <!-- LESSON -->
+
   <section id="lesson" class="screen">
-    <div class="lesson">
-      <button class="back" onclick="show('map')">← Карта</button>
-      <div class="mission" id="mission">MISSION 1</div>
-      <div class="big" id="picture">🐶</div>
-      <div class="question" id="question">What is it?</div>
-      <div class="answers" id="answers"></div>
+
+    <div class="card lesson">
+
+      <div class="lesson-top">
+
+        <button class="back" onclick="show('map')">
+          ← Map
+        </button>
+
+        <div class="lesson-progress" id="lessonProgress">
+          1 / 4
+        </div>
+
+      </div>
+
+
+      <div class="lily-small">
+        👧🏻
+      </div>
+
+
+      <div class="mission" id="mission">
+        PET WORLD
+      </div>
+
+
+      <div class="big" id="picture">
+        🐶
+      </div>
+
+
+      <div class="question" id="question">
+        What is it?
+      </div>
+
+
+      <div class="choices" id="answers"></div>
+
+
       <div class="feedback" id="feedback"></div>
-      <button class="speak" id="speakBtn" title="Сказать ответ">🎤</button>
-      <div class="hint">Нажми 🎤 и скажи ответ по-английски.</div>
+
+
+      <button class="speak" id="speakBtn" title="Say it">
+        🎤
+      </button>
+
+      <div class="hint">
+        First choose the answer, then say it aloud! 🎤
+      </div>
+
+
+      <div class="reward" id="reward">
+
+        <div class="reward-icon">
+          🎁
+        </div>
+
+        <h2 id="rewardTitle">
+          Amazing!
+        </h2>
+
+        <p id="rewardText">
+          You earned XP!
+        </p>
+
+        <div class="celebrate">
+          ⭐ 💎 ✨
+        </div>
+
+      </div>
+
     </div>
+
   </section>
+
 </div>
+
+
 <script>
-const zones=[
- {emoji:"🐾",name:"Pet World",desc:"Animals & I like…",open:true},
- {emoji:"🎨",name:"Colour Castle",desc:"Colours & numbers",open:false},
- {emoji:"👨‍👩‍👧",name:"Family House",desc:"Family & people",open:false},
- {emoji:"🏫",name:"School",desc:"Things & actions",open:false},
- {emoji:"🍕",name:"Yummy Café",desc:"Food & likes",open:false},
- {emoji:"🌦️",name:"Weather Park",desc:"Weather & clothes",open:false},
- {emoji:"🏡",name:"My Day",desc:"Daily routine",open:false},
- {emoji:"🚀",name:"Space Trip",desc:"3rd-grade speaking",open:false},
- {emoji:"👑",name:"Boss Castle",desc:"Big conversation",open:false}
+
+
+// ================================
+// GAME DATA
+// ================================
+
+const zones = [
+
+  {
+    emoji:"🐾",
+    name:"Pet World",
+    desc:"Animals & speaking",
+    open:true
+  },
+
+  {
+    emoji:"🎨",
+    name:"Colour Castle",
+    desc:"Colours & numbers",
+    open:false
+  },
+
+  {
+    emoji:"👨‍👩‍👧",
+    name:"Family House",
+    desc:"Family & people",
+    open:false
+  },
+
+  {
+    emoji:"🏫",
+    name:"School",
+    desc:"Things & actions",
+    open:false
+  },
+
+  {
+    emoji:"🍕",
+    name:"Yummy Café",
+    desc:"Food & likes",
+    open:false
+  },
+
+  {
+    emoji:"🌦️",
+    name:"Weather Park",
+    desc:"Weather & clothes",
+    open:false
+  },
+
+  {
+    emoji:"🏡",
+    name:"My Day",
+    desc:"Daily routine",
+    open:false
+  },
+
+  {
+    emoji:"🚀",
+    name:"Space Trip",
+    desc:"3rd-grade speaking",
+    open:false
+  },
+
+  {
+    emoji:"👑",
+    name:"Boss Castle",
+    desc:"Big conversation",
+    open:false
+  }
+
 ];
-let state=JSON.parse(localStorage.getItem("ea_state")||'{"xp":0,"gems":0,"petDone":0}');
-function save(){localStorage.setItem("ea_state",JSON.stringify(state));document.querySelector("#xp").textContent=state.xp;document.querySelector("#gems").textContent=state.gems}
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.querySelector("#"+id).classList.add("active");if(id==="map")renderZones();save()}
+
+
+// ================================
+// MISSIONS
+// ================================
+
+const missions = [
+
+  {
+    pic:"🐶",
+    q:"What is it?",
+    correct:"It's a dog.",
+    choices:[
+      "It's a dog.",
+      "It's a cat.",
+      "It's a fish."
+    ]
+  },
+
+  {
+    pic:"🐱",
+    q:"What is it?",
+    correct:"It's a cat.",
+    choices:[
+      "It's a bird.",
+      "It's a cat.",
+      "It's a rabbit."
+    ]
+  },
+
+  {
+    pic:"🍎",
+    q:"Do you like apples?",
+    correct:"Yes, I do!",
+    choices:[
+      "Yes, I do!",
+      "No, I don't.",
+      "I'm eight."
+    ]
+  },
+
+  {
+    pic:"🐰",
+    q:"What is your favourite animal?",
+    correct:"My favourite animal is a rabbit.",
+    choices:[
+      "My favourite animal is a rabbit.",
+      "I'm a rabbit.",
+      "It is blue."
+    ]
+  }
+
+];
+
+
+// ================================
+// SAVE GAME
+// ================================
+
+let state = JSON.parse(
+
+  localStorage.getItem("ea_state") ||
+
+  '{"xp":0,"gems":0,"missions":0,"petDone":0}'
+
+);
+
+
+function save(){
+
+  localStorage.setItem(
+    "ea_state",
+    JSON.stringify(state)
+  );
+
+  updateStats();
+
+}
+
+
+function updateStats(){
+
+  document.querySelector("#xp").textContent =
+    state.xp;
+
+  document.querySelector("#gems").textContent =
+    state.gems;
+
+  document.querySelector("#statXP").textContent =
+    state.xp;
+
+  document.querySelector("#statGems").textContent =
+    state.gems;
+
+  document.querySelector("#statMissions").textContent =
+    state.missions;
+
+}
+
+
+// ================================
+// SCREEN NAVIGATION
+// ================================
+
+function show(id){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(x =>
+      x.classList.remove("active")
+    );
+
+  document
+    .querySelector("#"+id)
+    .classList.add("active");
+
+
+  if(id === "map"){
+    renderZones();
+  }
+
+
+  updateStats();
+
+}
+
+
+// ================================
+// MAP
+// ================================
+
 function renderZones(){
- const el=document.querySelector("#zones");el.innerHTML="";
- zones.forEach((z,i)=>{
-  const open=i===0 || state.petDone>=3;
-  el.innerHTML+=`<div class="zone ${open?'':'locked'}" ${open?`onclick="openZone(${i})"`:''}>
-   <div class="emoji">${z.emoji}</div><b>${z.name}</b><span>${z.desc}</span>
-   ${i===0?`<div class="progress"><div class="bar" style="width:${Math.min(100,state.petDone/3*100)}%"></div></div>`:''}
-  </div>`;
- });
+
+  const el =
+    document.querySelector("#zones");
+
+  el.innerHTML = "";
+
+
+  zones.forEach((z,i)=>{
+
+    const open =
+      i === 0 ||
+      state.petDone >= 3;
+
+
+    el.innerHTML += `
+
+      <div
+        class="zone ${open ? "open" : "locked"}"
+        ${open ? `onclick="openZone(${i})"` : ""}
+      >
+
+        <div class="emoji">
+          ${z.emoji}
+        </div>
+
+        <b>${z.name}</b>
+
+        <small>${z.desc}</small>
+
+        ${
+          !open
+          ? `<div class="lock">🔒</div>`
+          : ""
+        }
+
+        ${
+          i === 0
+          ? `
+            <div class="progress">
+
+              <div
+                class="bar"
+                style="
+                  width:${Math.min(
+                    100,
+                    state.petDone / 3 * 100
+                  )}%
+                "
+              ></div>
+
+            </div>
+          `
+          : ""
+        }
+
+      </div>
+
+    `;
+
+  });
+
 }
-const missions=[
- {pic:"🐶",q:"What is it?",correct:"It's a dog.",choices:["It's a dog.","It's a cat.","It's a fish."]},
- {pic:"🐱",q:"What is it?",correct:"It's a cat.",choices:["It's a bird.","It's a cat.","It's a rabbit."]},
- {pic:"🍎",q:"Do you like apples?",correct:"Yes, I do!",choices:["Yes, I do!","No, I don't.","I'm eight."]},
- {pic:"🐰",q:"What is your favourite animal?",correct:"My favourite animal is a rabbit.",choices:["My favourite animal is a rabbit.","I'm a rabbit.","It is blue."]}
-];
-let current=0;
-function openZone(i){if(i!==0 && state.petDone<3)return;current=0;show("lesson");renderMission()}
+
+
+// ================================
+// OPEN ZONE
+// ================================
+
+let current = 0;
+
+
+function openZone(i){
+
+  if(i !== 0 && state.petDone < 3){
+
+    return;
+
+  }
+
+
+  current = 0;
+
+  show("lesson");
+
+  renderMission();
+
+}
+
+
+// ================================
+// RENDER MISSION
+// ================================
+
 function renderMission(){
- const m=missions[current%missions.length];
- document.querySelector("#mission").textContent=`MISSION ${current+1} / 4`;
- document.querySelector("#picture").textContent=m.pic;document.querySelector("#question").textContent=m.q;
- document.querySelector("#feedback").textContent="";
- document.querySelector("#answers").innerHTML=m.choices.map(c=>`<button class="answer" onclick="answer(${JSON.stringify(c)})">${c}</button>`).join("");
+
+  const m =
+    missions[current];
+
+
+  document.querySelector("#mission")
+    .textContent =
+    "🐾 PET WORLD";
+
+
+  document.querySelector("#lessonProgress")
+    .textContent =
+    `${current + 1} / ${missions.length}`;
+
+
+  document.querySelector("#picture")
+    .textContent =
+    m.pic;
+
+
+  document.querySelector("#question")
+    .textContent =
+    m.q;
+
+
+  document.querySelector("#feedback")
+    .textContent =
+    "";
+
+
+  document.querySelector("#reward")
+    .classList.remove("show");
+
+
+  document.querySelector("#answers")
+    .innerHTML =
+
+      m.choices.map(c => `
+
+        <button
+          class="answer"
+          onclick="answer(${JSON.stringify(c)})"
+        >
+          ${c}
+        </button>
+
+      `).join("");
+
+
 }
-function reward(){state.xp+=25;state.gems+=1;state.petDone=Math.min(4,state.petDone+1);save()}
-function answer(c){const m=missions[current%missions.length];const f=document.querySelector("#feedback");if(c===m.correct){f.textContent="✨ Great! Now say it aloud!";reward()}else f.textContent="💛 Almost! Try one more time."; }
-document.querySelector("#speakBtn").onclick=()=>{
- const m=missions[current%missions.length], f=document.querySelector("#feedback");
- if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){f.textContent="🎤 Голосовой режим не поддерживается этим браузером. Можно пока нажимать варианты.";return}
- const R=window.SpeechRecognition||window.webkitSpeechRecognition;const r=new R();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;
- f.textContent="👂 I'm listening…";r.start();
- r.onresult=e=>{const heard=e.results[0][0].transcript.toLowerCase();const target=m.correct.toLowerCase().replace(/[?!.,]/g,"");
- const words=target.split(" ").filter(w=>w.length>2);const hits=words.filter(w=>heard.includes(w)).length;
- if(hits>=Math.max(1,Math.ceil(words.length*.5))){f.textContent="🌟 Amazing! You spoke English!";reward();setTimeout(()=>{current++;if(current>=4){f.textContent="🏆 Mission complete! You unlocked the next island.";return}renderMission()},900)}
- else f.textContent=`💛 I heard: “${heard}”. That's okay — try again!`;
- };
- r.onerror=()=>f.textContent="💛 I didn't catch that. Try again.";
-};
-save();renderZones();
+
+
+// ================================
+// REWARD
+// ================================
+
+function reward(){
+
+  state.xp += 25;
+
+  state.gems += 1;
+
+  state.missions += 1;
+
+  state.petDone =
+    Math.min(4,state.petDone + 1);
+
+  save();
+
+}
+
+
+// ================================
+// ANSWER
+// ================================
+
+function answer(c){
+
+  const m =
+    missions[current];
+
+  const f =
+    document.querySelector("#feedback");
+
+
+  if(c === m.correct){
+
+    f.textContent =
+      "✨ Great! Now say it aloud!";
+
+    reward();
+
+  }
+
+  else{
+
+    f.textContent =
+      "💛 Almost! Try again.";
+
+  }
+
+}
+
+
+// ================================
+// SPEECH RECOGNITION
+// ================================
+
+document
+  .querySelector("#speakBtn")
+  .onclick = () => {
+
+
+    const m =
+      missions[current];
+
+    const f =
+      document.querySelector("#feedback");
+
+
+    if(
+      !(
+        "webkitSpeechRecognition"
+        in window
+      ) &&
+      !(
+        "SpeechRecognition"
+        in window
+      )
+    ){
+
+      f.textContent =
+        "🎤 Voice mode is not supported here.";
+
+      return;
+
+    }
+
+
+    const Recognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+
+    const r =
+      new Recognition();
+
+
+    r.lang = "en-US";
+
+    r.interimResults = false;
+
+    r.maxAlternatives = 3;
+
+
+    document
+      .querySelector("#speakBtn")
+      .classList.add("listening");
+
+
+    f.textContent =
+      "👂 Lily is listening…";
+
+
+    r.start();
+
+
+    r.onresult = e => {
+
+
+      const heard =
+        e.results[0][0]
+          .transcript
+          .toLowerCase();
+
+
+      const target =
+        m.correct
+          .toLowerCase()
+          .replace(/[?!.,]/g,"");
+
+
+      const words =
+        target
+          .split(" ")
+          .filter(w => w.length > 2);
+
+
+      const hits =
+        words.filter(
+          w => heard.includes(w)
+        ).length;
+
+
+      const success =
+        hits >=
+        Math.max(
+          1,
+          Math.ceil(words.length * .5)
+        );
+
+
+      if(success){
+
+        f.textContent =
+          "🌟 Amazing! You spoke English!";
+
+
+        reward();
+
+
+        setTimeout(()=>{
+
+          current++;
+
+
+          if(current >= missions.length){
+
+            document
+              .querySelector("#reward")
+              .classList.add("show");
+
+
+            document
+              .querySelector("#rewardTitle")
+              .textContent =
+              "🏆 Pet World Complete!";
+
+
+            document
+              .querySelector("#rewardText")
+              .textContent =
+              "You earned XP and unlocked your adventure!";
+
+
+            return;
+
+          }
+
+
+          renderMission();
+
+        },900);
+
+      }
+
+      else{
+
+        f.textContent =
+          `💛 I heard: “${heard}”. Try again!`;
+
+      }
+
+    };
+
+
+    r.onerror = () => {
+
+      f.textContent =
+        "💛 I didn't catch that. Try again.";
+
+    };
+
+
+    r.onend = () => {
+
+      document
+        .querySelector("#speakBtn")
+        .classList.remove("listening");
+
+    };
+
+  };
+
+
+// ================================
+// START
+// ================================
+
+updateStats();
+
+renderZones();
+
 </script>
+
 </body>
 </html>
