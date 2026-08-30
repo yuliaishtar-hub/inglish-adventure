@@ -58,9 +58,7 @@ button{
   font-size:25px;
 }
 
-.brand span{
-  color:var(--pink);
-}
+.brand span{color:var(--pink)}
 
 .stats{
   display:flex;
@@ -76,13 +74,8 @@ button{
   font-weight:850;
 }
 
-.screen{
-  display:none;
-}
-
-.screen.active{
-  display:block;
-}
+.screen{display:none}
+.screen.active{display:block}
 
 .card{
   background:rgba(255,255,255,.94);
@@ -176,15 +169,9 @@ h1{
 
 .tip{
   margin-top:20px;
-  background:#fff;
-  border-radius:24px;
-  padding:20px;
-  box-shadow:var(--shadow);
 }
 
-.tip h2{
-  margin-top:0;
-}
+.tip h2{margin-top:0}
 
 .map-title{
   display:flex;
@@ -260,14 +247,6 @@ h1{
   transition:.4s;
 }
 
-.back{
-  background:#eeeafa;
-  padding:9px 14px;
-  border-radius:12px;
-  font-weight:850;
-  margin-bottom:16px;
-}
-
 .lesson{
   max-width:760px;
   margin:auto;
@@ -330,18 +309,35 @@ h1{
   font-size:18px;
 }
 
-.speak{
-  background:linear-gradient(135deg,var(--pink),var(--purple));
+.voice-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  align-items:center;
+  margin-top:8px;
+}
+
+.speak,
+.listen{
   color:#fff;
-  width:84px;
-  height:84px;
   border-radius:50%;
-  font-size:34px;
+  width:78px;
+  height:78px;
+  font-size:30px;
   box-shadow:0 12px 28px #8067ff44;
   transition:.2s;
 }
 
-.speak:hover{
+.speak{
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+}
+
+.listen{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+.speak:hover,
+.listen:hover{
   transform:scale(1.07);
 }
 
@@ -403,18 +399,12 @@ h1{
   display:block;
 }
 
-.nav-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-.secondary{
+.back{
   background:#eeeafa;
-  padding:12px 18px;
-  border-radius:14px;
+  padding:9px 14px;
+  border-radius:12px;
   font-weight:850;
+  margin-bottom:16px;
 }
 
 @keyframes float{
@@ -438,43 +428,18 @@ h1{
 }
 
 @media(max-width:760px){
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  h1{
-    font-size:38px;
-  }
-
-  .map{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .hero-character{
-    min-height:250px;
-  }
-
-  .lily{
-    font-size:110px;
-  }
-
-  .stats-grid{
-    grid-template-columns:1fr;
-  }
+  .hero{grid-template-columns:1fr}
+  h1{font-size:38px}
+  .map{grid-template-columns:1fr 1fr}
+  .hero-character{min-height:250px}
+  .lily{font-size:110px}
+  .stats-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:480px){
-  .map{
-    grid-template-columns:1fr;
-  }
-
-  .app{
-    padding:12px;
-  }
-
-  .card{
-    padding:20px;
-  }
+  .map{grid-template-columns:1fr}
+  .app{padding:12px}
+  .card{padding:20px}
 }
 </style>
 </head>
@@ -483,202 +448,215 @@ h1{
 
 <div class="app">
 
-  <div class="top">
-    <div class="brand">🌈 English <span>Adventure</span></div>
+<div class="top">
+  <div class="brand">🌈 English <span>Adventure</span></div>
 
-    <div class="stats">
-      <div class="pill">⭐ <span id="xp">0</span> XP</div>
-      <div class="pill">💎 <span id="gems">0</span></div>
+  <div class="stats">
+    <div class="pill">⭐ <span id="xp">0</span> XP</div>
+    <div class="pill">💎 <span id="gems">0</span></div>
+  </div>
+</div>
+
+
+<section id="home" class="screen active">
+
+  <div class="card hero">
+
+    <div>
+      <div class="mission">✨ YOUR ENGLISH ADVENTURE</div>
+
+      <h1>English can be an adventure!</h1>
+
+      <p class="sub">
+        Meet Lily, explore magical worlds,
+        complete missions and learn to speak
+        English without fear.
+      </p>
+
+      <button class="cta" onclick="show('map')">
+        Start Adventure 🚀
+      </button>
     </div>
+
+    <div class="hero-character">
+
+      <div class="lily-wrap">
+
+        <div class="lily">👧🏻</div>
+
+        <div class="speech">
+          Hi! I'm Lily! 💜
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 
-  <!-- HOME -->
+  <div class="card tip">
 
-  <section id="home" class="screen active">
+    <h2>💜 Lily's rule</h2>
 
-    <div class="card hero">
+    <p class="sub">
+      Don't be afraid of mistakes.
+      Every time you try to speak English,
+      you become stronger!
+    </p>
 
-      <div>
-        <div class="mission">✨ YOUR ENGLISH ADVENTURE</div>
+  </div>
 
-        <h1>English can be an adventure!</h1>
 
-        <p class="sub">
-          Meet Lily, explore magical worlds, complete missions
-          and learn to speak English without fear.
-        </p>
+  <div class="card parent">
 
-        <button class="cta" onclick="show('map')">
-          Start Adventure 🚀
-        </button>
+    <h2>👩 Parent corner</h2>
+
+    <p class="sub">
+      English Adventure teaches vocabulary,
+      listening and speaking through short
+      game missions.
+    </p>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <b id="statXP">0</b>
+        XP earned
       </div>
 
+      <div class="stat-card">
+        <b id="statGems">0</b>
+        💎 crystals
+      </div>
 
-      <div class="hero-character">
-
-        <div class="lily-wrap">
-
-          <div class="lily">👧🏻</div>
-
-          <div class="speech">
-            Hi! I'm Lily! 💜
-          </div>
-
-        </div>
-
+      <div class="stat-card">
+        <b id="statMissions">0</b>
+        missions
       </div>
 
     </div>
 
+  </div>
 
-    <div class="card tip">
+</section>
 
-      <h2>💜 Lily's rule</h2>
+
+<section id="map" class="screen">
+
+  <div class="map-title">
+
+    <div>
+      <h1>🗺️ Adventure Map</h1>
 
       <p class="sub">
-        Don't be afraid of mistakes.
-        Every time you try to speak English,
-        you become stronger!
+        Explore the world with Lily!
       </p>
+    </div>
+
+  </div>
+
+  <div class="map" id="zones"></div>
+
+  <button class="back" onclick="show('home')">
+    ← Home
+  </button>
+
+</section>
+
+
+<section id="lesson" class="screen">
+
+  <div class="card lesson">
+
+    <div class="lesson-top">
+
+      <button class="back" onclick="show('map')">
+        ← Map
+      </button>
+
+      <div class="lesson-progress" id="lessonProgress">
+        1 / 4
+      </div>
 
     </div>
 
 
-    <div class="card parent">
-
-      <h2>👩 Parent corner</h2>
-
-      <p class="sub">
-        English Adventure teaches vocabulary, listening
-        and speaking through short game missions.
-      </p>
-
-      <div class="stats-grid">
-
-        <div class="stat-card">
-          <b id="statXP">0</b>
-          XP earned
-        </div>
-
-        <div class="stat-card">
-          <b id="statGems">0</b>
-          💎 crystals
-        </div>
-
-        <div class="stat-card">
-          <b id="statMissions">0</b>
-          missions
-        </div>
-
-      </div>
-
+    <div class="lily-small">
+      👧🏻
     </div>
 
-  </section>
 
-
-  <!-- MAP -->
-
-  <section id="map" class="screen">
-
-    <div class="map-title">
-
-      <div>
-        <h1>🗺️ Adventure Map</h1>
-        <p class="sub">
-          Explore the world with Lily!
-        </p>
-      </div>
-
+    <div class="mission" id="mission">
+      🐾 PET WORLD
     </div>
 
-    <div class="map" id="zones"></div>
 
-    <button class="back" onclick="show('home')">
-      ← Home
-    </button>
-
-  </section>
+    <div class="big" id="picture">
+      🐶
+    </div>
 
 
-  <!-- LESSON -->
-
-  <section id="lesson" class="screen">
-
-    <div class="card lesson">
-
-      <div class="lesson-top">
-
-        <button class="back" onclick="show('map')">
-          ← Map
-        </button>
-
-        <div class="lesson-progress" id="lessonProgress">
-          1 / 4
-        </div>
-
-      </div>
+    <div class="question" id="question">
+      What is it?
+    </div>
 
 
-      <div class="lily-small">
-        👧🏻
-      </div>
+    <div class="choices" id="answers"></div>
 
 
-      <div class="mission" id="mission">
-        PET WORLD
-      </div>
+    <div class="feedback" id="feedback"></div>
 
 
-      <div class="big" id="picture">
-        🐶
-      </div>
+    <div class="voice-buttons">
 
+      <button
+        class="listen"
+        id="listenBtn"
+        title="Listen to Lily"
+      >
+        🔊
+      </button>
 
-      <div class="question" id="question">
-        What is it?
-      </div>
-
-
-      <div class="choices" id="answers"></div>
-
-
-      <div class="feedback" id="feedback"></div>
-
-
-      <button class="speak" id="speakBtn" title="Say it">
+      <button
+        class="speak"
+        id="speakBtn"
+        title="Say it"
+      >
         🎤
       </button>
 
-      <div class="hint">
-        First choose the answer, then say it aloud! 🎤
+    </div>
+
+
+    <div class="hint">
+      🔊 Listen to Lily • 🎤 Say it yourself
+    </div>
+
+
+    <div class="reward" id="reward">
+
+      <div class="reward-icon">
+        🎁
       </div>
 
+      <h2 id="rewardTitle">
+        Amazing!
+      </h2>
 
-      <div class="reward" id="reward">
+      <p id="rewardText">
+        You earned XP!
+      </p>
 
-        <div class="reward-icon">
-          🎁
-        </div>
-
-        <h2 id="rewardTitle">
-          Amazing!
-        </h2>
-
-        <p id="rewardText">
-          You earned XP!
-        </p>
-
-        <div class="celebrate">
-          ⭐ 💎 ✨
-        </div>
-
+      <div class="celebrate">
+        ⭐ 💎 ✨
       </div>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 </div>
 
@@ -686,81 +664,72 @@ h1{
 <script>
 
 
-// ================================
-// GAME DATA
-// ================================
+// ========================================
+// WORLD MAP
+// ========================================
 
 const zones = [
 
   {
     emoji:"🐾",
     name:"Pet World",
-    desc:"Animals & speaking",
-    open:true
+    desc:"Animals & speaking"
   },
 
   {
     emoji:"🎨",
     name:"Colour Castle",
-    desc:"Colours & numbers",
-    open:false
+    desc:"Colours & numbers"
   },
 
   {
     emoji:"👨‍👩‍👧",
     name:"Family House",
-    desc:"Family & people",
-    open:false
+    desc:"Family & people"
   },
 
   {
     emoji:"🏫",
     name:"School",
-    desc:"Things & actions",
-    open:false
+    desc:"Things & actions"
   },
 
   {
     emoji:"🍕",
     name:"Yummy Café",
-    desc:"Food & likes",
-    open:false
+    desc:"Food & likes"
   },
 
   {
     emoji:"🌦️",
     name:"Weather Park",
-    desc:"Weather & clothes",
-    open:false
+    desc:"Weather & clothes"
   },
 
   {
     emoji:"🏡",
     name:"My Day",
-    desc:"Daily routine",
-    open:false
+    desc:"Daily routine"
   },
 
   {
     emoji:"🚀",
     name:"Space Trip",
-    desc:"3rd-grade speaking",
-    open:false
+    desc:"3rd-grade speaking"
   },
 
   {
     emoji:"👑",
     name:"Boss Castle",
-    desc:"Big conversation",
-    open:false
+    desc:"Big conversation"
   }
 
 ];
 
 
-// ================================
-// MISSIONS
-// ================================
+// ========================================
+// PET WORLD MISSIONS
+// ========================================
 
 const missions = [
 
@@ -811,18 +780,44 @@ const missions = [
 ];
 
 
-// ================================
-// SAVE GAME
-// ================================
+// ========================================
+// GAME STATE
+// ========================================
 
-let state = JSON.parse(
+const defaultState = {
+  xp:0,
+  gems:0,
+  missions:0,
+  petDone:0,
+  unlocked:1
+};
 
-  localStorage.getItem("ea_state") ||
 
-  '{"xp":0,"gems":0,"missions":0,"petDone":0}'
+let state;
 
-);
+try{
 
+  state = JSON.parse(
+    localStorage.getItem("ea_state")
+  );
+
+}catch(e){
+
+  state = null;
+
+}
+
+
+if(!state){
+
+  state = {...defaultState};
+
+}
+
+
+// ========================================
+// SAVE
+// ========================================
 
 function save(){
 
@@ -856,9 +851,9 @@ function updateStats(){
 }
 
 
-// ================================
-// SCREEN NAVIGATION
-// ================================
+// ========================================
+// NAVIGATION
+// ========================================
 
 function show(id){
 
@@ -874,7 +869,9 @@ function show(id){
 
 
   if(id === "map"){
+
     renderZones();
+
   }
 
 
@@ -883,9 +880,9 @@ function show(id){
 }
 
 
-// ================================
+// ========================================
 // MAP
-// ================================
+// ========================================
 
 function renderZones(){
 
@@ -898,8 +895,7 @@ function renderZones(){
   zones.forEach((z,i)=>{
 
     const open =
-      i === 0 ||
-      state.petDone >= 3;
+      i < state.unlocked;
 
 
     el.innerHTML += `
@@ -933,7 +929,9 @@ function renderZones(){
                 style="
                   width:${Math.min(
                     100,
-                    state.petDone / 3 * 100
+                    state.petDone /
+                    missions.length *
+                    100
                   )}%
                 "
               ></div>
@@ -952,16 +950,15 @@ function renderZones(){
 }
 
 
-// ================================
+// ========================================
 // OPEN ZONE
-// ================================
+// ========================================
 
 let current = 0;
 
-
 function openZone(i){
 
-  if(i !== 0 && state.petDone < 3){
+  if(i >= state.unlocked){
 
     return;
 
@@ -977,9 +974,9 @@ function openZone(i){
 }
 
 
-// ================================
+// ========================================
 // RENDER MISSION
-// ================================
+// ========================================
 
 function renderMission(){
 
@@ -1031,32 +1028,26 @@ function renderMission(){
       `).join("");
 
 
-}
+  setTimeout(()=>{
 
+    speakText(m.q);
 
-// ================================
-// REWARD
-// ================================
-
-function reward(){
-
-  state.xp += 25;
-
-  state.gems += 1;
-
-  state.missions += 1;
-
-  state.petDone =
-    Math.min(4,state.petDone + 1);
-
-  save();
+  },400);
 
 }
 
 
-// ================================
-// ANSWER
-// ================================
+// ========================================
+// MISSION STATE
+// ========================================
+
+let answerCorrect = false;
+let speakingRewardGiven = false;
+
+
+// ========================================
+// CHOICE ANSWER
+// ========================================
 
 function answer(c){
 
@@ -1067,12 +1058,19 @@ function answer(c){
     document.querySelector("#feedback");
 
 
+  if(answerCorrect){
+
+    return;
+
+  }
+
+
   if(c === m.correct){
+
+    answerCorrect = true;
 
     f.textContent =
       "✨ Great! Now say it aloud!";
-
-    reward();
 
   }
 
@@ -1086,9 +1084,96 @@ function answer(c){
 }
 
 
-// ================================
+// ========================================
+// COMPLETE MISSION
+// ========================================
+
+function completeMission(){
+
+  if(speakingRewardGiven){
+
+    return;
+
+  }
+
+
+  speakingRewardGiven = true;
+
+
+  state.xp += 25;
+
+  state.gems += 1;
+
+  state.missions += 1;
+
+  state.petDone += 1;
+
+
+  save();
+
+
+  const f =
+    document.querySelector("#feedback");
+
+  f.textContent =
+    "🌟 Amazing! You spoke English!";
+
+
+  setTimeout(()=>{
+
+    current++;
+
+
+    if(current >= missions.length){
+
+      state.unlocked =
+        Math.min(
+          zones.length,
+          Math.max(
+            state.unlocked,
+            2
+          )
+        );
+
+
+      save();
+
+
+      document
+        .querySelector("#reward")
+        .classList.add("show");
+
+
+      document
+        .querySelector("#rewardTitle")
+        .textContent =
+        "🏆 Pet World Complete!";
+
+
+      document
+        .querySelector("#rewardText")
+        .textContent =
+        "Amazing! Colour Castle is unlocked! 🎨";
+
+
+      return;
+
+    }
+
+
+    answerCorrect = false;
+    speakingRewardGiven = false;
+
+    renderMission();
+
+  },1000);
+
+}
+
+
+// ========================================
 // SPEECH RECOGNITION
-// ================================
+// ========================================
 
 document
   .querySelector("#speakBtn")
@@ -1100,6 +1185,16 @@ document
 
     const f =
       document.querySelector("#feedback");
+
+
+    if(!answerCorrect){
+
+      f.textContent =
+        "💜 Choose an answer first, then say it aloud.";
+
+      return;
+
+    }
 
 
     if(
@@ -1186,45 +1281,7 @@ document
 
       if(success){
 
-        f.textContent =
-          "🌟 Amazing! You spoke English!";
-
-
-        reward();
-
-
-        setTimeout(()=>{
-
-          current++;
-
-
-          if(current >= missions.length){
-
-            document
-              .querySelector("#reward")
-              .classList.add("show");
-
-
-            document
-              .querySelector("#rewardTitle")
-              .textContent =
-              "🏆 Pet World Complete!";
-
-
-            document
-              .querySelector("#rewardText")
-              .textContent =
-              "You earned XP and unlocked your adventure!";
-
-
-            return;
-
-          }
-
-
-          renderMission();
-
-        },900);
+        completeMission();
 
       }
 
@@ -1257,9 +1314,82 @@ document
   };
 
 
-// ================================
+// ========================================
+// TEXT TO SPEECH — LILY
+// ========================================
+
+function speakText(text){
+
+  if(!("speechSynthesis" in window)){
+
+    return;
+
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  const utterance =
+    new SpeechSynthesisUtterance(text);
+
+
+  utterance.lang = "en-US";
+
+  utterance.rate = .82;
+
+  utterance.pitch = 1.08;
+
+  utterance.volume = 1;
+
+
+  const voices =
+    window.speechSynthesis.getVoices();
+
+
+  const englishVoice =
+    voices.find(
+      voice =>
+        voice.lang &&
+        voice.lang.toLowerCase()
+          .startsWith("en")
+    );
+
+
+  if(englishVoice){
+
+    utterance.voice =
+      englishVoice;
+
+  }
+
+
+  window.speechSynthesis.speak(
+    utterance
+  );
+
+}
+
+
+// ========================================
+// LISTEN BUTTON
+// ========================================
+
+document
+  .querySelector("#listenBtn")
+  .onclick = () => {
+
+    const m =
+      missions[current];
+
+    speakText(m.q);
+
+  };
+
+
+// ========================================
 // START
-// ================================
+// ========================================
 
 updateStats();
 
