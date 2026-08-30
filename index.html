@@ -57,13 +57,15 @@
             <h1>English Adventure</h1>
             <img id="welcome-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             <p>Hi! I'm Lily! Let's learn English!</p>
-            <button class="location-btn" onclick="showMap()">Start Adventure 🚀</button>
+            <button class="location-btn" onclick="showMap()">Back to Map 🗺️</button>
         </div>
 
         <!-- Экран Карты (Выбор локации) -->
         <div id="map-screen">
             <h1>🗺️ Map</h1>
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
+            
+            <button class="location-btn" onclick="startLevel('start')">🚀 Start</button>
             
             <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
@@ -119,14 +121,20 @@
 
         // Все вопросы по школьной программе
         const allLevels = {
+            start: {
+                name: "🚀 Start",
+                questions: [
+                    { question: "Hi! I'm Lily! Let's learn English!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 }
+                ]
+            },
             animals: {
                 name: "🐾 Animals",
                 questions: [
                     { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
                     { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/fish.jpg", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
-                    { question: "What is it?", image: "🐦", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
-                    { question: "What is it?", image: "🐭", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
-                    { question: "What is it?", image: "🐸", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bird.jpg", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mouse.jpg", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/frog.jpg", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
                 ]
             },
             family: {
