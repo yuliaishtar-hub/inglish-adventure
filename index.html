@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Adventure — MVP</title>
+<style>
+:root{--bg:#f7f4ff;--card:#fff;--ink:#28233d;--muted:#77718b;--pink:#ff6fae;--purple:#8067ff;--yellow:#ffd45c;--green:#57c99b;--shadow:0 14px 40px #5d4b9a18}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#fff7fb,#f2efff);color:var(--ink)}
+button{font:inherit;border:0;cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.brand{font-weight:900;font-size:25px}.brand span{color:var(--pink)}
+.stats{display:flex;gap:10px;flex-wrap:wrap}.pill{background:#fff;border-radius:18px;padding:10px 14px;box-shadow:var(--shadow);font-weight:800}
+.screen{display:none}.screen.active{display:block}.hero{background:var(--card);border-radius:32px;padding:32px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.25fr .75fr;gap:25px;align-items:center}
+h1{font-size:48px;line-height:1.02;margin:0 0 14px}.sub{color:var(--muted);font-size:18px;line-height:1.5}.cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;padding:16px 25px;border-radius:18px;font-weight:900;margin-top:16px;box-shadow:0 10px 25px #8067ff33}
+.character{min-height:290px;border-radius:28px;background:linear-gradient(145deg,#fff0f7,#eeeaff);display:flex;align-items:center;justify-content:center;font-size:150px}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.zone{background:#fff;border-radius:24px;padding:22px;box-shadow:var(--shadow);min-height:150px;transition:.2s}.zone:hover{transform:translateY(-3px)}.zone.locked{opacity:.45;filter:grayscale(.4)}.zone .emoji{font-size:44px}.zone b{display:block;margin-top:10px;font-size:19px}.progress{height:8px;background:#eeeaf7;border-radius:20px;margin-top:12px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));width:0}
+.lesson{background:#fff;border-radius:30px;padding:28px;box-shadow:var(--shadow);max-width:760px;margin:auto;text-align:center}.back{background:#eeeafa;padding:9px 13px;border-radius:12px;font-weight:800;margin-bottom:15px}.mission{color:var(--purple);font-weight:900}.big{font-size:100px;margin:15px}.question{font-size:28px;font-weight:900;margin:12px}.answers{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.answer{background:#f1efff;padding:14px 20px;border-radius:15px;font-weight:800}.answer:hover{background:#e6e1ff}.feedback{min-height:34px;font-weight:900;margin:16px}.speak{background:var(--pink);color:#fff;border-radius:50%;width:76px;height:76px;font-size:30px;box-shadow:0 10px 25px #ff6fae44}.hint{color:var(--muted);font-size:14px;margin-top:10px}.parent{margin-top:20px;background:#fff;border-radius:25px;padding:22px;box-shadow:var(--shadow)}.parent h2{margin-top:0}.meter{display:grid;grid-template-columns:120px 1fr 55px;gap:10px;align-items:center;margin:12px 0}.meterline{height:10px;background:#eeeaf7;border-radius:10px;overflow:hidden}.meterline div{height:100%;background:var(--green)}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.map{grid-template-columns:1fr 1fr}h1{font-size:38px}.character{min-height:180px;font-size:100px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">🌈 English <span>Adventure</span></div>
+    <div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">💎 <span id="gems">0</span></div></div>
+  </div>
+
+  <section id="home" class="screen active">
+    <div class="hero">
+      <div>
+        <div class="mission">ТВОЁ АНГЛИЙСКОЕ ПРИКЛЮЧЕНИЕ</div>
+        <h1>Английский без страха — через игру.</h1>
+        <p class="sub">Слова, фразы, маленькие диалоги и главное — много говорения. Ошибаться здесь можно.</p>
+        <button class="cta" onclick="show('map')">Начать приключение →</button>
+      </div>
+      <div class="character">👧🏻</div>
+    </div>
+    <div class="parent">
+      <h2>👩 Для родителя</h2>
+      <p class="sub">Это первый MVP: ребёнок проходит короткие миссии, получает XP и тренирует ответы вслух. Ниже уже есть базовая статистика.</p>
+    </div>
+  </section>
+
+  <section id="map" class="screen">
+    <h1>🗺️ Карта приключений</h1>
+    <p class="sub">Открывай мир по одному острову. Начнём с животных.</p>
+    <div class="map" id="zones"></div>
+    <button class="back" onclick="show('home')">← Домой</button>
+  </section>
+
+  <section id="lesson" class="screen">
+    <div class="lesson">
+      <button class="back" onclick="show('map')">← Карта</button>
+      <div class="mission" id="mission">MISSION 1</div>
+      <div class="big" id="picture">🐶</div>
+      <div class="question" id="question">What is it?</div>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="speak" id="speakBtn" title="Сказать ответ">🎤</button>
+      <div class="hint">Нажми 🎤 и скажи ответ по-английски.</div>
+    </div>
+  </section>
+</div>
+<script>
+const zones=[
+ {emoji:"🐾",name:"Pet World",desc:"Animals & I like…",open:true},
+ {emoji:"🎨",name:"Colour Castle",desc:"Colours & numbers",open:false},
+ {emoji:"👨‍👩‍👧",name:"Family House",desc:"Family & people",open:false},
+ {emoji:"🏫",name:"School",desc:"Things & actions",open:false},
+ {emoji:"🍕",name:"Yummy Café",desc:"Food & likes",open:false},
+ {emoji:"🌦️",name:"Weather Park",desc:"Weather & clothes",open:false},
+ {emoji:"🏡",name:"My Day",desc:"Daily routine",open:false},
+ {emoji:"🚀",name:"Space Trip",desc:"3rd-grade speaking",open:false},
+ {emoji:"👑",name:"Boss Castle",desc:"Big conversation",open:false}
+];
+let state=JSON.parse(localStorage.getItem("ea_state")||'{"xp":0,"gems":0,"petDone":0}');
+function save(){localStorage.setItem("ea_state",JSON.stringify(state));document.querySelector("#xp").textContent=state.xp;document.querySelector("#gems").textContent=state.gems}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.querySelector("#"+id).classList.add("active");if(id==="map")renderZones();save()}
+function renderZones(){
+ const el=document.querySelector("#zones");el.innerHTML="";
+ zones.forEach((z,i)=>{
+  const open=i===0 || state.petDone>=3;
+  el.innerHTML+=`<div class="zone ${open?'':'locked'}" ${open?`onclick="openZone(${i})"`:''}>
+   <div class="emoji">${z.emoji}</div><b>${z.name}</b><span>${z.desc}</span>
+   ${i===0?`<div class="progress"><div class="bar" style="width:${Math.min(100,state.petDone/3*100)}%"></div></div>`:''}
+  </div>`;
+ });
+}
+const missions=[
+ {pic:"🐶",q:"What is it?",correct:"It's a dog.",choices:["It's a dog.","It's a cat.","It's a fish."]},
+ {pic:"🐱",q:"What is it?",correct:"It's a cat.",choices:["It's a bird.","It's a cat.","It's a rabbit."]},
+ {pic:"🍎",q:"Do you like apples?",correct:"Yes, I do!",choices:["Yes, I do!","No, I don't.","I'm eight."]},
+ {pic:"🐰",q:"What is your favourite animal?",correct:"My favourite animal is a rabbit.",choices:["My favourite animal is a rabbit.","I'm a rabbit.","It is blue."]}
+];
+let current=0;
+function openZone(i){if(i!==0 && state.petDone<3)return;current=0;show("lesson");renderMission()}
+function renderMission(){
+ const m=missions[current%missions.length];
+ document.querySelector("#mission").textContent=`MISSION ${current+1} / 4`;
+ document.querySelector("#picture").textContent=m.pic;document.querySelector("#question").textContent=m.q;
+ document.querySelector("#feedback").textContent="";
+ document.querySelector("#answers").innerHTML=m.choices.map(c=>`<button class="answer" onclick="answer(${JSON.stringify(c)})">${c}</button>`).join("");
+}
+function reward(){state.xp+=25;state.gems+=1;state.petDone=Math.min(4,state.petDone+1);save()}
+function answer(c){const m=missions[current%missions.length];const f=document.querySelector("#feedback");if(c===m.correct){f.textContent="✨ Great! Now say it aloud!";reward()}else f.textContent="💛 Almost! Try one more time."; }
+document.querySelector("#speakBtn").onclick=()=>{
+ const m=missions[current%missions.length], f=document.querySelector("#feedback");
+ if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){f.textContent="🎤 Голосовой режим не поддерживается этим браузером. Можно пока нажимать варианты.";return}
+ const R=window.SpeechRecognition||window.webkitSpeechRecognition;const r=new R();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;
+ f.textContent="👂 I'm listening…";r.start();
+ r.onresult=e=>{const heard=e.results[0][0].transcript.toLowerCase();const target=m.correct.toLowerCase().replace(/[?!.,]/g,"");
+ const words=target.split(" ").filter(w=>w.length>2);const hits=words.filter(w=>heard.includes(w)).length;
+ if(hits>=Math.max(1,Math.ceil(words.length*.5))){f.textContent="🌟 Amazing! You spoke English!";reward();setTimeout(()=>{current++;if(current>=4){f.textContent="🏆 Mission complete! You unlocked the next island.";return}renderMission()},900)}
+ else f.textContent=`💛 I heard: “${heard}”. That's okay — try again!`;
+ };
+ r.onerror=()=>f.textContent="💛 I didn't catch that. Try again.";
+};
+save();renderZones();
+</script>
+</body>
+</html>
