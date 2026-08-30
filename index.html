@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -264,6 +265,7 @@ h1{
 
 .answer.selected{
   outline:3px solid var(--purple);
+  background:#e5e0ff;
 }
 
 .feedback{
@@ -320,7 +322,6 @@ h1{
 }
 
 @media(max-width:760px){
-
   .hero{
     grid-template-columns:1fr;
   }
@@ -335,11 +336,9 @@ h1{
 }
 
 @media(max-width:480px){
-
   .map{
     grid-template-columns:1fr;
   }
-
 }
 </style>
 </head>
@@ -571,7 +570,9 @@ const missions = [
     picture:"🐶",
     question:"What is it?",
     answers:[
-      "It's a dog."
+      "It's a dog.",
+      "It's a cat.",
+      "It's a fish."
     ]
   },
 
@@ -579,7 +580,9 @@ const missions = [
     picture:"🐱",
     question:"What is it?",
     answers:[
-      "It's a cat."
+      "It's a cat.",
+      "It's a dog.",
+      "It's a rabbit."
     ]
   },
 
@@ -596,7 +599,9 @@ const missions = [
     picture:"🐰",
     question:"What is it?",
     answers:[
-      "It's a rabbit."
+      "It's a rabbit.",
+      "It's a dog.",
+      "It's a bird."
     ]
   }
 
@@ -637,6 +642,22 @@ if(!state){
 
 if(typeof state.unlocked !== "number"){
   state.unlocked = 1;
+}
+
+if(typeof state.petDone !== "number"){
+  state.petDone = 0;
+}
+
+if(typeof state.xp !== "number"){
+  state.xp = 0;
+}
+
+if(typeof state.gems !== "number"){
+  state.gems = 0;
+}
+
+if(typeof state.missions !== "number"){
+  state.missions = 0;
 }
 
 
@@ -879,7 +900,7 @@ function renderMission(){
     ()=>{
       speakText(mission.question);
     },
-    400
+    500
   );
 
 }
@@ -890,13 +911,6 @@ function renderMission(){
 ========================= */
 
 function selectAnswer(answer,button){
-
-  const mission =
-    missions[current];
-
-  const feedback =
-    document.getElementById("feedback");
-
 
   answerSelected = true;
 
@@ -913,12 +927,16 @@ function selectAnswer(answer,button){
   button.classList.add("selected");
 
 
+  const feedback =
+    document.getElementById("feedback");
+
+
   feedback.textContent =
-    "✨ Great! Now say it aloud!";
+    `✨ Great! Now say: "${answer}"`;
 
 
   speakText(
-    "Great! Now say it aloud!"
+    `Great! Now say: ${answer}`
   );
 
 }
@@ -950,7 +968,12 @@ function speakText(text,onFinished){
 
   utterance.lang = "en-US";
 
-  utterance.rate = 0.68;
+  /*
+     Медленнее, чтобы ребёнок
+     успевал услышать всю фразу.
+  */
+
+  utterance.rate = 0.58;
 
   utterance.pitch = 1.08;
 
@@ -1077,69 +1100,64 @@ function startListening(){
           .trim();
 
 
-      const allowedAnswers =
-        missions[current]
-          .answers
-          .map(
-            answer =>
-              answer
-                .toLowerCase()
-                .replace(/[?!.,]/g,"")
+      /*
+        Проверяем именно выбранный ответ,
+        а не все ответы задания.
+      */
+
+      const target =
+        selectedAnswer
+          .toLowerCase()
+          .replace(/[?!.,']/g,"");
+
+
+      const heardClean =
+        heard.replace(/[?!.,']/g,"");
+
+
+      const targetWords =
+        target
+          .split(/\s+/)
+          .filter(
+            word =>
+              word.length > 1
           );
 
 
-      let matched = false;
+      const heardWords =
+        heardClean
+          .split(/\s+/)
+          .filter(
+            word =>
+              word.length > 1
+          );
 
 
       /*
-        Проверяем каждый допустимый ответ.
-        Для яблок допустимы ОБА:
-        Yes, I do!
-        No, I don't.
+        Считаем совпавшие слова.
+        Для коротких фраз требуется
+        совпадение большинства слов.
       */
 
-      for(
-        const target
-        of allowedAnswers
-      ){
-
-        const words =
-          target
-            .split(" ")
-            .filter(
-              word =>
-                word.length > 2
-            );
+      const hits =
+        targetWords.filter(
+          word =>
+            heardWords.includes(word)
+        ).length;
 
 
-        const hits =
-          words.filter(
-            word =>
-              heard.includes(word)
-          ).length;
-
-
-        const needed =
-          Math.max(
-            1,
+      const needed =
+        targetWords.length <= 2
+        ? targetWords.length
+        : Math.max(
+            2,
             Math.ceil(
-              words.length * 0.5
+              targetWords.length * 0.55
             )
           );
 
 
-        if(hits >= needed){
-
-          matched = true;
-
-          break;
-
-        }
-
-      }
-
-
-      if(matched){
+      if(hits >= needed){
 
         completeMission();
 
@@ -1184,7 +1202,11 @@ function completeMission(){
 
   state.missions += 1;
 
-  state.petDone += 1;
+  state.petDone =
+    Math.min(
+      missions.length,
+      state.petDone + 1
+    );
 
 
   save();
@@ -1200,11 +1222,16 @@ function completeMission(){
   );
 
 
+  /*
+    Даём Лили закончить фразу
+    перед переходом дальше.
+  */
+
   setTimeout(
     ()=>{
       nextMission();
     },
-    2600
+    3500
   );
 
 }
@@ -1322,3 +1349,4 @@ renderMap();
 
 </body>
 </html>
+```
