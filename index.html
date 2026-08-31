@@ -4,67 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Adventure</title>
-    <style>
-        body { font-family: 'Comic Sans MS', 'Comic Sans', cursive; background-color: #87CEEB; text-align: center; padding: 20px; }
-        
-        #game-container { background-color: #fff; border-radius: 20px; padding: 20px; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); position: relative; min-height: 600px; }
-        
-        h1 { color: #4CAF50; }
-        
-        /* Экраны */
-        #welcome-screen { display: block; }
-        #map-screen { display: none; }
-        #game-screen { display: none; }
-        #mini-game-screen { display: none; }
-        
-        /* Приветственный экран */
-        #welcome-lily { width: 200px; border-radius: 20px; margin: 20px auto; display: block; }
-        
-        /* Меню */
-        #map-lily { width: 120px; border-radius: 20px; margin: 10px auto; display: block; }
-        
-        /* Кнопки локаций */
-        .location-btn { display: block; width: 80%; margin: 15px auto; padding: 15px; font-size: 20px; background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; cursor: pointer; transition: 0.3s; }
-        .location-btn:hover { background-color: #dcedc8; transform: scale(1.02); }
-        
-        /* Игровое поле */
-        #top-bar { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .nav-btn { padding: 10px 20px; background-color: #eee; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        
-        #lily-img { margin: 20px 0; }
-        #lily-img img { width: 150px; border-radius: 20px; }
-        
-        #xp-bar { background-color: #ddd; border-radius: 10px; height: 20px; width: 100%; margin-bottom: 10px; }
-        #xp-fill { background-color: #4caf50; height: 100%; width: 0; border-radius: 10px; transition: width 0.3s; }
-        
-        #crystal-count { font-size: 20px; margin-bottom: 20px; }
-        
-        #question-text { font-size: 24px; color: #333; margin-bottom: 20px; }
-        #question-image { margin-bottom: 10px; }
-        .answer-btn { display: block; width: 80%; margin: 10px auto; padding: 15px; font-size: 20px; background-color: #eee; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; }
-        .answer-btn.correct { background-color: #a5d6a7; border-color: #4caf50; }
-        .answer-btn.wrong { background-color: #ef9a9a; border-color: #f44336; }
-        
-        #feedback { font-size: 18px; font-weight: bold; margin: 15px 0; min-height: 25px; }
-        #mic-btn { padding: 15px 30px; font-size: 20px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; display: none; }
-        #mic-btn.active { background-color: #ff9800; }
-        #next-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; display: none; color: white; }
-        
-        /* Мини-игры */
-        #mini-game-screen h2 { color: #4CAF50; }
-        .mini-game-btns { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
-        .mini-game-btn { padding: 15px 20px; font-size: 18px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        .mini-game-btn:hover { background-color: #ffb300; }
-        
-        .pair-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .pair-card { background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.3s; }
-        .pair-card:hover { background-color: #dcedc8; }
-        .pair-card.matched { background-color: #a5d6a7; border-color: #4caf50; }
-        .pair-card img { width: 80px; height: 80px; object-fit: contain; }
-        .pair-card .word { font-size: 18px; font-weight: bold; margin-top: 10px; }
-        
-        #exit-mini-game-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="game-container">
@@ -72,39 +12,41 @@
         <div id="welcome-screen">
             <h1>English Adventure</h1>
             <img id="welcome-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
-            <p>Hi! I'm Lily! Let's go on an adventure!</p>
+            <div id="welcome-text">Hi! I'm Lily! Let's go on an adventure!</div>
             <button class="location-btn" onclick="showMap()">Start 🚀</button>
         </div>
 
-        <!-- Экран Карты (Выбор локации) -->
-        <div id="map-screen">
+        <!-- Экран Карты -->
+        <div id="map-screen" style="display: none;">
             <h1>🗺️ Map</h1>
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             
+            <button class="location-btn" onclick="startLevel('school')">🏫 School Days</button>
+            <button class="location-btn gold" onclick="startGames('school')">🎮 School Game</button>
             <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
-            <button class="location-btn" onclick="startGames('animals')">🎮 Animals Game</button>
+            <button class="location-btn gold" onclick="startGames('animals')">🎮 Animals Game</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
-            <button class="location-btn" onclick="startGames('family')">🎮 Family Game</button>
+            <button class="location-btn gold" onclick="startGames('family')">🎮 Family Game</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
-            <button class="location-btn" onclick="startGames('seasons')">🎮 Seasons Game</button>
+            <button class="location-btn gold" onclick="startGames('seasons')">🎮 Seasons Game</button>
             <button class="location-btn" onclick="startLevel('colours')">🎨 Colours</button>
-            <button class="location-btn" onclick="startGames('colours')">🎮 Colours Game</button>
+            <button class="location-btn gold" onclick="startGames('colours')">🎮 Colours Game</button>
             <button class="location-btn" onclick="startLevel('circus')">🤡 Circus</button>
-            <button class="location-btn" onclick="startGames('circus')">🎮 Circus Game</button>
+            <button class="location-btn gold" onclick="startGames('circus')">🎮 Circus Game</button>
             <button class="location-btn" onclick="startLevel('toys')">🧸 Toys</button>
-            <button class="location-btn" onclick="startGames('toys')">🎮 Toys Game</button>
+            <button class="location-btn gold" onclick="startGames('toys')">🎮 Toys Game</button>
             <button class="location-btn" onclick="startLevel('home')">🏡 Home</button>
-            <button class="location-btn" onclick="startGames('home')">🎮 Home Game</button>
+            <button class="location-btn gold" onclick="startGames('home')">🎮 Home Game</button>
             <button class="location-btn" onclick="startLevel('food')">🍕 Food & Drinks</button>
-            <button class="location-btn" onclick="startGames('food')">🎮 Food Game</button>
+            <button class="location-btn gold" onclick="startGames('food')">🎮 Food Game</button>
             <button class="location-btn" onclick="startLevel('body')">💪 Body</button>
-            <button class="location-btn" onclick="startGames('body')">🎮 Body Game</button>
+            <button class="location-btn gold" onclick="startGames('body')">🎮 Body Game</button>
             <button class="location-btn" onclick="startLevel('clothes')">👗 Clothes</button>
-            <button class="location-btn" onclick="startGames('clothes')">🎮 Clothes Game</button>
+            <button class="location-btn gold" onclick="startGames('clothes')">🎮 Clothes Game</button>
         </div>
 
-        <!-- Экран Игры -->
-        <div id="game-screen">
+        <!-- Экран Локации -->
+        <div id="game-screen" style="display: none;">
             <div id="top-bar">
                 <button class="nav-btn" onclick="goBackToMap()">⬅️ Map</button>
                 <button class="nav-btn" onclick="window.location.reload()">🔄 Restart</button>
@@ -128,7 +70,7 @@
         </div>
 
         <!-- Экран Мини-игры -->
-        <div id="mini-game-screen">
+        <div id="mini-game-screen" style="display: none;">
             <h2 id="mini-game-title">Mini Game</h2>
             <div id="mini-game-content"></div>
             <div id="mini-game-result"></div>
@@ -147,6 +89,9 @@
         let correctAnswerText = "";
         let currentLevelQuestions = [];
         let currentLevelName = "";
+        let currentGameData = [];
+        let miniGameIndex = 0;
+        let miniGameScore = 0;
 
         // Настройки голоса
         let lilyVoice = null;
@@ -155,6 +100,16 @@
 
         // Все вопросы по школьной программе
         const allLevels = {
+            school: {
+                name: "🏫 School Days",
+                questions: [
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/pen.jpg", options: ["It's a pen.", "It's a ruler.", "It's an eraser."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/pencil.jpg", options: ["It's a pencil.", "It's a ruler.", "It's a pen."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/ruler.jpg", options: ["It's a pencil.", "It's a ruler.", "It's a pen."], correctIndex: 1 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Eraser.jpg", options: ["It's a ruler.", "It's a pen.", "It's an eraser."], correctIndex: 2 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/School bag.jpg", options: ["It's a school bag.", "It's a pen.", "It's a ruler."], correctIndex: 0 }
+                ]
+            },
             animals: {
                 name: "🐾 Animals",
                 questions: [
