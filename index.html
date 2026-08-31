@@ -594,7 +594,6 @@
 
         // Игра 1: Найди пару
         function loadPairGame() {
-            // Создаём пары: картинка - слово
             const pairs = [];
             for (let i = 0; i < miniGameData.length; i++) {
                 const q = miniGameData[i];
@@ -610,14 +609,46 @@
                 pairs.push({ image: imageHTML, word: correctWord });
             }
             
-            // Перемешиваем пары
             const allCards = [];
             for (let i = 0; i < pairs.length; i++) {
                 allCards.push({ type: 'image', value: pairs[i].image, pairId: i });
                 allCards.push({ type: 'word', value: pairs[i].word, pairId: i });
             }
             
-            // Перемешиваем
             for (let i = allCards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [allCards[i], allCards[j]] = [allCards[j], allCards
+                [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+            }
+            
+            const content = document.getElementById('mini-game-content');
+            content.innerHTML = '<div class="pair-game-grid" id="pair-grid"></div>';
+            
+            const grid = document.getElementById('pair-grid');
+            let firstCard = null;
+            let secondCard = null;
+            let lockBoard = false;
+            
+            allCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'pair-card';
+                cardElement.dataset.pairId = card.pairId;
+                cardElement.dataset.type = card.type;
+                cardElement.dataset.value = card.value;
+                
+                if (card.type === 'image') {
+                    cardElement.innerHTML = card.value;
+                } else {
+                    cardElement.innerHTML = '<div class="word">' + card.value + '</div>';
+                }
+                
+                cardElement.onclick = () => {
+                    if (lockBoard) return;
+                    if (cardElement.classList.contains('matched')) return;
+                    
+                    cardElement.classList.add('flipped');
+                    
+                    if (!firstCard) {
+                        firstCard = cardElement;
+                    } else if (!secondCard) {
+                        secondCard = cardElement
+                        
