@@ -15,6 +15,7 @@
         #welcome-screen { display: block; }
         #map-screen { display: none; }
         #game-screen { display: none; }
+        #mini-game-screen { display: none; }
         
         /* Приветственный экран */
         #welcome-lily { width: 200px; border-radius: 20px; margin: 20px auto; display: block; }
@@ -48,6 +49,21 @@
         #mic-btn { padding: 15px 30px; font-size: 20px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; display: none; }
         #mic-btn.active { background-color: #ff9800; }
         #next-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; display: none; color: white; }
+        
+        /* Мини-игры */
+        #mini-game-screen h2 { color: #4CAF50; }
+        .mini-game-btns { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .mini-game-btn { padding: 15px 20px; font-size: 18px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .mini-game-btn:hover { background-color: #ffb300; }
+        
+        .pair-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .pair-card { background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.3s; }
+        .pair-card:hover { background-color: #dcedc8; }
+        .pair-card.matched { background-color: #a5d6a7; border-color: #4caf50; }
+        .pair-card img { width: 80px; height: 80px; object-fit: contain; }
+        .pair-card .word { font-size: 18px; font-weight: bold; margin-top: 10px; }
+        
+        #exit-mini-game-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
@@ -66,16 +82,25 @@
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             
             <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
-            <button class="location-btn" onclick="window.open('games.html')">🎮 Animals Games</button>
+            <button class="location-btn" onclick="startGames('animals')">🎮 Animals Game</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
+            <button class="location-btn" onclick="startGames('family')">🎮 Family Game</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
+            <button class="location-btn" onclick="startGames('seasons')">🎮 Seasons Game</button>
             <button class="location-btn" onclick="startLevel('colours')">🎨 Colours</button>
+            <button class="location-btn" onclick="startGames('colours')">🎮 Colours Game</button>
             <button class="location-btn" onclick="startLevel('circus')">🤡 Circus</button>
+            <button class="location-btn" onclick="startGames('circus')">🎮 Circus Game</button>
             <button class="location-btn" onclick="startLevel('toys')">🧸 Toys</button>
+            <button class="location-btn" onclick="startGames('toys')">🎮 Toys Game</button>
             <button class="location-btn" onclick="startLevel('home')">🏡 Home</button>
+            <button class="location-btn" onclick="startGames('home')">🎮 Home Game</button>
             <button class="location-btn" onclick="startLevel('food')">🍕 Food & Drinks</button>
+            <button class="location-btn" onclick="startGames('food')">🎮 Food Game</button>
             <button class="location-btn" onclick="startLevel('body')">💪 Body</button>
+            <button class="location-btn" onclick="startGames('body')">🎮 Body Game</button>
             <button class="location-btn" onclick="startLevel('clothes')">👗 Clothes</button>
+            <button class="location-btn" onclick="startGames('clothes')">🎮 Clothes Game</button>
         </div>
 
         <!-- Экран Игры -->
@@ -101,7 +126,17 @@
             <button id="mic-btn" onclick="startListening()">🎤 Say it!</button>
             <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
         </div>
+
+        <!-- Экран Мини-игры -->
+        <div id="mini-game-screen">
+            <h2 id="mini-game-title">Mini Game</h2>
+            <div id="mini-game-content"></div>
+            <div id="mini-game-result"></div>
+            <button id="exit-mini-game-btn" onclick="exitMiniGame()">Back to Map</button>
+        </div>
     </div>
+
+    <script src="games.js"></script>
 
     <script>
         // ---------- GAME DATA ----------
@@ -296,6 +331,7 @@
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'none';
         }
 
         function startLevel(levelKey) {
@@ -307,6 +343,7 @@
             
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('mini-game-screen').style.display = 'none';
             
             currentLevelIndex = 0;
             loadQuestion();
@@ -321,8 +358,7 @@
         // ---------- QUESTION LOGIC ----------
         function loadQuestion() {
             if (currentLevelIndex >= currentLevelQuestions.length) {
-                alert("Congratulations! You completed " + currentLevelName + "!");
-                showMap();
+                showReviewScreen();
                 return;
             }
             
@@ -427,9 +463,19 @@
             };
         }
 
-        function nextQuestion() {
-            currentLevelIndex++;
-            loadQuestion();
+        // ---------- MINI GAME LOGIC ----------
+        function startGames(levelKey) {
+            currentGameData = allLevels[levelKey].questions;
+            document.getElementById('map-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'block';
+            document.getElementById('mini-game-result').innerText = "";
+            startMiniGame('pair');
+        }
+
+        // ---------- EXIT MINI GAME ----------
+        function exitMiniGame() {
+            document.getElementById('mini-game-screen').style.display = 'none';
+            document.getElementById('map-screen').style.display = 'block';
         }
     </script>
 </body>
