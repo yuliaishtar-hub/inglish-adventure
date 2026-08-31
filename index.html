@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Adventure</title>
     <style>
@@ -15,6 +15,7 @@
         #welcome-screen { display: block; }
         #map-screen { display: none; }
         #game-screen { display: none; }
+        #mini-game-screen { display: none; }
         
         /* Приветственный экран */
         #welcome-lily { width: 200px; border-radius: 20px; margin: 20px auto; display: block; }
@@ -48,6 +49,21 @@
         #mic-btn { padding: 15px 30px; font-size: 20px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; display: none; }
         #mic-btn.active { background-color: #ff9800; }
         #next-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; display: none; color: white; }
+        
+        /* Мини-игры */
+        #mini-game-screen h2 { color: #4CAF50; }
+        .mini-game-btns { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .mini-game-btn { padding: 15px 20px; font-size: 18px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .mini-game-btn:hover { background-color: #ffb300; }
+        
+        .pair-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .pair-card { background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.3s; }
+        .pair-card:hover { background-color: #dcedc8; }
+        .pair-card.matched { background-color: #a5d6a7; border-color: #4caf50; }
+        .pair-card img { width: 80px; height: 80px; object-fit: contain; }
+        .pair-card .word { font-size: 18px; font-weight: bold; margin-top: 10px; }
+        
+        #exit-mini-game-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
@@ -99,6 +115,14 @@
             
             <button id="mic-btn" onclick="startListening()">🎤 Say it!</button>
             <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
+        </div>
+
+        <!-- Экран Мини-игры -->
+        <div id="mini-game-screen">
+            <h2 id="mini-game-title">Mini Game</h2>
+            <div id="mini-game-content"></div>
+            <div id="mini-game-result"></div>
+            <button id="exit-mini-game-btn" onclick="exitMiniGame()">Back to Map</button>
         </div>
     </div>
 
@@ -297,6 +321,7 @@
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'none';
         }
 
         function startLevel(levelKey) {
@@ -308,6 +333,7 @@
             
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('mini-game-screen').style.display = 'none';
             
             currentLevelIndex = 0;
             loadQuestion();
@@ -322,8 +348,7 @@
         // ---------- QUESTION LOGIC ----------
         function loadQuestion() {
             if (currentLevelIndex >= currentLevelQuestions.length) {
-                alert("Congratulations! You completed " + currentLevelName + "!");
-                showMap();
+                showReviewScreen();
                 return;
             }
             
@@ -428,9 +453,17 @@
             };
         }
 
-        function nextQuestion() {
-            currentLevelIndex++;
-            loadQuestion();
+        // ---------- MINI GAME LOGIC ----------
+        function showReviewScreen() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('map-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'block';
+            document.getElementById('mini-game-result').innerText = "";
+            startMiniGame('pair');
+        }
+
+        function backToMapFromReview() {
+            showMap();
         }
     </script>
 </body>
