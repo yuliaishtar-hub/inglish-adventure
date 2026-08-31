@@ -621,4 +621,26 @@
             }
             
             const content = document.getElementById('mini-game-content');
-            content.innerHTML =
+            content.innerHTML = '<div class="pair-game-grid" id="pair-grid"></div>';
+            
+            const grid = document.getElementById('pair-grid');
+            let firstCard = null;
+            let secondCard = null;
+            let lockBoard = false;
+            
+            allCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'pair-card';
+                cardElement.dataset.pairId = card.pairId;
+                cardElement.dataset.type = card.type;
+                cardElement.dataset.value = card.value;
+                
+                if (card.type === 'image') {
+                    cardElement.innerHTML = card.value;
+                } else {
+                    cardElement.innerHTML = '<div class="word">' + card.value + '</div>';
+                }
+                
+                cardElement.onclick = () => {
+                    if (lockBoard) return;
+                    if (cardElement.classList.contains('
