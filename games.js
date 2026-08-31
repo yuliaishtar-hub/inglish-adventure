@@ -82,7 +82,6 @@
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             
             <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
-            <button class="location-btn" onclick="startGames()">🎮 Animals Games</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
             <button class="location-btn" onclick="startLevel('colours')">🎨 Colours</button>
@@ -92,6 +91,8 @@
             <button class="location-btn" onclick="startLevel('food')">🍕 Food & Drinks</button>
             <button class="location-btn" onclick="startLevel('body')">💪 Body</button>
             <button class="location-btn" onclick="startLevel('clothes')">👗 Clothes</button>
+            
+            <button class="location-btn" onclick="startGames()">🎮 Animals Games</button>
         </div>
 
         <!-- Экран Игры -->
