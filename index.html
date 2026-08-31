@@ -16,6 +16,7 @@
         #map-screen { display: none; }
         #game-screen { display: none; }
         #review-screen { display: none; }
+        #mini-game-screen { display: none; }
         
         /* Приветственный экран */
         #welcome-lily { width: 200px; border-radius: 20px; margin: 20px auto; display: block; }
@@ -58,11 +59,45 @@
         .review-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
         .review-card .word { font-size: 18px; font-weight: bold; color: #333; }
         #back-to-map-btn { margin-top: 20px; padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
+        
+        /* Мини-игры */
+        #mini-game-screen h2 { color: #4CAF50; }
+        .mini-game-btns { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .mini-game-btn { padding: 15px 20px; font-size: 18px; background-color: #FFC107; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .mini-game-btn:hover { background-color: #ffb300; }
+        
+        .pair-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .pair-card { background-color: #f0f8ff; border: 2px solid #4CAF50; border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.3s; }
+        .pair-card:hover { background-color: #dcedc8; }
+        .pair-card.matched { background-color: #a5d6a7; border-color: #4caf50; }
+        .pair-card img { width: 80px; height: 80px; object-fit: contain; }
+        .pair-card .word { font-size: 18px; font-weight: bold; margin-top: 10px; }
+        
+        .letter-game { padding: 20px; }
+        .letter-game .word-display { font-size: 32px; font-weight: bold; margin: 20px 0; }
+        .letter-game .word-display .missing { color: #f44336; }
+        .letter-btns { display: flex; justify-content: center; gap: 10px; }
+        .letter-btn { padding: 15px 25px; font-size: 24px; background-color: #eee; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; }
+        .letter-btn:hover { background-color: #dcedc8; }
+        .letter-btn.correct { background-color: #a5d6a7; border-color: #4caf50; }
+        .letter-btn.wrong { background-color: #ef9a9a; border-color: #f44336; }
+        .letter-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .build-word-game { padding: 20px; }
+        .build-word-display { font-size: 32px; font-weight: bold; margin: 20px 0; }
+        .build-letter-btns { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .build-letter-btn { padding: 15px 20px; font-size: 24px; background-color: #eee; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; }
+        .build-letter-btn.used { opacity: 0.3; cursor: not-allowed; }
+        .build-letter-btn.correct { background-color: #a5d6a7; border-color: #4caf50; }
+        .build-letter-btn.wrong { background-color: #ef9a9a; border-color: #f44336; }
+        
+        #mini-game-result { font-size: 24px; font-weight: bold; margin: 20px 0; }
+        #exit-mini-game-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 10px; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
     <div id="game-container">
-        <!-- Экран Приветствия (Старт) -->
+        <!-- Экран Приветствия -->
         <div id="welcome-screen">
             <h1>English Adventure</h1>
             <img id="welcome-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
@@ -116,7 +151,22 @@
             <h2>All Words</h2>
             <p>Tap a word to hear it!</p>
             <div id="review-word-list"></div>
+            
+            <div class="mini-game-btns">
+                <button class="mini-game-btn" onclick="startMiniGame('pair')">🃏 Игра 1: Найди пару</button>
+                <button class="mini-game-btn" onclick="startMiniGame('letter')">🔤 Игра 3: Вставь букву</button>
+                <button class="mini-game-btn" onclick="startMiniGame('build')">🧩 Игра 2: Собери слово</button>
+            </div>
+            
             <button id="back-to-map-btn" onclick="backToMapFromReview()">Back to Map 🗺️</button>
+        </div>
+
+        <!-- Экран Мини-игры -->
+        <div id="mini-game-screen">
+            <h2 id="mini-game-title">Mini Game</h2>
+            <div id="mini-game-content"></div>
+            <div id="mini-game-result"></div>
+            <button id="exit-mini-game-btn" onclick="exitMiniGame()">Back to Words</button>
         </div>
     </div>
 
@@ -131,6 +181,13 @@
         let currentLevelName = "";
         let currentLevelKey = "";
         let correctAnswersCount = 0;
+        
+        // Мини-игры
+        let miniGameType = "";
+        let miniGameData = [];
+        let miniGameIndex = 0;
+        let miniGameScore = 0;
+        let miniGameCorrectAnswer = "";
 
         // Настройки голоса
         let lilyVoice = null;
@@ -234,7 +291,6 @@
         window.onload = function() {
             loadProgress();
             setupVoice();
-            // Лили приветствует на старте
             speakText("Hi! I'm Lily! Let's go on an adventure!", true);
         };
 
@@ -317,6 +373,7 @@
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('review-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'none';
         }
 
         function startLevel(levelKey) {
@@ -330,6 +387,7 @@
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
             document.getElementById('review-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'none';
             
             currentLevelIndex = 0;
             correctAnswersCount = 0;
@@ -456,6 +514,7 @@
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('review-screen').style.display = 'block';
+            document.getElementById('mini-game-screen').style.display = 'none';
             
             const reviewList = document.getElementById('review-word-list');
             reviewList.innerHTML = "";
@@ -500,6 +559,65 @@
             currentLevelIndex++;
             loadQuestion();
         }
-    </script>
-</body>
-</html>
+
+        // ---------- MINI GAMES ----------
+        function startMiniGame(gameType) {
+            miniGameType = gameType;
+            miniGameData = currentLevelQuestions;
+            miniGameIndex = 0;
+            miniGameScore = 0;
+            
+            document.getElementById('review-screen').style.display = 'none';
+            document.getElementById('mini-game-screen').style.display = 'block';
+            document.getElementById('mini-game-result').innerText = "";
+            
+            switch(gameType) {
+                case 'pair':
+                    document.getElementById('mini-game-title').innerText = "Find the Pair";
+                    loadPairGame();
+                    break;
+                case 'letter':
+                    document.getElementById('mini-game-title').innerText = "Missing Letter";
+                    loadLetterGame();
+                    break;
+                case 'build':
+                    document.getElementById('mini-game-title').innerText = "Build the Word";
+                    loadBuildGame();
+                    break;
+            }
+        }
+
+        function exitMiniGame() {
+            document.getElementById('mini-game-screen').style.display = 'none';
+            document.getElementById('review-screen').style.display = 'block';
+        }
+
+        // Игра 1: Найди пару
+        function loadPairGame() {
+            // Создаём пары: картинка - слово
+            const pairs = [];
+            for (let i = 0; i < miniGameData.length; i++) {
+                const q = miniGameData[i];
+                const correctWord = q.options[q.correctIndex];
+                
+                let imageHTML = "";
+                if (typeof q.image === 'string' && q.image.startsWith('http')) {
+                    imageHTML = '<img src="' + q.image + '" alt="word">';
+                } else {
+                    imageHTML = q.image;
+                }
+                
+                pairs.push({ image: imageHTML, word: correctWord });
+            }
+            
+            // Перемешиваем пары
+            const allCards = [];
+            for (let i = 0; i < pairs.length; i++) {
+                allCards.push({ type: 'image', value: pairs[i].image, pairId: i });
+                allCards.push({ type: 'word', value: pairs[i].word, pairId: i });
+            }
+            
+            // Перемешиваем
+            for (let i = allCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allCards[i], allCards[j]] = [allCards[j], allCards
