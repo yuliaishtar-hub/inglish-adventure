@@ -82,16 +82,25 @@
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             
             <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
-            <button class="location-btn" onclick="startGames()">🎮 Animals Games</button>
+            <button class="location-btn" onclick="startGames('animals')">🎮 Animals Game</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
+            <button class="location-btn" onclick="startGames('family')">🎮 Family Game</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
+            <button class="location-btn" onclick="startGames('seasons')">🎮 Seasons Game</button>
             <button class="location-btn" onclick="startLevel('colours')">🎨 Colours</button>
+            <button class="location-btn" onclick="startGames('colours')">🎮 Colours Game</button>
             <button class="location-btn" onclick="startLevel('circus')">🤡 Circus</button>
+            <button class="location-btn" onclick="startGames('circus')">🎮 Circus Game</button>
             <button class="location-btn" onclick="startLevel('toys')">🧸 Toys</button>
+            <button class="location-btn" onclick="startGames('toys')">🎮 Toys Game</button>
             <button class="location-btn" onclick="startLevel('home')">🏡 Home</button>
+            <button class="location-btn" onclick="startGames('home')">🎮 Home Game</button>
             <button class="location-btn" onclick="startLevel('food')">🍕 Food & Drinks</button>
+            <button class="location-btn" onclick="startGames('food')">🎮 Food Game</button>
             <button class="location-btn" onclick="startLevel('body')">💪 Body</button>
+            <button class="location-btn" onclick="startGames('body')">🎮 Body Game</button>
             <button class="location-btn" onclick="startLevel('clothes')">👗 Clothes</button>
+            <button class="location-btn" onclick="startGames('clothes')">🎮 Clothes Game</button>
         </div>
 
         <!-- Экран Игры -->
@@ -455,8 +464,8 @@
         }
 
         // ---------- MINI GAME LOGIC ----------
-        function startGames() {
-            currentGameData = allLevels['animals'].questions;
+        function startGames(levelKey) {
+            currentGameData = allLevels[levelKey].questions;
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('mini-game-screen').style.display = 'block';
             document.getElementById('mini-game-result').innerText = "";
