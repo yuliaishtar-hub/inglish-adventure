@@ -81,11 +81,9 @@
         <div id="map-screen">
             <h1>🗺️ Map</h1>
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
-            <button class="location-btn" onclick="window.location.href='family_story.html'">📖 Family Story (Read & Answer)</button>
+            
             <button class="location-btn" onclick="startLevel('school')">🏫 School Days</button>
             <button class="location-btn gold" onclick="startGames('school')">🎮 School Game</button>
-            <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
-            <button class="location-btn gold" onclick="startGames('animals')">🎮 Animals Game</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
             <button class="location-btn gold" onclick="startGames('family')">🎮 Family Game</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
@@ -160,16 +158,6 @@
                     { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/School bag.jpg", options: ["It's a school bag.", "It's a pen.", "It's a ruler."], correctIndex: 0 }
                 ]
             },
-            animals: {
-                name: "🐾 Animals",
-                questions: [
-                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
-                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/fish.jpg", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
-                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bird.jpg", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
-                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mouse.jpg", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
-                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/frog.jpg", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
-                ]
-            },
             family: {
                 name: "👨‍👩‍👧 Family",
                 questions: [
@@ -218,10 +206,15 @@
             food: {
                 name: "🍕 Food & Drinks",
                 questions: [
-                    { question: "What is it?", image: "🍕", options: ["It's pizza.", "It's a burger.", "It's ice cream."], correctIndex: 0 },
-                    { question: "What is it?", image: "🍔", options: ["It's pizza.", "It's a burger.", "It's chips."], correctIndex: 1 },
-                    { question: "What is it?", image: "🧃", options: ["It's orange juice.", "It's water.", "It's milk."], correctIndex: 0 },
-                    { question: "What is it?", image: "🍎", options: ["It's a banana.", "It's an apple.", "It's a cake."], correctIndex: 1 }
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Apple.jpg", options: ["It's an apple.", "It's a pizza.", "It's a burger."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Burger.jpg", options: ["It's an apple.", "It's a burger.", "It's a sandwich."], correctIndex: 1 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Chips.jpg", options: ["It's a pizza.", "It's a burger.", "It's chips."], correctIndex: 2 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Chocolate cake.jpg", options: ["It's a chocolate cake.", "It's an apple.", "It's ice cream."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Ice cream.jpg", options: ["It's a burger.", "It's ice cream.", "It's a sandwich."], correctIndex: 1 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Milk.jpg", options: ["It's milk.", "It's pizza.", "It's chips."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Orange juice.jpg", options: ["It's orange juice.", "It's milk.", "It's water."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Pizza.jpg", options: ["It's pizza.", "It's an apple.", "It's a burger."], correctIndex: 0 },
+                    { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Sandwich.jpg", options: ["It's a sandwich.", "It's an apple.", "It's chips."], correctIndex: 0 }
                 ]
             }
         };
