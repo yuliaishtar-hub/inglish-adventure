@@ -43,6 +43,10 @@
         #next-btn { background-color: #2196F3; color: white; display: none; }
         
         /* Мини-игры */
+        .mini-game-btn { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .mini-game-select { padding: 15px 20px; font-size: 18px; background-color: #FFC107; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; font-family: inherit; margin: 5px; }
+        .mini-game-select:hover { background-color: #ffb300; }
+        
         .pair-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
         .pair-card { background-color: #f0f8ff; border: 3px solid #4CAF50; border-radius: 20px; padding: 15px; cursor: pointer; transition: 0.3s; }
         .pair-card:hover { background-color: #dcedc8; }
@@ -117,6 +121,10 @@
         <!-- Экран Мини-игры -->
         <div id="mini-game-screen">
             <h2 id="mini-game-title">Mini Game</h2>
+            <div class="mini-game-btn">
+                <button class="mini-game-select" onclick="startMiniGame('pair')">🃏 Найди пару</button>
+                <button class="mini-game-select" onclick="startMiniGame('letter')">🔤 Вставь букву</button>
+            </div>
             <div id="mini-game-content"></div>
             <div id="mini-game-result"></div>
             <button id="exit-mini-game-btn" onclick="exitMiniGame()">Back to Map</button>
@@ -402,7 +410,6 @@
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('mini-game-screen').style.display = 'block';
             document.getElementById('mini-game-result').innerText = "";
-            startMiniGame('pair');
         }
 
         function exitMiniGame() {
