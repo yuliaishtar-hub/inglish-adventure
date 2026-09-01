@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Adventure</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
     <div id="game-container">
@@ -78,6 +78,8 @@
         </div>
     </div>
 
+    <script src="games.js"></script>
+
     <script>
         // ---------- GAME DATA ----------
         let xp = 0;
@@ -87,9 +89,6 @@
         let correctAnswerText = "";
         let currentLevelQuestions = [];
         let currentLevelName = "";
-        let currentGameData = [];
-        let miniGameIndex = 0;
-        let miniGameScore = 0;
 
         // Настройки голоса
         let lilyVoice = null;
@@ -414,6 +413,12 @@
                     micBtn.innerText = "🎤 Say it!";
                 }
             };
+        }
+
+        // ---------- NEXT QUESTION ----------
+        function nextQuestion() {
+            currentLevelIndex++;
+            loadQuestion();
         }
 
         // ---------- MINI GAME LOGIC ----------
