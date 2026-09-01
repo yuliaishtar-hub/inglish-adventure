@@ -142,6 +142,7 @@
         let currentGameData = [];
         let miniGameIndex = 0;
         let miniGameScore = 0;
+        let currentGameKey = "";
 
         // Настройки голоса
         let lilyVoice = null;
@@ -400,10 +401,12 @@
 
         // ---------- MINI GAME LOGIC ----------
         function startGames(levelKey) {
+            currentGameKey = levelKey;
             currentGameData = allLevels[levelKey].questions;
             document.getElementById('map-screen').style.display = 'none';
             document.getElementById('mini-game-screen').style.display = 'block';
             document.getElementById('mini-game-result').innerText = "";
+            startMiniGame('pair');
         }
 
         function exitMiniGame() {
