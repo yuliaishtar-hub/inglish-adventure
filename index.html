@@ -50,6 +50,17 @@
         .pair-card img { width: 80px; height: 80px; object-fit: contain; }
         .pair-card .word { font-size: 18px; font-weight: bold; margin-top: 10px; }
         #exit-mini-game-btn { padding: 15px 30px; font-size: 20px; background-color: #2196F3; border: none; border-radius: 20px; cursor: pointer; color: white; font-family: inherit; margin-top: 20px; }
+        
+        /* Вставь букву */
+        .letter-game { padding: 20px; }
+        .letter-game .word-display { font-size: 32px; font-weight: bold; margin: 20px 0; }
+        .letter-game .word-display .missing { color: #f44336; }
+        .letter-btns { display: flex; justify-content: center; gap: 10px; }
+        .letter-btn { padding: 15px 25px; font-size: 24px; background-color: #eee; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; }
+        .letter-btn:hover { background-color: #dcedc8; }
+        .letter-btn.correct { background-color: #a5d6a7; border-color: #4caf50; }
+        .letter-btn.wrong { background-color: #ef9a9a; border-color: #f44336; }
+        .letter-btn.disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -402,6 +413,8 @@
         function startMiniGame(gameType) {
             if (gameType === 'pair') {
                 loadPairGame();
+            } else if (gameType === 'letter') {
+                loadLetterGame();
             }
         }
 
@@ -479,6 +492,75 @@
                     }
                 };
                 pairGrid.appendChild(cardElement);
+            });
+        }
+
+        // Игра 3: Вставь букву
+        function loadLetterGame() {
+            const content = document.getElementById('mini-game-content');
+            content.innerHTML = '<div class="letter-game"></div>';
+            const letterGame = document.querySelector('.letter-game');
+            
+            const q = currentGameData[miniGameIndex];
+            const correctWord = q.options[q.correctIndex];
+            const word = correctWord.toLowerCase();
+            const letters = word.split('');
+            
+            // Случайно выбранная пропущенная буква
+            const missingIndex = Math.floor(Math.random() * letters.length);
+            const missingLetter = letters[missingIndex];
+            const wordWithMissing = word.substring(0, missingIndex) + '_' + word.substring(missingIndex + 1);
+            
+            let image = "";
+            if (typeof q.image === 'string' && q.image.startsWith('http')) {
+                image = '<img src="' + q.image + '" style="width: 100px; border-radius: 10px;">';
+            } else {
+                image = q.image;
+            }
+            
+            letterGame.innerHTML = image + '<div class="word-display">' + wordWithMissing + '</div>';
+            
+            // Буквы для выборки
+            const lettersToChoose = [missingLetter];
+            while (lettersToChoose.length < 3) {
+                const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+                if (!lettersToChoose.includes(randomLetter)) {
+                    lettersToChoose.push(randomLetter);
+                }
+            }
+            
+            for (let i = lettersToChoose.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [lettersToChoose[i], lettersToChoose[j]] = [lettersToChoose[j], lettersToChoose[i]];
+            }
+            
+            const letterBtns = document.createElement('div');
+            letterBtns.className = 'letter-btns';
+            letterGame.appendChild(letterBtns);
+            
+            lettersToChoose.forEach((letter) => {
+                const btn = document.createElement('button');
+                btn.className = 'letter-btn';
+                btn.innerText = letter;
+                btn.onclick = () => {
+                    if (letter === missingLetter) {
+                        btn.classList.add('correct');
+                        document.getElementById('mini-game-result').innerText = "Correct!";
+                        miniGameScore++;
+                        setTimeout(() => {
+                            miniGameIndex++;
+                            if (miniGameIndex >= currentGameData.length) {
+                                document.getElementById('mini-game-result').innerText = "All correct!";
+                            } else {
+                                loadLetterGame();
+                            }
+                        }, 1000);
+                    } else {
+                        btn.classList.add('wrong');
+                        btn.disabled = true;
+                    }
+                };
+                letterBtns.appendChild(btn);
             });
         }
     </script>
