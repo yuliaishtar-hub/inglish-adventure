@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Adventure</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <div id="game-container">
@@ -225,7 +225,7 @@
         function setupVoice() {
             const voices = window.speechSynthesis.getVoices();
             
-            for (let i = 0; i < voices.length; i++) {
+            for (let i =  < 0; i < voices.length; i++) {
                 const v = voices[i];
                 if (v.name.includes('Google UK English Female') || 
                     v.name.includes('Zira') || 
@@ -413,6 +413,12 @@
                     micBtn.innerText = "🎤 Say it!";
                 }
             };
+        }
+
+        // ---------- NEXT QUESTION ----------
+        function nextQuestion() {
+            currentLevelIndex++;
+            loadQuestion();
         }
 
         // ---------- MINI GAME LOGIC ----------
