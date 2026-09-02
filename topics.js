@@ -18,6 +18,16 @@ const allLevels = {
             { question: "Who is she?", image: "👧", options: ["She's my mummy.", "She's my grandma.", "She's my sister."], correctIndex: 2 }
         ]
     },
+    animals: {
+        name: "🐾 Animals",
+        questions: [
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg", options: ["It's a chimp.", "It's a fish.", "It's a bird."], correctIndex: 0 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/fish.jpg", options: ["It's a mouse.", "It's a frog.", "It's a fish."], correctIndex: 2 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bird.jpg", options: ["It's a bird.", "It's a chimp.", "It's a mouse."], correctIndex: 0 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mouse.jpg", options: ["It's a fish.", "It's a mouse.", "It's a frog."], correctIndex: 1 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/frog.jpg", options: ["It's a frog.", "It's a bird.", "It's a chimp."], correctIndex: 0 }
+        ]
+    },
     seasons: {
         name: "🌦️ Seasons",
         questions: [
