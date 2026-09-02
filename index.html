@@ -337,11 +337,12 @@
             <h1>🗺️ Map</h1>
             <img id="map-lily" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
             
-            <button class="location-btn" onclick="window.location.href='family_story.html'">📖 Family Story</button>
             <button class="location-btn" onclick="startLevel('school')">🏫 School Days</button>
             <button class="location-btn gold" onclick="startGames('school')">🎮 School Game</button>
             <button class="location-btn" onclick="startLevel('family')">👨‍👩‍👧 Family</button>
             <button class="location-btn gold" onclick="startGames('family')">🎮 Family Game</button>
+            <button class="location-btn" onclick="startLevel('animals')">🐾 Animals</button>
+            <button class="location-btn gold" onclick="startGames('animals')">🎮 Animals Game</button>
             <button class="location-btn" onclick="startLevel('seasons')">🌦️ Seasons</button>
             <button class="location-btn gold" onclick="startGames('seasons')">🎮 Seasons Game</button>
             <button class="location-btn" onclick="startLevel('colours')">🎨 Colours</button>
@@ -400,6 +401,7 @@
         let miniGameIndex = 0;
         let miniGameScore = 0;
         let currentGameKey = "";
+        let hasSpokenWelcome = false;
 
         // Настройки голоса
         let lilyVoice = null;
