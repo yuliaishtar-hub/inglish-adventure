@@ -87,11 +87,6 @@
             transform: scale(1.05);
         }
 
-        .location-btn.gold {
-            background-color: #fff8e1;
-            border-color: #ffb300;
-        }
-
         #story-btn {
             padding: 15px 30px;
             font-size: 20px;
@@ -153,8 +148,6 @@
         const LILY_RATE = 0.85;
 
         let lilyVoice = null;
-        let currentQuestionIndex = 0;
-        let correctAnswerText = "";
         let sceneIndex = 0;
         let scenes = [];
 
@@ -190,7 +183,7 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Создаём сцены из учебника (стр. 11)
+        // Сцены из учебника (стр. 11)
         scenes = [
             { text: "Bye, Lulu! Bye, Larry!", speaker: "Lily" },
             { text: "Hello, Larry!", speaker: "Jake" },
