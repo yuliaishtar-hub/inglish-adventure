@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Movie</title>
+    <style>
+        body {
+            font-family: Arial, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        #game-container {
+            background-color: #fff;
+            border-radius: 30px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            min-height: 600px;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            font-size: 42px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+
+        #lily-img {
+            width: 150px;
+            border-radius: 50%;
+            border: 4px solid #4CAF50;
+            margin: 20px auto;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        #chuckles-img {
+            width: 80px;
+            border-radius: 50%;
+            border: 4px solid #ff9800;
+            margin: 20px auto;
+            display: none;
+        }
+
+        #story-text {
+            font-size: 22px;
+            color: #333;
+            margin: 20px auto;
+            padding: 15px;
+            background: #f0f8ff;
+            border: 2px solid #4CAF50;
+            border-radius: 20px;
+        }
+
+        .location-btn {
+            display: block;
+            width: 85%;
+            margin: 15px auto;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #f0f8ff;
+            border: 3px solid #4CAF50;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .location-btn:hover {
+            background-color: #dcedc8;
+            transform: scale(1.05);
+        }
+
+        .location-btn.gold {
+            background-color: #fff8e1;
+            border-color: #ffb300;
+        }
+
+        #story-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #2196F3;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        #next-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-family: inherit;
+            display: none;
+            margin-top: 20px;
+        }
+
+        #exit-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-family: inherit;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>School Movie</h1>
+        <button id="exit-btn" onclick="window.location.href='index.html'">✖</button>
+        <img id="lily-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
+        <img id="chuckles-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg" alt="Chuckles">
+        
+        <div id="story-text"></div>
+        <button id="story-btn" onclick="speakStory()">🎤 Listen</button>
+        <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
+        
+        <div id="screen-final" style="display: none;">
+            <div class="location-btn" onclick="window.location.href='index.html'">Back to Map</div>
+        </div>
+    </div>
+
+    <script>
+        const LILY_PITCH = 1.2;
+        const LILY_RATE = 0.85;
+
+        let lilyVoice = null;
+        let currentQuestionIndex = 0;
+        let correctAnswerText = "";
+        let sceneIndex = 0;
+        let scenes = [];
+
+        function setupVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            for (let i = 0; i < voices.length; i++) {
+                const v = voices[i];
+                if (v.name.includes('Google UK English Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Female') || v.lang === 'en-US' || v.lang === 'en-GB') {
+                    lilyVoice = v; break;
+                }
+            }
+            if (!lilyVoice && voices.length > 0) { lilyVoice = voices[0]; }
+            window.speechSynthesis.onvoiceschanged = function() {
+                const voices = window.speechSynthesis.getVoices();
+                for (let i = 0; i < voices.length; i++) {
+                    const v = voices[i];
+                    if (v.name.includes('Google UK English Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Female') || v.lang === 'en-US' || v.lang === 'en-GB') {
+                        lilyVoice = v; break;
+                    }
+                }
+            };
+        }
+
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = LILY_RATE;
+            utterance.pitch = LILY_PITCH;
+            utterance.volume = 1.0;
+            if (lilyVoice) { utterance.voice = lilyVoice; }
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Создаём сцены из учебника (стр. 11)
+        scenes = [
+            { text: "Bye, Lulu! Bye, Larry!", speaker: "Lily" },
+            { text: "Hello, Larry!", speaker: "Jake" },
+            { text: "Hi, Paco. This is Lulu.", speaker: "Lily" },
+            { text: "Hello, Lulu!", speaker: "Paco" },
+            { text: "Oh, Chuckles!", speaker: "Lily" },
+            { text: "Hello, Chuckles!", speaker: "Paco" },
+            { text: "Hello, I'm Maya. What's your name?", speaker: "Maya" },
+            { text: "My name's Lulu. This is my pet, Chuckles.", speaker: "Lily" },
+            { text: "Hey, let's go!", speaker: "Larry" },
+            { text: "What's this?", speaker: "Lily" },
+            { text: "It's a school bag!", speaker: "Maya" }
+        ];
+
+        function speakStory() {
+            if (sceneIndex < scenes.length) {
+                const scene = scenes[sceneIndex];
+                document.getElementById('story-text').innerText = scene.text;
+                speak(scene.text);
+                sceneIndex++;
+                
+                // Показываем обезьянку, если сцена про Chuckles
+                if (scene.text.toLowerCase().includes('chuckles')) {
+                    document.getElementById('chuckles-img').style.display = 'block';
+                } else {
+                    document.getElementById('chuckles-img').style.display = 'none';
+                }
+                
+                if (sceneIndex >= scenes.length) {
+                    document.getElementById('next-btn').style.display = 'inline-block';
+                    document.getElementById('story-btn').style.display = 'none';
+                }
+            }
+        }
+
+        function nextQuestion() {
+            document.getElementById('screen-story').style.display = 'none';
+            document.getElementById('screen-final').style.display = 'block';
+            speak("Well done!");
+        }
+
+        window.onload = function() {
+            setupVoice();
+        };
+    </script>
+</body>
+</html>
