@@ -182,22 +182,21 @@
 
         // Сцены про Лили и её семью
         scenes = [
-            { text: "Hello! I'm Lily!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I have a mummy. Her name is Anna.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg" },
-            { text: "I have a daddy. His name is Tom.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg" },
-            { text: "They are great!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mum%20dad.jpg" },
-            { text: "I have a grandma and a grandpa.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" },
-            { text: "I have a sister. Her name is Yuna.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
-            { text: "I love my family!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I go to school every day!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "Let's play together!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" }
+            { text: "Hello! I'm Lily!" },
+            { text: "I have a mummy. Her name is Anna." },
+            { text: "I have a daddy. His name is Tom." },
+            { text: "They are great!" },
+            { text: "I have a grandma and a grandpa." },
+            { text: "I have a sister. Her name is Yuna." },
+            { text: "I love my family!" },
+            { text: "I go to school every day!" },
+            { text: "Let's play together!" }
         ];
 
         function speakStory() {
             if (sceneIndex < scenes.length) {
                 const scene = scenes[sceneIndex];
                 document.getElementById('story-text').innerText = scene.text;
-                document.getElementById('lily-img').src = scene.image;
                 speak(scene.text);
                 sceneIndex++;
                 
