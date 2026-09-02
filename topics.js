@@ -2,10 +2,10 @@ const allLevels = {
     family: {
         name: "👨‍👩‍👧 Family",
         questions: [
-            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["She's my mum.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
-            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["He's my brother.", "He's my grandpa.", "He's my dad."], correctIndex: 1 },
-            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
-            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["She's my mummy.", "She's my grandma.", "She's my sister."], correctIndex: 2 }
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg", options: ["She's my mum.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
+            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandpa.jpg", options: ["He's my brother.", "He's my grandpa.", "He's my dad."], correctIndex: 1 },
+            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/sister.jpg", options: ["She's my mummy.", "She's my grandma.", "She's my sister."], correctIndex: 2 }
         ]
     },
     school: {
