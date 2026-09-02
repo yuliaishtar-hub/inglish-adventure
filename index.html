@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Adventure</title>
     <style>
@@ -466,7 +466,11 @@
 
         // ---------- WELCOME & MAP ----------
         function showMap() {
-            speakText("Let's go on an adventure!", true);
+            // Лили говорит только при ПЕРВОМ входе
+            if (!hasSpokenWelcome) {
+                speakText("Let's go on an adventure!", true);
+                hasSpokenWelcome = true;
+            }
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('map-screen').style.display = 'block';
             document.getElementById('game-screen').style.display = 'none';
