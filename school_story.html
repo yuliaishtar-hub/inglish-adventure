@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Story</title>
+    <title>Lily Story</title>
     <style>
         body {
             font-family: Arial, Verdana, sans-serif;
@@ -79,11 +79,6 @@
             transform: scale(1.05);
         }
 
-        .location-btn.gold {
-            background-color: #fff8e1;
-            border-color: #ffb300;
-        }
-
         #story-btn {
             padding: 15px 30px;
             font-size: 20px;
@@ -123,64 +118,6 @@
             font-size: 16px;
         }
 
-        #screen-numbers {
-            display: none;
-        }
-
-        #number-image {
-            font-size: 80px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        #number-answers {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .answer-btn {
-            display: block;
-            width: 85%;
-            margin: 10px auto;
-            padding: 15px;
-            font-size: 20px;
-            background-color: #eee;
-            border: 2px solid #ccc;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .answer-btn.correct {
-            background-color: #a5d6a7;
-            border-color: #4caf50;
-        }
-
-        .answer-btn.wrong {
-            background-color: #ef9a9a;
-            border-color: #f44336;
-        }
-
-        #feedback {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 15px 0;
-            min-height: 25px;
-        }
-
         #screen-final {
             display: none;
         }
@@ -188,20 +125,13 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>School Story</h1>
+        <h1>Lily Story</h1>
         <button id="exit-btn" onclick="window.location.href='index.html'">✖</button>
         <img id="lily-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
         
         <div id="screen-story">
             <div id="story-text"></div>
             <button id="story-btn" onclick="speakStory()">🎤 Listen</button>
-            <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
-        </div>
-        
-        <div id="screen-numbers">
-            <div id="number-image"></div>
-            <div id="number-answers"></div>
-            <div id="feedback"></div>
             <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
         </div>
         
@@ -215,18 +145,8 @@
         const LILY_RATE = 0.85;
 
         let lilyVoice = null;
-        let currentQuestionIndex = 0;
-        let correctAnswerText = "";
-
-        const storyText = "Hello! I'm Lily! I go to school every day. This is my friend. His name is Jake. Hello, Jake! Hi, Lily! How are you? I'm fine, thank you! Let's go to class!";
-
-        const questions = [
-            { question: "What is it?", image: "1️⃣", options: ["One", "Two", "Three"], correctIndex: 0 },
-            { question: "What is it?", image: "2️⃣", options: ["Two", "One", "Five"], correctIndex: 0 },
-            { question: "What is it?", image: "3️⃣", options: ["Three", "Two", "Four"], correctIndex: 0 },
-            { question: "What is it?", image: "5️⃣", options: ["Five", "Three", "Seven"], correctIndex: 0 },
-            { question: "What is it?", image: "7️⃣", options: ["Seven", "Five", "Ten"], correctIndex: 0 }
-        ];
+        let sceneIndex = 0;
+        let scenes = [];
 
         function setupVoice() {
             const voices = window.speechSynthesis.getVoices();
@@ -260,55 +180,42 @@
             window.speechSynthesis.speak(utterance);
         }
 
+        // Сцены про Лили и её семью
+        scenes = [
+            { text: "Hello! I'm Lily!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
+            { text: "I have a mummy. Her name is Anna.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg" },
+            { text: "I have a daddy. His name is Tom.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg" },
+            { text: "They are great!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mum%20dad.jpg" },
+            { text: "I have a grandma and a grandpa.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" },
+            { text: "I have a sister. Her name is Ann.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
+            { text: "I love my family!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
+            { text: "I go to school every day!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
+            { text: "Let's play together!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" }
+        ];
+
         function speakStory() {
-            speak(storyText);
+            if (sceneIndex < scenes.length) {
+                const scene = scenes[sceneIndex];
+                document.getElementById('story-text').innerText = scene.text;
+                document.getElementById('lily-img').src = scene.image;
+                speak(scene.text);
+                sceneIndex++;
+                
+                if (sceneIndex >= scenes.length) {
+                    document.getElementById('next-btn').style.display = 'inline-block';
+                    document.getElementById('story-btn').style.display = 'none';
+                }
+            }
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex >= questions.length) {
-                document.getElementById('screen-story').style.display = 'none';
-                document.getElementById('screen-numbers').style.display = 'none';
-                document.getElementById('screen-final').style.display = 'block';
-                speak("Well done!");
-                return;
-            }
-            
-            const q = questions[currentQuestionIndex];
-            correctAnswerText = q.options[q.correctIndex];
-            document.getElementById('number-image').innerHTML = q.image;
-            document.getElementById('feedback').innerText = "";
-            
-            const answersDiv = document.getElementById('number-answers');
-            answersDiv.innerHTML = "";
-            
-            q.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.innerText = option;
-                btn.className = 'answer-btn';
-                btn.onclick = () => selectAnswer(index, btn);
-                answersDiv.appendChild(btn);
-            });
-        }
-
-        function selectAnswer(index, btn) {
-            const buttons = document.querySelectorAll('.answer-btn');
-            const q = questions[currentQuestionIndex];
-            if (index === q.correctIndex) {
-                buttons.forEach(b => b.disabled = true);
-                btn.classList.add('correct');
-                document.getElementById('feedback').innerText = "Great!";
-                speak(correctAnswerText);
-            } else {
-                btn.classList.add('wrong');
-                btn.disabled = true;
-                document.getElementById('feedback').innerText = "Oops! Try again!";
-            }
+            document.getElementById('screen-story').style.display = 'none';
+            document.getElementById('screen-final').style.display = 'block';
+            speak("Well done!");
         }
 
         window.onload = function() {
             setupVoice();
-            speak(storyText);
         };
     </script>
 </body>
