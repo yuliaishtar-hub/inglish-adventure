@@ -1,4 +1,13 @@
 const allLevels = {
+    family: {
+        name: "👨‍👩‍👧 Family",
+        questions: [
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["She's my mum.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
+            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["He's my brother.", "He's my grandpa.", "He's my dad."], correctIndex: 1 },
+            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg", options: ["She's my mummy.", "She's my grandma.", "She's my sister."], correctIndex: 2 }
+        ]
+    },
     school: {
         name: "🏫 School Days",
         questions: [
@@ -7,15 +16,6 @@ const allLevels = {
             { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/ruler.jpg", options: ["It's a pencil.", "It's a ruler.", "It's a pen."], correctIndex: 1 },
             { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Eraser.jpg", options: ["It's a ruler.", "It's a pen.", "It's an eraser."], correctIndex: 2 },
             { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/School bag.jpg", options: ["It's a school bag.", "It's a pen.", "It's a ruler."], correctIndex: 0 }
-        ]
-    },
-    family: {
-        name: "👨‍👩‍👧 Family",
-        questions: [
-            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg", options: ["She's my mummy.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
-            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
-            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg", options: ["She's my grandma.", "She's my mummy.", "She's my sister."], correctIndex: 0 },
-            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg", options: ["She's my sister.", "She's my mummy.", "She's my grandma."], correctIndex: 0 }
         ]
     },
     animals: {
@@ -43,7 +43,11 @@ const allLevels = {
             { question: "What colour is it?", image: "🔴", options: ["It's red.", "It's blue.", "It's white."], correctIndex: 0 },
             { question: "What colour is it?", image: "🔵", options: ["It's yellow.", "It's black.", "It's blue."], correctIndex: 2 },
             { question: "What colour is it?", image: "🟡", options: ["It's yellow.", "It's brown.", "It's orange."], correctIndex: 0 },
-            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 }
+            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 },
+            { question: "What colour is it?", image: "🟢", options: ["It's green.", "It's yellow.", "It's red."], correctIndex: 0 },
+            { question: "What colour is it?", image: "⚪", options: ["It's white.", "It's blue.", "It's black."], correctIndex: 0 },
+            { question: "What colour is it?", image: "🟤", options: ["It's brown.", "It's pink.", "It's red."], correctIndex: 0 },
+            { question: "What colour is it?", image: "🌸", options: ["It's pink.", "It's green.", "It's blue."], correctIndex: 0 }
         ]
     },
     toys: {
