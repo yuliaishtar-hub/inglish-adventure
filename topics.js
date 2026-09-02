@@ -33,7 +33,11 @@ const allLevels = {
             { question: "What colour is it?", image: "🔴", options: ["It's red.", "It's blue.", "It's white."], correctIndex: 0 },
             { question: "What colour is it?", image: "🔵", options: ["It's yellow.", "It's black.", "It's blue."], correctIndex: 2 },
             { question: "What colour is it?", image: "🟡", options: ["It's yellow.", "It's brown.", "It's orange."], correctIndex: 0 },
-            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 }
+            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 },
+            { question: "What colour is it?", image: "🟢", options: ["It's green.", "It's yellow.", "It's red."], correctIndex: 0 },
+            { question: "What colour is it?", image: "⚪", options: ["It's white.", "It's blue.", "It's black."], correctIndex: 0 },
+            { question: "What colour is it?", image: "🟤", options: ["It's brown.", "It's pink.", "It's red."], correctIndex: 0 },
+            { question: "What colour is it?", image: "🌸", options: ["It's pink.", "It's green.", "It's blue."], correctIndex: 0 }
         ]
     },
     toys: {
