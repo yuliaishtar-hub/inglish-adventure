@@ -62,10 +62,11 @@ const allLevels = {
     home: {
         name: "🏡 Home",
         questions: [
-            { question: "What is it?", image: "🪑", options: ["It's a chair.", "It's a table.", "It's a shelf."], correctIndex: 0 },
-            { question: "What is it?", image: "🛏️", options: ["It's a kitchen.", "It's a bedroom.", "It's a bathroom."], correctIndex: 1 },
-            { question: "What is it?", image: "🍳", options: ["It's a kitchen.", "It's a living room.", "It's a bedroom."], correctIndex: 0 },
-            { question: "What is it?", image: "🚽", options: ["It's a bedroom.", "It's a bathroom.", "It's a kitchen."], correctIndex: 1 }
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bathroom.jpg", options: ["It's a bathroom.", "It's a kitchen.", "It's a bedroom."], correctIndex: 0 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bedroom.jpg", options: ["It's a bathroom.", "It's a bedroom.", "It's a kitchen."], correctIndex: 1 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/book.jpg", options: ["It's a book.", "It's a chair.", "It's a kitchen."], correctIndex: 0 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/chair.jpg", options: ["It's a chair.", "It's a book.", "It's a bathroom."], correctIndex: 0 },
+            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/kitchen.jpg", options: ["It's a kitchen.", "It's a bedroom.", "It's a bathroom."], correctIndex: 0 }
         ]
     },
     food: {
