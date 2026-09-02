@@ -12,10 +12,10 @@ const allLevels = {
     family: {
         name: "👨‍👩‍👧 Family",
         questions: [
-            { question: "Who is she?", image: "👩", options: ["She's my mum.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
-            { question: "Who is he?", image: "👴", options: ["He's my brother.", "He's my grandpa.", "He's my dad."], correctIndex: 1 },
-            { question: "Who is he?", image: "👨", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
-            { question: "Who is she?", image: "👧", options: ["She's my mummy.", "She's my grandma.", "She's my sister."], correctIndex: 2 }
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg", options: ["She's my mummy.", "She's my sister.", "She's my grandma."], correctIndex: 0 },
+            { question: "Who is he?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg", options: ["He's my daddy.", "He's my grandpa.", "He's my brother."], correctIndex: 0 },
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg", options: ["She's my grandma.", "She's my mummy.", "She's my sister."], correctIndex: 0 },
+            { question: "Who is she?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg", options: ["She's my sister.", "She's my mummy.", "She's my grandma."], correctIndex: 0 }
         ]
     },
     animals: {
@@ -43,11 +43,7 @@ const allLevels = {
             { question: "What colour is it?", image: "🔴", options: ["It's red.", "It's blue.", "It's white."], correctIndex: 0 },
             { question: "What colour is it?", image: "🔵", options: ["It's yellow.", "It's black.", "It's blue."], correctIndex: 2 },
             { question: "What colour is it?", image: "🟡", options: ["It's yellow.", "It's brown.", "It's orange."], correctIndex: 0 },
-            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 },
-            { question: "What colour is it?", image: "🟢", options: ["It's green.", "It's yellow.", "It's red."], correctIndex: 0 },
-            { question: "What colour is it?", image: "⚪", options: ["It's white.", "It's blue.", "It's black."], correctIndex: 0 },
-            { question: "What colour is it?", image: "🟤", options: ["It's brown.", "It's pink.", "It's red."], correctIndex: 0 },
-            { question: "What colour is it?", image: "🌸", options: ["It's pink.", "It's green.", "It's blue."], correctIndex: 0 }
+            { question: "What colour is it?", image: "⚫", options: ["It's white.", "It's black.", "It's red."], correctIndex: 1 }
         ]
     },
     toys: {
@@ -62,11 +58,10 @@ const allLevels = {
     home: {
         name: "🏡 Home",
         questions: [
-            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bathroom.jpg", options: ["It's a bathroom.", "It's a kitchen.", "It's a bedroom."], correctIndex: 0 },
-            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/bedroom.jpg", options: ["It's a bathroom.", "It's a bedroom.", "It's a kitchen."], correctIndex: 1 },
-            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/book.jpg", options: ["It's a book.", "It's a chair.", "It's a kitchen."], correctIndex: 0 },
-            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/chair.jpg", options: ["It's a chair.", "It's a book.", "It's a bathroom."], correctIndex: 0 },
-            { question: "What is it?", image: "https://yuliaishtar-hub.github.io/inglish-adventure/kitchen.jpg", options: ["It's a kitchen.", "It's a bedroom.", "It's a bathroom."], correctIndex: 0 }
+            { question: "What is it?", image: "🪑", options: ["It's a chair.", "It's a table.", "It's a shelf."], correctIndex: 0 },
+            { question: "What is it?", image: "🛏️", options: ["It's a kitchen.", "It's a bedroom.", "It's a bathroom."], correctIndex: 1 },
+            { question: "What is it?", image: "🍳", options: ["It's a kitchen.", "It's a living room.", "It's a bedroom."], correctIndex: 0 },
+            { question: "What is it?", image: "🚽", options: ["It's a bedroom.", "It's a bathroom.", "It's a kitchen."], correctIndex: 1 }
         ]
     },
     food: {
