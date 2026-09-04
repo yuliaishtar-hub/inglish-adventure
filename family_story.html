@@ -1,221 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lily Story</title>
-    <style>
-        body {
-            font-family: Arial, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
-
-        #game-container {
-            background-color: #fff;
-            border-radius: 30px;
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            min-height: 600px;
-        }
-
-        h1 {
-            color: #ff6b6b;
-            font-size: 42px;
-            text-shadow: 2px 2px 0 #fff;
-        }
-
-        #lily-img {
-            width: 200px;
-            border-radius: 50%;
-            border: 4px solid #4CAF50;
-            margin: 20px auto;
-            display: block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        #story-text {
-            font-size: 22px;
-            color: #333;
-            margin: 20px auto;
-            padding: 15px;
-            background: #f0f8ff;
-            border: 2px solid #4CAF50;
-            border-radius: 20px;
-        }
-
-        .location-btn {
-            display: block;
-            width: 85%;
-            margin: 15px auto;
-            padding: 15px;
-            font-size: 20px;
-            background-color: #f0f8ff;
-            border: 3px solid #4CAF50;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-
-        .location-btn:hover {
-            background-color: #dcedc8;
-            transform: scale(1.05);
-        }
-
-        #story-btn {
-            padding: 15px 30px;
-            font-size: 20px;
-            background-color: #2196F3;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            color: white;
-            font-family: inherit;
-            margin-bottom: 20px;
-        }
-
-        #next-btn {
-            padding: 15px 30px;
-            font-size: 20px;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            color: white;
-            font-family: inherit;
-            display: none;
-            margin-top: 20px;
-        }
-
-        #exit-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #f44336;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            color: white;
-            font-family: inherit;
-            font-size: 16px;
-        }
-
-        #screen-final {
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Quest 🌈</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Arial,Verdana,sans-serif;
+  background:linear-gradient(135deg,#cfeeff 0%,#f7d9ff 52%,#ffe1ee 100%);
+  color:#30305c;
+}
+button{font:inherit}
+#app{max-width:980px;margin:0 auto;padding:18px}
+.screen{display:none}
+.screen.active{display:block}
+.top{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  margin-bottom:14px
+}
+.brand{font-size:30px;font-weight:900;color:#6339a6}
+.stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pill{
+  background:#fff;border-radius:999px;padding:9px 15px;
+  box-shadow:0 5px 16px #00000012;font-weight:800
+}
+.card{
+  background:#fff;border-radius:30px;padding:28px;
+  box-shadow:0 16px 40px #54317b22
+}
+.hero{
+  min-height:560px;display:grid;grid-template-columns:1.05fr .95fr;
+  gap:25px;align-items:center;overflow:hidden
+}
+.hero-copy h1{font-size:58px;line-height:.98;margin:0 0 16px;color:#6339a6}
+.hero-copy p{font-size:22px;line-height:1.45;margin:0 0 25px}
+.hero-img{
+  width:100%;max-height:460px;object-fit:cover;border-radius:28px;
+  background:#eee;box-shadow:0 10px 25px #0002
+}
+.primary,.secondary,.listen,.mic,.next{
+  border:0;border-radius:18px;padding:15px 24px;font-weight:900;
+  cursor:pointer;transition:.18s;box-shadow:0 7px 16px #00000018
+}
+.primary{background:linear-gradient(135deg,#ff5f8d,#9b5cff);color:#fff;font-size:21px}
+.secondary{background:#fff;color:#6339a6;border:2px solid #d8c6f7}
+.listen{background:#eadbff;color:#6339a6}
+.mic{background:#ff638d;color:#fff}
+.next{background:#6b55d9;color:#fff}
+.primary:hover,.secondary:hover,.listen:hover,.mic:hover,.next:hover{transform:translateY(-2px)}
+.small{font-size:14px;color:#777;margin-top:12px}
+.map-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.map-head h2{font-size:38px;margin:0}
+.map-intro{font-size:18px;color:#666;margin:8px 0 20px}
+.map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.zone{
+  border:0;border-radius:23px;background:#fff;padding:0;overflow:hidden;
+  cursor:pointer;text-align:left;box-shadow:0 9px 22px #00000013;
+  transition:.18s;position:relative
+}
+.zone:hover{transform:translateY(-4px)}
+.zone.locked{cursor:not-allowed;filter:saturate(.55);opacity:.72}
+.zone-img{width:100%;height:145px;object-fit:cover;background:#e9e3f5}
+.zone-body{padding:14px}
+.zone-num{font-size:13px;color:#7c65bd;font-weight:900}
+.zone-title{font-size:20px;font-weight:900;margin-top:3px}
+.zone-sub{font-size:14px;color:#777;margin-top:4px}
+.lock{position:absolute;right:12px;top:12px;background:#fff;border-radius:50%;padding:8px}
+.lesson-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lesson-title{font-size:30px;margin:0}
+.progress{height:12px;background:#eee;border-radius:99px;overflow:hidden;margin:15px 0 22px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ff6b9d,#7c58dd);width:0}
+.lesson-card{text-align:center}
+.question{font-size:28px;font-weight:900;margin:10px 0 18px}
+.big-image{
+  width:min(100%,500px);height:285px;object-fit:contain;
+  border-radius:24px;margin:auto;background:#f7f4ff
+}
+.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.answer{
+  border:2px solid #e2ddec;background:#fff;border-radius:18px;padding:15px;
+  cursor:pointer;font-size:19px;font-weight:800;color:#45416d
+}
+.answer:hover{background:#f6f0ff}
+.answer.correct{background:#c9f5d0;border-color:#4caf68}
+.answer.wrong{background:#ffd1d8;border-color:#f05c70}
+.feedback{min-height:32px;font-size:18px;font-weight:900;margin:15px}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.story{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:center
+}
+.story img{width:100%;height:390px;object-fit:contain;border-radius:25px;background:#f6f1ff}
+.story-text{font-size:28px;font-weight:900;line-height:1.3}
+.story-step{font-size:14px;color:#8b7ba7;font-weight:900;margin-bottom:12px}
+.reward{text-align:center;padding:30px}
+.reward h2{font-size:42px;color:#6339a6;margin:8px}
+.reward .stars{font-size:55px}
+@media(max-width:760px){
+  #app{padding:10px}
+  .hero,.story{grid-template-columns:1fr}
+  .hero{min-height:auto}
+  .hero-copy h1{font-size:44px}
+  .hero-img{max-height:330px}
+  .map-grid{grid-template-columns:1fr 1fr}
+  .answer-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .map-grid{grid-template-columns:1fr}
+  .card{padding:18px;border-radius:22px}
+  .question{font-size:23px}
+}
+</style>
 </head>
 <body>
-    <div id="game-container">
-        <h1>Lily Story</h1>
-        <button id="exit-btn" onclick="window.location.href='index.html'">✖</button>
-        <img id="lily-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
-        
-        <div id="screen-story">
-            <div id="story-text"></div>
-            <button id="story-btn" onclick="speakStory()">🎤 Listen</button>
-            <button id="next-btn" onclick="nextQuestion()">Next ➡️</button>
-        </div>
-        
-        <div id="screen-final">
-            <div class="location-btn" onclick="window.location.href='index.html'">Back to Map</div>
-        </div>
+<div id="app">
+
+  <section id="home" class="screen active">
+    <div class="card hero">
+      <div class="hero-copy">
+        <div class="brand">🌈 English Quest</div>
+        <h1>English can be an adventure!</h1>
+        <p>Meet Lily, explore new worlds, listen, speak and earn ⭐ XP and 💎 gems.</p>
+        <button class="primary" onclick="showMap()">Start Quest 🚀</button>
+        <div class="small">Mistakes are OK. Try, listen and try again.</div>
+      </div>
+      <img class="hero-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
     </div>
+  </section>
 
-    <script>
-        const LILY_PITCH = 1.2;
-        const LILY_RATE = 0.85;
+  <section id="map" class="screen">
+    <div class="top">
+      <div class="brand">🌈 English Quest</div>
+      <div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">💎 <span id="gems">0</span></div></div>
+    </div>
+    <div class="card">
+      <div class="map-head">
+        <div><h2>🗺️ Adventure Map</h2><div class="map-intro">Complete a world to unlock the next one.</div></div>
+        <button class="secondary" onclick="goHome()">⌂ Home</button>
+      </div>
+      <div id="mapGrid" class="map-grid"></div>
+    </div>
+  </section>
 
-        let lilyVoice = null;
-        let sceneIndex = 0;
-        let scenes = [];
+  <section id="lesson" class="screen">
+    <div class="top">
+      <button class="secondary" onclick="showMap()">← Map</button>
+      <div class="stats"><div class="pill">⭐ <span id="lessonXp">0</span></div><div class="pill">💎 <span id="lessonGems">0</span></div></div>
+    </div>
+    <div class="card">
+      <div class="lesson-head"><h2 id="lessonTitle" class="lesson-title"></h2><div id="counter"></div></div>
+      <div class="progress"><div id="progressFill" class="progress-fill"></div></div>
+      <div id="lessonContent"></div>
+    </div>
+  </section>
 
-        function setupVoice() {
-            const voices = window.speechSynthesis.getVoices();
-            for (let i = 0; i < voices.length; i++) {
-                const v = voices[i];
-                if (v.name.includes('Google UK English Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Female') || v.lang === 'en-US' || v.lang === 'en-GB') {
-                    lilyVoice = v; break;
-                }
-            }
-            if (!lilyVoice && voices.length > 0) { lilyVoice = voices[0]; }
-            window.speechSynthesis.onvoiceschanged = function() {
-                const voices = window.speechSynthesis.getVoices();
-                for (let i = 0; i < voices.length; i++) {
-                    const v = voices[i];
-                    if (v.name.includes('Google UK English Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Female') || v.lang === 'en-US' || v.lang === 'en-GB') {
-                        lilyVoice = v; break;
-                    }
-                }
-            };
-        }
+  <section id="reward" class="screen">
+    <div class="card reward">
+      <div class="stars">🌟🏆🌟</div>
+      <h2 id="rewardTitle">Well done!</h2>
+      <p id="rewardText" style="font-size:20px"></p>
+      <button class="primary" onclick="showMap()">Continue Adventure 🗺️</button>
+    </div>
+  </section>
 
-        function speak(text) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = LILY_RATE;
-            utterance.pitch = LILY_PITCH;
-            utterance.volume = 1.0;
-            if (lilyVoice) { utterance.voice = lilyVoice; }
-            window.speechSynthesis.speak(utterance);
-        }
+</div>
 
-        // Сцены про Лили и её семью
-        scenes = [
-            { text: "Hello! I'm Lily!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I have a mummy. Her name is Anna.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I have a daddy. His name is Tom.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I have a grandma and a grandpa.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" },
-            { text: "I have a sister. Her name is Mia.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
-            { text: "I love my family!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "I go to school every day!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-            { text: "Let's play together!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" }
-        ];
+<script>
+const IMG = "https://yuliaishtar-hub.github.io/inglish-adventure/";
 
-        function speakStory() {
-            if (sceneIndex < scenes.length) {
-                const scene = scenes[sceneIndex];
-                document.getElementById('story-text').innerText = scene.text;
-                document.getElementById('lily-img').src = scene.image;
-                speak(scene.text);
-                sceneIndex++;
-                
-                if (sceneIndex >= scenes.length) {
-                    document.getElementById('next-btn').style.display = 'inline-block';
-                    document.getElementById('story-btn').style.display = 'none';
-                }
-            }
-        }
+const zones = [
+  {key:"family", icon:"👨‍👩‍👧", title:"Family", sub:"Family & people", image:IMG+"mum dad.jpg"},
+  {key:"school", icon:"🏫", title:"School", sub:"Things & actions", image:IMG+"School bag.jpg"},
+  {key:"animals", icon:"🐾", title:"Pet World", sub:"Animals & speaking", image:IMG+"monkey.jpg"},
+  {key:"colours", icon:"🎨", title:"Colour Castle", sub:"Colours", image:null},
+  {key:"food", icon:"🍕", title:"Yummy Café", sub:"Food & drinks", image:IMG+"Pizza.jpg"},
+  {key:"seasons", icon:"🌦️", title:"Weather Park", sub:"Seasons", image:null},
+  {key:"toys", icon:"🧸", title:"Toy Town", sub:"Toys", image:null},
+  {key:"home", icon:"🏡", title:"My Home", sub:"Rooms & things", image:IMG+"bedroom.jpg"},
+  {key:"boss", icon:"👑", title:"Boss Castle", sub:"Big conversation", image:IMG+"Lili green.jpg"}
+];
 
-        function nextQuestion() {
-            document.getElementById('screen-story').style.display = 'none';
-            document.getElementById('screen-final').style.display = 'block';
-            speak("Well done!");
-        }
+const levels = {
+family:{
+ name:"👨‍👩‍👧 Family",
+ type:"story",
+ scenes:[
+  {text:"Hello! I'm Lily!", image:IMG+"Lili.jpg"},
+  {text:"I have a mummy. Her name is Anna.", image:IMG+"mummy.jpg"},
+  {text:"I have a daddy. His name is Tom.", image:IMG+"daddy.jpg"},
+  {text:"I have a grandma and a grandpa.", image:IMG+"grandmagrandpa.jpg"},
+  {text:"I have a sister. Her name is Mia.", image:IMG+"Lilissisterbig.jpg"},
+  {text:"I love my family!", image:IMG+"Lili.jpg"},
+  {text:"I go to school every day!", image:IMG+"Lili.jpg"},
+  {text:"Let's play together!", image:IMG+"Lili.jpg"}
+ ]},
+school:{name:"🏫 School", questions:[
+ q("What is it?",IMG+"pen.jpg",["It's a pen.","It's a ruler.","It's an eraser."],0),
+ q("What is it?",IMG+"pencil.jpg",["It's a pencil.","It's a ruler.","It's a pen."],0),
+ q("What is it?",IMG+"ruler.jpg",["It's a pencil.","It's a ruler.","It's a pen."],1),
+ q("What is it?",IMG+"Eraser.jpg",["It's a ruler.","It's a pen.","It's an eraser."],2),
+ q("What is it?",IMG+"School bag.jpg",["It's a school bag.","It's a pen.","It's a ruler."],0)
+]},
+animals:{name:"🐾 Pet World",questions:[
+ q("What is it?",IMG+"monkey.jpg",["It's a chimp.","It's a fish.","It's a bird."],0),
+ q("What is it?",IMG+"fish.jpg",["It's a mouse.","It's a frog.","It's a fish."],2),
+ q("What is it?",IMG+"bird.jpg",["It's a bird.","It's a chimp.","It's a mouse."],0),
+ q("What is it?",IMG+"mouse.jpg",["It's a fish.","It's a mouse.","It's a frog."],1),
+ q("What is it?",IMG+"frog.jpg",["It's a frog.","It's a bird.","It's a chimp."],0)
+]},
+colours:{name:"🎨 Colour Castle",questions:[
+ q("What colour is it?","🔴",["It's red.","It's blue.","It's white."],0),
+ q("What colour is it?","🔵",["It's yellow.","It's black.","It's blue."],2),
+ q("What colour is it?","🟡",["It's yellow.","It's brown.","It's orange."],0),
+ q("What colour is it?","⚫",["It's white.","It's black.","It's red."],1),
+ q("What colour is it?","🟢",["It's green.","It's yellow.","It's red."],0),
+ q("What colour is it?","⚪",["It's white.","It's blue.","It's black."],0),
+ q("What colour is it?","🟤",["It's brown.","It's pink.","It's red."],0),
+ q("What colour is it?","🌸",["It's pink.","It's green.","It's blue."],0)
+]},
+food:{name:"🍕 Yummy Café",questions:[
+ q("What is it?",IMG+"Apple.jpg",["It's an apple.","It's a pizza.","It's a burger."],0),
+ q("What is it?",IMG+"Burger.jpg",["It's an apple.","It's a burger.","It's a sandwich."],1),
+ q("What is it?",IMG+"Chips.jpg",["It's a pizza.","It's a burger.","It's chips."],2),
+ q("What is it?",IMG+"Chocolate cake.jpg",["It's a chocolate cake.","It's an apple.","It's ice cream."],0),
+ q("What is it?",IMG+"Ice cream.jpg",["It's a burger.","It's ice cream.","It's a sandwich."],1),
+ q("What is it?",IMG+"Milk.jpg",["It's milk.","It's pizza.","It's chips."],0),
+ q("What is it?",IMG+"Orange juice.jpg",["It's orange juice.","It's milk.","It's water."],0),
+ q("What is it?",IMG+"Pizza.jpg",["It's pizza.","It's an apple.","It's a burger."],0),
+ q("What is it?",IMG+"Sandwich.jpg",["It's a sandwich.","It's an apple.","It's chips."],0)
+]},
+seasons:{name:"🌦️ Weather Park",questions:[
+ q("What season is it?","❄️",["It's winter.","It's summer.","It's spring."],0),
+ q("What season is it?","🌸",["It's autumn.","It's spring.","It's winter."],1),
+ q("What season is it?","☀️",["It's winter.","It's spring.","It's summer."],2),
+ q("What season is it?","🍂",["It's autumn.","It's winter.","It's summer."],0)
+]},
+toys:{name:"🧸 Toy Town",questions:[
+ q("What is it?","🧸",["It's a teddy bear.","It's a doll.","It's a ball."],0),
+ q("What is it?","🪀",["It's a yoyo.","It's a puppet.","It's a toy soldier."],0),
+ q("What is it?","⚽",["It's a ball.","It's a teddy bear.","It's a doll."],0),
+ q("What is it?","🪆",["It's a puppet.","It's a yoyo.","It's a ball."],0)
+]},
+home:{name:"🏡 My Home",questions:[
+ q("What is it?","🪑",["It's a chair.","It's a table.","It's a shelf."],0),
+ q("What room is it?",IMG+"bedroom.jpg",["It's a kitchen.","It's a bedroom.","It's a bathroom."],1),
+ q("What room is it?",IMG+"kitchen.jpg",["It's a kitchen.","It's a living room.","It's a bedroom."],0),
+ q("What room is it?",IMG+"bathroom.jpg",["It's a bedroom.","It's a bathroom.","It's a kitchen."],1)
+]},
+boss:{name:"👑 Boss Castle",questions:[
+ q("Who is she?",IMG+"mummy.jpg",["She's my mummy.","She's my sister.","She's my grandma."],0),
+ q("Who is he?",IMG+"daddy.jpg",["He's my brother.","He's my daddy.","He's my grandpa."],1),
+ q("What is it?",IMG+"Apple.jpg",["It's an apple.","It's a pizza.","It's a burger."],0),
+ q("What is it?",IMG+"School bag.jpg",["It's a school bag.","It's a pen.","It's a ruler."],0)
+]}
+};
 
-        window.onload = function() {
-            setupVoice();
-        };
-    </script>
+function q(question,image,options,correctIndex){return {question,image,options,correctIndex}}
+
+let state = JSON.parse(localStorage.getItem("english_quest_v2") || "null") || {
+ xp:0,gems:0,completed:[],unlocked:["family"]
+};
+let currentKey="", currentIndex=0, answered=false, storyMode=false, lilyVoice=null;
+
+function save(){localStorage.setItem("english_quest_v2",JSON.stringify(state)); updateStats();}
+function updateStats(){
+ ["xp","lessonXp"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=state.xp});
+ ["gems","lessonGems"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=state.gems});
+}
+function show(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo(0,0);
+}
+function goHome(){show("home")}
+function showMap(){renderMap();updateStats();show("map")}
+function renderMap(){
+ const grid=document.getElementById("mapGrid"); grid.innerHTML="";
+ zones.forEach((z,i)=>{
+   const unlocked=state.unlocked.includes(z.key);
+   const done=state.completed.includes(z.key);
+   const b=document.createElement("button");
+   b.className="zone"+(unlocked?"":" locked");
+   b.innerHTML=`
+     ${!unlocked?'<div class="lock">🔒</div>':''}
+     ${z.image?`<img class="zone-img" src="${z.image}" alt="">`:`<div class="zone-img" style="display:flex;align-items:center;justify-content:center;font-size:70px">${z.icon}</div>`}
+     <div class="zone-body">
+       <div class="zone-num">ZONE ${i+1} ${done?"✓":""}</div>
+       <div class="zone-title">${z.icon} ${z.title}</div>
+       <div class="zone-sub">${z.sub}</div>
+     </div>`;
+   if(unlocked)b.onclick=()=>startLevel(z.key);
+   grid.appendChild(b);
+ });
+}
+function startLevel(key){
+ currentKey=key; currentIndex=0; answered=false;
+ storyMode=levels[key].type==="story";
+ document.getElementById("lessonTitle").textContent=levels[key].name;
+ show("lesson");
+ renderLesson();
+}
+function renderLesson(){
+ const data=levels[currentKey];
+ document.getElementById("counter").textContent=`${currentIndex+1} / ${storyMode?data.scenes.length:data.questions.length}`;
+ document.getElementById("progressFill").style.width=((currentIndex)/(storyMode?data.scenes.length:data.questions.length)*100)+"%";
+ const box=document.getElementById("lessonContent");
+ if(storyMode){renderStory(box,data.scenes[currentIndex]);return}
+ const item=data.questions[currentIndex]; answered=false;
+ const image=typeof item.image==="string" && item.image.startsWith("http")
+   ? `<img class="big-image" src="${item.image}" alt="">`
+   : `<div class="big-image" style="display:flex;align-items:center;justify-content:center;font-size:100px">${item.image}</div>`;
+ box.innerHTML=`
+   ${image}
+   <div class="question">${item.question}</div>
+   <button class="listen" onclick="speak('${escapeJS(item.question)}')">🔊 Listen to question</button>
+   <div id="answers" class="answer-grid"></div>
+   <div id="feedback" class="feedback"></div>
+   <div class="actions"><button id="mic" class="mic" style="display:none" onclick="listenAnswer()">🎤 Say it!</button><button id="next" class="next" style="display:none" onclick="nextItem()">Next ➡️</button></div>`;
+ const answers=document.getElementById("answers");
+ item.options.forEach((text,i)=>{
+   const btn=document.createElement("button");btn.className="answer";btn.textContent=text;
+   btn.onclick=()=>selectAnswer(i,btn);answers.appendChild(btn);
+ });
+}
+function renderStory(box,scene){
+ box.innerHTML=`
+ <div class="story">
+   <img src="${scene.image}" alt="Lily story">
+   <div>
+     <div class="story-step">LILY'S STORY • SCENE ${currentIndex+1}</div>
+     <div class="story-text">${scene.text}</div>
+     <div class="actions" style="margin-top:24px">
+       <button class="listen" onclick="speak('${escapeJS(scene.text)}',true)">🔊 Listen</button>
+       <button class="next" onclick="nextItem()">${currentIndex===levels[currentKey].scenes.length-1?"Finish story":"Next ➡️"}</button>
+     </div>
+   </div>
+ </div>`;
+}
+function selectAnswer(index,btn){
+ if(answered)return;
+ const item=levels[currentKey].questions[currentIndex];
+ if(index===item.correctIndex){
+   answered=true;btn.classList.add("correct");
+   document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
+   state.xp+=10;state.gems+=1;save();
+   document.getElementById("feedback").textContent="Great! Now say it aloud! +10 XP ⭐";
+   document.getElementById("feedback").style.color="#39964e";
+   document.getElementById("mic").style.display="inline-block";
+   document.getElementById("next").style.display="inline-block";
+   speak(item.options[item.correctIndex],true);
+ }else{
+   btn.classList.add("wrong");btn.disabled=true;
+   document.getElementById("feedback").textContent="Oops! Try again!";
+   document.getElementById("feedback").style.color="#e2536c";
+   speak(item.options[item.correctIndex],true);
+ }
+}
+function nextItem(){
+ const total=storyMode?levels[currentKey].scenes.length:levels[currentKey].questions.length;
+ currentIndex++;
+ if(currentIndex>=total){finishLevel();return}
+ renderLesson();
+}
+function finishLevel(){
+ if(!state.completed.includes(currentKey))state.completed.push(currentKey);
+ const pos=zones.findIndex(z=>z.key===currentKey);
+ const next=zones[pos+1];
+ if(next && !state.unlocked.includes(next.key))state.unlocked.push(next.key);
+ save();
+ const nextText=next?"🔓 "+next.title+" is now unlocked!":"You reached the end of the current adventure!";
+ document.getElementById("rewardTitle").textContent=levels[currentKey].name+" complete!";
+ document.getElementById("rewardText").textContent=nextText;
+ show("reward");speak("Well done! "+nextText,true);
+}
+function speak(text,slow=false){
+ if(!("speechSynthesis" in window))return;
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=slow?.72:.9;u.pitch=1.08;
+ if(lilyVoice)u.voice=lilyVoice;speechSynthesis.speak(u);
+}
+function setupVoice(){
+ const choose=()=>{
+  const voices=speechSynthesis.getVoices();
+  lilyVoice=voices.find(v=>/Google UK English Female|Zira|Samantha|Female/i.test(v.name))
+    || voices.find(v=>v.lang==="en-US"||v.lang==="en-GB") || voices[0] || null;
+ };
+ choose();speechSynthesis.onvoiceschanged=choose;
+}
+function listenAnswer(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){alert("Speech recognition is not available in this browser. You can still use Listen and choose the answer.");return}
+ const item=levels[currentKey].questions[currentIndex];
+ const mic=document.getElementById("mic");mic.textContent="🎤 Listening...";
+ const r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;
+ r.onresult=e=>{
+  const heard=e.results[0][0].transcript.toLowerCase().replace(/[.,!?;:]/g,"").trim();
+  const correct=item.options[item.correctIndex].toLowerCase().replace(/[.,!?;:]/g,"").trim();
+  const words=correct.split(/\s+/).filter(w=>w.length>2);
+  const hits=words.filter(w=>heard.includes(w)).length;
+  mic.textContent="🎤 Say it!";
+  if(heard===correct || heard.includes(correct) || hits>=Math.max(1,Math.ceil(words.length*.65))){
+    document.getElementById("feedback").textContent="Excellent speaking! 🎉";
+    document.getElementById("feedback").style.color="#39964e";
+  }else{
+    document.getElementById("feedback").textContent="Good try! Listen once more and repeat.";
+    document.getElementById("feedback").style.color="#8a5a9e";
+    speak(correct,true);
+  }
+ };
+ r.onerror=()=>{mic.textContent="🎤 Say it!";alert("I couldn't hear that. Please try again.");};
+ r.start();
+}
+function escapeJS(s){return s.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g," ")}
+setupVoice();updateStats();
+</script>
 </body>
 </html>
