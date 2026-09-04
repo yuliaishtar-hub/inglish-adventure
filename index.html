@@ -1,12 +1,689 @@
-family: {
-    name: "👨‍👩‍👧 Family",
-    type: "story",
-    scenes: [
-        { text: "Hello! I'm Lily!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" },
-        { text: "I have a mummy. Her name is Anna.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg" },
-        { text: "I have a daddy. His name is Tom.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg" },
-        { text: "I have a grandma and a grandpa.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" },
-        { text: "I have a sister. Her name is Mia.", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
-        { text: "I love my family!", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" }
-    ]
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Quest</title>
+    <style>
+        :root {
+            --pink: #ff6fae;
+            --purple: #8067ff;
+            --blue: #64b5f6;
+            --green: #57c99b;
+            --yellow: #ffd45c;
+            --ink: #28233d;
+            --muted: #77718b;
+            --bg: #f7f4ff;
+            --shadow: 0 14px 40px rgba(93, 75, 154, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: linear-gradient(145deg, #fff7fb, #f1efff);
+            color: var(--ink);
+        }
+
+        button {
+            font: inherit;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .app {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .brand span {
+            color: var(--pink);
+        }
+
+        .stats {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pill {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            font-weight: 800;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .mission {
+            color: var(--purple);
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1.05;
+            margin: 10px 0 15px;
+        }
+
+        .sub {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .cta {
+            margin-top: 10px;
+            padding: 16px 24px;
+            color: white;
+            font-weight: 900;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            box-shadow: 0 10px 25px rgba(128, 103, 255, .2);
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-character {
+            min-height: 330px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #fff0f7, #eeeaff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lily {
+            font-size: 140px;
+            text-align: center;
+        }
+
+        .speech {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-weight: 900;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .parent {
+            margin-top: 20px;
+        }
+
+        .map {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .zone {
+            background: white;
+            padding: 20px;
+            border-radius: 24px;
+            min-height: 160px;
+            box-shadow: var(--shadow);
+            transition: .2s;
+            position: relative;
+        }
+
+        .zone.open {
+            cursor: pointer;
+        }
+
+        .zone.open:hover {
+            transform: translateY(-4px);
+        }
+
+        .zone.locked {
+            opacity: .45;
+            filter: grayscale(.5);
+        }
+
+        .zone .emoji {
+            font-size: 48px;
+        }
+
+        .zone b {
+            display: block;
+            font-size: 19px;
+            margin-top: 10px;
+        }
+
+        .zone small {
+            color: var(--muted);
+        }
+
+        .lock {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            font-size: 22px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #eeeaf7;
+            border-radius: 10px;
+            margin-top: 14px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            transition: .4s;
+        }
+
+        .lesson {
+            max-width: 760px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .lesson-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .back {
+            background: #eeeafa;
+            padding: 9px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        .lily-small {
+            font-size: 60px;
+        }
+
+        .big {
+            font-size: 105px;
+            margin: 10px;
+        }
+
+        .question {
+            font-size: 29px;
+            font-weight: 900;
+            margin: 10px;
+        }
+
+        .answers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .answer {
+            background: #f1efff;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-weight: 800;
+        }
+
+        .answer:hover {
+            background: #e3ddff;
+        }
+
+        .answer.selected {
+            outline: 3px solid var(--purple);
+        }
+
+        .feedback {
+            min-height: 40px;
+            margin: 18px;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .voice {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .voice button {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 25px rgba(128, 103, 255, .2);
+        }
+
+        .listen {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+        }
+
+        .speak {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .reward {
+            display: none;
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #fff7d8, #ffeaf4);
+        }
+
+        .reward.show {
+            display: block;
+        }
+
+        .reward-icon {
+            font-size: 50px;
+        }
+
+        @media(max-width:760px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .map {
+                grid-template-columns: 1fr 1fr;
+            }
+            h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media(max-width:480px) {
+            .app {
+                padding: 12px;
+            }
+            .map {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 22px;
+            }
+            .top {
+                align-items: flex-start;
+            }
+            .brand {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <header class="top">
+        <div class="brand">🌈 English <span>Quest</span></div>
+        <div class="stats">
+            <div class="pill">⭐ <span id="xp">0</span> XP</div>
+            <div class="pill">💎 <span id="gems">0</span></div>
+        </div>
+    </header>
+
+    <section id="home" class="screen active">
+        <div class="card hero">
+            <div>
+                <div class="mission">✨ YOUR ENGLISH QUEST</div>
+                <h1>English can be an adventure!</h1>
+                <p class="sub">Meet Lily, explore magical worlds, complete missions and learn to speak English without fear.</p>
+                <button class="cta" id="startBtn">Start Quest 🚀</button>
+            </div>
+            <div class="hero-character">
+                <div>
+                    <div class="lily">👧🏻</div>
+                    <div class="speech">Hi! I'm Lily! 💜</div>
+                </div>
+            </div>
+        </div>
+        <div class="card parent">
+            <h2>💜 Lily's rule</h2>
+            <p class="sub">Mistakes are okay! Every time you try to speak English, you become stronger.</p>
+        </div>
+    </section>
+
+    <section id="map" class="screen">
+        <h1>🗺️ Adventure Map</h1>
+        <p class="sub">Explore the world with Lily!</p>
+        <div class="map" id="zones"></div>
+        <br>
+        <button class="back" id="homeBtn">← Home</button>
+    </section>
+
+    <section id="lesson" class="screen">
+        <div class="card lesson">
+            <div class="lesson-top">
+                <button class="back" id="mapBtn">← Map</button>
+                <strong id="counter">1 / 4</strong>
+            </div>
+            <div class="lily-small">👧🏻</div>
+            <div class="mission">🐾 PET WORLD</div>
+            <div class="big" id="picture">🐶</div>
+            <div class="question" id="question">What is it?</div>
+            <div class="answers" id="answers"></div>
+            <div class="feedback" id="feedback"></div>
+            <div class="voice">
+                <button class="listen" id="listenBtn" title="Listen">🔊</button>
+                <button class="speak" id="speakBtn" title="Speak">🎤</button>
+            </div>
+            <div class="hint">🔊 Listen to Lily • 🎤 Say your answer</div>
+            <div class="reward" id="reward">
+                <div class="reward-icon">🎁</div>
+                <h2 id="rewardTitle">Amazing!</h2>
+                <p id="rewardText">You did it!</p>
+                <button class="cta" id="rewardMapBtn">Continue Adventure 🗺️</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    let state = {
+        xp: 0,
+        gems: 0,
+        missions: 0,
+        petDone: 0,
+        unlocked: 10
+    };
+
+    let current = 0;
+    let answerSelected = false;
+    let selectedAnswer = "";
+    let missionRewarded = false;
+
+    const zones = [
+        ["👨‍👩‍👧", "Family", "Family & people"],
+        ["🏫", "School", "Things & actions"],
+        ["🐾", "Pet World", "Animals & speaking"],
+        ["🎨", "Colour Castle", "Colours & numbers"],
+        ["🍕", "Yummy Café", "Food & likes"],
+        ["🌦️", "Weather Park", "Weather & clothes"],
+        ["🏡", "My Day", "Daily routine"],
+        ["🚀", "Space Trip", "3rd-grade speaking"],
+        ["👑", "Boss Castle", "Big conversation"]
+    ];
+
+    const missions = [
+        { picture: "🐶", question: "What is it?", answers: ["It's a dog."] },
+        { picture: "🐱", question: "What is it?", answers: ["It's a cat."] },
+        { picture: "🍎", question: "Do you like apples?", answers: ["Yes, I do!", "No, I don't."] },
+        { picture: "🐰", question: "What is it?", answers: ["It's a rabbit."] }
+    ];
+
+    function save() {
+        updateStats();
+    }
+
+    function updateStats() {
+        document.getElementById("xp").textContent = state.xp;
+        document.getElementById("gems").textContent = state.gems;
+    }
+
+    function show(id) {
+        document.querySelectorAll(".screen").forEach(screen => {
+            screen.classList.remove("active");
+        });
+        document.getElementById(id).classList.add("active");
+        if (id === "map") {
+            renderMap();
+        }
+    }
+
+    function renderMap() {
+        const container = document.getElementById("zones");
+        container.innerHTML = "";
+        zones.forEach((zone, index) => {
+            const open = index < state.unlocked;
+            const card = document.createElement("div");
+            card.className = "zone " + (open ? "open" : "locked");
+            const progress = index === 0
+                ? `<div class="progress"><div class="bar" style="width:${Math.min(100, state.petDone / missions.length * 100)}%"></div></div>`
+                : "";
+            card.innerHTML = `
+                <div class="emoji">${zone[0]}</div>
+                <b>${zone[1]}</b>
+                <small>${zone[2]}</small>
+                ${open ? "" : "<div class='lock'>🔒</div>"}
+                ${progress}
+            `;
+            if (open) {
+                card.addEventListener("click", () => {
+                    openZone(index);
+                });
+            }
+            container.appendChild(card);
+        });
+    }
+
+    function openZone(index) {
+        if (index >= state.unlocked) return;
+        if (index !== 0) return;
+        current = 0;
+        show("lesson");
+        renderMission();
+    }
+
+    function renderMission() {
+        const mission = missions[current];
+        answerSelected = false;
+        selectedAnswer = "";
+        missionRewarded = false;
+        document.getElementById("counter").textContent = `${current + 1} / ${missions.length}`;
+        document.getElementById("picture").textContent = mission.picture;
+        document.getElementById("question").textContent = mission.question;
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("reward").classList.remove("show");
+        const answers = document.getElementById("answers");
+        answers.innerHTML = "";
+        mission.answers.forEach(answer => {
+            const button = document.createElement("button");
+            button.className = "answer";
+            button.textContent = answer;
+            button.addEventListener("click", () => {
+                selectAnswer(answer, button);
+            });
+            answers.appendChild(button);
+        });
+        setTimeout(() => {
+            speakText(mission.question);
+        }, 400);
+    }
+
+    function selectAnswer(answer, button) {
+        answerSelected = true;
+        selectedAnswer = answer;
+        document.querySelectorAll(".answer").forEach(btn => {
+            btn.classList.remove("selected");
+        });
+        button.classList.add("selected");
+        document.getElementById("feedback").textContent = "✨ Great! Now say it aloud!";
+        speakText("Great! Now say it aloud!");
+    }
+
+    function speakText(text, onFinished) {
+        if (!("speechSynthesis" in window)) {
+            if (onFinished) onFinished();
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        utterance.rate = 0.68;
+        utterance.pitch = 1.08;
+        utterance.volume = 1;
+        utterance.onend = () => {
+            if (onFinished) onFinished();
+        };
+        const voices = speechSynthesis.getVoices();
+        const englishVoice = voices.find(voice => voice.lang && voice.lang.toLowerCase().startsWith("en"));
+        if (englishVoice) {
+            utterance.voice = englishVoice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+
+    document.getElementById("listenBtn").addEventListener("click", () => {
+        speakText(missions[current].question);
+    });
+
+    document.getElementById("speakBtn").addEventListener("click", startListening);
+
+    function startListening() {
+        const feedback = document.getElementById("feedback");
+        if (!answerSelected) {
+            feedback.textContent = "💜 Choose an answer first, then say it aloud.";
+            return;
+        }
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!Recognition) {
+            feedback.textContent = "🎤 Voice recognition is not supported in this browser.";
+            return;
+        }
+        const recognition = new Recognition();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 5;
+        feedback.textContent = "👂 Lily is listening…";
+        try {
+            recognition.start();
+        } catch (error) {
+            feedback.textContent = "🎤 Please try the microphone again.";
+            return;
+        }
+        recognition.onresult = function(event) {
+            const heard = event.results[0][0].transcript.toLowerCase().trim();
+            const allowedAnswers = missions[current].answers.map(answer => answer.toLowerCase().replace(/[?!.,]/g, ""));
+            let matched = false;
+            const target = selectedAnswer.toLowerCase().replace(/[?!.,]/g, "");
+            const targetWords = target.split(" ").filter(word => word.length > 2);
+            const hits = targetWords.filter(word => heard.includes(word)).length;
+            const needed = Math.max(1, Math.ceil(targetWords.length * 0.5));
+            if (hits >= needed) {
+                matched = true;
+            }
+            if (!matched) {
+                for (const answer of allowedAnswers) {
+                    const words = answer.split(" ").filter(word => word.length > 2);
+                    const answerHits = words.filter(word => heard.includes(word)).length;
+                    const answerNeeded = Math.max(1, Math.ceil(words.length * 0.5));
+                    if (answerHits >= answerNeeded) {
+                        matched = true;
+                        break;
+                    }
+                }
+            }
+            if (matched) {
+                completeMission();
+            } else {
+                feedback.textContent = `💛 I heard: "${heard}". Try again!`;
+            }
+        };
+        recognition.onerror = function() {
+            feedback.textContent = "💛 I didn't catch that. Try again.";
+        };
+        recognition.onend = function() {};
+    }
+
+    function completeMission() {
+        if (missionRewarded) return;
+        missionRewarded = true;
+        state.xp += 25;
+        state.gems += 1;
+        state.missions += 1;
+        state.petDone += 1;
+        save();
+        document.getElementById("feedback").textContent = "🌟 Amazing! You spoke English!";
+        speakText("Amazing! You spoke English!");
+        setTimeout(() => {
+            nextMission();
+        }, 2200);
+    }
+
+    function nextMission() {
+        current++;
+        if (current >= missions.length) {
+            unlockNextZone();
+            return;
+        }
+        renderMission();
+    }
+
+    function unlockNextZone() {
+        if (state.unlocked < zones.length) {
+            state.unlocked++;
+        }
+        save();
+        const reward = document.getElementById("reward");
+        reward.classList.add("show");
+        document.getElementById("rewardTitle").textContent = "🏆 Pet World Complete!";
+        document.getElementById("rewardText").textContent = "🎨 Colour Castle is unlocked!";
+        speakText("Pet World complete! Colour Castle is unlocked!");
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+        show("map");
+    });
+
+    document.getElementById("homeBtn").addEventListener("click", () => {
+        show("home");
+    });
+
+    document.getElementById("mapBtn").addEventListener("click", () => {
+        show("map");
+    });
+
+    document.getElementById("rewardMapBtn").addEventListener("click", () => {
+        show("map");
+    });
+
+    save();
+    renderMap();
+</script>
+</body>
+</html>
