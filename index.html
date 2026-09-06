@@ -62,7 +62,7 @@ button{font:inherit}
   box-shadow:0 16px 40px #54317b22
 }
 
-/* ---------- HOME ---------- */
+/* ================= HOME ================= */
 
 .hero{
   min-height:560px;
@@ -152,7 +152,7 @@ button{font:inherit}
   margin-top:12px
 }
 
-/* ---------- GAMES BUTTON ---------- */
+/* ================= GAMES BUTTON ================= */
 
 .home-games{
   margin-top:18px
@@ -178,7 +178,7 @@ button{font:inherit}
   box-shadow:0 14px 30px #00000022
 }
 
-/* ---------- MAP ---------- */
+/* ================= MAP ================= */
 
 .map-head{
   display:flex;
@@ -268,7 +268,7 @@ button{font:inherit}
   z-index:2
 }
 
-/* ---------- LESSON ---------- */
+/* ================= LESSON ================= */
 
 .lesson-head{
   display:flex;
@@ -294,10 +294,6 @@ button{font:inherit}
   height:100%;
   background:linear-gradient(90deg,#ff6b9d,#7c58dd);
   width:0
-}
-
-.lesson-card{
-  text-align:center
 }
 
 .question{
@@ -366,7 +362,7 @@ button{font:inherit}
   flex-wrap:wrap
 }
 
-/* ---------- STORY ---------- */
+/* ================= STORY ================= */
 
 .story{
   display:grid;
@@ -398,7 +394,7 @@ button{font:inherit}
   margin-bottom:12px
 }
 
-/* ---------- REWARD ---------- */
+/* ================= REWARD ================= */
 
 .reward{
   text-align:center;
@@ -415,7 +411,7 @@ button{font:inherit}
   font-size:55px
 }
 
-/* ---------- MOBILE ---------- */
+/* ================= MOBILE ================= */
 
 @media(max-width:760px){
 
@@ -492,7 +488,9 @@ button{font:inherit}
 
     <div class="hero-copy">
 
-      <div class="brand">🌈 English Quest</div>
+      <div class="brand">
+        🌈 English Quest
+      </div>
 
       <h1>
         English can be an adventure!
@@ -502,7 +500,10 @@ button{font:inherit}
         Meet Lily, explore new worlds, listen, speak and earn ⭐ XP and 💎 gems.
       </p>
 
-      <button class="primary" onclick="showMap()">
+      <button
+        class="primary"
+        onclick="showMap()"
+      >
         Start Quest 🚀
       </button>
 
@@ -519,6 +520,7 @@ button{font:inherit}
     >
 
   </div>
+
 
   <div class="home-games">
 
@@ -584,7 +586,10 @@ button{font:inherit}
 
     </div>
 
-    <div id="mapGrid" class="map-grid"></div>
+    <div
+      id="mapGrid"
+      class="map-grid"
+    ></div>
 
   </div>
 
@@ -632,6 +637,7 @@ button{font:inherit}
 
     </div>
 
+
     <div class="progress">
 
       <div
@@ -640,6 +646,7 @@ button{font:inherit}
       ></div>
 
     </div>
+
 
     <div id="lessonContent"></div>
 
@@ -773,7 +780,7 @@ const zones = [
 
 
 /* =========================================================
-   LEVEL CONTENT
+   LEVELS
 ========================================================= */
 
 const levels = {
@@ -1379,13 +1386,11 @@ boss:{
 
   ]
 
-}
-
 };
 
 
 /* =========================================================
-   QUESTION HELPER
+   QUESTION FUNCTION
 ========================================================= */
 
 function q(
@@ -1404,7 +1409,7 @@ function q(
 
 
 /* =========================================================
-   GAME STATE
+   PLAYER STATE
 ========================================================= */
 
 let state =
@@ -1424,7 +1429,6 @@ let currentKey="";
 let currentIndex=0;
 let answered=false;
 let storyMode=false;
-let lilyVoice=null;
 
 
 /* =========================================================
@@ -1439,18 +1443,20 @@ function save(){
   );
 
   updateStats();
+
 }
 
 
 /* =========================================================
-   STATS
+   UPDATE STATS
 ========================================================= */
 
 function updateStats(){
 
   ["xp","lessonXp"].forEach(id=>{
 
-    const e=document.getElementById(id);
+    const e =
+      document.getElementById(id);
 
     if(e){
       e.textContent=state.xp;
@@ -1461,7 +1467,8 @@ function updateStats(){
 
   ["gems","lessonGems"].forEach(id=>{
 
-    const e=document.getElementById(id);
+    const e =
+      document.getElementById(id);
 
     if(e){
       e.textContent=state.gems;
@@ -1473,7 +1480,7 @@ function updateStats(){
 
 
 /* =========================================================
-   SCREEN SWITCH
+   SHOW SCREEN
 ========================================================= */
 
 function show(id){
@@ -1484,11 +1491,14 @@ function show(id){
       s=>s.classList.remove("active")
     );
 
+
   document
     .getElementById(id)
     .classList.add("active");
 
+
   window.scrollTo(0,0);
+
 }
 
 
@@ -1510,7 +1520,9 @@ function goHome(){
 function showMap(){
 
   renderMap();
+
   updateStats();
+
   show("map");
 
 }
@@ -1521,6 +1533,7 @@ function renderMap(){
   const grid =
     document.getElementById("mapGrid");
 
+
   grid.innerHTML="";
 
 
@@ -1529,12 +1542,14 @@ function renderMap(){
     const unlocked =
       state.unlocked.includes(z.key);
 
+
     const done =
       state.completed.includes(z.key);
 
 
     const b =
       document.createElement("button");
+
 
     b.className =
       "zone" +
@@ -1549,10 +1564,13 @@ function renderMap(){
         : ''
       }
 
+
       ${
         z.image
 
-        ? `
+        ?
+
+        `
           <img
             class="zone-img"
             src="${z.image}"
@@ -1560,7 +1578,9 @@ function renderMap(){
           >
         `
 
-        : `
+        :
+
+        `
 
           <div
             class="zone-img"
@@ -1593,12 +1613,14 @@ function renderMap(){
         </div>
 
       </div>
+
     `;
 
 
     if(unlocked){
 
-      b.onclick=()=>startLevel(z.key);
+      b.onclick =
+        ()=>startLevel(z.key);
 
     }
 
@@ -1617,7 +1639,9 @@ function renderMap(){
 function startLevel(key){
 
   currentKey=key;
+
   currentIndex=0;
+
   answered=false;
 
   storyMode =
@@ -1729,6 +1753,7 @@ function renderLesson(){
 
     ${image}
 
+
     <div class="question">
       ${item.question}
     </div>
@@ -1781,14 +1806,18 @@ function renderLesson(){
 
 
   const answers =
-    document.getElementById("answers");
+    document.getElementById(
+      "answers"
+    );
 
 
   item.options.forEach(
     (text,i)=>{
 
       const btn =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
 
 
       btn.className="answer";
@@ -1877,7 +1906,7 @@ function renderStory(box,scene){
 
 
 /* =========================================================
-   ANSWER
+   CHECK ANSWER
 ========================================================= */
 
 function selectAnswer(index,btn){
@@ -1905,8 +1934,10 @@ function selectAnswer(index,btn){
       );
 
 
-    state.xp+=10;
-    state.gems+=1;
+    state.xp += 10;
+
+    state.gems += 1;
+
 
     save();
 
@@ -1919,17 +1950,20 @@ function selectAnswer(index,btn){
 
     document.getElementById(
       "feedback"
-    ).style.color="#39964e";
+    ).style.color =
+      "#39964e";
 
 
     document.getElementById(
       "mic"
-    ).style.display="inline-block";
+    ).style.display =
+      "inline-block";
 
 
     document.getElementById(
       "next"
-    ).style.display="inline-block";
+    ).style.display =
+      "inline-block";
 
 
     speak(
@@ -1953,7 +1987,8 @@ function selectAnswer(index,btn){
 
     document.getElementById(
       "feedback"
-    ).style.color="#e2536c";
+    ).style.color =
+      "#e2536c";
 
 
     speak(
@@ -1967,7 +2002,7 @@ function selectAnswer(index,btn){
 
 
 /* =========================================================
-   NEXT
+   NEXT ITEM
 ========================================================= */
 
 function nextItem(){
@@ -1997,8 +2032,6 @@ function nextItem(){
 
 /* =========================================================
    FINISH LEVEL
-   IMPORTANT:
-   NO "NEXT BLOCK IS OPEN" MESSAGE
 ========================================================= */
 
 function finishLevel(){
@@ -2023,9 +2056,8 @@ function finishLevel(){
 
 
   /*
-    Unlock the next zone silently.
-    We do NOT tell the player:
-    "The next block is open."
+    The next zone unlocks silently.
+    No announcement about the next block.
   */
 
   if(
@@ -2057,6 +2089,10 @@ function finishLevel(){
   show("reward");
 
 
+  /*
+    SAME VOICE SETTINGS AS GAMES
+  */
+
   speak(
     "Well done! Great job!",
     true
@@ -2066,7 +2102,8 @@ function finishLevel(){
 
 
 /* =========================================================
-   CHILD-LIKE ENGLISH VOICE
+   VOICE
+   EXACTLY LIKE GAMES
 ========================================================= */
 
 function speak(text,slow=false){
@@ -2091,27 +2128,19 @@ function speak(text,slow=false){
 
 
   /*
-    A slightly higher pitch + slower speed
-    makes the browser voice sound more
-    playful and child-friendly.
+    EXACT SAME SETTINGS AS games.html
   */
 
   u.rate =
     slow
-    ? 0.76
-    : 0.88;
+    ? 0.72
+    : 0.82;
 
 
-  u.pitch=1.35;
+  u.pitch=1.08;
+
 
   u.volume=1;
-
-
-  if(lilyVoice){
-
-    u.voice=lilyVoice;
-
-  }
 
 
   speechSynthesis.speak(u);
@@ -2120,101 +2149,7 @@ function speak(text,slow=false){
 
 
 /* =========================================================
-   FIND BEST AVAILABLE VOICE
-========================================================= */
-
-function setupVoice(){
-
-  const choose=()=>{
-
-    const voices =
-      speechSynthesis.getVoices();
-
-
-    if(!voices.length)return;
-
-
-    /*
-      First try voices that are commonly
-      available as female / youthful English voices.
-    */
-
-    lilyVoice =
-      voices.find(
-        v =>
-          /female|girl|child|samantha|zira|aria|jenny/i
-            .test(v.name)
-          &&
-          /^en/i.test(v.lang)
-      );
-
-
-    /*
-      Google voices are usually pleasant
-      for this type of project.
-    */
-
-    if(!lilyVoice){
-
-      lilyVoice =
-        voices.find(
-          v =>
-            /Google/i.test(v.name)
-            &&
-            /^en/i.test(v.lang)
-        );
-
-    }
-
-
-    /*
-      Then standard American English.
-    */
-
-    if(!lilyVoice){
-
-      lilyVoice =
-        voices.find(
-          v=>v.lang==="en-US"
-        );
-
-    }
-
-
-    /*
-      Then any English voice.
-    */
-
-    if(!lilyVoice){
-
-      lilyVoice =
-        voices.find(
-          v=>/^en/i.test(v.lang)
-        );
-
-    }
-
-
-    if(!lilyVoice){
-
-      lilyVoice=voices[0];
-
-    }
-
-  };
-
-
-  choose();
-
-
-  speechSynthesis.onvoiceschanged =
-    choose;
-
-}
-
-
-/* =========================================================
-   MICROPHONE / SPEECH RECOGNITION
+   MICROPHONE
 ========================================================= */
 
 function listenAnswer(){
@@ -2311,7 +2246,8 @@ function listenAnswer(){
 
       document.getElementById(
         "feedback"
-      ).style.color="#39964e";
+      ).style.color =
+        "#39964e";
 
 
     }else{
@@ -2324,7 +2260,8 @@ function listenAnswer(){
 
       document.getElementById(
         "feedback"
-      ).style.color="#8a5a9e";
+      ).style.color =
+        "#8a5a9e";
 
 
       speak(
@@ -2356,7 +2293,7 @@ function listenAnswer(){
 
 
 /* =========================================================
-   ESCAPE TEXT FOR ONCLICK
+   ESCAPE TEXT
 ========================================================= */
 
 function escapeJS(s){
@@ -2372,8 +2309,6 @@ function escapeJS(s){
 /* =========================================================
    START
 ========================================================= */
-
-setupVoice();
 
 updateStats();
 
