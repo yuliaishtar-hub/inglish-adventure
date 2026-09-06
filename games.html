@@ -55,17 +55,13 @@
             color: var(--pink);
         }
 
-        .stats {
-            display: flex;
-            gap: 8px;
-        }
-
-        .pill {
-            background: white;
-            padding: 10px 14px;
-            border-radius: 18px;
-            box-shadow: var(--shadow);
+        .back {
+            background: #eeeafa;
+            padding: 12px 20px;
+            border-radius: 12px;
             font-weight: 800;
+            color: var(--ink);
+            font-size: 16px;
         }
 
         .screen {
@@ -129,13 +125,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-        }
-
-        .back {
-            background: #eeeafa;
-            padding: 9px 14px;
-            border-radius: 12px;
-            font-weight: 800;
         }
 
         .big {
@@ -234,7 +223,7 @@
     <section id="games-map" class="screen active">
         <div class="top">
             <div class="brand">🎮 English <span>Games</span></div>
-            <div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">💎 <span id="gems">0</span></div></div>
+            <button class="back" onclick="window.location.href='index.html'">← Menu</button>
         </div>
         <div class="card">
             <h1>🎮 Games Zone</h1>
@@ -256,9 +245,9 @@
 
 <script>
     let gamesData = {
-        pair: {
-            title: "🃏 Найди пару",
-            sub: "Family & School",
+        family: {
+            title: "👨‍👩‍👧 Family",
+            sub: "Family game",
             items: [
                 { image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg", word: "mummy" },
                 { image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg", word: "daddy" },
@@ -266,14 +255,51 @@
                 { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg", word: "sister" }
             ]
         },
-        letter: {
-            title: "🔤 Вставь букву",
-            sub: "Family & School",
-            words: [
-                { word: "mummy", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg" },
-                { word: "daddy", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg" },
-                { word: "sister", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
-                { word: "grandma", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" }
+        school: {
+            title: "🏫 School",
+            sub: "School game",
+            items: [
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/pen.jpg", word: "pen" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/pencil.jpg", word: "pencil" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/ruler.jpg", word: "ruler" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Eraser.jpg", word: "eraser" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/School bag.jpg", word: "school bag" }
+            ]
+        },
+        animals: {
+            title: "🐾 Animals",
+            sub: "Animals game",
+            items: [
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/monkey.jpg", word: "chimp" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/fish.jpg", word: "fish" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/bird.jpg", word: "bird" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/mouse.jpg", word: "mouse" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/frog.jpg", word: "frog" }
+            ]
+        },
+        colours: {
+            title: "🎨 Colours",
+            sub: "Colours game",
+            items: [
+                { image: "🔴", word: "red" },
+                { image: "🔵", word: "blue" },
+                { image: "🟡", word: "yellow" },
+                { image: "🟢", word: "green" },
+                { image: "⚪", word: "white" },
+                { image: "⚫", word: "black" }
+            ]
+        },
+        food: {
+            title: "🍕 Food",
+            sub: "Food game",
+            items: [
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Apple.jpg", word: "apple" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Burger.jpg", word: "burger" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Chips.jpg", word: "chips" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Chocolate cake.jpg", word: "chocolate cake" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Ice cream.jpg", word: "ice cream" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Milk.jpg", word: "milk" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Orange juice.jpg", word: "orange juice" }
             ]
         }
     };
@@ -302,15 +328,20 @@
         document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
         document.getElementById("game-screen").classList.add("active");
 
-        if (key === "pair") {
-            findPairGame();
-        } else if (key === "letter") {
-            missingLetterGame();
+        if (key === "family") {
+            findPairGame(gamesData.family.items);
+        } else if (key === "school") {
+            findPairGame(gamesData.school.items);
+        } else if (key === "animals") {
+            findPairGame(gamesData.animals.items);
+        } else if (key === "colours") {
+            findPairGame(gamesData.colours.items);
+        } else if (key === "food") {
+            findPairGame(gamesData.food.items);
         }
     }
 
-    function findPairGame() {
-        const items = gamesData.pair.items;
+    function findPairGame(items) {
         const allCards = [];
         for (let i = 0; i < items.length; i++) {
             allCards.push({ type: 'image', value: items[i].image, pairId: i });
@@ -377,64 +408,6 @@
                 }
             };
             grid.appendChild(cardElement);
-        });
-    }
-
-    function missingLetterGame() {
-        const words = gamesData.letter.words;
-        const currentIndex = Math.floor(Math.random() * words.length);
-        const item = words[currentIndex];
-        const correctWord = item.word.toLowerCase();
-        const letters = correctWord.split('');
-
-        const missingIndex = Math.floor(Math.random() * letters.length);
-        const missingLetter = letters[missingIndex];
-        const wordWithMissing = correctWord.substring(0, missingIndex) + '_' + correctWord.substring(missingIndex + 1);
-
-        const content = document.getElementById("gameContent");
-        content.innerHTML = `
-            <div style="text-align:center">
-                <img src="${item.image}" style="width:150px;border-radius:15px;margin-bottom:20px">
-                <div style="font-size:40px;font-weight:900;color:#28233d">${wordWithMissing}</div>
-                <div style="display:flex;justify-content:center;gap:15px;margin-top:20px" id="letter-options"></div>
-            </div>
-        `;
-
-        const lettersToChoose = [missingLetter];
-        while (lettersToChoose.length < 3) {
-            const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
-            if (!lettersToChoose.includes(randomLetter)) {
-                lettersToChoose.push(randomLetter);
-            }
-        }
-
-        for (let i = lettersToChoose.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [lettersToChoose[i], lettersToChoose[j]] = [lettersToChoose[j], lettersToChoose[i]];
-        }
-
-        const optionsDiv = document.getElementById("letter-options");
-        lettersToChoose.forEach((letter) => {
-            const btn = document.createElement('button');
-            btn.innerText = letter;
-            btn.className = "answer";
-            btn.onclick = () => {
-                if (letter === missingLetter) {
-                    btn.classList.add("correct");
-                    btn.style.background = "#c9f5d0";
-                    btn.style.borderColor = "#4caf68";
-                    speak(correctWord, true);
-                    setTimeout(() => {
-                        missingLetterGame();
-                    }, 1000);
-                } else {
-                    btn.classList.add("wrong");
-                    btn.style.background = "#ffd1d8";
-                    btn.style.borderColor = "#f05c70";
-                    btn.disabled = true;
-                }
-            };
-            optionsDiv.appendChild(btn);
         });
     }
 
