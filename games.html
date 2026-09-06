@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <style>
+        :root {
+            --pink: #ff6fae;
+            --purple: #8067ff;
+            --blue: #64b5f6;
+            --green: #57c99b;
+            --ink: #28233d;
+            --muted: #77718b;
+            --shadow: 0 14px 40px rgba(93, 75, 154, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: linear-gradient(145deg, #fff7fb, #f1efff);
+            color: var(--ink);
+        }
+
+        button {
+            font: inherit;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .app {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .brand span {
+            color: var(--pink);
+        }
+
+        .stats {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pill {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            font-weight: 800;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .map {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .game-card {
+            background: white;
+            padding: 20px;
+            border-radius: 24px;
+            min-height: 160px;
+            box-shadow: var(--shadow);
+            transition: .2s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .game-card .emoji {
+            font-size: 48px;
+        }
+
+        .game-card b {
+            display: block;
+            font-size: 19px;
+            margin-top: 10px;
+        }
+
+        .game-card small {
+            color: var(--muted);
+        }
+
+        .lesson {
+            max-width: 760px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .lesson-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .back {
+            background: #eeeafa;
+            padding: 9px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        .big {
+            font-size: 105px;
+            margin: 10px;
+        }
+
+        .question {
+            font-size: 29px;
+            font-weight: 900;
+            margin: 10px;
+        }
+
+        .answers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .answer {
+            background: #f1efff;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-weight: 800;
+        }
+
+        .answer:hover {
+            background: #e3ddff;
+        }
+
+        .answer.selected {
+            outline: 3px solid var(--purple);
+        }
+
+        .feedback {
+            min-height: 40px;
+            margin: 18px;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .voice {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .voice button {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 25px rgba(128, 103, 255, .2);
+        }
+
+        .listen {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+        }
+
+        .speak {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media(max-width:760px) {
+            .map {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:480px) {
+            .app {
+                padding: 12px;
+            }
+            .map {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <section id="games-map" class="screen active">
+        <div class="top">
+            <div class="brand">🎮 English <span>Games</span></div>
+            <div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">💎 <span id="gems">0</span></div></div>
+        </div>
+        <div class="card">
+            <h1>🎮 Games Zone</h1>
+            <p class="hint" style="text-align:center">Choose a game!</p>
+            <div class="map" id="games-grid"></div>
+        </div>
+    </section>
+
+    <section id="game-screen" class="screen">
+        <div class="card lesson">
+            <div class="lesson-top">
+                <button class="back" onclick="showGamesMap()">← Games</button>
+                <strong id="counter"></strong>
+            </div>
+            <div id="gameContent"></div>
+        </div>
+    </section>
+</div>
+
+<script>
+    let gamesData = {
+        pair: {
+            title: "🃏 Найди пару",
+            sub: "Family & School",
+            items: [
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg", word: "mummy" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg", word: "daddy" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg", word: "grandma & grandpa" },
+                { image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg", word: "sister" }
+            ]
+        },
+        letter: {
+            title: "🔤 Вставь букву",
+            sub: "Family & School",
+            words: [
+                { word: "mummy", image: "https://yuliaishtar-hub.github.io/inglish-adventure/mummy.jpg" },
+                { word: "daddy", image: "https://yuliaishtar-hub.github.io/inglish-adventure/daddy.jpg" },
+                { word: "sister", image: "https://yuliaishtar-hub.github.io/inglish-adventure/Lilissisterbig.jpg" },
+                { word: "grandma", image: "https://yuliaishtar-hub.github.io/inglish-adventure/grandmagrandpa.jpg" }
+            ]
+        }
+    };
+
+    function showGamesMap() {
+        document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+        document.getElementById("games-map").classList.add("active");
+
+        const grid = document.getElementById("games-grid");
+        grid.innerHTML = "";
+        Object.keys(gamesData).forEach(key => {
+            const game = gamesData[key];
+            const card = document.createElement("button");
+            card.className = "game-card";
+            card.innerHTML = `
+                <div class="emoji">${game.title.split(" ")[0]}</div>
+                <b>${game.title}</b>
+                <small>${game.sub}</small>
+            `;
+            card.onclick = () => startGame(key);
+            grid.appendChild(card);
+        });
+    }
+
+    function startGame(key) {
+        document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+        document.getElementById("game-screen").classList.add("active");
+
+        if (key === "pair") {
+            findPairGame();
+        } else if (key === "letter") {
+            missingLetterGame();
+        }
+    }
+
+    function findPairGame() {
+        const items = gamesData.pair.items;
+        const allCards = [];
+        for (let i = 0; i < items.length; i++) {
+            allCards.push({ type: 'image', value: items[i].image, pairId: i });
+            allCards.push({ type: 'word', value: items[i].word, pairId: i });
+        }
+
+        for (let i = allCards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+        }
+
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+
+        const content = document.getElementById("gameContent");
+        content.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="pair-grid"></div>';
+        const grid = document.getElementById("pair-grid");
+
+        allCards.forEach((card) => {
+            const cardElement = document.createElement('div');
+            cardElement.style.cssText = "background:#fff;border:3px solid #8067ff;border-radius:15px;padding:10px;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;min-height:100px;box-shadow:0 5px 12px rgba(0,0,0,.08)";
+            cardElement.dataset.pairId = card.pairId;
+            cardElement.dataset.type = card.type;
+            cardElement.dataset.value = card.value;
+
+            if (card.type === 'image') {
+                cardElement.innerHTML = `<img src="${card.value}" style="width:80px;height:80px;object-fit:contain">`;
+            } else {
+                cardElement.innerHTML = `<b style="font-size:22px;color:#28233d">${card.value}</b>`;
+            }
+
+            cardElement.onclick = () => {
+                if (lockBoard) return;
+                if (cardElement.classList.contains('matched')) return;
+                cardElement.classList.add('flipped');
+                cardElement.style.borderColor = "#ff6fae";
+
+                if (!firstCard) {
+                    firstCard = cardElement;
+                } else if (!secondCard) {
+                    secondCard = cardElement;
+                    lockBoard = true;
+
+                    if (firstCard.dataset.pairId === secondCard.dataset.pairId) {
+                        firstCard.classList.add('matched');
+                        secondCard.classList.add('matched');
+                        firstCard.style.borderColor = "#57c99b";
+                        secondCard.style.borderColor = "#57c99b";
+                        firstCard = null;
+                        secondCard = null;
+                        lockBoard = false;
+                    } else {
+                        setTimeout(() => {
+                            firstCard.style.borderColor = "#8067ff";
+                            secondCard.style.borderColor = "#8067ff";
+                            firstCard.classList.remove('flipped');
+                            secondCard.classList.remove('flipped');
+                            firstCard = null;
+                            secondCard = null;
+                            lockBoard = false;
+                        }, 1000);
+                    }
+                }
+            };
+            grid.appendChild(cardElement);
+        });
+    }
+
+    function missingLetterGame() {
+        const words = gamesData.letter.words;
+        const currentIndex = Math.floor(Math.random() * words.length);
+        const item = words[currentIndex];
+        const correctWord = item.word.toLowerCase();
+        const letters = correctWord.split('');
+
+        const missingIndex = Math.floor(Math.random() * letters.length);
+        const missingLetter = letters[missingIndex];
+        const wordWithMissing = correctWord.substring(0, missingIndex) + '_' + correctWord.substring(missingIndex + 1);
+
+        const content = document.getElementById("gameContent");
+        content.innerHTML = `
+            <div style="text-align:center">
+                <img src="${item.image}" style="width:150px;border-radius:15px;margin-bottom:20px">
+                <div style="font-size:40px;font-weight:900;color:#28233d">${wordWithMissing}</div>
+                <div style="display:flex;justify-content:center;gap:15px;margin-top:20px" id="letter-options"></div>
+            </div>
+        `;
+
+        const lettersToChoose = [missingLetter];
+        while (lettersToChoose.length < 3) {
+            const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+            if (!lettersToChoose.includes(randomLetter)) {
+                lettersToChoose.push(randomLetter);
+            }
+        }
+
+        for (let i = lettersToChoose.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [lettersToChoose[i], lettersToChoose[j]] = [lettersToChoose[j], lettersToChoose[i]];
+        }
+
+        const optionsDiv = document.getElementById("letter-options");
+        lettersToChoose.forEach((letter) => {
+            const btn = document.createElement('button');
+            btn.innerText = letter;
+            btn.className = "answer";
+            btn.onclick = () => {
+                if (letter === missingLetter) {
+                    btn.classList.add("correct");
+                    btn.style.background = "#c9f5d0";
+                    btn.style.borderColor = "#4caf68";
+                    speak(correctWord, true);
+                    setTimeout(() => {
+                        missingLetterGame();
+                    }, 1000);
+                } else {
+                    btn.classList.add("wrong");
+                    btn.style.background = "#ffd1d8";
+                    btn.style.borderColor = "#f05c70";
+                    btn.disabled = true;
+                }
+            };
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function speak(text, slow = false) {
+        if (!("speechSynthesis" in window)) return;
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        utterance.rate = slow ? 0.72 : 0.9;
+        utterance.pitch = 1.08;
+        speechSynthesis.speak(utterance);
+    }
+
+    showGamesMap();
+</script>
+</body>
+</html>
