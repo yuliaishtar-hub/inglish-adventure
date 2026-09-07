@@ -21,7 +21,6 @@ const lessons = {
   family: familyLesson
 };
 
-
 let player = loadPlayer();
 
 let currentLesson = null;
@@ -59,13 +58,11 @@ const rewardText = document.getElementById("rewardText");
 function updatePlayerUI() {
 
   if (playerXP) {
-    playerXP.textContent =
-      "⭐ " + player.xp + " XP";
+    playerXP.textContent = "XP: " + player.xp;
   }
 
   if (playerGems) {
-    playerGems.textContent =
-      "💎 " + player.gems;
+    playerGems.textContent = "Gems: " + player.gems;
   }
 }
 
@@ -122,7 +119,7 @@ function addReward(xp, gems) {
 
 
   showToast(
-    "+" + xp + " XP   💎 +" + gems
+    "+" + xp + " XP   +" + gems + " Gems"
   );
 }
 
@@ -208,8 +205,7 @@ function renderStage() {
     progress + "%";
 
 
-  stageContainer.innerHTML =
-    "";
+  stageContainer.innerHTML = "";
 
 
   const wrapper =
@@ -227,7 +223,7 @@ function renderStage() {
 
   label.textContent =
     (stage.label || "Adventure") +
-    " • " +
+    " - " +
     (currentStage + 1) +
     "/" +
     stages.length;
@@ -293,9 +289,7 @@ function renderStage() {
 }
 
 
-/* =========================
-   STORY
-========================= */
+/* STORY */
 
 function renderStory(container, stage) {
 
@@ -334,7 +328,7 @@ function renderStory(container, stage) {
   addListenButton(
     container,
     stage.text || "",
-    "🔊 Listen"
+    "Listen"
   );
 
 
@@ -342,9 +336,7 @@ function renderStory(container, stage) {
 }
 
 
-/* =========================
-   VOCABULARY
-========================= */
+/* VOCABULARY */
 
 function renderVocabulary(container, stage) {
 
@@ -436,7 +428,7 @@ function renderVocabulary(container, stage) {
       translation.classList.add("visible");
 
       hint.textContent =
-        "🔊 Listening...";
+        "Listening...";
     }
 
 
@@ -474,9 +466,7 @@ function renderVocabulary(container, stage) {
 }
 
 
-/* =========================
-   LISTEN
-========================= */
+/* LISTEN */
 
 function renderListen(container, stage) {
 
@@ -500,7 +490,7 @@ function renderListen(container, stage) {
     "listen-btn";
 
   listenButton.textContent =
-    "🔊 Listen";
+    "Listen";
 
 
   listenButton.addEventListener(
@@ -523,7 +513,7 @@ function renderListen(container, stage) {
     "listen-sentence-box";
 
   sentenceBox.textContent =
-    "❓ What did you hear?";
+    "What did you hear?";
 
 
   container.appendChild(sentenceBox);
@@ -536,7 +526,7 @@ function renderListen(container, stage) {
     "listen-translation";
 
   translation.textContent =
-    "Наведи мышку на вариант, чтобы услышать его.";
+    "Move your mouse over an answer to hear it.";
 
 
   container.appendChild(translation);
@@ -546,17 +536,17 @@ function renderListen(container, stage) {
 
     {
       text: "This is my grandma.",
-      translation: "Это моя бабушка."
+      translation: "This is my grandma."
     },
 
     {
       text: "This is my mummy.",
-      translation: "Это моя мама."
+      translation: "This is my mummy."
     },
 
     {
       text: "This is my sister.",
-      translation: "Это моя сестра."
+      translation: "This is my sister."
     }
 
   ];
@@ -624,7 +614,7 @@ function renderListen(container, stage) {
 
 
           feedback.textContent =
-            "🎉 Excellent! You heard it correctly.";
+            "Excellent! You heard it correctly.";
 
 
           speak(
@@ -694,9 +684,7 @@ function renderListen(container, stage) {
 }
 
 
-/* =========================
-   CHOOSE
-========================= */
+/* CHOOSE */
 
 function renderChoose(container, stage) {
 
@@ -854,9 +842,7 @@ function renderChoose(container, stage) {
 }
 
 
-/* =========================
-   SENTENCE BUILDER
-========================= */
+/* SENTENCE BUILDER */
 
 function renderSentence(container, stage) {
 
@@ -1089,7 +1075,7 @@ function renderSelectedWords(
       "primary-btn next-btn";
 
     checkButton.textContent =
-      "Check sentence ✓";
+      "Check sentence";
 
 
     checkButton.addEventListener(
@@ -1119,7 +1105,8 @@ function renderSelectedWords(
 
 
           selected.textContent =
-            "✓ " + stage.target;
+            "Correct: " +
+            stage.target;
 
 
           selected.style.borderColor =
@@ -1149,9 +1136,7 @@ function renderSelectedWords(
 }
 
 
-/* =========================
-   READING
-========================= */
+/* READING */
 
 function renderReading(container, stage) {
 
@@ -1171,7 +1156,7 @@ function renderReading(container, stage) {
   addListenButton(
     container,
     stage.reading || "",
-    "🔊 Listen to the story"
+    "Listen to the story"
   );
 
 
@@ -1192,9 +1177,7 @@ function renderReading(container, stage) {
 }
 
 
-/* =========================
-   SPEAK
-========================= */
+/* SPEAK */
 
 function renderSpeak(container, stage) {
 
@@ -1234,7 +1217,7 @@ function renderSpeak(container, stage) {
   addListenButton(
     box,
     stage.target || "",
-    "🔊 Hear the sentence"
+    "Hear the sentence"
   );
 
 
@@ -1245,7 +1228,7 @@ function renderSpeak(container, stage) {
     "mic-btn";
 
   mic.textContent =
-    "🎤";
+    "Speak";
 
   mic.title =
     "Speak";
@@ -1279,7 +1262,7 @@ function renderSpeak(container, stage) {
       if (!canRecognizeSpeech()) {
 
         feedback.textContent =
-          "Your browser cannot hear speech here. Read the sentence aloud, then continue.";
+          "Speech recognition is not available. Read the sentence aloud, then continue.";
 
 
         stageAnswered = true;
@@ -1298,7 +1281,7 @@ function renderSpeak(container, stage) {
 
 
       feedback.textContent =
-        "🎤 Listening...";
+        "Listening...";
 
 
       const result =
@@ -1311,7 +1294,7 @@ function renderSpeak(container, stage) {
       if (!result.text) {
 
         feedback.textContent =
-          "I didn't hear you. Try once more.";
+          "I did not hear you. Try once more.";
 
         return;
       }
@@ -1328,7 +1311,7 @@ function renderSpeak(container, stage) {
 
 
         feedback.textContent =
-          "✓ I heard: " +
+          "I heard: " +
           result.text;
 
 
@@ -1364,9 +1347,7 @@ function renderSpeak(container, stage) {
 }
 
 
-/* =========================
-   FINAL QUEST
-========================= */
+/* FINAL QUEST */
 
 function renderQuest(container, stage) {
 
@@ -1399,7 +1380,7 @@ function renderQuest(container, stage) {
       "quest-item";
 
     item.textContent =
-      "⭐ Mission " +
+      "Mission " +
       (index + 1) +
       ": " +
       mission;
@@ -1443,7 +1424,7 @@ function renderQuest(container, stage) {
     "primary-btn next-btn";
 
   button.textContent =
-    "Complete Family Quest 🎉";
+    "Complete Family Quest";
 
 
   button.addEventListener(
@@ -1456,9 +1437,7 @@ function renderQuest(container, stage) {
 }
 
 
-/* =========================
-   AUDIO
-========================= */
+/* AUDIO */
 
 function addListenButton(
   container,
@@ -1490,9 +1469,7 @@ function addListenButton(
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 function addNextButton(container) {
 
@@ -1509,12 +1486,12 @@ function addNextButton(container) {
   ) {
 
     button.textContent =
-      "Next →";
+      "Next";
 
   } else {
 
     button.textContent =
-      "Finish 🎉";
+      "Finish";
   }
 
 
@@ -1540,9 +1517,7 @@ function disableButtons(parent) {
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+/* NAVIGATION */
 
 function nextStage() {
 
@@ -1613,7 +1588,7 @@ function finishLesson() {
 
   rewardTitle.textContent =
     currentLesson.title +
-    " Complete! 🎉";
+    " Complete!";
 
 
   if (wasCompleted) {
@@ -1622,10 +1597,10 @@ function finishLesson() {
       "You have already completed this adventure. You can play it again whenever you want.";
 
     rewardXP.textContent =
-      "⭐ Already completed";
+      "Already completed";
 
     rewardGems.textContent =
-      "💎 Adventure complete";
+      "Adventure complete";
 
   } else {
 
@@ -1633,10 +1608,10 @@ function finishLesson() {
       "Amazing work! You finished the whole Family Adventure.";
 
     rewardXP.textContent =
-      "⭐ +50 XP";
+      "+50 XP";
 
     rewardGems.textContent =
-      "💎 +10 Gems";
+      "+10 Gems";
 
   }
 
@@ -1664,9 +1639,7 @@ function goBackFromLesson() {
 }
 
 
-/* =========================
-   MAIN NAVIGATION
-========================= */
+/* MAIN NAVIGATION */
 
 const startQuestButton =
   document.getElementById(
