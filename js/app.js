@@ -1,3 +1,4 @@
+```javascript
 import familyLesson from "../lessons/family.js";
 
 import {
@@ -20,6 +21,7 @@ import {
 const lessons = {
   family: familyLesson
 };
+
 
 let player = loadPlayer();
 
@@ -56,7 +58,6 @@ const rewardText = document.getElementById("rewardText");
 
 
 function updatePlayerUI() {
-
   if (playerXP) {
     playerXP.textContent = "XP: " + player.xp;
   }
@@ -68,98 +69,66 @@ function updatePlayerUI() {
 
 
 function showScreen(name) {
-
-  Object.values(screens).forEach(function(screen) {
-
-    if (screen) {
-      screen.classList.remove("active");
+  Object.keys(screens).forEach(function(key) {
+    if (screens[key]) {
+      screens[key].classList.remove("active");
     }
-
   });
-
 
   if (screens[name]) {
     screens[name].classList.add("active");
   }
-
 
   updatePlayerUI();
 }
 
 
 function showToast(message) {
-
   if (!toast) {
     return;
   }
 
-
   toast.textContent = message;
-
   toast.classList.add("show");
 
-
   setTimeout(function() {
-
     toast.classList.remove("show");
-
   }, 1800);
 }
 
 
 function addReward(xp, gems) {
-
   addXP(player, xp);
-
   addGems(player, gems);
 
   player = loadPlayer();
 
   updatePlayerUI();
 
-
-  showToast(
-    "+" + xp + " XP   +" + gems + " Gems"
-  );
+  showToast("+" + xp + " XP    +" + gems + " gems");
 }
 
 
 function renderMap() {
-
   showScreen("map");
 }
 
 
 function startLesson(key) {
-
   const lesson = lessons[key];
 
-
   if (!lesson) {
-
-    showToast(
-      "This adventure is coming next!"
-    );
-
+    showToast("This adventure is coming next!");
     return;
   }
 
-
   currentLesson = lesson;
-
   currentStage = 0;
-
   stageAnswered = false;
-
   selectedWords = [];
 
-
-  lessonTitle.textContent =
-    lesson.title;
-
-  lessonDescription.textContent =
-    lesson.description;
-
+  lessonTitle.textContent = lesson.title;
+  lessonDescription.textContent = lesson.description;
 
   showScreen("lesson");
 
@@ -168,58 +137,34 @@ function startLesson(key) {
 
 
 function renderStage() {
-
   if (!currentLesson) {
-
     renderMap();
-
     return;
   }
 
-
-  const stages =
-    currentLesson.stages;
-
-  const stage =
-    stages[currentStage];
-
+  const stages = currentLesson.stages;
+  const stage = stages[currentStage];
 
   if (!stage) {
-
     finishLesson();
-
     return;
   }
 
-
   stageAnswered = false;
-
   selectedWords = [];
-
 
   const progress =
     ((currentStage + 1) / stages.length) * 100;
 
-
-  progressBar.style.width =
-    progress + "%";
-
+  progressBar.style.width = progress + "%";
 
   stageContainer.innerHTML = "";
 
+  const wrapper = document.createElement("div");
+  wrapper.className = "stage-card";
 
-  const wrapper =
-    document.createElement("div");
-
-  wrapper.className =
-    "stage-card";
-
-
-  const label =
-    document.createElement("div");
-
-  label.className =
-    "stage-label";
+  const label = document.createElement("div");
+  label.className = "stage-label";
 
   label.textContent =
     (stage.label || "Adventure") +
@@ -228,62 +173,45 @@ function renderStage() {
     "/" +
     stages.length;
 
-
   wrapper.appendChild(label);
 
-
-  const title =
-    document.createElement("h2");
-
-  title.className =
-    "stage-title";
-
-  title.textContent =
-    stage.title || "";
-
+  const title = document.createElement("h2");
+  title.className = "stage-title";
+  title.textContent = stage.title || "";
 
   wrapper.appendChild(title);
-
 
   if (stage.type === "story") {
     renderStory(wrapper, stage);
   }
 
-
   if (stage.type === "vocabulary") {
     renderVocabulary(wrapper, stage);
   }
-
 
   if (stage.type === "listen") {
     renderListen(wrapper, stage);
   }
 
-
   if (stage.type === "choose") {
     renderChoose(wrapper, stage);
   }
-
 
   if (stage.type === "sentence") {
     renderSentence(wrapper, stage);
   }
 
-
   if (stage.type === "reading") {
     renderReading(wrapper, stage);
   }
-
 
   if (stage.type === "speak") {
     renderSpeak(wrapper, stage);
   }
 
-
   if (stage.type === "quest") {
     renderQuest(wrapper, stage);
   }
-
 
   stageContainer.appendChild(wrapper);
 }
@@ -292,45 +220,28 @@ function renderStage() {
 /* STORY */
 
 function renderStory(container, stage) {
-
   if (stage.image) {
+    const image = document.createElement("img");
 
-    const image =
-      document.createElement("img");
-
-    image.className =
-      "stage-image";
-
-    image.src =
-      stage.image;
-
-    image.alt =
-      stage.title || "Story image";
-
+    image.className = "stage-image";
+    image.src = stage.image;
+    image.alt = stage.title || "Story image";
 
     container.appendChild(image);
   }
 
+  const story = document.createElement("div");
 
-  const story =
-    document.createElement("div");
-
-  story.className =
-    "story-box";
-
-  story.textContent =
-    stage.text || "";
-
+  story.className = "story-box";
+  story.textContent = stage.text || "";
 
   container.appendChild(story);
-
 
   addListenButton(
     container,
     stage.text || "",
     "Listen"
   );
-
 
   addNextButton(container);
 }
@@ -339,126 +250,70 @@ function renderStory(container, stage) {
 /* VOCABULARY */
 
 function renderVocabulary(container, stage) {
+  const text = document.createElement("p");
 
-  const text =
-    document.createElement("p");
-
-  text.className =
-    "stage-text";
-
-  text.textContent =
-    stage.text || "";
-
+  text.className = "stage-text";
+  text.textContent = stage.text || "";
 
   container.appendChild(text);
 
+  const grid = document.createElement("div");
 
-  const grid =
-    document.createElement("div");
-
-  grid.className =
-    "vocab-grid";
-
+  grid.className = "vocab-grid";
 
   stage.words.forEach(function(item) {
+    const card = document.createElement("div");
 
-    const card =
-      document.createElement("div");
+    card.className = "vocab-card";
 
-    card.className =
-      "vocab-card";
+    const image = document.createElement("img");
 
-
-    const image =
-      document.createElement("img");
-
-    image.src =
-      item.image;
-
-    image.alt =
-      item.word;
-
+    image.src = item.image;
+    image.alt = item.word;
 
     card.appendChild(image);
 
+    const word = document.createElement("div");
 
-    const word =
-      document.createElement("div");
-
-    word.className =
-      "vocab-word";
-
-    word.textContent =
-      item.word;
-
+    word.className = "vocab-word";
+    word.textContent = item.word;
 
     card.appendChild(word);
 
+    const translation = document.createElement("div");
 
-    const translation =
-      document.createElement("div");
-
-    translation.className =
-      "vocab-translation";
-
-    translation.textContent =
-      item.translation;
-
+    translation.className = "vocab-translation";
+    translation.textContent = item.translation;
 
     card.appendChild(translation);
 
+    const hint = document.createElement("div");
 
-    const hint =
-      document.createElement("div");
-
-    hint.className =
-      "vocab-hint";
-
-    hint.textContent =
-      "Move mouse here";
-
+    hint.className = "vocab-hint";
+    hint.textContent = "Move mouse here";
 
     card.appendChild(hint);
 
-
     function hearWord() {
-
       speak(item.word);
 
       translation.classList.add("visible");
 
-      hint.textContent =
-        "Listening...";
+      hint.textContent = "Listening...";
     }
 
-
-    card.addEventListener(
-      "mouseenter",
-      hearWord
-    );
-
+    card.addEventListener("mouseenter", hearWord);
+    card.addEventListener("click", hearWord);
 
     card.addEventListener(
       "mouseleave",
       function() {
-
-        hint.textContent =
-          "Move mouse here";
-
+        hint.textContent = "Move mouse here";
       }
     );
 
-
-    card.addEventListener(
-      "click",
-      hearWord
-    );
-
-
     grid.appendChild(card);
-
   });
-
 
   container.appendChild(grid);
 
@@ -469,216 +324,128 @@ function renderVocabulary(container, stage) {
 /* LISTEN */
 
 function renderListen(container, stage) {
+  const instruction = document.createElement("p");
 
-  const instruction =
-    document.createElement("p");
-
-  instruction.className =
-    "stage-text";
-
+  instruction.className = "stage-text";
   instruction.textContent =
     "Listen carefully. Then choose the sentence you heard.";
 
-
   container.appendChild(instruction);
 
+  const listenButton = document.createElement("button");
 
-  const listenButton =
-    document.createElement("button");
-
-  listenButton.className =
-    "listen-btn";
-
-  listenButton.textContent =
-    "Listen";
-
+  listenButton.className = "listen-btn";
+  listenButton.textContent = "Listen";
 
   listenButton.addEventListener(
     "click",
     function() {
-
       speak(stage.sentence || "");
-
     }
   );
 
-
   container.appendChild(listenButton);
 
+  const sentenceBox = document.createElement("div");
 
-  const sentenceBox =
-    document.createElement("div");
-
-  sentenceBox.className =
-    "listen-sentence-box";
-
-  sentenceBox.textContent =
-    "What did you hear?";
-
+  sentenceBox.className = "listen-sentence-box";
+  sentenceBox.textContent = "What did you hear?";
 
   container.appendChild(sentenceBox);
 
+  const translation = document.createElement("div");
 
-  const translation =
-    document.createElement("div");
-
-  translation.className =
-    "listen-translation";
-
+  translation.className = "listen-translation";
   translation.textContent =
-    "Move your mouse over an answer to hear it.";
-
+    "Move the mouse over an answer to hear it.";
 
   container.appendChild(translation);
 
-
   const options = [
-
     {
       text: "This is my grandma.",
       translation: "This is my grandma."
     },
-
     {
       text: "This is my mummy.",
       translation: "This is my mummy."
     },
-
     {
       text: "This is my sister.",
       translation: "This is my sister."
     }
-
   ];
 
+  const choices = document.createElement("div");
 
-  const choices =
-    document.createElement("div");
+  choices.className = "listen-choices";
 
-  choices.className =
-    "listen-choices";
+  const feedback = document.createElement("div");
 
-
-  const feedback =
-    document.createElement("div");
-
-  feedback.className =
-    "feedback";
-
+  feedback.className = "feedback";
 
   options.forEach(function(option) {
+    const button = document.createElement("button");
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "listen-choice-btn";
-
-    button.textContent =
-      option.text;
-
+    button.className = "listen-choice-btn";
+    button.textContent = option.text;
 
     button.addEventListener(
       "mouseenter",
       function() {
-
         speak(option.text);
-
-        translation.textContent =
-          option.translation;
-
+        translation.textContent = option.translation;
       }
     );
-
 
     button.addEventListener(
       "click",
       function() {
-
         if (stageAnswered) {
           return;
         }
 
-
-        if (
-          option.text ===
-          stage.sentence
-        ) {
-
+        if (option.text === stage.sentence) {
           stageAnswered = true;
 
-
-          button.classList.add(
-            "correct"
-          );
-
+          button.classList.add("correct");
 
           feedback.textContent =
             "Excellent! You heard it correctly.";
 
-
-          speak(
-            "Excellent! You heard it correctly."
-          );
-
+          speak("Excellent!");
 
           addReward(15, 2);
 
-
           disableButtons(choices);
 
-
           addNextButton(container);
-
         } else {
-
-          button.classList.add(
-            "wrong"
-          );
-
+          button.classList.add("wrong");
 
           feedback.textContent =
             "Not quite. Listen again and try.";
 
-
-          speak(
-            "Not quite. Listen again."
-          );
-
+          speak("Not quite. Listen again.");
 
           setTimeout(function() {
-
-            button.classList.remove(
-              "wrong"
-            );
-
+            button.classList.remove("wrong");
           }, 700);
-
         }
-
       }
     );
 
-
     choices.appendChild(button);
-
   });
 
-
   container.appendChild(choices);
-
   container.appendChild(feedback);
 
+  const repeat = document.createElement("p");
 
-  const repeat =
-    document.createElement("p");
-
-  repeat.className =
-    "stage-text";
-
+  repeat.className = "stage-text";
   repeat.textContent =
     "You can listen as many times as you need.";
-
 
   container.appendChild(repeat);
 }
@@ -687,157 +454,87 @@ function renderListen(container, stage) {
 /* CHOOSE */
 
 function renderChoose(container, stage) {
-
   if (stage.image) {
+    const image = document.createElement("img");
 
-    const image =
-      document.createElement("img");
-
-    image.className =
-      "stage-image";
-
-    image.src =
-      stage.image;
-
-    image.alt =
-      stage.question ||
-      "Question image";
-
+    image.className = "stage-image";
+    image.src = stage.image;
+    image.alt = stage.question || "Question image";
 
     container.appendChild(image);
   }
 
-
   if (stage.question) {
+    const question = document.createElement("p");
 
-    const question =
-      document.createElement("p");
-
-    question.className =
-      "stage-text";
-
-    question.textContent =
-      stage.question;
-
+    question.className = "stage-text";
+    question.textContent = stage.question;
 
     container.appendChild(question);
   }
 
+  const choices = document.createElement("div");
 
-  const choices =
-    document.createElement("div");
+  choices.className = "choices";
 
-  choices.className =
-    "choices";
+  const feedback = document.createElement("div");
 
-
-  const feedback =
-    document.createElement("div");
-
-  feedback.className =
-    "feedback";
-
+  feedback.className = "feedback";
 
   stage.options.forEach(function(option) {
+    const button = document.createElement("button");
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "choice-btn";
-
-    button.textContent =
-      option;
-
+    button.className = "choice-btn";
+    button.textContent = option;
 
     button.addEventListener(
       "mouseenter",
       function() {
-
         speak(option);
-
       }
     );
-
 
     button.addEventListener(
       "click",
       function() {
-
         if (stageAnswered) {
           return;
         }
 
-
-        if (
-          option ===
-          stage.answer
-        ) {
-
+        if (option === stage.answer) {
           stageAnswered = true;
 
-
-          button.classList.add(
-            "correct"
-          );
-
+          button.classList.add("correct");
 
           feedback.textContent =
-            stage.success ||
-            "Correct!";
+            stage.success || "Correct!";
 
-
-          speak(
-            stage.success ||
-            "Correct!"
-          );
-
+          speak(stage.success || "Correct!");
 
           addReward(10, 1);
 
-
           disableButtons(choices);
 
-
           addNextButton(container);
-
         } else {
-
-          button.classList.add(
-            "wrong"
-          );
-
+          button.classList.add("wrong");
 
           feedback.textContent =
             "Not quite. Try again!";
 
-
-          speak(
-            "Try again!"
-          );
-
+          speak("Try again!");
 
           setTimeout(function() {
-
-            button.classList.remove(
-              "wrong"
-            );
-
+            button.classList.remove("wrong");
           }, 700);
-
         }
-
       }
     );
 
-
     choices.appendChild(button);
-
   });
 
-
   container.appendChild(choices);
-
   container.appendChild(feedback);
 }
 
@@ -845,105 +542,61 @@ function renderChoose(container, stage) {
 /* SENTENCE BUILDER */
 
 function renderSentence(container, stage) {
+  const text = document.createElement("p");
 
-  const text =
-    document.createElement("p");
-
-  text.className =
-    "stage-text";
-
-  text.textContent =
-    stage.text || "";
-
+  text.className = "stage-text";
+  text.textContent = stage.text || "";
 
   container.appendChild(text);
 
+  const area = document.createElement("div");
 
-  const area =
-    document.createElement("div");
+  area.className = "sentence-area";
 
-  area.className =
-    "sentence-area";
+  const selected = document.createElement("div");
 
-
-  const selected =
-    document.createElement("div");
-
-  selected.className =
-    "selected-words";
-
-  selected.textContent =
-    "Build your sentence...";
-
+  selected.className = "selected-words";
+  selected.textContent = "Build your sentence...";
 
   area.appendChild(selected);
 
+  const bank = document.createElement("div");
 
-  const bank =
-    document.createElement("div");
+  bank.className = "word-bank";
 
-  bank.className =
-    "word-bank";
-
-
-  const shuffled =
-    stage.words.slice();
-
+  const shuffled = stage.words.slice();
 
   shuffled.sort(function() {
-
     return Math.random() - 0.5;
-
   });
 
-
   shuffled.forEach(function(word) {
+    const button = document.createElement("button");
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "word-btn";
-
-    button.textContent =
-      word;
-
+    button.className = "word-btn";
+    button.textContent = word;
 
     button.addEventListener(
       "mouseenter",
       function() {
-
-        speak(
-          word.replace(/[.!?]/g, "")
-        );
-
+        speak(word.replace(/[.!?]/g, ""));
       }
     );
-
 
     button.addEventListener(
       "click",
       function() {
-
         if (stageAnswered) {
           return;
         }
 
-
-        if (
-          selectedWords.indexOf(word) !== -1
-        ) {
+        if (selectedWords.indexOf(word) !== -1) {
           return;
         }
 
-
         selectedWords.push(word);
 
-
-        button.classList.add(
-          "selected"
-        );
-
+        button.classList.add("selected");
 
         renderSelectedWords(
           selected,
@@ -951,18 +604,13 @@ function renderSentence(container, stage) {
           bank,
           container
         );
-
       }
     );
 
-
     bank.appendChild(button);
-
   });
 
-
   area.appendChild(bank);
-
   container.appendChild(area);
 }
 
@@ -973,79 +621,43 @@ function renderSelectedWords(
   bank,
   container
 ) {
-
-  selected.innerHTML =
-    "";
-
+  selected.innerHTML = "";
 
   if (!selectedWords.length) {
-
-    selected.textContent =
-      "Build your sentence...";
-
+    selected.textContent = "Build your sentence...";
     return;
   }
 
-
   selectedWords.forEach(function(word, index) {
+    const button = document.createElement("button");
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "word-btn";
-
-    button.textContent =
-      word;
-
+    button.className = "word-btn";
+    button.textContent = word;
 
     button.addEventListener(
       "mouseenter",
       function() {
-
-        speak(
-          word.replace(/[.!?]/g, "")
-        );
-
+        speak(word.replace(/[.!?]/g, ""));
       }
     );
-
 
     button.addEventListener(
       "click",
       function() {
-
         if (stageAnswered) {
           return;
         }
 
-
-        selectedWords.splice(
-          index,
-          1
-        );
-
+        selectedWords.splice(index, 1);
 
         const buttons =
-          bank.querySelectorAll(
-            ".word-btn"
-          );
-
+          bank.querySelectorAll(".word-btn");
 
         buttons.forEach(function(item) {
-
-          if (
-            item.textContent === word
-          ) {
-
-            item.classList.remove(
-              "selected"
-            );
-
+          if (item.textContent === word) {
+            item.classList.remove("selected");
           }
-
         });
-
 
         renderSelectedWords(
           selected,
@@ -1053,85 +665,49 @@ function renderSelectedWords(
           bank,
           container
         );
-
       }
     );
 
-
     selected.appendChild(button);
-
   });
-
 
   if (
     selectedWords.length ===
     stage.words.length
   ) {
+    const checkButton = document.createElement("button");
 
-    const checkButton =
-      document.createElement("button");
-
-    checkButton.className =
-      "primary-btn next-btn";
-
-    checkButton.textContent =
-      "Check sentence";
-
+    checkButton.className = "primary-btn next-btn";
+    checkButton.textContent = "Check sentence";
 
     checkButton.addEventListener(
       "click",
       function() {
+        const result = selectedWords.join(" ");
 
-        const result =
-          selectedWords.join(" ");
-
-
-        if (
-          result ===
-          stage.target
-        ) {
-
+        if (result === stage.target) {
           stageAnswered = true;
-
 
           speak("Excellent!");
 
-
           addReward(15, 2);
 
-
-          selected.innerHTML =
-            "";
-
-
+          selected.innerHTML = "";
           selected.textContent =
-            "Correct: " +
-            stage.target;
-
-
-          selected.style.borderColor =
-            "var(--green)";
-
+            "Correct: " + stage.target;
 
           addNextButton(container);
-
         } else {
-
           speak("Try again!");
-
 
           showToast(
             "Almost! Try another order."
           );
-
         }
-
       }
     );
 
-
     selected.appendChild(checkButton);
-
   }
 }
 
@@ -1139,19 +715,12 @@ function renderSelectedWords(
 /* READING */
 
 function renderReading(container, stage) {
+  const reading = document.createElement("div");
 
-  const reading =
-    document.createElement("div");
-
-  reading.className =
-    "reading-text";
-
-  reading.textContent =
-    stage.reading || "";
-
+  reading.className = "reading-text";
+  reading.textContent = stage.reading || "";
 
   container.appendChild(reading);
-
 
   addListenButton(
     container,
@@ -1159,19 +728,13 @@ function renderReading(container, stage) {
     "Listen to the story"
   );
 
+  const instruction = document.createElement("p");
 
-  const instruction =
-    document.createElement("p");
-
-  instruction.className =
-    "stage-text";
-
+  instruction.className = "stage-text";
   instruction.textContent =
     "Read it once by yourself, then listen.";
 
-
   container.appendChild(instruction);
-
 
   addNextButton(container);
 }
@@ -1180,39 +743,23 @@ function renderReading(container, stage) {
 /* SPEAK */
 
 function renderSpeak(container, stage) {
+  const box = document.createElement("div");
 
-  const box =
-    document.createElement("div");
+  box.className = "speak-box";
 
-  box.className =
-    "speak-box";
+  const text = document.createElement("p");
 
-
-  const text =
-    document.createElement("p");
-
-  text.className =
-    "stage-text";
-
-  text.textContent =
-    stage.text || "";
-
+  text.className = "stage-text";
+  text.textContent = stage.text || "";
 
   box.appendChild(text);
 
+  const target = document.createElement("div");
 
-  const target =
-    document.createElement("div");
-
-  target.className =
-    "target-sentence";
-
-  target.textContent =
-    stage.target || "";
-
+  target.className = "target-sentence";
+  target.textContent = stage.target || "";
 
   box.appendChild(target);
-
 
   addListenButton(
     box,
@@ -1220,85 +767,56 @@ function renderSpeak(container, stage) {
     "Hear the sentence"
   );
 
+  const mic = document.createElement("button");
 
-  const mic =
-    document.createElement("button");
-
-  mic.className =
-    "mic-btn";
-
-  mic.textContent =
-    "Speak";
-
-  mic.title =
-    "Speak";
-
+  mic.className = "mic-btn";
+  mic.textContent = "MIC";
+  mic.title = "Speak";
 
   box.appendChild(mic);
 
+  const feedback = document.createElement("div");
 
-  const feedback =
-    document.createElement("div");
-
-  feedback.className =
-    "feedback";
-
+  feedback.className = "feedback";
 
   box.appendChild(feedback);
-
 
   mic.addEventListener(
     "click",
     async function() {
-
       if (stageAnswered) {
         return;
       }
 
-
       mic.disabled = true;
 
-
       if (!canRecognizeSpeech()) {
-
         feedback.textContent =
-          "Speech recognition is not available. Read the sentence aloud, then continue.";
-
+          "Speech recognition is not available in this browser.";
 
         stageAnswered = true;
 
-
         addReward(20, 3);
 
-
         addNextButton(box);
-
 
         mic.disabled = false;
 
         return;
       }
 
+      feedback.textContent = "Listening...";
 
-      feedback.textContent =
-        "Listening...";
-
-
-      const result =
-        await recognizeSpeech();
-
+      const result = await recognizeSpeech();
 
       mic.disabled = false;
 
-
       if (!result.text) {
-
         feedback.textContent =
           "I did not hear you. Try once more.";
 
         return;
       }
-
 
       if (
         speechMatches(
@@ -1306,42 +824,26 @@ function renderSpeak(container, stage) {
           stage.target
         )
       ) {
-
         stageAnswered = true;
 
-
         feedback.textContent =
-          "I heard: " +
-          result.text;
+          "I heard: " + result.text;
 
-
-        speak(
-          "Excellent speaking!"
-        );
-
+        speak("Excellent speaking!");
 
         addReward(20, 3);
 
-
         addNextButton(box);
-
       } else {
-
         feedback.textContent =
           "I heard: " +
           result.text +
           ". Try again!";
 
-
-        speak(
-          stage.target
-        );
-
+        speak(stage.target);
       }
-
     }
   );
-
 
   container.appendChild(box);
 }
@@ -1350,34 +852,21 @@ function renderSpeak(container, stage) {
 /* FINAL QUEST */
 
 function renderQuest(container, stage) {
+  const text = document.createElement("p");
 
-  const text =
-    document.createElement("p");
-
-  text.className =
-    "stage-text";
-
-  text.textContent =
-    stage.text || "";
-
+  text.className = "stage-text";
+  text.textContent = stage.text || "";
 
   container.appendChild(text);
 
+  const list = document.createElement("div");
 
-  const list =
-    document.createElement("div");
-
-  list.className =
-    "quest-list";
-
+  list.className = "quest-list";
 
   stage.missions.forEach(function(mission, index) {
+    const item = document.createElement("div");
 
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "quest-item";
+    item.className = "quest-item";
 
     item.textContent =
       "Mission " +
@@ -1385,53 +874,34 @@ function renderQuest(container, stage) {
       ": " +
       mission;
 
-
     item.addEventListener(
       "mouseenter",
       function() {
-
         speak(mission);
-
       }
     );
 
-
     list.appendChild(item);
-
   });
-
 
   container.appendChild(list);
 
+  const reward = document.createElement("div");
 
-  const reward =
-    document.createElement("div");
-
-  reward.className =
-    "story-box";
-
-  reward.textContent =
-    stage.reward || "";
-
+  reward.className = "story-box";
+  reward.textContent = stage.reward || "";
 
   container.appendChild(reward);
 
+  const button = document.createElement("button");
 
-  const button =
-    document.createElement("button");
-
-  button.className =
-    "primary-btn next-btn";
-
-  button.textContent =
-    "Complete Family Quest";
-
+  button.className = "primary-btn next-btn";
+  button.textContent = "Complete Family Quest";
 
   button.addEventListener(
     "click",
     finishLesson
   );
-
 
   container.appendChild(button);
 }
@@ -1444,26 +914,17 @@ function addListenButton(
   text,
   label
 ) {
+  const button = document.createElement("button");
 
-  const button =
-    document.createElement("button");
-
-  button.className =
-    "listen-btn";
-
-  button.textContent =
-    label;
-
+  button.className = "listen-btn";
+  button.textContent = label;
 
   button.addEventListener(
     "click",
     function() {
-
       speak(text);
-
     }
   );
-
 
   container.appendChild(button);
 }
@@ -1472,47 +933,33 @@ function addListenButton(
 /* BUTTONS */
 
 function addNextButton(container) {
+  const button = document.createElement("button");
 
-  const button =
-    document.createElement("button");
-
-  button.className =
-    "primary-btn next-btn";
-
+  button.className = "primary-btn next-btn";
 
   if (
     currentStage <
     currentLesson.stages.length - 1
   ) {
-
-    button.textContent =
-      "Next";
-
+    button.textContent = "Next";
   } else {
-
-    button.textContent =
-      "Finish";
+    button.textContent = "Finish";
   }
-
 
   button.addEventListener(
     "click",
     nextStage
   );
 
-
   container.appendChild(button);
 }
 
 
 function disableButtons(parent) {
-
   parent
     .querySelectorAll("button")
     .forEach(function(button) {
-
       button.disabled = true;
-
     });
 }
 
@@ -1520,39 +967,28 @@ function disableButtons(parent) {
 /* NAVIGATION */
 
 function nextStage() {
-
   stopSpeaking();
-
 
   if (
     currentStage <
     currentLesson.stages.length - 1
   ) {
-
     currentStage++;
 
     renderStage();
-
   } else {
-
     finishLesson();
-
   }
 }
 
 
 function finishLesson() {
-
   stopSpeaking();
 
-
   if (!currentLesson) {
-
     renderMap();
-
     return;
   }
-
 
   const wasCompleted =
     hasCompletedLesson(
@@ -1560,39 +996,23 @@ function finishLesson() {
       currentLesson.key
     );
 
-
   if (!wasCompleted) {
-
     completeLesson(
       player,
       currentLesson.key
     );
 
+    addXP(player, 50);
+    addGems(player, 10);
 
-    addXP(
-      player,
-      50
-    );
-
-
-    addGems(
-      player,
-      10
-    );
-
-
-    player =
-      loadPlayer();
+    player = loadPlayer();
   }
-
 
   rewardTitle.textContent =
     currentLesson.title +
     " Complete!";
 
-
   if (wasCompleted) {
-
     rewardText.textContent =
       "You have already completed this adventure. You can play it again whenever you want.";
 
@@ -1601,9 +1021,7 @@ function finishLesson() {
 
     rewardGems.textContent =
       "Adventure complete";
-
   } else {
-
     rewardText.textContent =
       "Amazing work! You finished the whole Family Adventure.";
 
@@ -1612,28 +1030,22 @@ function finishLesson() {
 
     rewardGems.textContent =
       "+10 Gems";
-
   }
-
 
   showScreen("reward");
 }
 
 
 function goBackFromLesson() {
-
   stopSpeaking();
 
-
   if (currentStage > 0) {
-
     currentStage--;
 
     renderStage();
 
     return;
   }
-
 
   renderMap();
 }
@@ -1642,39 +1054,26 @@ function goBackFromLesson() {
 /* MAIN NAVIGATION */
 
 const startQuestButton =
-  document.getElementById(
-    "startQuest"
-  );
-
+  document.getElementById("startQuest");
 
 if (startQuestButton) {
-
   startQuestButton.addEventListener(
     "click",
     function() {
-
       renderMap();
-
     }
   );
 }
 
 
 const gamesButton =
-  document.getElementById(
-    "gamesBtn"
-  );
-
+  document.getElementById("gamesBtn");
 
 if (gamesButton) {
-
   gamesButton.addEventListener(
     "click",
     function() {
-
-      window.location.href =
-        "games.html";
-
+      window.location.href = "games.html";
     }
   );
 }
@@ -1683,60 +1082,40 @@ if (gamesButton) {
 document
   .querySelectorAll("[data-lesson]")
   .forEach(function(button) {
-
     button.addEventListener(
       "click",
       function() {
-
-        const key =
-          button.dataset.lesson;
-
+        const key = button.dataset.lesson;
 
         if (lessons[key]) {
-
           startLesson(key);
-
         } else {
-
           showToast(
             "This adventure is coming next!"
           );
-
         }
-
       }
     );
-
   });
 
 
 const mapHomeButton =
-  document.getElementById(
-    "mapHome"
-  );
-
+  document.getElementById("mapHome");
 
 if (mapHomeButton) {
-
   mapHomeButton.addEventListener(
     "click",
     function() {
-
       showScreen("home");
-
     }
   );
 }
 
 
 const lessonBackButton =
-  document.getElementById(
-    "lessonBack"
-  );
-
+  document.getElementById("lessonBack");
 
 if (lessonBackButton) {
-
   lessonBackButton.addEventListener(
     "click",
     goBackFromLesson
@@ -1745,43 +1124,31 @@ if (lessonBackButton) {
 
 
 const rewardMapButton =
-  document.getElementById(
-    "rewardMap"
-  );
-
+  document.getElementById("rewardMap");
 
 if (rewardMapButton) {
-
   rewardMapButton.addEventListener(
     "click",
     function() {
-
       renderMap();
-
     }
   );
 }
 
 
 const rewardHomeButton =
-  document.getElementById(
-    "rewardHome"
-  );
-
+  document.getElementById("rewardHome");
 
 if (rewardHomeButton) {
-
   rewardHomeButton.addEventListener(
     "click",
     function() {
-
       showScreen("home");
-
     }
   );
 }
 
 
 updatePlayerUI();
-
 showScreen("home");
+```
