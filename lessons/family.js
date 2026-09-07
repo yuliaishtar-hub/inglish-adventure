@@ -1,384 +1,302 @@
-const IMG =
-  "https://yuliaishtar-hub.github.io/inglish-adventure/";
+```javascript
+const BASE = "https://yuliaishtar-hub.github.io/inglish-adventure/";
+
+const img = (name) => `${BASE}${encodeURIComponent(name)}`;
 
 const familyLesson = {
-
   key: "family",
 
   title: "Family Adventure",
 
   description:
-    "Meet Lily's family and learn how to talk about your family.",
-
+    "Meet Lily's family, learn the words, build sentences and complete the final quest.",
 
   stages: [
 
-    /* ==================================
-       1. STORY
-    ================================== */
-
     {
       type: "story",
-
+      label: "Story 1",
       title: "Meet Lily!",
-
+      image: img("Lili.jpg"),
       text:
-        "Hello! I'm Lily! Come and meet my family.",
-
-      image:
-        IMG + "Lili.jpg"
+        "Hello! My name is Lily. Welcome to my family adventure!"
     },
-
 
     {
       type: "story",
-
-      title: "Mummy",
-
+      label: "Story 2",
+      title: "Meet Mummy",
+      image: img("mummy.jpg"),
       text:
-        "This is my mummy. Her name is Anna.",
-
-      image:
-        IMG + "mummy.jpg"
+        "This is my mummy. Her name is Anna. She is my mummy."
     },
-
 
     {
       type: "story",
-
-      title: "Daddy",
-
+      label: "Story 3",
+      title: "Meet Daddy",
+      image: img("daddy.jpg"),
       text:
-        "This is my daddy. His name is Tom.",
-
-      image:
-        IMG + "daddy.jpg"
+        "This is my daddy. His name is Tom. He is my daddy."
     },
-
 
     {
       type: "story",
-
-      title: "Grandma",
-
+      label: "Story 4",
+      title: "Meet Grandma",
+      image: img("grandma.jpg"),
       text:
-        "This is my grandma.",
-
-      image:
-        IMG + "grandma.jpg"
+        "This is my grandma. She is kind and funny."
     },
-
 
     {
       type: "story",
-
-      title: "Grandpa",
-
+      label: "Story 5",
+      title: "Meet Grandpa",
+      image: img("grandpa.jpg"),
       text:
-        "This is my grandpa.",
-
-      image:
-        IMG + "grandpa.jpg"
+        "This is my grandpa. He likes stories and walks."
     },
-
 
     {
       type: "story",
-
-      title: "Sister",
-
+      label: "Story 6",
+      title: "Meet My Sister",
+      image: img("Lilissisterbig.jpg"),
       text:
-        "This is my sister. Her name is Mia.",
-
-      image:
-        IMG + "Lilissisterbig.jpg"
+        "This is my sister. Her name is Mia. She is funny and cheerful."
     },
-
-
-    /* ==================================
-       2. VOCABULARY
-    ================================== */
 
     {
       type: "vocabulary",
-
-      title: "Family Words",
+      label: "Vocabulary",
+      title: "Meet the Family",
+      text:
+        "Move your mouse over a word to hear it and see the Russian translation.",
 
       words: [
         {
           word: "mummy",
-          image: IMG + "mummy.jpg"
+          translation: "мама",
+          image: img("mummy.jpg")
         },
-
         {
           word: "daddy",
-          image: IMG + "daddy.jpg"
+          translation: "папа",
+          image: img("daddy.jpg")
         },
-
         {
           word: "grandma",
-          image: IMG + "grandma.jpg"
+          translation: "бабушка",
+          image: img("grandma.jpg")
         },
-
         {
           word: "grandpa",
-          image: IMG + "grandpa.jpg"
+          translation: "дедушка",
+          image: img("grandpa.jpg")
         },
-
         {
           word: "sister",
-          image: IMG + "Lilissisterbig.jpg"
+          translation: "сестра",
+          image: img("Lilissisterbig.jpg")
         }
       ]
     },
 
-
-    /* ==================================
-       3. LISTEN
-    ================================== */
-
     {
       type: "listen",
-
-      title: "Listen Carefully",
-
+      label: "Listen",
+      title: "Listen carefully",
       text:
-        "This is my grandma.",
-
-      image:
-        IMG + "grandma.jpg"
+        "Listen to the sentence and get ready for the question.",
+      sentence:
+        "This is my grandma."
     },
-
-
-    /* ==================================
-       4. CHOOSE
-    ================================== */
 
     {
       type: "choose",
-
-      title: "Who is it?",
-
-      text:
+      label: "Choose",
+      title: "Who is this?",
+      image: img("grandpa.jpg"),
+      question:
         "Who is this?",
-
-      image:
-        IMG + "grandpa.jpg",
-
-      answers: [
-        "grandpa",
-        "daddy",
-        "grandma",
-        "sister"
+      options: [
+        "Grandpa",
+        "Grandma",
+        "Daddy",
+        "Sister"
       ],
-
-      correct: "grandpa"
+      answer: "Grandpa",
+      success:
+        "Great! This is grandpa."
     },
-
 
     {
       type: "choose",
-
-      title: "Who is it?",
-
-      text:
+      label: "Choose",
+      title: "Who is this?",
+      image: img("mummy.jpg"),
+      question:
         "Who is this?",
-
-      image:
-        IMG + "mummy.jpg",
-
-      answers: [
-        "sister",
-        "mummy",
-        "grandma",
-        "daddy"
+      options: [
+        "Grandma",
+        "Mummy",
+        "Sister",
+        "Grandpa"
       ],
-
-      correct: "mummy"
+      answer: "Mummy",
+      success:
+        "Yes! This is mummy."
     },
-
 
     {
       type: "choose",
-
-      title: "Who is it?",
-
-      text:
+      label: "Choose",
+      title: "Who is this?",
+      image: img("Lilissisterbig.jpg"),
+      question:
         "Who is this?",
-
-      image:
-        IMG + "Lilissisterbig.jpg",
-
-      answers: [
-        "grandma",
-        "daddy",
-        "sister",
-        "mummy"
+      options: [
+        "Daddy",
+        "Grandpa",
+        "Sister",
+        "Grandma"
       ],
-
-      correct: "sister"
+      answer: "Sister",
+      success:
+        "Correct! This is Lily's sister."
     },
-
-
-    /* ==================================
-       5. SENTENCE BUILDER
-    ================================== */
 
     {
       type: "sentence",
-
-      title: "Build the Sentence",
-
-      instruction:
-        "Make a sentence.",
-
-      words: [
-        "This",
-        "is",
-        "my",
-        "mummy"
-      ],
-
-      correct:
-        "This is my mummy."
-    },
-
-
-    {
-      type: "sentence",
-
-      title: "Build the Sentence",
-
-      instruction:
-        "Make a sentence.",
-
-      words: [
-        "This",
-        "is",
-        "my",
-        "grandpa"
-      ],
-
-      correct:
-        "This is my grandpa."
-    },
-
-
-    {
-      type: "sentence",
-
-      title: "Build the Sentence",
-
-      instruction:
-        "Make a sentence.",
-
-      words: [
-        "I",
-        "love",
-        "my",
-        "family"
-      ],
-
-      correct:
-        "I love my family."
-    },
-
-
-    /* ==================================
-       6. READING
-    ================================== */
-
-    {
-      type: "reading",
-
-      title: "Lily's Family",
-
+      label: "Build",
+      title: "Build the sentence",
       text:
-        "Hello! I'm Lily. I have a mummy, a daddy, a grandma, a grandpa and a sister. My mummy's name is Anna. My daddy's name is Tom. My sister's name is Mia. I love my family!"
-    },
-
-
-    {
-      type: "choose",
-
-      title: "Reading Mission",
-
-      text:
-        "What is Lily's sister's name?",
-
-      answers: [
-        "Anna",
-        "Mia",
-        "Lily",
-        "Emma"
-      ],
-
-      correct: "Mia"
-    },
-
-
-    {
-      type: "choose",
-
-      title: "Reading Mission",
-
-      text:
-        "Who is Tom?",
-
-      answers: [
-        "Lily's daddy",
-        "Lily's grandpa",
-        "Lily's brother",
-        "Lily's teacher"
-      ],
-
-      correct: "Lily's daddy"
-    },
-
-
-    /* ==================================
-       7. SPEAK
-    ================================== */
-
-    {
-      type: "speak",
-
-      title: "Speak with Lily",
-
-      text:
-        "Say: This is my mummy.",
+        "Put the words in the correct order.",
 
       target:
         "This is my mummy.",
 
-      image:
-        IMG + "mummy.jpg"
+      words: [
+        "mummy.",
+        "my",
+        "This",
+        "is"
+      ]
     },
 
+    {
+      type: "sentence",
+      label: "Build",
+      title: "Build the sentence",
+      text:
+        "Can you build another sentence?",
 
-    /* ==================================
-       8. FINAL QUEST
-    ================================== */
+      target:
+        "This is my grandpa.",
+
+      words: [
+        "grandpa.",
+        "This",
+        "my",
+        "is"
+      ]
+    },
+
+    {
+      type: "sentence",
+      label: "Build",
+      title: "Build the sentence",
+      text:
+        "One more! Build Lily's sentence.",
+
+      target:
+        "I love my family.",
+
+      words: [
+        "family.",
+        "I",
+        "my",
+        "love"
+      ]
+    },
+
+    {
+      type: "reading",
+      label: "Reading",
+      title: "Lily's Family",
+      text:
+        "Read Lily's little family story.",
+
+      reading:
+        "Hello! My name is Lily. I have a lovely family. My mummy is Anna and my daddy is Tom. I have a sister named Mia. My grandma and grandpa often visit us. I love my family!"
+    },
+
+    {
+      type: "choose",
+      label: "Reading",
+      title: "Check your reading",
+      question:
+        "What is Lily's sister's name?",
+      options: [
+        "Anna",
+        "Tom",
+        "Mia",
+        "Lily"
+      ],
+      answer: "Mia",
+      success:
+        "Correct! Lily's sister is Mia."
+    },
+
+    {
+      type: "choose",
+      label: "Reading",
+      title: "One more question",
+      question:
+        "Who is Tom?",
+      options: [
+        "Lily's daddy",
+        "Lily's grandpa",
+        "Lily's brother",
+        "Lily's friend"
+      ],
+      answer: "Lily's daddy",
+      success:
+        "Yes! Tom is Lily's daddy."
+    },
+
+    {
+      type: "speak",
+      label: "Speak",
+      title: "Talk to Lily",
+      text:
+        "Say the sentence aloud.",
+
+      target:
+        "This is my mummy."
+    },
 
     {
       type: "quest",
-
+      label: "Final Quest",
       title: "Family Quest",
-
       text:
-        "Lily wants to show her family album. Complete the final mission!",
+        "You have reached the final Family Quest!",
 
       missions: [
-        "Name a family member.",
-        "Build a family sentence.",
-        "Read Lily's family story.",
-        "Say one sentence in English."
-      ]
+        "Find mummy",
+        "Find grandpa",
+        "Build a family sentence",
+        "Say one sentence in English"
+      ],
+
+      reward:
+        "Family Quest complete!"
     }
 
   ]
-
 };
 
-
 export default familyLesson;
+```
