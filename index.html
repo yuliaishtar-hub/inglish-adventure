@@ -411,6 +411,18 @@ button{font:inherit}
   font-size:55px
 }
 
+/* ================= ERROR ================= */
+
+.error-box{
+  background:#fff0f3;
+  border:2px solid #ffb7c4;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  color:#a33a50;
+  font-weight:800
+}
+
 /* ================= MOBILE ================= */
 
 @media(max-width:760px){
@@ -500,9 +512,15 @@ button{font:inherit}
         Meet Lily, explore new worlds, listen, speak and earn ⭐ XP and 💎 gems.
       </p>
 
+      <!-- IMPORTANT:
+           No inline onclick here.
+           The button is connected below in JavaScript.
+      -->
+
       <button
+        id="startQuestBtn"
         class="primary"
-        onclick="showMap()"
+        type="button"
       >
         Start Quest 🚀
       </button>
@@ -525,8 +543,9 @@ button{font:inherit}
   <div class="home-games">
 
     <button
+      id="gamesBtn"
       class="games-main-btn"
-      onclick="window.location.href='https://yuliaishtar-hub.github.io/inglish-adventure/games.html'"
+      type="button"
     >
       🎮 Games — Play & Learn!
     </button>
@@ -578,8 +597,9 @@ button{font:inherit}
       </div>
 
       <button
+        id="homeBtn"
         class="secondary"
-        onclick="goHome()"
+        type="button"
       >
         ⌂ Home
       </button>
@@ -603,8 +623,9 @@ button{font:inherit}
   <div class="top">
 
     <button
+      id="lessonMapBtn"
       class="secondary"
-      onclick="showMap()"
+      type="button"
     >
       ← Map
     </button>
@@ -675,8 +696,9 @@ button{font:inherit}
     ></p>
 
     <button
+      id="rewardMapBtn"
       class="primary"
-      onclick="showMap()"
+      type="button"
     >
       Continue Adventure 🗺️
     </button>
@@ -696,6 +718,25 @@ button{font:inherit}
 
 const IMG =
   "https://yuliaishtar-hub.github.io/inglish-adventure/";
+
+
+/* =========================================================
+   QUESTION HELPER
+========================================================= */
+
+function q(
+  question,
+  image,
+  options,
+  correctIndex
+){
+  return {
+    question:question,
+    image:image,
+    options:options,
+    correctIndex:correctIndex
+  };
+}
 
 
 /* =========================================================
@@ -1390,39 +1431,55 @@ boss:{
 
 
 /* =========================================================
-   QUESTION FUNCTION
-========================================================= */
-
-function q(
-  question,
-  image,
-  options,
-  correctIndex
-){
-  return {
-    question,
-    image,
-    options,
-    correctIndex
-  };
-}
-
-
-/* =========================================================
    PLAYER STATE
 ========================================================= */
 
-let state =
-  JSON.parse(
-    localStorage.getItem("english_quest_v2") || "null"
-  )
-  ||
-  {
+let state;
+
+try{
+
+  state =
+    JSON.parse(
+      localStorage.getItem("english_quest_v2") || "null"
+    );
+
+}catch(error){
+
+  state=null;
+
+}
+
+
+if(
+  !state ||
+  typeof state !== "object"
+){
+
+  state={
     xp:0,
     gems:0,
     completed:[],
     unlocked:["family"]
   };
+
+}
+
+
+if(!Array.isArray(state.completed)){
+  state.completed=[];
+}
+
+if(!Array.isArray(state.unlocked)){
+  state.unlocked=["family"];
+}
+
+if(typeof state.xp!=="number"){
+  state.xp=0;
+}
+
+if(typeof state.gems!=="number"){
+  state.gems=0;
+}
 
 
 let currentKey="";
@@ -1437,10 +1494,18 @@ let storyMode=false;
 
 function save(){
 
-  localStorage.setItem(
-    "english_quest_v2",
-    JSON.stringify(state)
-  );
+  try{
+
+    localStorage.setItem(
+      "english_quest_v2",
+      JSON.stringify(state)
+    );
+
+  }catch(error){
+
+    console.log("Save error:",error);
+
+  }
 
   updateStats();
 
@@ -1453,28 +1518,24 @@ function save(){
 
 function updateStats(){
 
-  ["xp","lessonXp"].forEach(id=>{
+  const xpElements =
+    document.querySelectorAll(
+      "#xp,#lessonXp"
+    );
 
-    const e =
-      document.getElementById(id);
-
-    if(e){
-      e.textContent=state.xp;
-    }
-
-  });
+  xpElements.forEach(
+    el=>el.textContent=state.xp
+  );
 
 
-  ["gems","lessonGems"].forEach(id=>{
+  const gemElements =
+    document.querySelectorAll(
+      "#gems,#lessonGems"
+    );
 
-    const e =
-      document.getElementById(id);
-
-    if(e){
-      e.textContent=state.gems;
-    }
-
-  });
+  gemElements.forEach(
+    el=>el.textContent=state.gems
+  );
 
 }
 
@@ -1488,14 +1549,29 @@ function show(id){
   document
     .querySelectorAll(".screen")
     .forEach(
-      s=>s.classList.remove("active")
+      screen=>{
+        screen.classList.remove("active");
+      }
     );
 
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+  const target =
+    document.getElementById(id);
 
+
+  if(!target){
+
+    console.error(
+      "Screen not found:",
+      id
+    );
+
+    return;
+
+  }
+
+
+  target.classList.add("active");
 
   window.scrollTo(0,0);
 
@@ -1528,10 +1604,23 @@ function showMap(){
 }
 
 
+/* =========================================================
+   RENDER MAP
+========================================================= */
+
 function renderMap(){
 
   const grid =
-    document.getElementById("mapGrid");
+    document.getElementById(
+      "mapGrid"
+    );
+
+
+  if(!grid){
+
+    return;
+
+  }
 
 
   grid.innerHTML="";
@@ -1551,9 +1640,52 @@ function renderMap(){
       document.createElement("button");
 
 
+    b.type="button";
+
+
     b.className =
       "zone" +
-      (unlocked ? "" : " locked");
+      (
+        unlocked
+        ? ""
+        : " locked"
+      );
+
+
+    let imageHTML="";
+
+
+    if(z.image){
+
+      imageHTML=`
+
+        <img
+          class="zone-img"
+          src="${z.image}"
+          alt=""
+        >
+
+      `;
+
+    }else{
+
+      imageHTML=`
+
+        <div
+          class="zone-img"
+          style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:70px
+          "
+        >
+          ${z.icon}
+        </div>
+
+      `;
+
+    }
 
 
     b.innerHTML=`
@@ -1564,39 +1696,7 @@ function renderMap(){
         : ''
       }
 
-
-      ${
-        z.image
-
-        ?
-
-        `
-          <img
-            class="zone-img"
-            src="${z.image}"
-            alt=""
-          >
-        `
-
-        :
-
-        `
-
-          <div
-            class="zone-img"
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              font-size:70px
-            "
-          >
-            ${z.icon}
-          </div>
-
-        `
-      }
-
+      ${imageHTML}
 
       <div class="zone-body">
 
@@ -1619,8 +1719,14 @@ function renderMap(){
 
     if(unlocked){
 
-      b.onclick =
-        ()=>startLevel(z.key);
+      b.addEventListener(
+        "click",
+        function(){
+
+          startLevel(z.key);
+
+        }
+      );
 
     }
 
@@ -1638,6 +1744,18 @@ function renderMap(){
 
 function startLevel(key){
 
+  if(!levels[key]){
+
+    console.error(
+      "Level not found:",
+      key
+    );
+
+    return;
+
+  }
+
+
   currentKey=key;
 
   currentIndex=0;
@@ -1648,10 +1766,18 @@ function startLevel(key){
     levels[key].type==="story";
 
 
-  document.getElementById(
-    "lessonTitle"
-  ).textContent =
-    levels[key].name;
+  const title =
+    document.getElementById(
+      "lessonTitle"
+    );
+
+
+  if(title){
+
+    title.textContent =
+      levels[key].name;
+
+  }
 
 
   show("lesson");
@@ -1669,6 +1795,13 @@ function renderLesson(){
 
   const data =
     levels[currentKey];
+
+
+  if(!data){
+
+    return;
+
+  }
 
 
   const total =
@@ -1718,23 +1851,28 @@ function renderLesson(){
   answered=false;
 
 
-  const image =
+  let imageHTML="";
+
+
+  if(
     typeof item.image==="string" &&
     item.image.startsWith("http")
+  ){
 
-    ?
+    imageHTML=`
 
-    `
       <img
         class="big-image"
         src="${item.image}"
         alt=""
       >
-    `
 
-    :
+    `;
 
-    `
+  }else{
+
+    imageHTML=`
+
       <div
         class="big-image"
         style="
@@ -1746,56 +1884,54 @@ function renderLesson(){
       >
         ${item.image}
       </div>
+
     `;
+
+  }
 
 
   box.innerHTML=`
 
-    ${image}
-
+    ${imageHTML}
 
     <div class="question">
       ${item.question}
     </div>
 
-
     <button
+      id="listenQuestionBtn"
       class="listen"
-      onclick="speak('${escapeJS(item.question)}')"
+      type="button"
     >
       🔊 Listen to question
     </button>
-
 
     <div
       id="answers"
       class="answer-grid"
     ></div>
 
-
     <div
       id="feedback"
       class="feedback"
     ></div>
-
 
     <div class="actions">
 
       <button
         id="mic"
         class="mic"
+        type="button"
         style="display:none"
-        onclick="listenAnswer()"
       >
         🎤 Say it!
       </button>
 
-
       <button
         id="next"
         class="next"
+        type="button"
         style="display:none"
-        onclick="nextItem()"
       >
         Next ➡️
       </button>
@@ -1803,6 +1939,36 @@ function renderLesson(){
     </div>
 
   `;
+
+
+  document
+    .getElementById(
+      "listenQuestionBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        speak(item.question);
+
+      }
+    );
+
+
+  document
+    .getElementById("mic")
+    .addEventListener(
+      "click",
+      listenAnswer
+    );
+
+
+  document
+    .getElementById("next")
+    .addEventListener(
+      "click",
+      nextItem
+    );
 
 
   const answers =
@@ -1820,13 +1986,24 @@ function renderLesson(){
         );
 
 
+      btn.type="button";
+
       btn.className="answer";
 
       btn.textContent=text;
 
 
-      btn.onclick =
-        ()=>selectAnswer(i,btn);
+      btn.addEventListener(
+        "click",
+        function(){
+
+          selectAnswer(
+            i,
+            btn
+          );
+
+        }
+      );
 
 
       answers.appendChild(btn);
@@ -1841,7 +2018,10 @@ function renderLesson(){
    STORY
 ========================================================= */
 
-function renderStory(box,scene){
+function renderStory(
+  box,
+  scene
+){
 
   box.innerHTML=`
 
@@ -1852,18 +2032,15 @@ function renderStory(box,scene){
         alt="Lily story"
       >
 
-
       <div>
 
         <div class="story-step">
           LILY'S STORY • SCENE ${currentIndex+1}
         </div>
 
-
         <div class="story-text">
           ${scene.text}
         </div>
-
 
         <div
           class="actions"
@@ -1871,24 +2048,23 @@ function renderStory(box,scene){
         >
 
           <button
+            id="storyListenBtn"
             class="listen"
-            onclick="speak('${escapeJS(scene.text)}',true)"
+            type="button"
           >
             🔊 Listen
           </button>
 
-
           <button
+            id="storyNextBtn"
             class="next"
-            onclick="nextItem()"
+            type="button"
           >
 
             ${
               currentIndex ===
               levels[currentKey].scenes.length-1
-
               ? "Finish story"
-
               : "Next ➡️"
             }
 
@@ -1902,6 +2078,33 @@ function renderStory(box,scene){
 
   `;
 
+
+  document
+    .getElementById(
+      "storyListenBtn"
+    )
+    .addEventListener(
+      "click",
+      function(){
+
+        speak(
+          scene.text,
+          true
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "storyNextBtn"
+    )
+    .addEventListener(
+      "click",
+      nextItem
+    );
+
 }
 
 
@@ -1909,9 +2112,16 @@ function renderStory(box,scene){
    CHECK ANSWER
 ========================================================= */
 
-function selectAnswer(index,btn){
+function selectAnswer(
+  index,
+  btn
+){
 
-  if(answered)return;
+  if(answered){
+
+    return;
+
+  }
 
 
   const item =
@@ -1924,19 +2134,23 @@ function selectAnswer(index,btn){
     answered=true;
 
 
-    btn.classList.add("correct");
+    btn.classList.add(
+      "correct"
+    );
 
 
     document
-      .querySelectorAll(".answer")
+      .querySelectorAll(
+        ".answer"
+      )
       .forEach(
-        b=>b.disabled=true
+        b=>{
+          b.disabled=true;
+        }
       );
 
 
     state.xp += 10;
-
-    state.gems += 1;
 
 
     save();
@@ -1974,7 +2188,10 @@ function selectAnswer(index,btn){
 
   }else{
 
-    btn.classList.add("wrong");
+    btn.classList.add(
+      "wrong"
+    );
+
 
     btn.disabled=true;
 
@@ -2037,10 +2254,14 @@ function nextItem(){
 function finishLevel(){
 
   if(
-    !state.completed.includes(currentKey)
+    !state.completed.includes(
+      currentKey
+    )
   ){
 
-    state.completed.push(currentKey);
+    state.completed.push(
+      currentKey
+    );
 
   }
 
@@ -2055,17 +2276,16 @@ function finishLevel(){
     zones[pos+1];
 
 
-  /*
-    The next zone unlocks silently.
-    No announcement about the next block.
-  */
-
   if(
     next &&
-    !state.unlocked.includes(next.key)
+    !state.unlocked.includes(
+      next.key
+    )
   ){
 
-    state.unlocked.push(next.key);
+    state.unlocked.push(
+      next.key
+    );
 
   }
 
@@ -2089,10 +2309,6 @@ function finishLevel(){
   show("reward");
 
 
-  /*
-    SAME VOICE SETTINGS AS GAMES
-  */
-
   speak(
     "Well done! Great job!",
     true
@@ -2102,11 +2318,13 @@ function finishLevel(){
 
 
 /* =========================================================
-   VOICE
-   EXACTLY LIKE GAMES
+   VOICE — SAME AS GAMES
 ========================================================= */
 
-function speak(text,slow=false){
+function speak(
+  text,
+  slow=false
+){
 
   if(
     !("speechSynthesis" in window)
@@ -2121,24 +2339,19 @@ function speak(text,slow=false){
 
 
   const u =
-    new SpeechSynthesisUtterance(text);
+    new SpeechSynthesisUtterance(
+      text
+    );
 
 
   u.lang="en-US";
-
-
-  /*
-    EXACT SAME SETTINGS AS games.html
-  */
 
   u.rate =
     slow
     ? 0.72
     : 0.82;
 
-
   u.pitch=1.08;
-
 
   u.volume=1;
 
@@ -2176,7 +2389,9 @@ function listenAnswer(){
 
 
   const mic =
-    document.getElementById("mic");
+    document.getElementById(
+      "mic"
+    );
 
 
   mic.textContent =
@@ -2194,7 +2409,7 @@ function listenAnswer(){
   r.maxAlternatives=3;
 
 
-  r.onresult=e=>{
+  r.onresult=function(e){
 
     const heard =
       e.results[0][0]
@@ -2234,7 +2449,9 @@ function listenAnswer(){
       heard.includes(correct) ||
       hits>=Math.max(
         1,
-        Math.ceil(words.length*.65)
+        Math.ceil(
+          words.length*.65
+        )
       )
     ){
 
@@ -2248,7 +2465,6 @@ function listenAnswer(){
         "feedback"
       ).style.color =
         "#39964e";
-
 
     }else{
 
@@ -2274,7 +2490,7 @@ function listenAnswer(){
   };
 
 
-  r.onerror=()=>{
+  r.onerror=function(){
 
     mic.textContent =
       "🎤 Say it!";
@@ -2293,15 +2509,99 @@ function listenAnswer(){
 
 
 /* =========================================================
-   ESCAPE TEXT
+   BUTTON CONNECTIONS
+   THIS IS THE IMPORTANT FIX
 ========================================================= */
 
-function escapeJS(s){
+function setupButtons(){
 
-  return s
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/\n/g," ");
+  const startBtn =
+    document.getElementById(
+      "startQuestBtn"
+    );
+
+
+  if(startBtn){
+
+    startBtn.addEventListener(
+      "click",
+      function(){
+
+        showMap();
+
+      }
+    );
+
+  }
+
+
+  const gamesBtn =
+    document.getElementById(
+      "gamesBtn"
+    );
+
+
+  if(gamesBtn){
+
+    gamesBtn.addEventListener(
+      "click",
+      function(){
+
+        window.location.href =
+          "https://yuliaishtar-hub.github.io/inglish-adventure/games.html";
+
+      }
+    );
+
+  }
+
+
+  const homeBtn =
+    document.getElementById(
+      "homeBtn"
+    );
+
+
+  if(homeBtn){
+
+    homeBtn.addEventListener(
+      "click",
+      goHome
+    );
+
+  }
+
+
+  const lessonMapBtn =
+    document.getElementById(
+      "lessonMapBtn"
+    );
+
+
+  if(lessonMapBtn){
+
+    lessonMapBtn.addEventListener(
+      "click",
+      showMap
+    );
+
+  }
+
+
+  const rewardMapBtn =
+    document.getElementById(
+      "rewardMapBtn"
+    );
+
+
+  if(rewardMapBtn){
+
+    rewardMapBtn.addEventListener(
+      "click",
+      showMap
+    );
+
+  }
 
 }
 
@@ -2310,7 +2610,16 @@ function escapeJS(s){
    START
 ========================================================= */
 
-updateStats();
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateStats();
+
+    setupButtons();
+
+  }
+);
 
 </script>
 
