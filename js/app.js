@@ -22,7 +22,6 @@ const lessons = {
   family: familyLesson
 };
 
-
 let player = loadPlayer();
 
 let currentLesson = null;
@@ -40,16 +39,10 @@ const screens = {
 };
 
 
-const playerXP =
-  document.getElementById("playerXP");
+const playerXP = document.getElementById("playerXP");
+const playerGems = document.getElementById("playerGems");
 
-const playerGems =
-  document.getElementById("playerGems");
-
-
-const lessonTitle =
-  document.getElementById("lessonTitle");
-
+const lessonTitle = document.getElementById("lessonTitle");
 const lessonDescription =
   document.getElementById("lessonDescription");
 
@@ -61,7 +54,6 @@ const stageContainer =
 
 const toast =
   document.getElementById("toast");
-
 
 const rewardXP =
   document.getElementById("rewardXP");
@@ -76,7 +68,6 @@ const rewardText =
   document.getElementById("rewardText");
 
 
-
 function updatePlayerUI() {
 
   playerXP.textContent =
@@ -86,7 +77,6 @@ function updatePlayerUI() {
     `💎 ${player.gems}`;
 
 }
-
 
 
 function showScreen(name) {
@@ -102,7 +92,6 @@ function showScreen(name) {
 }
 
 
-
 function showToast(message) {
 
   toast.textContent = message;
@@ -114,7 +103,6 @@ function showToast(message) {
   }, 1800);
 
 }
-
 
 
 function addReward(xp, gems) {
@@ -132,13 +120,11 @@ function addReward(xp, gems) {
 }
 
 
-
 function renderMap() {
 
   showScreen("map");
 
 }
-
 
 
 function startLesson(key) {
@@ -155,11 +141,8 @@ function startLesson(key) {
   }
 
   currentLesson = lesson;
-
   currentStage = 0;
-
   stageAnswered = false;
-
   selectedWords = [];
 
   lessonTitle.textContent =
@@ -175,13 +158,10 @@ function startLesson(key) {
 }
 
 
-
 function renderStage() {
 
   if (!currentLesson) {
-
     renderMap();
-
     return;
   }
 
@@ -192,14 +172,11 @@ function renderStage() {
     stages[currentStage];
 
   if (!stage) {
-
     finishLesson();
-
     return;
   }
 
   stageAnswered = false;
-
   selectedWords = [];
 
   const progress =
@@ -274,11 +251,9 @@ function renderStage() {
     renderQuest(wrapper, stage);
   }
 
-
   stageContainer.appendChild(wrapper);
 
 }
-
 
 
 function renderStory(container, stage) {
@@ -298,6 +273,7 @@ function renderStory(container, stage) {
       stage.title;
 
     container.appendChild(image);
+
   }
 
 
@@ -319,11 +295,9 @@ function renderStory(container, stage) {
     "🔊 Listen"
   );
 
-
   addNextButton(container);
 
 }
-
 
 
 function renderVocabulary(container, stage) {
@@ -383,9 +357,7 @@ function renderVocabulary(container, stage) {
     card.addEventListener(
       "click",
       () => {
-
         speak(item.word);
-
       }
     );
 
@@ -400,7 +372,6 @@ function renderVocabulary(container, stage) {
   addNextButton(container);
 
 }
-
 
 
 function renderListen(container, stage) {
@@ -439,7 +410,6 @@ function renderListen(container, stage) {
   addNextButton(container);
 
 }
-
 
 
 function renderChoose(container, stage) {
@@ -520,17 +490,14 @@ function renderChoose(container, stage) {
 
           button.classList.add("correct");
 
-
           feedback.textContent =
             stage.success ||
             "Correct!";
-
 
           speak(
             stage.success ||
             "Correct!"
           );
-
 
           addReward(10, 1);
 
@@ -559,11 +526,9 @@ function renderChoose(container, stage) {
 
 
   container.appendChild(choices);
-
   container.appendChild(feedback);
 
 }
-
 
 
 function disableButtons(parent) {
@@ -571,13 +536,10 @@ function disableButtons(parent) {
   parent
     .querySelectorAll("button")
     .forEach(button => {
-
       button.disabled = true;
-
     });
 
 }
-
 
 
 function renderSentence(container, stage) {
@@ -650,11 +612,9 @@ function renderSentence(container, stage) {
           return;
         }
 
-
         selectedWords.push(word);
 
         button.classList.add("selected");
-
 
         renderSelectedWords(
           selected,
@@ -677,7 +637,6 @@ function renderSentence(container, stage) {
   container.appendChild(area);
 
 }
-
 
 
 function renderSelectedWords(
@@ -799,23 +758,19 @@ function renderSelectedWords(
 
           addReward(15, 2);
 
-
           selected.innerHTML = "";
 
           selected.textContent =
             `✓ ${stage.target}`;
 
-
           selected.style.borderColor =
             "var(--green)";
-
 
           addNextButton(container);
 
         } else {
 
           speak("Try again!");
-
 
           showToast(
             "Almost! Try another order."
@@ -832,7 +787,6 @@ function renderSelectedWords(
   }
 
 }
-
 
 
 function renderReading(container, stage) {
@@ -871,7 +825,6 @@ function renderReading(container, stage) {
   addNextButton(container);
 
 }
-
 
 
 function renderSpeak(container, stage) {
@@ -1017,7 +970,6 @@ function renderSpeak(container, stage) {
         feedback.textContent =
           `I heard: "${result.text}". Try again!`;
 
-
         speak(stage.target);
 
       }
@@ -1029,7 +981,6 @@ function renderSpeak(container, stage) {
   container.appendChild(box);
 
 }
-
 
 
 function renderQuest(container, stage) {
@@ -1107,7 +1058,6 @@ function renderQuest(container, stage) {
 }
 
 
-
 function addListenButton(
   container,
   text,
@@ -1127,9 +1077,7 @@ function addListenButton(
   button.addEventListener(
     "click",
     () => {
-
       speak(text);
-
     }
   );
 
@@ -1137,7 +1085,6 @@ function addListenButton(
   container.appendChild(button);
 
 }
-
 
 
 function addNextButton(container) {
@@ -1167,7 +1114,6 @@ function addNextButton(container) {
 }
 
 
-
 function nextStage() {
 
   stopSpeaking();
@@ -1191,7 +1137,6 @@ function nextStage() {
 }
 
 
-
 function finishLesson() {
 
   stopSpeaking();
@@ -1210,7 +1155,6 @@ function finishLesson() {
       player,
       currentLesson.key
     );
-
 
     addXP(player, 50);
 
@@ -1248,7 +1192,6 @@ function finishLesson() {
 }
 
 
-
 function goBackFromLesson() {
 
   stopSpeaking();
@@ -1269,18 +1212,14 @@ function goBackFromLesson() {
 }
 
 
-
 document
   .getElementById("startQuest")
   .addEventListener(
     "click",
     () => {
-
       renderMap();
-
     }
   );
-
 
 
 document
@@ -1288,13 +1227,10 @@ document
   .addEventListener(
     "click",
     () => {
-
       window.location.href =
         "games.html";
-
     }
   );
-
 
 
 document
@@ -1327,18 +1263,14 @@ document
   });
 
 
-
 document
   .getElementById("mapHome")
   .addEventListener(
     "click",
     () => {
-
       showScreen("home");
-
     }
   );
-
 
 
 document
@@ -1349,18 +1281,14 @@ document
   );
 
 
-
 document
   .getElementById("rewardMap")
   .addEventListener(
     "click",
     () => {
-
       renderMap();
-
     }
   );
-
 
 
 document
@@ -1368,12 +1296,9 @@ document
   .addEventListener(
     "click",
     () => {
-
       showScreen("home");
-
     }
   );
-
 
 
 updatePlayerUI();
