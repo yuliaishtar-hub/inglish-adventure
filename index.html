@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -633,7 +634,7 @@ button{
       class="secondary"
       type="button"
     >
-      ← Map
+      ← Back to Map
     </button>
 
     <div class="stats">
@@ -728,12 +729,6 @@ const IMG =
   "https://yuliaishtar-hub.github.io/inglish-adventure/";
 
 
-/*
-  IMPORTANT:
-  q() is declared BEFORE levels.
-  This prevents the old ReferenceError.
-*/
-
 function q(question,image,options,correctIndex){
 
   return {
@@ -821,7 +816,7 @@ const zones = [
     icon:"👑",
     title:"Boss Castle",
     sub:"Big conversation",
-    image:IMG+"Lili green.jpg"
+    image:IMG+"Lili.jpg"
   }
 
 ];
@@ -1013,6 +1008,13 @@ const levels = {
   },
 
 
+  /* =======================================================
+     COLOURS
+     Только 4 вопроса — без повторов.
+     Когда добавим новые картинки цветов,
+     расширим этот блок.
+  ======================================================= */
+
   colours:{
 
     name:"🎨 Colour Garden",
@@ -1043,17 +1045,6 @@ const levels = {
 
       q(
         "What colour is it?",
-        IMG+"yellow.jpg",
-        [
-          "It's yellow.",
-          "It's green.",
-          "It's red."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
         IMG+"green.jpg",
         [
           "It's green.",
@@ -1061,39 +1052,6 @@ const levels = {
           "It's blue."
         ],
         0
-      ),
-
-      q(
-        "What colour is it?",
-        IMG+"red.jpg",
-        [
-          "It's blue.",
-          "It's red.",
-          "It's green."
-        ],
-        1
-      ),
-
-      q(
-        "What colour is it?",
-        IMG+"blue.jpg",
-        [
-          "It's green.",
-          "It's yellow.",
-          "It's blue."
-        ],
-        2
-      ),
-
-      q(
-        "What colour is it?",
-        IMG+"green.jpg",
-        [
-          "It's red.",
-          "It's green.",
-          "It's yellow."
-        ],
-        1
       ),
 
       q(
@@ -1513,11 +1471,6 @@ let currentKey="";
 let currentIndex=0;
 
 let answered=false;
-
-/*
-  This variable controls the gem reward.
-  One question = maximum one gem.
-*/
 
 let spokenRewarded=false;
 
@@ -2164,7 +2117,7 @@ function selectAnswer(index,button){
     /*
       Correct answer:
       +10 XP
-      NO GEM YET
+      No gem yet.
     */
 
     state.xp += 10;
@@ -2419,15 +2372,11 @@ function normalizeSpeech(text){
 
 function listenAnswer(){
 
-  /*
-    If this question has already received a gem,
-    do not allow another reward.
-  */
-
   if(spokenRewarded){
 
     const feedback=
       document.getElementById("feedback");
+
 
     if(feedback){
 
@@ -2542,11 +2491,6 @@ function listenAnswer(){
 
     if(goodSpeech){
 
-      /*
-        SUCCESS:
-        +1 GEM ONCE ONLY
-      */
-
       if(!spokenRewarded){
 
         spokenRewarded=true;
@@ -2574,11 +2518,6 @@ function listenAnswer(){
 
 
     }else{
-
-      /*
-        Wrong pronunciation:
-        NO GEM
-      */
 
       const feedback=
         document.getElementById("feedback");
@@ -2719,6 +2658,12 @@ if(homeBtn){
 }
 
 
+/*
+  BACK BUTTON
+  Работает во всех локациях:
+  Family story + обычные задания.
+*/
+
 const mapBtn=
   document.getElementById("mapBtn");
 
@@ -2757,3 +2702,4 @@ updateStats();
 
 </body>
 </html>
+```
