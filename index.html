@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +20,7 @@ button{font:inherit}
 #app{
   max-width:980px;
   margin:0 auto;
-  padding:18px
+  padding:18px;
 }
 
 .screen{display:none}
@@ -63,13 +62,17 @@ button{font:inherit}
   box-shadow:0 16px 40px #54317b22
 }
 
+
+/* =========================
+   HOME
+========================= */
+
 .hero{
   min-height:560px;
   display:grid;
   grid-template-columns:1.05fr .95fr;
   gap:25px;
   align-items:center;
-  overflow:hidden
 }
 
 .hero-copy h1{
@@ -85,14 +88,24 @@ button{font:inherit}
   margin:0 0 25px
 }
 
+
+/* Lily — теперь целиком */
+
 .hero-img{
   width:100%;
-  max-height:460px;
-  object-fit:cover;
+  height:460px;
+  object-fit:contain;
+  object-position:center;
   border-radius:28px;
-  background:#eee;
+  background:#f7f4ff;
+  padding:10px;
   box-shadow:0 10px 25px #0002
 }
+
+
+/* =========================
+   BUTTONS
+========================= */
 
 .primary,
 .secondary,
@@ -149,6 +162,66 @@ button{font:inherit}
   margin-top:12px
 }
 
+
+/* =========================
+   GAMES BUTTON
+========================= */
+
+.home-games{
+  margin-top:18px;
+}
+
+.games-main-btn{
+  width:100%;
+  min-height:82px;
+  border:0;
+  border-radius:26px;
+  padding:15px 24px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#ff5f8d 0%,#9b5cff 55%,#6355d9 100%);
+  box-shadow:0 12px 28px #6339a633;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  font-weight:900;
+  font-size:27px;
+  transition:.2s;
+}
+
+.games-main-btn:hover{
+  transform:translateY(-3px) scale(1.01);
+  box-shadow:0 16px 34px #6339a644;
+}
+
+.games-main-btn .game-icon{
+  font-size:38px;
+}
+
+.games-main-btn .game-text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  line-height:1.05;
+}
+
+.games-main-btn .game-title{
+  font-size:27px;
+}
+
+.games-main-btn .game-subtitle{
+  font-size:14px;
+  font-weight:700;
+  opacity:.9;
+  margin-top:5px;
+}
+
+
+/* =========================
+   MAP
+========================= */
+
 .map-head{
   display:flex;
   align-items:center;
@@ -196,11 +269,17 @@ button{font:inherit}
   opacity:.72
 }
 
+
+/* Все изображения карты целиком */
+
 .zone-img{
   width:100%;
   height:145px;
-  object-fit:cover;
-  background:#e9e3f5
+  object-fit:contain;
+  object-position:center;
+  background:#f7f4ff;
+  padding:8px;
+  display:block;
 }
 
 .zone-body{
@@ -231,8 +310,14 @@ button{font:inherit}
   top:12px;
   background:#fff;
   border-radius:50%;
-  padding:8px
+  padding:8px;
+  z-index:2
 }
+
+
+/* =========================
+   LESSON
+========================= */
 
 .lesson-head{
   display:flex;
@@ -311,10 +396,6 @@ button{font:inherit}
   border-color:#f05c70
 }
 
-.answer:disabled{
-  cursor:default
-}
-
 .feedback{
   min-height:32px;
   font-size:18px;
@@ -328,6 +409,11 @@ button{font:inherit}
   gap:10px;
   flex-wrap:wrap
 }
+
+
+/* =========================
+   STORY
+========================= */
 
 .story{
   display:grid;
@@ -357,6 +443,11 @@ button{font:inherit}
   margin-bottom:12px
 }
 
+
+/* =========================
+   REWARD
+========================= */
+
 .reward{
   text-align:center;
   padding:30px
@@ -371,6 +462,11 @@ button{font:inherit}
 .reward .stars{
   font-size:55px
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:760px){
 
@@ -392,6 +488,7 @@ button{font:inherit}
   }
 
   .hero-img{
+    height:330px;
     max-height:330px
   }
 
@@ -401,6 +498,19 @@ button{font:inherit}
 
   .answer-grid{
     grid-template-columns:1fr
+  }
+
+  .games-main-btn{
+    min-height:76px;
+    font-size:23px;
+  }
+
+  .games-main-btn .game-title{
+    font-size:23px;
+  }
+
+  .games-main-btn .game-icon{
+    font-size:32px;
   }
 }
 
@@ -418,15 +528,31 @@ button{font:inherit}
   .question{
     font-size:23px
   }
+
+  .hero-img{
+    height:290px;
+  }
+
+  .games-main-btn{
+    gap:9px;
+    padding:12px 15px;
+  }
+
+  .games-main-btn .game-subtitle{
+    font-size:12px;
+  }
 }
 </style>
 </head>
+
 
 <body>
 
 <div id="app">
 
-  <!-- HOME -->
+  <!-- =========================
+       HOME
+  ========================= -->
 
   <section id="home" class="screen active">
 
@@ -439,7 +565,8 @@ button{font:inherit}
         <h1>English can be an adventure!</h1>
 
         <p>
-          Meet Lily, explore new worlds, listen, speak and earn ⭐ XP and 💎 gems.
+          Meet Lily, explore new worlds, listen, speak and earn
+          ⭐ XP and 💎 gems.
         </p>
 
         <button class="primary" onclick="showMap()">
@@ -452,6 +579,7 @@ button{font:inherit}
 
       </div>
 
+
       <img
         class="hero-img"
         src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
@@ -460,10 +588,35 @@ button{font:inherit}
 
     </div>
 
+
+    <!-- GAMES BUTTON -->
+
+    <div class="home-games">
+
+      <button
+        class="games-main-btn"
+        onclick="window.location.href='games.html'"
+      >
+
+        <span class="game-icon">🎮</span>
+
+        <span class="game-text">
+          <span class="game-title">GAMES</span>
+          <span class="game-subtitle">
+            Play • Learn • Have Fun
+          </span>
+        </span>
+
+      </button>
+
+    </div>
+
   </section>
 
 
-  <!-- MAP -->
+  <!-- =========================
+       MAP
+  ========================= -->
 
   <section id="map" class="screen">
 
@@ -502,11 +655,15 @@ button{font:inherit}
 
         </div>
 
-        <button class="secondary" onclick="goHome()">
+        <button
+          class="secondary"
+          onclick="goHome()"
+        >
           ⌂ Home
         </button>
 
       </div>
+
 
       <div id="mapGrid" class="map-grid"></div>
 
@@ -515,15 +672,21 @@ button{font:inherit}
   </section>
 
 
-  <!-- LESSON -->
+  <!-- =========================
+       LESSON
+  ========================= -->
 
   <section id="lesson" class="screen">
 
     <div class="top">
 
-      <button class="secondary" onclick="showMap()">
+      <button
+        class="secondary"
+        onclick="showMap()"
+      >
         ← Map
       </button>
+
 
       <div class="stats">
 
@@ -544,17 +707,25 @@ button{font:inherit}
 
       <div class="lesson-head">
 
-        <h2 id="lessonTitle" class="lesson-title"></h2>
+        <h2
+          id="lessonTitle"
+          class="lesson-title"
+        ></h2>
 
         <div id="counter"></div>
 
       </div>
 
+
       <div class="progress">
 
-        <div id="progressFill" class="progress-fill"></div>
+        <div
+          id="progressFill"
+          class="progress-fill"
+        ></div>
 
       </div>
+
 
       <div id="lessonContent"></div>
 
@@ -563,7 +734,9 @@ button{font:inherit}
   </section>
 
 
-  <!-- REWARD -->
+  <!-- =========================
+       REWARD
+  ========================= -->
 
   <section id="reward" class="screen">
 
@@ -577,9 +750,15 @@ button{font:inherit}
         Well done!
       </h2>
 
-      <p id="rewardText" style="font-size:20px"></p>
+      <p
+        id="rewardText"
+        style="font-size:20px"
+      ></p>
 
-      <button class="primary" onclick="showMap()">
+      <button
+        class="primary"
+        onclick="showMap()"
+      >
         Continue Adventure 🗺️
       </button>
 
@@ -597,7 +776,7 @@ const IMG =
 
 
 /* =========================
-   ADVENTURE MAP
+   ADVENTURE ZONES
 ========================= */
 
 const zones = [
@@ -605,9 +784,9 @@ const zones = [
   {
     key:"family",
     icon:"👨‍👩‍👧",
-    title:"Family House",
+    title:"Family",
     sub:"Family & people",
-    image:IMG+"mum dad.jpg"
+    image:IMG+"Lili.jpg"
   },
 
   {
@@ -655,7 +834,7 @@ const zones = [
     icon:"🧸",
     title:"Toy Town",
     sub:"Toys",
-    image:null
+    image:IMG+"Taddybear.jpg"
   },
 
   {
@@ -683,618 +862,608 @@ const zones = [
 
 const levels = {
 
-  family:{
-
-    name:"👨‍👩‍👧 Family House",
-
-    type:"story",
-
-    scenes:[
-
-      {
-        text:"Hello! I'm Lily!",
-        image:IMG+"Lili.jpg"
-      },
-
-      {
-        text:"I have a mummy. Her name is Anna.",
-        image:IMG+"mummy.jpg"
-      },
-
-      {
-        text:"I have a daddy. His name is Tom.",
-        image:IMG+"daddy.jpg"
-      },
-
-      {
-        text:"I have a grandma and a grandpa.",
-        image:IMG+"grandmagrandpa.jpg"
-      },
-
-      {
-        text:"I have a sister. Her name is Mia.",
-        image:IMG+"Lilissisterbig.jpg"
-      },
-
-      {
-        text:"I love my family!",
-        image:IMG+"Lili.jpg"
-      },
-
-      {
-        text:"I go to school every day!",
-        image:IMG+"Lili.jpg"
-      },
-
-      {
-        text:"Let's play together!",
-        image:IMG+"Lili.jpg"
-      }
-
-    ]
-
-  },
-
-
-  school:{
-
-    name:"🏫 School",
-
-    questions:[
-
-      q(
-        "What is it?",
-        IMG+"pen.jpg",
-        [
-          "It's a pen.",
-          "It's a ruler.",
-          "It's an eraser."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"pencil.jpg",
-        [
-          "It's a pencil.",
-          "It's a ruler.",
-          "It's a pen."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"ruler.jpg",
-        [
-          "It's a pencil.",
-          "It's a ruler.",
-          "It's a pen."
-        ],
-        1
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Eraser.jpg",
-        [
-          "It's a ruler.",
-          "It's a pen.",
-          "It's an eraser."
-        ],
-        2
-      ),
-
-      q(
-        "What is it?",
-        IMG+"School bag.jpg",
-        [
-          "It's a school bag.",
-          "It's a pen.",
-          "It's a ruler."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  animals:{
-
-    name:"🐾 Pet World",
-
-    questions:[
-
-      q(
-        "What is it?",
-        IMG+"monkey.jpg",
-        [
-          "It's a chimp.",
-          "It's a fish.",
-          "It's a bird."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"fish.jpg",
-        [
-          "It's a mouse.",
-          "It's a frog.",
-          "It's a fish."
-        ],
-        2
-      ),
-
-      q(
-        "What is it?",
-        IMG+"bird.jpg",
-        [
-          "It's a bird.",
-          "It's a chimp.",
-          "It's a mouse."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"mouse.jpg",
-        [
-          "It's a fish.",
-          "It's a mouse.",
-          "It's a frog."
-        ],
-        1
-      ),
-
-      q(
-        "What is it?",
-        IMG+"frog.jpg",
-        [
-          "It's a frog.",
-          "It's a bird.",
-          "It's a chimp."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  colours:{
-
-    name:"🎨 Colour Castle",
-
-    questions:[
-
-      q(
-        "What colour is it?",
-        "🔴",
-        [
-          "It's red.",
-          "It's blue.",
-          "It's white."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "🔵",
-        [
-          "It's yellow.",
-          "It's black.",
-          "It's blue."
-        ],
-        2
-      ),
-
-      q(
-        "What colour is it?",
-        "🟡",
-        [
-          "It's yellow.",
-          "It's brown.",
-          "It's orange."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "⚫",
-        [
-          "It's white.",
-          "It's black.",
-          "It's red."
-        ],
-        1
-      ),
-
-      q(
-        "What colour is it?",
-        "🟢",
-        [
-          "It's green.",
-          "It's yellow.",
-          "It's red."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "⚪",
-        [
-          "It's white.",
-          "It's blue.",
-          "It's black."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "🟤",
-        [
-          "It's brown.",
-          "It's pink.",
-          "It's red."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "🌸",
-        [
-          "It's pink.",
-          "It's green.",
-          "It's blue."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  food:{
-
-    name:"🍕 Yummy Café",
-
-    questions:[
-
-      q(
-        "What is it?",
-        IMG+"Apple.jpg",
-        [
-          "It's an apple.",
-          "It's a pizza.",
-          "It's a burger."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Burger.jpg",
-        [
-          "It's an apple.",
-          "It's a burger.",
-          "It's a sandwich."
-        ],
-        1
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Chips.jpg",
-        [
-          "It's a pizza.",
-          "It's a burger.",
-          "It's chips."
-        ],
-        2
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Chocolate cake.jpg",
-        [
-          "It's a chocolate cake.",
-          "It's an apple.",
-          "It's ice cream."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Ice cream.jpg",
-        [
-          "It's a burger.",
-          "It's ice cream.",
-          "It's a sandwich."
-        ],
-        1
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Milk.jpg",
-        [
-          "It's milk.",
-          "It's pizza.",
-          "It's chips."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Orange juice.jpg",
-        [
-          "It's orange juice.",
-          "It's milk.",
-          "It's water."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Pizza.jpg",
-        [
-          "It's pizza.",
-          "It's an apple.",
-          "It's a burger."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Sandwich.jpg",
-        [
-          "It's a sandwich.",
-          "It's an apple.",
-          "It's chips."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  seasons:{
-
-    name:"🌦️ Weather Park",
-
-    questions:[
-
-      q(
-        "What season is it?",
-        "❄️",
-        [
-          "It's winter.",
-          "It's summer.",
-          "It's spring."
-        ],
-        0
-      ),
-
-      q(
-        "What season is it?",
-        "🌸",
-        [
-          "It's autumn.",
-          "It's spring.",
-          "It's winter."
-        ],
-        1
-      ),
-
-      q(
-        "What season is it?",
-        "☀️",
-        [
-          "It's winter.",
-          "It's spring.",
-          "It's summer."
-        ],
-        2
-      ),
-
-      q(
-        "What season is it?",
-        "🍂",
-        [
-          "It's autumn.",
-          "It's winter.",
-          "It's summer."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  toys:{
-
-    name:"🧸 Toy Town",
-
-    questions:[
-
-      q(
-        "What is it?",
-        "🧸",
-        [
-          "It's a teddy bear.",
-          "It's a doll.",
-          "It's a ball."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        "🪀",
-        [
-          "It's a yoyo.",
-          "It's a puppet.",
-          "It's a toy soldier."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        "⚽",
-        [
-          "It's a ball.",
-          "It's a teddy bear.",
-          "It's a doll."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        "🪆",
-        [
-          "It's a puppet.",
-          "It's a yoyo.",
-          "It's a ball."
-        ],
-        0
-      )
-
-    ]
-
-  },
-
-
-  home:{
-
-    name:"🏡 My Home",
-
-    questions:[
-
-      q(
-        "What is it?",
-        "🪑",
-        [
-          "It's a chair.",
-          "It's a table.",
-          "It's a shelf."
-        ],
-        0
-      ),
-
-      q(
-        "What room is it?",
-        IMG+"bedroom.jpg",
-        [
-          "It's a kitchen.",
-          "It's a bedroom.",
-          "It's a bathroom."
-        ],
-        1
-      ),
-
-      q(
-        "What room is it?",
-        IMG+"kitchen.jpg",
-        [
-          "It's a kitchen.",
-          "It's a living room.",
-          "It's a bedroom."
-        ],
-        0
-      ),
-
-      q(
-        "What room is it?",
-        IMG+"bathroom.jpg",
-        [
-          "It's a bedroom.",
-          "It's a bathroom.",
-          "It's a kitchen."
-        ],
-        1
-      )
-
-    ]
-
-  },
-
-
-  boss:{
-
-    name:"👑 Boss Castle",
-
-    questions:[
-
-      q(
-        "Who is she?",
-        IMG+"mummy.jpg",
-        [
-          "She's my mummy.",
-          "She's my sister.",
-          "She's my grandma."
-        ],
-        0
-      ),
-
-      q(
-        "Who is he?",
-        IMG+"daddy.jpg",
-        [
-          "He's my brother.",
-          "He's my daddy.",
-          "He's my grandpa."
-        ],
-        1
-      ),
-
-      q(
-        "What is it?",
-        IMG+"Apple.jpg",
-        [
-          "It's an apple.",
-          "It's a pizza.",
-          "It's a burger."
-        ],
-        0
-      ),
-
-      q(
-        "What is it?",
-        IMG+"School bag.jpg",
-        [
-          "It's a school bag.",
-          "It's a pen.",
-          "It's a ruler."
-        ],
-        0
-      )
-
-    ]
-
-  }
+family:{
+
+  name:"👨‍👩‍👧 Family",
+
+  type:"story",
+
+  scenes:[
+
+    {
+      text:"Hello! I'm Lily!",
+      image:IMG+"Lili.jpg"
+    },
+
+    {
+      text:"I have a mummy. Her name is Anna.",
+      image:IMG+"mummy.jpg"
+    },
+
+    {
+      text:"I have a daddy. His name is Tom.",
+      image:IMG+"daddy.jpg"
+    },
+
+    {
+      text:"I have a grandma and a grandpa.",
+      image:IMG+"grandmagrandpa.jpg"
+    },
+
+    {
+      text:"I have a sister. Her name is Mia.",
+      image:IMG+"Lilissisterbig.jpg"
+    },
+
+    {
+      text:"I love my family!",
+      image:IMG+"Lili.jpg"
+    }
+
+  ]
+
+},
+
+
+school:{
+
+  name:"🏫 School",
+
+  questions:[
+
+    q(
+      "What is it?",
+      IMG+"pen.jpg",
+      [
+        "It's a pen.",
+        "It's a ruler.",
+        "It's an eraser."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"pencil.jpg",
+      [
+        "It's a pencil.",
+        "It's a ruler.",
+        "It's a pen."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"ruler.jpg",
+      [
+        "It's a pencil.",
+        "It's a ruler.",
+        "It's a pen."
+      ],
+      1
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Eraser.jpg",
+      [
+        "It's a ruler.",
+        "It's a pen.",
+        "It's an eraser."
+      ],
+      2
+    ),
+
+    q(
+      "What is it?",
+      IMG+"School bag.jpg",
+      [
+        "It's a school bag.",
+        "It's a pen.",
+        "It's a ruler."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+animals:{
+
+  name:"🐾 Pet World",
+
+  questions:[
+
+    q(
+      "What is it?",
+      IMG+"monkey.jpg",
+      [
+        "It's a chimp.",
+        "It's a fish.",
+        "It's a bird."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"fish.jpg",
+      [
+        "It's a mouse.",
+        "It's a frog.",
+        "It's a fish."
+      ],
+      2
+    ),
+
+    q(
+      "What is it?",
+      IMG+"bird.jpg",
+      [
+        "It's a bird.",
+        "It's a chimp.",
+        "It's a mouse."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"mouse.jpg",
+      [
+        "It's a fish.",
+        "It's a mouse.",
+        "It's a frog."
+      ],
+      1
+    ),
+
+    q(
+      "What is it?",
+      IMG+"frog.jpg",
+      [
+        "It's a frog.",
+        "It's a bird.",
+        "It's a chimp."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+colours:{
+
+  name:"🎨 Colour Castle",
+
+  questions:[
+
+    q(
+      "What colour is it?",
+      "🔴",
+      [
+        "It's red.",
+        "It's blue.",
+        "It's white."
+      ],
+      0
+    ),
+
+    q(
+      "What colour is it?",
+      "🔵",
+      [
+        "It's yellow.",
+        "It's black.",
+        "It's blue."
+      ],
+      2
+    ),
+
+    q(
+      "What colour is it?",
+      "🟡",
+      [
+        "It's yellow.",
+        "It's brown.",
+        "It's orange."
+      ],
+      0
+    ),
+
+    q(
+      "What colour is it?",
+      "⚫",
+      [
+        "It's white.",
+        "It's black.",
+        "It's red."
+      ],
+      1
+    ),
+
+    q(
+      "What colour is it?",
+      "🟢",
+      [
+        "It's green.",
+        "It's yellow.",
+        "It's red."
+      ],
+      0
+    ),
+
+    q(
+      "What colour is it?",
+      "⚪",
+      [
+        "It's white.",
+        "It's blue.",
+        "It's black."
+      ],
+      0
+    ),
+
+    q(
+      "What colour is it?",
+      "🟤",
+      [
+        "It's brown.",
+        "It's pink.",
+        "It's red."
+      ],
+      0
+    ),
+
+    q(
+      "What colour is it?",
+      "🌸",
+      [
+        "It's pink.",
+        "It's green.",
+        "It's blue."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+food:{
+
+  name:"🍕 Yummy Café",
+
+  questions:[
+
+    q(
+      "What is it?",
+      IMG+"Apple.jpg",
+      [
+        "It's an apple.",
+        "It's a pizza.",
+        "It's a burger."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Burger.jpg",
+      [
+        "It's an apple.",
+        "It's a burger.",
+        "It's a sandwich."
+      ],
+      1
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Chips.jpg",
+      [
+        "It's a pizza.",
+        "It's a burger.",
+        "It's chips."
+      ],
+      2
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Chocolate cake.jpg",
+      [
+        "It's a chocolate cake.",
+        "It's an apple.",
+        "It's ice cream."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Ice cream.jpg",
+      [
+        "It's a burger.",
+        "It's ice cream.",
+        "It's a sandwich."
+      ],
+      1
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Milk.jpg",
+      [
+        "It's milk.",
+        "It's pizza.",
+        "It's chips."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Orange juice.jpg",
+      [
+        "It's orange juice.",
+        "It's milk.",
+        "It's water."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Pizza.jpg",
+      [
+        "It's pizza.",
+        "It's an apple.",
+        "It's a burger."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Sandwich.jpg",
+      [
+        "It's a sandwich.",
+        "It's an apple.",
+        "It's chips."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+seasons:{
+
+  name:"🌦️ Weather Park",
+
+  questions:[
+
+    q(
+      "What season is it?",
+      "❄️",
+      [
+        "It's winter.",
+        "It's summer.",
+        "It's spring."
+      ],
+      0
+    ),
+
+    q(
+      "What season is it?",
+      "🌸",
+      [
+        "It's autumn.",
+        "It's spring.",
+        "It's winter."
+      ],
+      1
+    ),
+
+    q(
+      "What season is it?",
+      "☀️",
+      [
+        "It's winter.",
+        "It's spring.",
+        "It's summer."
+      ],
+      2
+    ),
+
+    q(
+      "What season is it?",
+      "🍂",
+      [
+        "It's autumn.",
+        "It's winter.",
+        "It's summer."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+toys:{
+
+  name:"🧸 Toy Town",
+
+  questions:[
+
+    q(
+      "What is it?",
+      IMG+"Taddybear.jpg",
+      [
+        "It's a teddy bear.",
+        "It's a doll.",
+        "It's a ball."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"yoyo.jpg",
+      [
+        "It's a yoyo.",
+        "It's a puppet.",
+        "It's a toy soldier."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"puppet.jpg",
+      [
+        "It's a puppet.",
+        "It's a yoyo.",
+        "It's a ball."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"ball.jpg",
+      [
+        "It's a ball.",
+        "It's a teddy bear.",
+        "It's a doll."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+home:{
+
+  name:"🏡 My Home",
+
+  questions:[
+
+    q(
+      "What is it?",
+      IMG+"bed.jpg",
+      [
+        "It's a chair.",
+        "It's a table.",
+        "It's a bed."
+      ],
+      2
+    ),
+
+    q(
+      "What is it?",
+      IMG+"chair.jpg",
+      [
+        "It's a chair.",
+        "It's a table.",
+        "It's a shelf."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"table.jpg",
+      [
+        "It's a table.",
+        "It's a chair.",
+        "It's a shelf."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"book.jpg",
+      [
+        "It's a book.",
+        "It's a pen.",
+        "It's a ruler."
+      ],
+      0
+    )
+
+  ]
+
+},
+
+
+boss:{
+
+  name:"👑 Boss Castle",
+
+  questions:[
+
+    q(
+      "Who is she?",
+      IMG+"mummy.jpg",
+      [
+        "She's my mummy.",
+        "She's my sister.",
+        "She's my grandma."
+      ],
+      0
+    ),
+
+    q(
+      "Who is he?",
+      IMG+"daddy.jpg",
+      [
+        "He's my brother.",
+        "He's my daddy.",
+        "He's my grandpa."
+      ],
+      1
+    ),
+
+    q(
+      "What is it?",
+      IMG+"Apple.jpg",
+      [
+        "It's an apple.",
+        "It's a pizza.",
+        "It's a burger."
+      ],
+      0
+    ),
+
+    q(
+      "What is it?",
+      IMG+"School bag.jpg",
+      [
+        "It's a school bag.",
+        "It's a pen.",
+        "It's a ruler."
+      ],
+      0
+    )
+
+  ]
+
+}
 
 };
 
@@ -1303,58 +1472,43 @@ const levels = {
    QUESTION HELPER
 ========================= */
 
-function q(question,image,options,correctIndex){
-
+function q(
+  question,
+  image,
+  options,
+  correctIndex
+){
   return {
     question,
     image,
     options,
     correctIndex
-  };
-
+  }
 }
 
 
 /* =========================
-   GAME STATE
+   PLAYER STATE
 ========================= */
 
 let state =
   JSON.parse(
     localStorage.getItem("english_quest_v2") || "null"
-  ) || {
-
+  )
+  ||
+  {
     xp:0,
     gems:0,
     completed:[],
     unlocked:["family"]
-
   };
 
 
-let currentKey = "";
-let currentIndex = 0;
-
-let answered = false;
-
-/*
-  IMPORTANT:
-  gemAwarded is separate from answered.
-
-  answered = child selected the correct answer.
-
-  gemAwarded = child successfully pronounced
-  the answer.
-
-  This means XP and gems are now two
-  completely different rewards.
-*/
-
-let gemAwarded = false;
-
-let storyMode = false;
-
-let lilyVoice = null;
+let currentKey="";
+let currentIndex=0;
+let answered=false;
+let storyMode=false;
+let lilyVoice=null;
 
 
 /* =========================
@@ -1369,7 +1523,6 @@ function save(){
   );
 
   updateStats();
-
 }
 
 
@@ -1404,96 +1557,95 @@ function updateStats(){
 
 
 /* =========================
-   SCREEN CONTROL
+   SCREEN
 ========================= */
 
 function show(id){
 
   document
     .querySelectorAll(".screen")
-    .forEach(s=>s.classList.remove("active"));
+    .forEach(
+      s=>s.classList.remove("active")
+    );
 
   document
     .getElementById(id)
     .classList.add("active");
 
   window.scrollTo(0,0);
-
 }
 
 
 function goHome(){
-
   show("home");
-
 }
 
 
 function showMap(){
 
   renderMap();
-
   updateStats();
-
   show("map");
 
 }
 
 
 /* =========================
-   MAP
+   RENDER MAP
 ========================= */
 
 function renderMap(){
 
-  const grid=document.getElementById("mapGrid");
+  const grid =
+    document.getElementById("mapGrid");
 
   grid.innerHTML="";
 
 
   zones.forEach((z,i)=>{
 
-    const unlocked=
+    const unlocked =
       state.unlocked.includes(z.key);
 
-    const done=
+    const done =
       state.completed.includes(z.key);
 
 
-    const b=document.createElement("button");
+    const b =
+      document.createElement("button");
 
-    b.className=
+
+    b.className =
       "zone"+(unlocked?"":" locked");
 
 
     b.innerHTML=`
 
-      ${
-        !unlocked
+      ${!unlocked
         ? '<div class="lock">🔒</div>'
         : ''
       }
 
       ${
         z.image
-
-        ? `<img
-             class="zone-img"
-             src="${z.image}"
-             alt=""
-           >`
-
-        : `<div
-             class="zone-img"
-             style="
-               display:flex;
-               align-items:center;
-               justify-content:center;
-               font-size:70px
-             "
-           >
-             ${z.icon}
-           </div>`
+        ?
+        `<img
+          class="zone-img"
+          src="${z.image}"
+          alt=""
+        >`
+        :
+        `<div
+          class="zone-img"
+          style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:70px;
+          "
+        >
+          ${z.icon}
+        </div>`
       }
 
       <div class="zone-body">
@@ -1511,12 +1663,14 @@ function renderMap(){
         </div>
 
       </div>
+
     `;
 
 
     if(unlocked){
 
-      b.onclick=()=>startLevel(z.key);
+      b.onclick =
+        ()=>startLevel(z.key);
 
     }
 
@@ -1535,21 +1689,16 @@ function renderMap(){
 function startLevel(key){
 
   currentKey=key;
-
   currentIndex=0;
-
   answered=false;
 
-  gemAwarded=false;
-
-  storyMode=
+  storyMode =
     levels[key].type==="story";
-
 
   document
     .getElementById("lessonTitle")
-    .textContent=levels[key].name;
-
+    .textContent =
+      levels[key].name;
 
   show("lesson");
 
@@ -1564,9 +1713,11 @@ function startLevel(key){
 
 function renderLesson(){
 
-  const data=levels[currentKey];
+  const data =
+    levels[currentKey];
 
-  const total=
+
+  const total =
     storyMode
     ? data.scenes.length
     : data.questions.length;
@@ -1574,20 +1725,22 @@ function renderLesson(){
 
   document
     .getElementById("counter")
-    .textContent=
+    .textContent =
       `${currentIndex+1} / ${total}`;
 
 
   document
     .getElementById("progressFill")
-    .style.width=
+    .style.width =
       (
-        currentIndex/total*100
+        currentIndex / total * 100
       )+"%";
 
 
-  const box=
-    document.getElementById("lessonContent");
+  const box =
+    document.getElementById(
+      "lessonContent"
+    );
 
 
   if(storyMode){
@@ -1602,42 +1755,38 @@ function renderLesson(){
   }
 
 
-  const item=
+  const item =
     data.questions[currentIndex];
-
-
-  /*
-    Every new question starts with
-    no answer and no gem.
-  */
 
   answered=false;
 
-  gemAwarded=false;
 
-
-  const image=
+  const image =
     typeof item.image==="string"
     &&
     item.image.startsWith("http")
 
-    ? `<img
-         class="big-image"
-         src="${item.image}"
-         alt=""
-       >`
+    ?
 
-    : `<div
-         class="big-image"
-         style="
-           display:flex;
-           align-items:center;
-           justify-content:center;
-           font-size:100px
-         "
-       >
-         ${item.image}
-       </div>`;
+    `<img
+      class="big-image"
+      src="${item.image}"
+      alt=""
+    >`
+
+    :
+
+    `<div
+      class="big-image"
+      style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:100px;
+      "
+    >
+      ${item.image}
+    </div>`;
 
 
   box.innerHTML=`
@@ -1690,26 +1839,30 @@ function renderLesson(){
   `;
 
 
-  const answers=
-    document.getElementById("answers");
+  const answers =
+    document.getElementById(
+      "answers"
+    );
 
 
-  item.options.forEach((text,i)=>{
+  item.options.forEach(
+    (text,i)=>{
 
-    const btn=
-      document.createElement("button");
+      const btn =
+        document.createElement(
+          "button"
+        );
 
-    btn.className="answer";
+      btn.className="answer";
+      btn.textContent=text;
 
-    btn.textContent=text;
+      btn.onclick =
+        ()=>selectAnswer(i,btn);
 
-    btn.onclick=
-      ()=>selectAnswer(i,btn);
+      answers.appendChild(btn);
 
-
-    answers.appendChild(btn);
-
-  });
+    }
+  );
 
 }
 
@@ -1718,7 +1871,10 @@ function renderLesson(){
    STORY
 ========================= */
 
-function renderStory(box,scene){
+function renderStory(
+  box,
+  scene
+){
 
   box.innerHTML=`
 
@@ -1732,7 +1888,8 @@ function renderStory(box,scene){
       <div>
 
         <div class="story-step">
-          LILY'S STORY • SCENE ${currentIndex+1}
+          LILY'S STORY • SCENE
+          ${currentIndex+1}
         </div>
 
         <div class="story-text">
@@ -1755,6 +1912,7 @@ function renderStory(box,scene){
             class="next"
             onclick="nextItem()"
           >
+
             ${
               currentIndex===
               levels[currentKey].scenes.length-1
@@ -1763,6 +1921,7 @@ function renderStory(box,scene){
 
               : "Next ➡️"
             }
+
           </button>
 
         </div>
@@ -1777,29 +1936,21 @@ function renderStory(box,scene){
 
 
 /* =========================
-   SELECT ANSWER
+   ANSWERS
 ========================= */
 
-function selectAnswer(index,btn){
+function selectAnswer(
+  index,
+  btn
+){
 
-  /*
-    If correct answer was already selected,
-    ignore any additional clicks.
-  */
-
-  if(answered){
-    return;
-  }
+  if(answered)return;
 
 
-  const item=
+  const item =
     levels[currentKey]
-    .questions[currentIndex];
+      .questions[currentIndex];
 
-
-  /* =========================
-     CORRECT
-  ========================= */
 
   if(index===item.correctIndex){
 
@@ -1808,91 +1959,65 @@ function selectAnswer(index,btn){
     btn.classList.add("correct");
 
 
-    /*
-      Disable ALL answers.
-    */
-
     document
       .querySelectorAll(".answer")
-      .forEach(b=>{
-        b.disabled=true;
-      });
+      .forEach(
+        b=>b.disabled=true
+      );
 
-
-    /*
-      ⭐ XP IS AWARDED HERE.
-
-      This happens immediately after
-      the correct answer is selected.
-
-      +10 XP
-    */
 
     state.xp+=10;
+    state.gems+=1;
 
     save();
 
 
-    const feedback=
-      document.getElementById("feedback");
+    document
+      .getElementById("feedback")
+      .textContent =
+        "Great! Now say it aloud! +10 XP ⭐";
 
 
-    feedback.textContent=
-      "Great! Now say it aloud! +10 XP ⭐";
+    document
+      .getElementById("feedback")
+      .style.color =
+        "#39964e";
 
-    feedback.style.color="#39964e";
-
-
-    /*
-      Show speaking button.
-    */
 
     document
       .getElementById("mic")
-      .style.display="inline-block";
+      .style.display =
+        "inline-block";
 
-
-    /*
-      Next is visible, but the child can
-      still use Say it first.
-    */
 
     document
       .getElementById("next")
-      .style.display="inline-block";
+      .style.display =
+        "inline-block";
 
-
-    /*
-      Read the correct answer aloud.
-    */
 
     speak(
       item.options[item.correctIndex],
       true
     );
 
-  }
 
-
-  /* =========================
-     WRONG
-  ========================= */
-
-  else{
+  }else{
 
     btn.classList.add("wrong");
-
     btn.disabled=true;
 
 
-    const feedback=
-      document.getElementById("feedback");
+    document
+      .getElementById("feedback")
+      .textContent =
+        "Oops! Try again!";
 
 
-    feedback.textContent=
-      "Oops! Try again!";
-
-    feedback.style.color="#e2536c";
+    document
+      .getElementById("feedback")
+      .style.color =
+        "#e2536c";
 
 
     speak(
@@ -1906,12 +2031,12 @@ function selectAnswer(index,btn){
 
 
 /* =========================
-   NEXT QUESTION
+   NEXT
 ========================= */
 
 function nextItem(){
 
-  const total=
+  const total =
     storyMode
     ? levels[currentKey].scenes.length
     : levels[currentKey].questions.length;
@@ -1941,37 +2066,39 @@ function nextItem(){
 function finishLevel(){
 
   if(
-    !state.completed.includes(currentKey)
+    !state.completed.includes(
+      currentKey
+    )
   ){
 
-    state.completed.push(currentKey);
+    state.completed.push(
+      currentKey
+    );
 
   }
 
 
-  const pos=
+  const pos =
     zones.findIndex(
       z=>z.key===currentKey
     );
 
 
-  const next=
+  const next =
     zones[pos+1];
 
 
-  /*
-    Unlock the next world internally.
-
-    IMPORTANT:
-    We DO NOT announce this by voice.
-  */
-
   if(
-    next &&
-    !state.unlocked.includes(next.key)
+    next
+    &&
+    !state.unlocked.includes(
+      next.key
+    )
   ){
 
-    state.unlocked.push(next.key);
+    state.unlocked.push(
+      next.key
+    );
 
   }
 
@@ -1979,34 +2106,34 @@ function finishLevel(){
   save();
 
 
+  const nextText =
+    next
+    ?
+      "🔓 "+next.title+
+      " is now unlocked!"
+
+    :
+      "You reached the end of the current adventure!";
+
+
   document
     .getElementById("rewardTitle")
-    .textContent=
+    .textContent =
       levels[currentKey].name+
       " complete!";
 
 
-  /*
-    No more:
-    "X is now unlocked!"
-  */
-
   document
     .getElementById("rewardText")
-    .textContent=
-      "Great job! You completed this world! 🌟";
+    .textContent =
+      nextText;
 
 
   show("reward");
 
 
-  /*
-    Only say a simple congratulations.
-    No unlock announcement.
-  */
-
   speak(
-    "Well done!",
+    "Well done! "+nextText,
     true
   );
 
@@ -2015,58 +2142,34 @@ function finishLevel(){
 
 /* =========================
    VOICE
-   SAME SETTINGS AS GAMES
 ========================= */
 
-function speak(text,slow=false){
+function speak(
+  text,
+  slow=false
+){
 
   if(
     !("speechSynthesis" in window)
-  ){
-
-    return;
-
-  }
+  )return;
 
 
   speechSynthesis.cancel();
 
 
-  const u=
-    new SpeechSynthesisUtterance(text);
+  const u =
+    new SpeechSynthesisUtterance(
+      text
+    );
 
-
-  /*
-    SAME LANGUAGE AS GAMES
-  */
 
   u.lang="en-US";
-
-
-  /*
-    SAME SPEED AS GAMES
-
-    normal = 0.9
-    slow   = 0.72
-  */
-
-  u.rate=
-    slow
-    ? 0.72
-    : 0.9;
-
-
-  /*
-    SAME PITCH AS GAMES
-  */
-
+  u.rate=slow?.72:.9;
   u.pitch=1.08;
 
 
   if(lilyVoice){
-
     u.voice=lilyVoice;
-
   }
 
 
@@ -2076,24 +2179,18 @@ function speak(text,slow=false){
 
 
 /* =========================
-   CHOOSE VOICE
+   VOICE SETUP
 ========================= */
 
 function setupVoice(){
 
   const choose=()=>{
 
-    const voices=
+    const voices =
       speechSynthesis.getVoices();
 
 
-    /*
-      Prefer the same kind of friendly
-      female English voice used in Games.
-    */
-
-    lilyVoice=
-
+    lilyVoice =
       voices.find(
         v=>
           /Google UK English Female|Zira|Samantha|Female/i
@@ -2123,7 +2220,7 @@ function setupVoice(){
   choose();
 
 
-  speechSynthesis.onvoiceschanged=
+  speechSynthesis.onvoiceschanged =
     choose;
 
 }
@@ -2135,7 +2232,7 @@ function setupVoice(){
 
 function listenAnswer(){
 
-  const SR=
+  const SR =
     window.SpeechRecognition
     ||
     window.webkitSpeechRecognition;
@@ -2152,196 +2249,101 @@ function listenAnswer(){
   }
 
 
-  /*
-    No gem can be awarded if the child
-    hasn't selected the correct answer.
-  */
-
-  if(!answered){
-
-    return;
-
-  }
-
-
-  /*
-    If gem has already been earned for
-    this question, don't start recognition
-    again for another reward.
-  */
-
-  if(gemAwarded){
-
-    return;
-
-  }
-
-
-  const item=
+  const item =
     levels[currentKey]
-    .questions[currentIndex];
+      .questions[currentIndex];
 
 
-  const mic=
+  const mic =
     document.getElementById("mic");
 
 
-  mic.textContent=
+  mic.textContent =
     "🎤 Listening...";
 
 
-  const r=
+  const r =
     new SR();
 
 
   r.lang="en-US";
-
   r.interimResults=false;
-
   r.maxAlternatives=3;
 
 
-  /* =========================
-     SUCCESSFUL SPEECH
-  ========================= */
-
   r.onresult=e=>{
 
-    const heard=
+    const heard =
       e.results[0][0]
-      .transcript
-      .toLowerCase()
-      .replace(/[.,!?;:]/g,"")
-      .trim();
+        .transcript
+        .toLowerCase()
+        .replace(/[.,!?;:]/g,"")
+        .trim();
 
 
-    const correct=
-      item
-      .options[item.correctIndex]
-      .toLowerCase()
-      .replace(/[.,!?;:]/g,"")
-      .trim();
+    const correct =
+      item.options[item.correctIndex]
+        .toLowerCase()
+        .replace(/[.,!?;:]/g,"")
+        .trim();
 
 
-    const words=
+    const words =
       correct
-      .split(/\s+/)
-      .filter(
-        w=>w.length>2
-      );
+        .split(/\s+/)
+        .filter(
+          w=>w.length>2
+        );
 
 
-    const hits=
+    const hits =
       words.filter(
         w=>heard.includes(w)
       ).length;
 
 
-    /*
-      Restore button text first.
-    */
-
-    mic.textContent=
+    mic.textContent =
       "🎤 Say it!";
 
 
-    /*
-      Determine whether pronunciation
-      is good enough.
-    */
-
-    const correctSpeech=
-
+    if(
       heard===correct
-
       ||
-
       heard.includes(correct)
-
       ||
+      hits>=Math.max(
+        1,
+        Math.ceil(
+          words.length*.65
+        )
+      )
+    ){
 
-      hits>=
-        Math.max(
-          1,
-          Math.ceil(
-            words.length*0.65
-          )
-        );
-
-
-    /* =========================
-       CORRECT PRONUNCIATION
-    ========================= */
-
-    if(correctSpeech){
-
-      /*
-        IMPORTANT:
-        Award the gem ONLY here.
-      */
-
-      if(!gemAwarded){
-
-        gemAwarded=true;
-
-        state.gems+=1;
-
-        save();
-
-      }
+      document
+        .getElementById("feedback")
+        .textContent =
+          "Excellent speaking! 🎉";
 
 
-      const feedback=
-        document.getElementById("feedback");
+      document
+        .getElementById("feedback")
+        .style.color =
+          "#39964e";
 
 
-      feedback.textContent=
-        "Excellent speaking! 🎉 +1 💎";
+    }else{
+
+      document
+        .getElementById("feedback")
+        .textContent =
+          "Good try! Listen once more and repeat.";
 
 
-      feedback.style.color=
-        "#39964e";
+      document
+        .getElementById("feedback")
+        .style.color =
+          "#8a5a9e";
 
-
-      /*
-        Prevent accidental repeated
-        gem rewards.
-      */
-
-      mic.disabled=true;
-
-      mic.textContent=
-        "✅ Great! +1 💎";
-
-    }
-
-
-    /* =========================
-       WRONG PRONUNCIATION
-    ========================= */
-
-    else{
-
-      /*
-        IMPORTANT:
-        NO GEM here.
-      */
-
-      const feedback=
-        document.getElementById("feedback");
-
-
-      feedback.textContent=
-        "Good try! Listen once more and repeat.";
-
-      feedback.style.color=
-        "#8a5a9e";
-
-
-      /*
-        Gem remains 0 for this question
-        until the pronunciation is correct.
-      */
 
       speak(
         correct,
@@ -2353,13 +2355,9 @@ function listenAnswer(){
   };
 
 
-  /* =========================
-     MICROPHONE ERROR
-  ========================= */
-
   r.onerror=()=>{
 
-    mic.textContent=
+    mic.textContent =
       "🎤 Say it!";
 
 
@@ -2376,7 +2374,7 @@ function listenAnswer(){
 
 
 /* =========================
-   ESCAPE TEXT
+   ESCAPE
 ========================= */
 
 function escapeJS(s){
@@ -2394,11 +2392,9 @@ function escapeJS(s){
 ========================= */
 
 setupVoice();
-
 updateStats();
 
 </script>
 
 </body>
 </html>
-```
