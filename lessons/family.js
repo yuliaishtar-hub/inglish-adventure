@@ -1,7 +1,9 @@
 ```javascript
 const BASE = "https://yuliaishtar-hub.github.io/inglish-adventure/";
 
-const img = (name) => `${BASE}${encodeURIComponent(name)}`;
+const img = (name) => {
+  return BASE + encodeURIComponent(name);
+};
 
 const familyLesson = {
   key: "family",
@@ -71,6 +73,7 @@ const familyLesson = {
       type: "vocabulary",
       label: "Vocabulary",
       title: "Meet the Family",
+
       text:
         "Move your mouse over a word to hear it and see the Russian translation.",
 
@@ -80,21 +83,25 @@ const familyLesson = {
           translation: "мама",
           image: img("mummy.jpg")
         },
+
         {
           word: "daddy",
           translation: "папа",
           image: img("daddy.jpg")
         },
+
         {
           word: "grandma",
           translation: "бабушка",
           image: img("grandma.jpg")
         },
+
         {
           word: "grandpa",
           translation: "дедушка",
           image: img("grandpa.jpg")
         },
+
         {
           word: "sister",
           translation: "сестра",
@@ -107,8 +114,10 @@ const familyLesson = {
       type: "listen",
       label: "Listen",
       title: "Listen carefully",
+
       text:
-        "Listen to the sentence and get ready for the question.",
+        "Listen carefully. Then choose the sentence you heard.",
+
       sentence:
         "This is my grandma."
     },
@@ -117,16 +126,22 @@ const familyLesson = {
       type: "choose",
       label: "Choose",
       title: "Who is this?",
+
       image: img("grandpa.jpg"),
+
       question:
         "Who is this?",
+
       options: [
         "Grandpa",
         "Grandma",
         "Daddy",
         "Sister"
       ],
-      answer: "Grandpa",
+
+      answer:
+        "Grandpa",
+
       success:
         "Great! This is grandpa."
     },
@@ -135,16 +150,22 @@ const familyLesson = {
       type: "choose",
       label: "Choose",
       title: "Who is this?",
+
       image: img("mummy.jpg"),
+
       question:
         "Who is this?",
+
       options: [
         "Grandma",
         "Mummy",
         "Sister",
         "Grandpa"
       ],
-      answer: "Mummy",
+
+      answer:
+        "Mummy",
+
       success:
         "Yes! This is mummy."
     },
@@ -153,16 +174,22 @@ const familyLesson = {
       type: "choose",
       label: "Choose",
       title: "Who is this?",
+
       image: img("Lilissisterbig.jpg"),
+
       question:
         "Who is this?",
+
       options: [
         "Daddy",
         "Grandpa",
         "Sister",
         "Grandma"
       ],
-      answer: "Sister",
+
+      answer:
+        "Sister",
+
       success:
         "Correct! This is Lily's sister."
     },
@@ -171,6 +198,7 @@ const familyLesson = {
       type: "sentence",
       label: "Build",
       title: "Build the sentence",
+
       text:
         "Put the words in the correct order.",
 
@@ -189,6 +217,7 @@ const familyLesson = {
       type: "sentence",
       label: "Build",
       title: "Build the sentence",
+
       text:
         "Can you build another sentence?",
 
@@ -207,6 +236,7 @@ const familyLesson = {
       type: "sentence",
       label: "Build",
       title: "Build the sentence",
+
       text:
         "One more! Build Lily's sentence.",
 
@@ -225,6 +255,7 @@ const familyLesson = {
       type: "reading",
       label: "Reading",
       title: "Lily's Family",
+
       text:
         "Read Lily's little family story.",
 
@@ -236,15 +267,20 @@ const familyLesson = {
       type: "choose",
       label: "Reading",
       title: "Check your reading",
+
       question:
         "What is Lily's sister's name?",
+
       options: [
         "Anna",
         "Tom",
         "Mia",
         "Lily"
       ],
-      answer: "Mia",
+
+      answer:
+        "Mia",
+
       success:
         "Correct! Lily's sister is Mia."
     },
@@ -253,15 +289,20 @@ const familyLesson = {
       type: "choose",
       label: "Reading",
       title: "One more question",
+
       question:
         "Who is Tom?",
+
       options: [
         "Lily's daddy",
         "Lily's grandpa",
         "Lily's brother",
         "Lily's friend"
       ],
-      answer: "Lily's daddy",
+
+      answer:
+        "Lily's daddy",
+
       success:
         "Yes! Tom is Lily's daddy."
     },
@@ -270,6 +311,7 @@ const familyLesson = {
       type: "speak",
       label: "Speak",
       title: "Talk to Lily",
+
       text:
         "Say the sentence aloud.",
 
@@ -281,6 +323,7 @@ const familyLesson = {
       type: "quest",
       label: "Final Quest",
       title: "Family Quest",
+
       text:
         "You have reached the final Family Quest!",
 
