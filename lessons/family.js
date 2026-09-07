@@ -1,3 +1,4 @@
+```javascript
 const BASE = "https://yuliaishtar-hub.github.io/inglish-adventure/";
 
 const img = (name) => `${BASE}${encodeURIComponent(name)}`;
@@ -71,27 +72,32 @@ const familyLesson = {
       label: "Vocabulary",
       title: "Meet the Family",
       text:
-        "Tap a picture to hear the English word.",
+        "Move your mouse over a word to hear it and see the Russian translation.",
 
       words: [
         {
           word: "mummy",
+          translation: "мама",
           image: img("mummy.jpg")
         },
         {
           word: "daddy",
+          translation: "папа",
           image: img("daddy.jpg")
         },
         {
           word: "grandma",
+          translation: "бабушка",
           image: img("grandma.jpg")
         },
         {
           word: "grandpa",
+          translation: "дедушка",
           image: img("grandpa.jpg")
         },
         {
           word: "sister",
+          translation: "сестра",
           image: img("Lilissisterbig.jpg")
         }
       ]
@@ -293,3 +299,4 @@ const familyLesson = {
 };
 
 export default familyLesson;
+```
