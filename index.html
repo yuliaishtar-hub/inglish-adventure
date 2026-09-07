@@ -1,144 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>English Adventure</title>
 
-  <link rel="stylesheet" href="css/style.css">
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
 </head>
 
 <body>
 
-<div id="app">
 
-  <!-- HOME -->
-  <section id="home" class="screen active">
+  <!-- ================================
+       HOME SCREEN
+       ================================ -->
 
-    <div class="home-art">
-      <img src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
-           alt="Lily">
-    </div>
+  <section
+    id="homeScreen"
+    class="screen home-screen active"
+  >
 
     <div class="home-card">
-      <div class="logo">🌈 English Adventure</div>
 
-      <h1>Learn English.<br>Go on an adventure!</h1>
+      <div class="logo">
+        English Adventure
+      </div>
 
-      <p class="subtitle">
-        Meet Lily, learn new words and complete exciting quests.
-      </p>
+      <div class="subtitle">
+        Learn English. Play. Explore. Have fun! 🚀
+      </div>
 
-      <button id="startQuestBtn" class="main-button">
+      <img
+        class="hero-image"
+        src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
+        alt="Lily"
+      >
+
+      <button
+        id="startQuest"
+        class="primary-btn"
+      >
         🚀 Start Quest
       </button>
 
-      <button id="gamesBtn" class="secondary-button">
-        🎮 Games — Play & Learn
+      <br>
+
+      <button
+        id="gamesBtn"
+        class="games-btn"
+      >
+        🎮 Games — Play & Learn!
       </button>
+
     </div>
 
   </section>
 
 
-  <!-- MAP -->
-  <section id="map" class="screen">
 
-    <header class="topbar">
+  <!-- ================================
+       ADVENTURE MAP
+       ================================ -->
 
-      <button id="mapHomeBtn" class="small-button">
-        🏠
-      </button>
+  <section
+    id="mapScreen"
+    class="screen map-screen"
+  >
 
-      <div class="player-info">
-        <span id="playerName">Lily's Friend</span>
-        <span>⭐ <b id="xpValue">0</b></span>
-        <span>💎 <b id="gemsValue">0</b></span>
+    <div class="map-container">
+
+
+      <div class="top-bar">
+
+        <button
+          id="mapHome"
+          class="secondary-btn"
+        >
+          🏠 Home
+        </button>
+
+
+        <div class="player-stats">
+
+          <div
+            id="playerXP"
+            class="stat"
+          >
+            ⭐ 0 XP
+          </div>
+
+
+          <div
+            id="playerGems"
+            class="stat"
+          >
+            💎 0
+          </div>
+
+        </div>
+
       </div>
 
-    </header>
 
-    <div class="map-content">
 
-      <h1>🗺️ Adventure Map</h1>
+      <h1 class="map-title">
+        🌎 Adventure Map
+      </h1>
+
 
       <p class="map-subtitle">
-        Choose your adventure
+        Choose your adventure!
       </p>
+
+
 
       <div class="zones">
 
-        <button class="zone family-zone" data-lesson="family">
-          <div class="zone-image">👨‍👩‍👧</div>
-          <div>
-            <strong>Family</strong>
-            <span>Meet Lily's family</span>
+
+        <!-- FAMILY -->
+
+        <button
+          class="zone family"
+          data-lesson="family"
+        >
+
+          <div class="zone-icon">
+            👨‍👩‍👧‍👦
           </div>
+
+          <div class="zone-title">
+            Family
+          </div>
+
+          <div class="zone-description">
+            Meet Lily's family and learn family words.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🏫</div>
-          <div>
-            <strong>School</strong>
-            <span>Coming next</span>
+
+
+        <!-- SCHOOL -->
+
+        <button
+          class="zone school"
+          data-lesson="school"
+        >
+
+          <div class="zone-icon">
+            🎒
           </div>
+
+          <div class="zone-title">
+            School
+          </div>
+
+          <div class="zone-description">
+            Discover school objects and vocabulary.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🐶</div>
-          <div>
-            <strong>Pet World</strong>
-            <span>Coming next</span>
+
+
+        <!-- PET WORLD -->
+
+        <button
+          class="zone pet"
+          data-lesson="pet"
+        >
+
+          <div class="zone-icon">
+            🐶
           </div>
+
+          <div class="zone-title">
+            Pet World
+          </div>
+
+          <div class="zone-description">
+            Meet animals and learn their names.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🎨</div>
-          <div>
-            <strong>Colour Garden</strong>
-            <span>Coming next</span>
+
+
+        <!-- COLOUR GARDEN -->
+
+        <button
+          class="zone colours"
+          data-lesson="colours"
+        >
+
+          <div class="zone-icon">
+            🎨
           </div>
+
+          <div class="zone-title">
+            Colour Garden
+          </div>
+
+          <div class="zone-description">
+            Explore colours and paint your way through English.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🍕</div>
-          <div>
-            <strong>Yummy Café</strong>
-            <span>Coming next</span>
+
+
+        <!-- YUMMY CAFE -->
+
+        <button
+          class="zone food"
+          data-lesson="food"
+        >
+
+          <div class="zone-icon">
+            🍕
           </div>
+
+          <div class="zone-title">
+            Yummy Café
+          </div>
+
+          <div class="zone-description">
+            Learn food words and order your favourite treats.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">☀️</div>
-          <div>
-            <strong>Weather Park</strong>
-            <span>Coming next</span>
+
+
+        <!-- WEATHER PARK -->
+
+        <button
+          class="zone weather"
+          data-lesson="weather"
+        >
+
+          <div class="zone-icon">
+            ☀️🌧️
           </div>
+
+          <div class="zone-title">
+            Weather Park
+          </div>
+
+          <div class="zone-description">
+            Discover sunny, rainy, snowy and windy days.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🧸</div>
-          <div>
-            <strong>Toy Town</strong>
-            <span>Coming next</span>
+
+
+        <!-- TOY TOWN -->
+
+        <button
+          class="zone toys"
+          data-lesson="toys"
+        >
+
+          <div class="zone-icon">
+            🧸
           </div>
+
+          <div class="zone-title">
+            Toy Town
+          </div>
+
+          <div class="zone-description">
+            Play with toys and learn new English words.
+          </div>
+
         </button>
 
-        <button class="zone">
-          <div class="zone-image">🏠</div>
-          <div>
-            <strong>My Home</strong>
-            <span>Coming next</span>
+
+
+        <!-- MY HOME -->
+
+        <button
+          class="zone home"
+          data-lesson="home"
+        >
+
+          <div class="zone-icon">
+            🏠
           </div>
+
+          <div class="zone-title">
+            My Home
+          </div>
+
+          <div class="zone-description">
+            Explore Lily's home.
+          </div>
+
         </button>
 
-        <button class="zone shop-zone">
-          <div class="zone-image">🎁</div>
-          <div>
-            <strong>Gift Shop</strong>
-            <span>Spend your gems</span>
+
+
+        <!-- GIFT SHOP -->
+
+        <button
+          class="zone shop"
+          data-lesson="shop"
+        >
+
+          <div class="zone-icon">
+            🎁
           </div>
+
+          <div class="zone-title">
+            Gift Shop
+          </div>
+
+          <div class="zone-description">
+            Spend your gems on fun rewards.
+          </div>
+
         </button>
+
 
       </div>
 
@@ -147,78 +340,170 @@
   </section>
 
 
-  <!-- LESSON -->
-  <section id="lesson" class="screen">
 
-    <header class="lesson-topbar">
+  <!-- ================================
+       LESSON SCREEN
+       ================================ -->
 
-      <button id="lessonBackBtn" class="back-button">
-        ← Back
-      </button>
+  <section
+    id="lessonScreen"
+    class="screen lesson-screen"
+  >
 
-      <div class="lesson-progress">
-        <span id="stageLabel">Family</span>
-        <div class="progress-track">
-          <div id="progressBar" class="progress-bar"></div>
+    <div class="lesson-container">
+
+
+      <div class="back-row">
+
+        <button
+          id="lessonBack"
+          class="secondary-btn"
+        >
+          ← Back
+        </button>
+
+      </div>
+
+
+
+      <div class="lesson-header">
+
+        <h1 id="lessonTitle">
+          Family Adventure
+        </h1>
+
+        <p id="lessonDescription">
+          Learn English through an adventure.
+        </p>
+
+
+        <div class="progress">
+
+          <div
+            id="progressBar"
+            class="progress-bar"
+            style="width: 0%"
+          ></div>
+
         </div>
+
       </div>
 
-      <div class="lesson-stats">
-        ⭐ <span id="lessonXP">0</span>
-        💎 <span id="lessonGems">0</span>
-      </div>
 
-    </header>
 
-    <main id="lessonContent" class="lesson-content"></main>
+      <div
+        id="stageContainer"
+      ></div>
+
+
+    </div>
 
   </section>
 
 
-  <!-- REWARD -->
-  <section id="reward" class="screen">
+
+  <!-- ================================
+       REWARD SCREEN
+       ================================ -->
+
+  <section
+    id="rewardScreen"
+    class="screen reward-screen"
+  >
 
     <div class="reward-card">
 
-      <div class="reward-icon">🎉</div>
-
-      <h1 id="rewardTitle">
-        Quest Complete!
-      </h1>
-
-      <p id="rewardText">
-        You did it!
-      </p>
-
-      <div class="reward-numbers">
-        <div>
-          <span>⭐</span>
-          <strong id="rewardXP">0</strong>
-          <small>XP</small>
-        </div>
-
-        <div>
-          <span>💎</span>
-          <strong id="rewardGems">0</strong>
-          <small>Gems</small>
-        </div>
+      <div class="reward-icon">
+        🏆
       </div>
 
-      <button id="continueBtn" class="main-button">
-        🗺️ Continue Adventure
+
+      <h1
+        id="rewardTitle"
+        class="reward-title"
+      >
+        Adventure Complete!
+      </h1>
+
+
+      <p
+        id="rewardText"
+        class="reward-text"
+      >
+        Great job!
+      </p>
+
+
+
+      <div class="reward-stats">
+
+
+        <div
+          id="rewardXP"
+          class="reward-stat"
+        >
+          ⭐ +50 XP
+        </div>
+
+
+        <div
+          id="rewardGems"
+          class="reward-stat"
+        >
+          💎 +10 Gems
+        </div>
+
+
+      </div>
+
+
+
+      <button
+        id="rewardMap"
+        class="primary-btn"
+      >
+        🗺️ Back to Map
       </button>
+
+
+      <br>
+      <br>
+
+
+      <button
+        id="rewardHome"
+        class="secondary-btn"
+      >
+        🏠 Home
+      </button>
+
 
     </div>
 
   </section>
 
 
-  <!-- MESSAGE -->
-  <div id="toast" class="toast"></div>
 
-</div>
+  <!-- ================================
+       TOAST
+       ================================ -->
 
-<script type="module" src="js/app.js"></script>
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+
+  <!-- ================================
+       JAVASCRIPT
+       ================================ -->
+
+  <script
+    type="module"
+    src="js/app.js"
+  ></script>
+
 
 </body>
 </html>
