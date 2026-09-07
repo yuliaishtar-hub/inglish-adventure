@@ -765,7 +765,7 @@ const zones = [
     icon:"🏫",
     title:"School",
     sub:"Things & actions",
-    image:IMG+"School bag.jpg"
+    image:IMG+"Notebook.jpg"
   },
 
   {
@@ -779,9 +779,9 @@ const zones = [
   {
     key:"colours",
     icon:"🎨",
-    title:"Colour Castle",
+    title:"Colour Garden",
     sub:"Colours",
-    image:null
+    image:IMG+"red.jpg"
   },
 
   {
@@ -796,8 +796,8 @@ const zones = [
     key:"seasons",
     icon:"🌦️",
     title:"Weather Park",
-    sub:"Seasons",
-    image:null
+    sub:"Four seasons",
+    image:IMG+"weather.jpg"
   },
 
   {
@@ -857,8 +857,13 @@ const levels = {
       },
 
       {
-        text:"I have a grandma and a grandpa.",
-        image:IMG+"grandmagrandpa.jpg"
+        text:"I have a grandma.",
+        image:IMG+"grandma.jpg"
+      },
+
+      {
+        text:"I have a grandpa.",
+        image:IMG+"grandpa.jpg"
       },
 
       {
@@ -1010,27 +1015,27 @@ const levels = {
 
   colours:{
 
-    name:"🎨 Colour Castle",
+    name:"🎨 Colour Garden",
 
     questions:[
 
       q(
         "What colour is it?",
-        "🔴",
+        IMG+"red.jpg",
         [
           "It's red.",
           "It's blue.",
-          "It's white."
+          "It's yellow."
         ],
         0
       ),
 
       q(
         "What colour is it?",
-        "🔵",
+        IMG+"blue.jpg",
         [
           "It's yellow.",
-          "It's black.",
+          "It's green.",
           "It's blue."
         ],
         2
@@ -1038,66 +1043,66 @@ const levels = {
 
       q(
         "What colour is it?",
-        "🟡",
+        IMG+"yellow.jpg",
         [
           "It's yellow.",
-          "It's brown.",
-          "It's orange."
+          "It's green.",
+          "It's red."
         ],
         0
       ),
 
       q(
         "What colour is it?",
-        "⚫",
+        IMG+"green.jpg",
         [
-          "It's white.",
-          "It's black.",
-          "It's red."
+          "It's green.",
+          "It's yellow.",
+          "It's blue."
+        ],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"red.jpg",
+        [
+          "It's blue.",
+          "It's red.",
+          "It's green."
         ],
         1
       ),
 
       q(
         "What colour is it?",
-        "🟢",
+        IMG+"blue.jpg",
         [
           "It's green.",
           "It's yellow.",
-          "It's red."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "⚪",
-        [
-          "It's white.",
-          "It's blue.",
-          "It's black."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "🟤",
-        [
-          "It's brown.",
-          "It's pink.",
-          "It's red."
-        ],
-        0
-      ),
-
-      q(
-        "What colour is it?",
-        "🌸",
-        [
-          "It's pink.",
-          "It's green.",
           "It's blue."
+        ],
+        2
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"green.jpg",
+        [
+          "It's red.",
+          "It's green.",
+          "It's yellow."
+        ],
+        1
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"yellow.jpg",
+        [
+          "It's yellow.",
+          "It's blue.",
+          "It's red."
         ],
         0
       )
