@@ -9,7 +9,7 @@ const defaultPlayer = {
   inventory: []
 };
 
-export function loadPlayer() {
+function loadPlayer() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
 
@@ -17,62 +17,70 @@ export function loadPlayer() {
       return { ...defaultPlayer };
     }
 
-    const parsed = JSON.parse(saved);
-
     return {
       ...defaultPlayer,
-      ...parsed
+      ...JSON.parse(saved)
     };
+
   } catch (error) {
     console.error("Could not load player:", error);
     return { ...defaultPlayer };
   }
 }
 
-export function savePlayer(player) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(player));
+let player = loadPlayer();
+
+function savePlayer() {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(player)
+  );
 }
 
-export function addXP(player, amount) {
+function addXP(amount) {
   player.xp += amount;
-  savePlayer(player);
-  return player;
+  savePlayer();
 }
 
-export function addGems(player, amount) {
+function addGems(amount) {
   player.gems += amount;
-  savePlayer(player);
+  savePlayer();
+}
+
+function completeLesson(key) {
+  if (!player.completedLessons.includes(key)) {
+    player.completedLessons.push(key);
+    savePlayer();
+  }
+}
+
+function completeQuest(key) {
+  if (!player.completedQuests.includes(key)) {
+    player.completedQuests.push(key);
+    savePlayer();
+  }
+}
+
+function hasCompletedLesson(key) {
+  return player.completedLessons.includes(key);
+}
+
+function hasCompletedQuest(key) {
+  return player.completedQuests.includes(key);
+}
+
+function getPlayer() {
   return player;
 }
 
-export function completeLesson(player, lessonKey) {
-  if (!player.completedLessons.includes(lessonKey)) {
-    player.completedLessons.push(lessonKey);
-    savePlayer(player);
-    return true;
-  }
-
-  return false;
-}
-
-export function completeQuest(player, questKey) {
-  if (!player.completedQuests.includes(questKey)) {
-    player.completedQuests.push(questKey);
-    savePlayer(player);
-    return true;
-  }
-
-  return false;
-}
-
-export function hasCompletedLesson(player, lessonKey) {
-  return player.completedLessons.includes(lessonKey);
-}
-
-export function hasCompletedQuest(player, questKey) {
-  return player.completedQuests.includes(questKey);
-}
-
-export function getPlayer() {
-  return loadPlayer();
-}
+export {
+  loadPlayer,
+  savePlayer,
+  addXP,
+  addGems,
+  completeLesson,
+  completeQuest,
+  hasCompletedLesson,
+  hasCompletedQuest,
+  getPlayer
+};
