@@ -1,4 +1,3 @@
-games
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,15 +90,6 @@ button{
 
 button:hover{
   transform:translateY(-2px);
-}
-
-button:disabled{
-  cursor:default;
-  opacity:1;
-}
-
-button:disabled:hover{
-  transform:none;
 }
 
 /* =========================
@@ -424,12 +414,13 @@ button:disabled:hover{
 
     <div>
       <h1>🎮 Games</h1>
-
       <div class="subtitle">
         Play, practise and learn English!
       </div>
     </div>
 
+    <!-- IMPORTANT:
+         Correct GitHub Pages address -->
     <button
       class="secondary"
       onclick="goMenu()">
@@ -473,7 +464,6 @@ button:disabled:hover{
 
       <div>
         <h2 id="gameTitle"></h2>
-
         <div id="gameProgress" class="game-progress"></div>
       </div>
 
@@ -641,52 +631,15 @@ const themes = [
 
 let currentTheme = null;
 let currentGame = "";
-
 let score = 0;
-
 let questionIndex = 0;
 let quizItems = [];
 
-/*
-  Stores the result of every quiz question.
-
-  null = not answered
-  {
-    correct:true/false,
-    selected:"word"
-  }
-*/
-let quizResults = [];
-
-
-/* =========================================
-   MEMORY STATE
-========================================= */
-
 let memoryCards = [];
-
 let memoryFirst = null;
 let memorySecond = null;
-
 let memoryLocked = false;
 let memoryMatches = 0;
-
-/*
-  Order of successfully matched pairs.
-  Used for the Back button.
-*/
-let memoryMatchedPairs = [];
-
-/*
-  Pairs that already gave a point.
-
-  This prevents score farming:
-  match → Back → match again
-  will NOT give another point.
-*/
-let memoryScoredPairs = new Set();
-
-let memoryFinishTimer = null;
 
 
 /* =========================================
@@ -697,16 +650,13 @@ function show(id){
 
   document
     .querySelectorAll(".screen")
-    .forEach(s =>
-      s.classList.remove("active")
-    );
+    .forEach(s => s.classList.remove("active"));
 
   document
     .getElementById(id)
     .classList.add("active");
 
   window.scrollTo(0,0);
-
 }
 
 
@@ -715,8 +665,6 @@ function show(id){
 ========================================= */
 
 function showGamesMap(){
-
-  clearTimeout(memoryFinishTimer);
 
   renderThemes();
 
@@ -802,8 +750,6 @@ function renderThemes(){
 ========================================= */
 
 function openThemeGames(key){
-
-  clearTimeout(memoryFinishTimer);
 
   currentTheme =
     themes.find(t => t.key === key);
@@ -903,8 +849,6 @@ function openThemeGames(key){
 
 function startGame(type){
 
-  clearTimeout(memoryFinishTimer);
-
   currentGame = type;
   score = 0;
 
@@ -939,9 +883,6 @@ function startQuiz(){
     [...currentTheme.items]
       .sort(() => Math.random() - .5);
 
-  quizResults =
-    Array(quizItems.length).fill(null);
-
   renderQuiz();
 
 }
@@ -956,20 +897,12 @@ function renderQuiz(){
   const item =
     quizItems[questionIndex];
 
-  if(!item)
-    return;
-
   const box =
     document.getElementById("gameContent");
 
   document.getElementById("gameProgress")
     .textContent =
       `Question ${questionIndex+1} / ${quizItems.length}`;
-
-
-  /* ---------------------------------------
-     IMAGE
-  --------------------------------------- */
 
   let imageHTML;
 
@@ -998,10 +931,6 @@ function renderQuiz(){
 
   }
 
-
-  /* ---------------------------------------
-     ANSWERS
-  --------------------------------------- */
 
   const correct =
     item[0];
@@ -1045,12 +974,6 @@ function renderQuiz(){
     <div class="actions">
 
       <button
-        class="secondary"
-        onclick="previousQuiz()">
-        ← Back
-      </button>
-
-      <button
         id="nextQuiz"
         class="primary"
         style="display:none"
@@ -1077,88 +1000,11 @@ function renderQuiz(){
       "It's a " + word + ".";
 
     b.onclick =
-      () => checkQuiz(
-        word,
-        b,
-        correct
-      );
+      () => checkQuiz(word,b,correct);
 
     answers.appendChild(b);
 
   });
-
-
-  /*
-    If this question was already answered,
-    restore its previous state.
-
-    This is what prevents Back from creating
-    another chance to earn another point.
-  */
-
-  const previous =
-    quizResults[questionIndex];
-
-  if(previous){
-
-    document
-      .querySelectorAll(".answer")
-      .forEach(b => {
-
-        b.disabled = true;
-
-        const word =
-          b.textContent
-            .replace("It's a ","")
-            .replace(".","");
-
-        if(word === correct){
-
-          b.classList.add("correct");
-
-        }
-
-        if(
-          word === previous.selected &&
-          !previous.correct
-        ){
-
-          b.classList.add("wrong");
-
-        }
-
-      });
-
-
-    const feedback =
-      document.getElementById("feedback");
-
-
-    if(previous.correct){
-
-      feedback.textContent =
-        "Great! ⭐";
-
-      feedback.style.color =
-        "#39964e";
-
-    }else{
-
-      feedback.textContent =
-        "Good try! The answer is " +
-        correct + ".";
-
-      feedback.style.color =
-        "#e2536c";
-
-    }
-
-
-    document.getElementById("nextQuiz")
-      .style.display =
-        "inline-block";
-
-  }
 
 }
 
@@ -1167,52 +1013,18 @@ function renderQuiz(){
    CHECK QUIZ
 ========================================= */
 
-function checkQuiz(
-  word,
-  button,
-  correct
-){
-
-  /*
-    If already answered,
-    do nothing.
-  */
-
-  if(quizResults[questionIndex])
-    return;
-
+function checkQuiz(word,button,correct){
 
   document
     .querySelectorAll(".answer")
-    .forEach(b =>
-      b.disabled = true
-    );
+    .forEach(b => b.disabled = true);
 
 
   const feedback =
     document.getElementById("feedback");
 
 
-  const isCorrect =
-    word === correct;
-
-
-  /*
-    Save result BEFORE changing question.
-
-    This makes the Back button safe.
-  */
-
-  quizResults[questionIndex] = {
-
-    correct:isCorrect,
-
-    selected:word
-
-  };
-
-
-  if(isCorrect){
+  if(word === correct){
 
     button.classList.add("correct");
 
@@ -1265,10 +1077,9 @@ function checkQuiz(
 
 function nextQuiz(){
 
-  if(
-    questionIndex >=
-    quizItems.length - 1
-  ){
+  questionIndex++;
+
+  if(questionIndex >= quizItems.length){
 
     finishGame();
 
@@ -1276,62 +1087,7 @@ function nextQuiz(){
 
   }
 
-  questionIndex++;
-
   renderQuiz();
-
-}
-
-
-/* =========================================
-   PREVIOUS QUIZ
-========================================= */
-
-function previousQuiz(){
-
-  /*
-    If we are on the finish screen,
-    questionIndex equals quizItems.length.
-  */
-
-  if(
-    questionIndex >=
-    quizItems.length
-  ){
-
-    questionIndex =
-      quizItems.length - 1;
-
-    renderQuiz();
-
-    return;
-
-  }
-
-
-  /*
-    Previous question.
-  */
-
-  if(questionIndex > 0){
-
-    questionIndex--;
-
-    renderQuiz();
-
-    return;
-
-  }
-
-
-  /*
-    First question:
-    return to this theme's game menu.
-  */
-
-  openThemeGames(
-    currentTheme.key
-  );
 
 }
 
@@ -1342,60 +1098,32 @@ function previousQuiz(){
 
 function startMemory(){
 
-  clearTimeout(memoryFinishTimer);
-
   memoryFirst = null;
   memorySecond = null;
-
   memoryLocked = false;
-
   memoryMatches = 0;
-
-  memoryMatchedPairs = [];
-
-  memoryScoredPairs =
-    new Set();
-
 
   const items =
     [...currentTheme.items];
 
   memoryCards = [];
 
-
   items.forEach((item,index) => {
 
     memoryCards.push({
-
       id:index,
-
       type:"picture",
-
       word:item[0],
-
       image:item[1],
-
-      pair:index,
-
-      matched:false
-
+      pair:index
     });
 
-
     memoryCards.push({
-
       id:index + 100,
-
       type:"word",
-
       word:item[0],
-
       image:item[1],
-
-      pair:index,
-
-      matched:false
-
+      pair:index
     });
 
   });
@@ -1413,47 +1141,6 @@ function startMemory(){
 
 
   renderMemory();
-
-}
-
-
-/* =========================================
-   MEMORY CARD FACE
-========================================= */
-
-function memoryCardFace(card){
-
-  if(card.type === "picture"){
-
-    if(card.image.startsWith("http")){
-
-      return `
-        <img
-          src="${card.image}"
-          alt="">
-      `;
-
-    }
-
-    return `
-      <div style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        height:100%;
-        font-size:75px;">
-        ${card.image}
-      </div>
-    `;
-
-  }
-
-
-  return `
-    <div class="memory-word">
-      ${card.word}
-    </div>
-  `;
 
 }
 
@@ -1483,16 +1170,6 @@ function renderMemory(){
       class="feedback">
     </div>
 
-    <div class="actions">
-
-      <button
-        class="secondary"
-        onclick="previousMemory()">
-        ← Back
-      </button>
-
-    </div>
-
   `;
 
 
@@ -1512,26 +1189,13 @@ function renderMemory(){
       card.id;
 
 
-    if(card.matched){
-
-      button.classList.add("matched");
-
-      button.innerHTML =
-        memoryCardFace(card);
-
-    }else{
-
-      button.innerHTML =
-        "<span>❓</span>";
-
-    }
+    button.innerHTML = `
+      <span>❓</span>
+    `;
 
 
     button.onclick =
-      () => revealMemory(
-        card,
-        button
-      );
+      () => revealMemory(card,button);
 
 
     grid.appendChild(button);
@@ -1545,34 +1209,61 @@ function renderMemory(){
    MEMORY CARD
 ========================================= */
 
-function revealMemory(
-  card,
-  button
-){
+function revealMemory(card,button){
 
   if(memoryLocked)
-    return;
-
-  if(card.matched)
     return;
 
   if(button.classList.contains("revealed"))
     return;
 
+  if(button.classList.contains("matched"))
+    return;
+
 
   button.classList.add("revealed");
 
-  button.innerHTML =
-    memoryCardFace(card);
+  if(card.type === "picture"){
+
+    if(card.image.startsWith("http")){
+
+      button.innerHTML = `
+        <img
+          src="${card.image}"
+          alt="">
+      `;
+
+    }else{
+
+      button.innerHTML = `
+        <div style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          height:100%;
+          font-size:75px;">
+          ${card.image}
+        </div>
+      `;
+
+    }
+
+  }else{
+
+    button.innerHTML = `
+      <div class="memory-word">
+        ${card.word}
+      </div>
+    `;
+
+  }
 
 
   if(!memoryFirst){
 
     memoryFirst = {
-
       card,
       button
-
     };
 
     return;
@@ -1581,32 +1272,17 @@ function revealMemory(
 
 
   memorySecond = {
-
     card,
     button
-
   };
 
   memoryLocked = true;
 
 
-  /* ---------------------------------------
-     MATCH
-  --------------------------------------- */
-
   if(
     memoryFirst.card.pair ===
     memorySecond.card.pair
   ){
-
-    const pair =
-      memoryFirst.card.pair;
-
-
-    memoryFirst.card.matched = true;
-
-    memorySecond.card.matched = true;
-
 
     memoryFirst.button
       .classList.add("matched");
@@ -1616,38 +1292,15 @@ function revealMemory(
 
 
     memoryMatches++;
+    score++;
 
-    /*
-      Only the first successful match
-      gives a point.
-
-      If the child uses Back and matches
-      the same pair again, no extra point.
-    */
-
-    if(
-      !memoryScoredPairs.has(pair)
-    ){
-
-      memoryScoredPairs.add(pair);
-
-      score++;
-
-      document.getElementById("gameScore")
-        .textContent =
-          "⭐ " + score;
-
-    }
-
-
-    memoryMatchedPairs.push(pair);
+    document.getElementById("gameScore")
+      .textContent =
+        "⭐ " + score;
 
 
     const feedback =
-      document.getElementById(
-        "memoryFeedback"
-      );
-
+      document.getElementById("memoryFeedback");
 
     feedback.textContent =
       "Match! Great job! 🎉";
@@ -1666,180 +1319,60 @@ function revealMemory(
     memoryLocked = false;
 
 
-    /*
-      Finish only when all current pairs
-      are matched.
-    */
-
     if(
       memoryMatches >=
       currentTheme.items.length
     ){
 
-      clearTimeout(memoryFinishTimer);
-
-      memoryFinishTimer =
-        setTimeout(
-          finishGame,
-          700
-        );
+      setTimeout(
+        finishGame,
+        700
+      );
 
     }
 
+  }else{
 
-    return;
+    const first =
+      memoryFirst;
 
-  }
-
-
-  /* ---------------------------------------
-     NOT A MATCH
-  --------------------------------------- */
-
-  const first =
-    memoryFirst;
-
-  const second =
-    memorySecond;
+    const second =
+      memorySecond;
 
 
-  document.getElementById(
-    "memoryFeedback"
-  ).textContent =
-    "Not a match. Try again!";
+    document.getElementById("memoryFeedback")
+      .textContent =
+        "Not a match. Try again!";
 
 
-  document.getElementById(
-    "memoryFeedback"
-  ).style.color =
-    "#e2536c";
+    document.getElementById("memoryFeedback")
+      .style.color =
+        "#e2536c";
 
 
-  setTimeout(() => {
+    setTimeout(() => {
 
-    first.button
-      .classList.remove("revealed");
+      first.button
+        .classList.remove("revealed");
 
-    second.button
-      .classList.remove("revealed");
-
-
-    first.button.innerHTML =
-      "<span>❓</span>";
-
-    second.button.innerHTML =
-      "<span>❓</span>";
+      second.button
+        .classList.remove("revealed");
 
 
-    memoryFirst = null;
+      first.button.innerHTML =
+        "<span>❓</span>";
 
-    memorySecond = null;
-
-    memoryLocked = false;
-
-  },800);
-
-}
+      second.button.innerHTML =
+        "<span>❓</span>";
 
 
-/* =========================================
-   PREVIOUS MEMORY
-========================================= */
+      memoryFirst = null;
+      memorySecond = null;
+      memoryLocked = false;
 
-function previousMemory(){
-
-  /*
-    Never interrupt the moment when two
-    cards are being checked.
-  */
-
-  if(memoryLocked)
-    return;
-
-
-  /*
-    If one card is currently open,
-    Back closes that card first.
-  */
-
-  if(
-    memoryFirst &&
-    !memorySecond
-  ){
-
-    memoryFirst.button
-      .classList.remove("revealed");
-
-    memoryFirst.button.innerHTML =
-      "<span>❓</span>";
-
-    memoryFirst = null;
-
-    return;
+    },800);
 
   }
-
-
-  /*
-    If there are completed rounds,
-    undo the latest matched pair.
-  */
-
-  if(memoryMatchedPairs.length > 0){
-
-    clearTimeout(memoryFinishTimer);
-
-    memoryFinishTimer = null;
-
-
-    const lastPair =
-      memoryMatchedPairs.pop();
-
-
-    memoryCards.forEach(card => {
-
-      if(card.pair === lastPair){
-
-        card.matched = false;
-
-      }
-
-    });
-
-
-    memoryMatches--;
-
-
-    /*
-      IMPORTANT:
-      score is NOT decreased.
-
-      The pair has already earned its point.
-      Repeating it after Back cannot farm
-      extra points.
-    */
-
-
-    renderMemory();
-
-    document.getElementById(
-      "memoryFeedback"
-    ).textContent =
-      "Back to the previous round.";
-
-    return;
-
-  }
-
-
-  /*
-    First round:
-    return to this theme's game menu.
-  */
-
-  openThemeGames(
-    currentTheme.key
-  );
 
 }
 
@@ -1850,14 +1383,8 @@ function previousMemory(){
 
 function finishGame(){
 
-  clearTimeout(memoryFinishTimer);
-
-  memoryFinishTimer = null;
-
-
   const box =
     document.getElementById("gameContent");
-
 
   document.getElementById("gameProgress")
     .textContent =
@@ -1879,24 +1406,12 @@ function finishGame(){
       <p style="
         font-size:21px;
         line-height:1.5;">
-
         You finished the game!
-
         <br>
-
         Your score: ⭐ ${score}
-
       </p>
 
-
       <div class="actions">
-
-        <button
-          class="secondary"
-          onclick="previousGameStep()">
-          ← Back
-        </button>
-
 
         <button
           class="primary"
@@ -1904,13 +1419,11 @@ function finishGame(){
           🔄 Play again
         </button>
 
-
         <button
           class="secondary"
           onclick="openThemeGames(currentTheme.key)">
           🎮 Other game
         </button>
-
 
         <button
           class="secondary"
@@ -1928,70 +1441,27 @@ function finishGame(){
 
 
 /* =========================================
-   BACK FROM FINISH
-========================================= */
-
-function previousGameStep(){
-
-  if(currentGame === "quiz"){
-
-    previousQuiz();
-
-    return;
-
-  }
-
-
-  if(currentGame === "memory"){
-
-    previousMemory();
-
-    return;
-
-  }
-
-}
-
-
-/* =========================================
    VOICE
 ========================================= */
 
-function speak(
-  text,
-  slow=false
-){
+function speak(text,slow=false){
 
-  if(
-    !("speechSynthesis" in window)
-  )
+  if(!("speechSynthesis" in window))
     return;
-
 
   speechSynthesis.cancel();
 
-
   const u =
-    new SpeechSynthesisUtterance(
-      text
-    );
-
+    new SpeechSynthesisUtterance(text);
 
   u.lang =
     "en-US";
 
-
   u.rate =
     slow ? .72 : .82;
 
-
   u.pitch =
     1.08;
-
-
-  u.volume =
-    1;
-
 
   speechSynthesis.speak(u);
 
