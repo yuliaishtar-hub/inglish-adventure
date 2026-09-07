@@ -1,509 +1,135 @@
+index```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>English Adventure</title>
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
-
-</head>
-
-<body>
-
-
-  <!-- ================================
-       HOME SCREEN
-       ================================ -->
-
-  <section
-    id="homeScreen"
-    class="screen home-screen active"
-  >
-
-    <div class="home-card">
-
-      <div class="logo">
-        English Adventure
-      </div>
-
-      <div class="subtitle">
-        Learn English. Play. Explore. Have fun! 🚀
-      </div>
-
-      <img
-        class="hero-image"
-        src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
-        alt="Lily"
-      >
-
-      <button
-        id="startQuest"
-        class="primary-btn"
-      >
-        🚀 Start Quest
-      </button>
-
-      <br>
-
-      <button
-        id="gamesBtn"
-        class="games-btn"
-      >
-        🎮 Games — Play & Learn!
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ================================
-       ADVENTURE MAP
-       ================================ -->
-
-  <section
-    id="mapScreen"
-    class="screen map-screen"
-  >
-
-    <div class="map-container">
-
-
-      <div class="top-bar">
-
-        <button
-          id="mapHome"
-          class="secondary-btn"
-        >
-          🏠 Home
-        </button>
-
-
-        <div class="player-stats">
-
-          <div
-            id="playerXP"
-            class="stat"
-          >
-            ⭐ 0 XP
-          </div>
-
-
-          <div
-            id="playerGems"
-            class="stat"
-          >
-            💎 0
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <h1 class="map-title">
-        🌎 Adventure Map
-      </h1>
-
-
-      <p class="map-subtitle">
-        Choose your adventure!
-      </p>
-
-
-
-      <div class="zones">
-
-
-        <!-- FAMILY -->
-
-        <button
-          class="zone family"
-          data-lesson="family"
-        >
-
-          <div class="zone-icon">
-            👨‍👩‍👧‍👦
-          </div>
-
-          <div class="zone-title">
-            Family
-          </div>
-
-          <div class="zone-description">
-            Meet Lily's family and learn family words.
-          </div>
-
-        </button>
-
-
-
-        <!-- SCHOOL -->
-
-        <button
-          class="zone school"
-          data-lesson="school"
-        >
-
-          <div class="zone-icon">
-            🎒
-          </div>
-
-          <div class="zone-title">
-            School
-          </div>
-
-          <div class="zone-description">
-            Discover school objects and vocabulary.
-          </div>
-
-        </button>
-
-
-
-        <!-- PET WORLD -->
-
-        <button
-          class="zone pet"
-          data-lesson="pet"
-        >
-
-          <div class="zone-icon">
-            🐶
-          </div>
-
-          <div class="zone-title">
-            Pet World
-          </div>
-
-          <div class="zone-description">
-            Meet animals and learn their names.
-          </div>
-
-        </button>
-
-
-
-        <!-- COLOUR GARDEN -->
-
-        <button
-          class="zone colours"
-          data-lesson="colours"
-        >
-
-          <div class="zone-icon">
-            🎨
-          </div>
-
-          <div class="zone-title">
-            Colour Garden
-          </div>
-
-          <div class="zone-description">
-            Explore colours and paint your way through English.
-          </div>
-
-        </button>
-
-
-
-        <!-- YUMMY CAFE -->
-
-        <button
-          class="zone food"
-          data-lesson="food"
-        >
-
-          <div class="zone-icon">
-            🍕
-          </div>
-
-          <div class="zone-title">
-            Yummy Café
-          </div>
-
-          <div class="zone-description">
-            Learn food words and order your favourite treats.
-          </div>
-
-        </button>
-
-
-
-        <!-- WEATHER PARK -->
-
-        <button
-          class="zone weather"
-          data-lesson="weather"
-        >
-
-          <div class="zone-icon">
-            ☀️🌧️
-          </div>
-
-          <div class="zone-title">
-            Weather Park
-          </div>
-
-          <div class="zone-description">
-            Discover sunny, rainy, snowy and windy days.
-          </div>
-
-        </button>
-
-
-
-        <!-- TOY TOWN -->
-
-        <button
-          class="zone toys"
-          data-lesson="toys"
-        >
-
-          <div class="zone-icon">
-            🧸
-          </div>
-
-          <div class="zone-title">
-            Toy Town
-          </div>
-
-          <div class="zone-description">
-            Play with toys and learn new English words.
-          </div>
-
-        </button>
-
-
-
-        <!-- MY HOME -->
-
-        <button
-          class="zone home"
-          data-lesson="home"
-        >
-
-          <div class="zone-icon">
-            🏠
-          </div>
-
-          <div class="zone-title">
-            My Home
-          </div>
-
-          <div class="zone-description">
-            Explore Lily's home.
-          </div>
-
-        </button>
-
-
-
-        <!-- GIFT SHOP -->
-
-        <button
-          class="zone shop"
-          data-lesson="shop"
-        >
-
-          <div class="zone-icon">
-            🎁
-          </div>
-
-          <div class="zone-title">
-            Gift Shop
-          </div>
-
-          <div class="zone-description">
-            Spend your gems on fun rewards.
-          </div>
-
-        </button>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ================================
-       LESSON SCREEN
-       ================================ -->
-
-  <section
-    id="lessonScreen"
-    class="screen lesson-screen"
-  >
-
-    <div class="lesson-container">
-
-
-      <div class="back-row">
-
-        <button
-          id="lessonBack"
-          class="secondary-btn"
-        >
-          ← Back
-        </button>
-
-      </div>
-
-
-
-      <div class="lesson-header">
-
-        <h1 id="lessonTitle">
-          Family Adventure
-        </h1>
-
-        <p id="lessonDescription">
-          Learn English through an adventure.
-        </p>
-
-
-        <div class="progress">
-
-          <div
-            id="progressBar"
-            class="progress-bar"
-            style="width: 0%"
-          ></div>
-
-        </div>
-
-      </div>
-
-
-
-      <div
-        id="stageContainer"
-      ></div>
-
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ================================
-       REWARD SCREEN
-       ================================ -->
-
-  <section
-    id="rewardScreen"
-    class="screen reward-screen"
-  >
-
-    <div class="reward-card">
-
-      <div class="reward-icon">
-        🏆
-      </div>
-
-
-      <h1
-        id="rewardTitle"
-        class="reward-title"
-      >
-        Adventure Complete!
-      </h1>
-
-
-      <p
-        id="rewardText"
-        class="reward-text"
-      >
-        Great job!
-      </p>
-
-
-
-      <div class="reward-stats">
-
-
-        <div
-          id="rewardXP"
-          class="reward-stat"
-        >
-          ⭐ +50 XP
-        </div>
-
-
-        <div
-          id="rewardGems"
-          class="reward-stat"
-        >
-          💎 +10 Gems
-        </div>
-
-
-      </div>
-
-
-
-      <button
-        id="rewardMap"
-        class="primary-btn"
-      >
-        🗺️ Back to Map
-      </button>
-
-
-      <br>
-      <br>
-
-
-      <button
-        id="rewardHome"
-        class="secondary-btn"
-      >
-        🏠 Home
-      </button>
-
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ================================
-       TOAST
-       ================================ -->
-
-  <div
-    id="toast"
-    class="toast"
-  ></div>
-
-
-
-  <!-- ================================
-       JAVASCRIPT
-       ================================ -->
-
-  <script
-    type="module"
-    src="js/app.js"
-  ></script>
-
-
-</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Quest 🌈</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,Verdana,sans-serif;
+  background:linear-gradient(135deg,#cfeeff 0%,#f7d9ff 52%,#ffe1ee 100%);
+  color:#30305c;
+}
+
+button{font:inherit}
+
+#app{
+  max-width:980px;
+  margin:0 auto;
+  padding:18px;
+}
+
+.screen{display:none}
+.screen.active{display:block}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.brand{
+  font-size:30px;
+  font-weight:900;
+  color:#6339a6;
+}
+
+.stats{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.pill{
+  background:#fff;
+  border-radius:999px;
+  padding:9px 15px;
+  box-shadow:0 5px 16px #00000012;
+  font-weight:800;
+}
+
+.card{
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 16px 40px #54317b22;
+}
+
+/* HOME */
+
+.hero{
+  min-height:560px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:25px;
+  align-items:center;
+  overflow:hidden;
+}
+
+.hero-copy h1{
+  font-size:58px;
+  line-height:.98;
+  margin:0 0 16px;
+  color:#6339a6;
+}
+
+.hero-copy p{
+  font-size:22px;
+  line-height:1.45;
+  margin:0 0 25px;
+}
+
+.hero-img{
+  width:100%;
+  height:460px;
+  object-fit:contain;
+  object-position:center;
+  border-radius:28px;
+  background:#f7f4ff;
+  box-shadow:0 10px 25px #0002;
+  padding:12px;
+}
+
+.primary,
+.secondary,
+.listen,
+.mic,
+.next{
+  border:0;
+  border-radius:18px;
+  padding:15px 24px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.18s;
+  box-shadow:0 7px 16px #00000018;
+}
+
+.primary{
+  background:linear-gradient(135deg,#ff5f8d,#9b5cff);
+  color:#fff;
+  font-size:21px;
+}
+
+.secondary{
+  background:#fff;
+  color:#6339a6;
+  border:2px solid #d8c6f7;
+}
+
+.listen{
+  background:#eadbff;
+  color:#6339a6;
+}
+
+.mic{
+  background:#ff638d;
+  color:#fff;
+}
