@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -360,6 +361,23 @@ button{font:inherit}
   justify-content:center;
   gap:10px;
   flex-wrap:wrap;
+}
+
+.back-task{
+  background:#fff;
+  color:#6339a6;
+  border:2px solid #d8c6f7;
+  border-radius:18px;
+  padding:15px 24px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.18s;
+  box-shadow:0 7px 16px #00000018;
+}
+
+.back-task:hover{
+  transform:translateY(-2px);
+  background:#f8f3ff;
 }
 
 /* STORY */
@@ -1136,11 +1154,6 @@ const levels = {
 
   /* =======================================================
      SEASONS
-     Теперь используются реальные картинки:
-     winter.jpg
-     spring.jpg
-     summer.jpg
-     autumn.jpg
   ======================================================= */
 
   seasons:{
@@ -1373,7 +1386,9 @@ const DEFAULT_STATE = {
   xp:0,
   gems:0,
   completed:[],
-  unlocked:["family"]
+  unlocked:["family"],
+  xpRewards:[],
+  spokenRewards:[]
 };
 
 let state;
@@ -1411,6 +1426,14 @@ if(!Array.isArray(state.completed)){
 
 if(!Array.isArray(state.unlocked)){
   state.unlocked=["family"];
+}
+
+if(!Array.isArray(state.xpRewards)){
+  state.xpRewards=[];
+}
+
+if(!Array.isArray(state.spokenRewards)){
+  state.spokenRewards=[];
 }
 
 if(typeof state.xp !== "number"){
@@ -1686,6 +1709,17 @@ function startLevel(key){
 
 
 /* =========================================================
+   TASK KEY
+========================================================= */
+
+function getTaskKey(){
+
+  return currentKey+"_"+currentIndex;
+
+}
+
+
+/* =========================================================
    RENDER LESSON
 ========================================================= */
 
@@ -1743,8 +1777,14 @@ function renderLesson(){
   const item=
     data.questions[currentIndex];
 
-  answered=false;
-  spokenRewarded=false;
+  const taskKey=
+    getTaskKey();
+
+  answered=
+    state.xpRewards.includes(taskKey);
+
+  spokenRewarded=
+    state.spokenRewards.includes(taskKey);
 
   const image=
 
@@ -1807,10 +1847,18 @@ function renderLesson(){
       <div class="actions">
 
         <button
+          id="previous"
+          class="back-task"
+          type="button"
+        >
+          ← Back
+        </button>
+
+        <button
           id="mic"
           class="mic"
           type="button"
-          style="display:none"
+          style="${answered ? "display:inline-block" : "display:none"}"
         >
           🎤 Say it!
         </button>
@@ -1819,7 +1867,7 @@ function renderLesson(){
           id="next"
           class="next"
           type="button"
-          style="display:none"
+          style="${answered ? "display:inline-block" : "display:none"}"
         >
           Next ➡️
         </button>
@@ -1837,6 +1885,18 @@ function renderLesson(){
       ()=>{
         speak(item.question);
       }
+    );
+
+  }
+
+  const previous=
+    document.getElementById("previous");
+
+  if(previous){
+
+    previous.addEventListener(
+      "click",
+      previousItem
     );
 
   }
@@ -1878,6 +1938,21 @@ function renderLesson(){
       button.className="answer";
       button.textContent=text;
 
+      if(
+        answered &&
+        index===item.correctIndex
+      ){
+
+        button.classList.add("correct");
+
+      }
+
+      if(answered){
+
+        button.disabled=true;
+
+      }
+
       button.addEventListener(
         "click",
         ()=>{
@@ -1893,6 +1968,32 @@ function renderLesson(){
     }
   );
 
+  if(answered){
+
+    const feedback=
+      document.getElementById("feedback");
+
+    if(feedback){
+
+      if(spokenRewarded){
+
+        feedback.textContent=
+          "Excellent! You already completed this question. 💎";
+
+      }else{
+
+        feedback.textContent=
+          "Great! Now say it aloud! +10 XP ⭐";
+
+      }
+
+      feedback.style.color=
+        "#39964e";
+
+    }
+
+  }
+
 }
 
 
@@ -1901,6 +2002,9 @@ function renderLesson(){
 ========================================================= */
 
 function renderStory(box,scene){
+
+  const total=
+    levels[currentKey].scenes.length;
 
   box.innerHTML=
 
@@ -1928,6 +2032,14 @@ function renderStory(box,scene){
           >
 
             <button
+              id="storyPrevious"
+              class="back-task"
+              type="button"
+            >
+              ← Back
+            </button>
+
+            <button
               id="storyListen"
               class="listen"
               type="button"
@@ -1941,8 +2053,7 @@ function renderStory(box,scene){
               type="button"
             >
               ${
-                currentIndex ===
-                levels[currentKey].scenes.length-1
+                currentIndex === total-1
                 ? "Finish story"
                 : "Next ➡️"
               }
@@ -1954,6 +2065,18 @@ function renderStory(box,scene){
 
       </div>
     `;
+
+  const previous=
+    document.getElementById("storyPrevious");
+
+  if(previous){
+
+    previous.addEventListener(
+      "click",
+      previousItem
+    );
+
+  }
 
   const listen=
     document.getElementById("storyListen");
@@ -2010,12 +2133,24 @@ function selectAnswer(index,button){
         answerButton.disabled=true;
       });
 
-    /* Correct answer:
-       +10 XP
-       No gem yet.
+    const taskKey=
+      getTaskKey();
+
+    /*
+      Correct answer:
+      +10 XP only once for this question.
+      No gem yet.
     */
 
-    state.xp += 10;
+    if(
+      !state.xpRewards.includes(taskKey)
+    ){
+
+      state.xp += 10;
+
+      state.xpRewards.push(taskKey);
+
+    }
 
     save();
 
@@ -2024,8 +2159,17 @@ function selectAnswer(index,button){
 
     if(feedback){
 
-      feedback.textContent=
-        "Great! Now say it aloud! +10 XP ⭐";
+      if(spokenRewarded){
+
+        feedback.textContent=
+          "Great job! You already earned the 💎 for this question.";
+
+      }else{
+
+        feedback.textContent=
+          "Great! Now say it aloud! +10 XP ⭐";
+
+      }
 
       feedback.style.color=
         "#39964e";
@@ -2081,6 +2225,27 @@ function selectAnswer(index,button){
     );
 
   }
+
+}
+
+
+/* =========================================================
+   PREVIOUS ITEM
+========================================================= */
+
+function previousItem(){
+
+  if(currentIndex>0){
+
+    currentIndex--;
+
+    renderLesson();
+
+    return;
+
+  }
+
+  showMap();
 
 }
 
@@ -2250,6 +2415,12 @@ function listenAnswer(){
 
   }
 
+  if(!answered){
+
+    return;
+
+  }
+
   const SpeechRecognition=
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
@@ -2336,13 +2507,24 @@ function listenAnswer(){
 
     if(goodSpeech){
 
-      if(!spokenRewarded){
+      const taskKey=
+        getTaskKey();
 
-        spokenRewarded=true;
+      if(
+        !state.spokenRewards.includes(taskKey)
+      ){
+
+        state.spokenRewards.push(taskKey);
 
         state.gems += 1;
 
+        spokenRewarded=true;
+
         save();
+
+      }else{
+
+        spokenRewarded=true;
 
       }
 
@@ -2493,10 +2675,9 @@ if(homeBtn){
 }
 
 
-/* BACK BUTTON
-   Работает во всех локациях:
-   Family story + обычные задания.
-*/
+/* =========================================================
+   MAP BUTTON
+========================================================= */
 
 const mapBtn=
   document.getElementById("mapBtn");
@@ -2534,3 +2715,4 @@ updateStats();
 
 </body>
 </html>
+```
