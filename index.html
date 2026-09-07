@@ -20,7 +20,7 @@ button{font:inherit}
 #app{
   max-width:980px;
   margin:0 auto;
-  padding:18px;
+  padding:18px
 }
 
 .screen{display:none}
@@ -62,10 +62,7 @@ button{font:inherit}
   box-shadow:0 16px 40px #54317b22
 }
 
-
-/* =========================
-   HOME
-========================= */
+/* ================= HOME ================= */
 
 .hero{
   min-height:560px;
@@ -73,6 +70,7 @@ button{font:inherit}
   grid-template-columns:1.05fr .95fr;
   gap:25px;
   align-items:center;
+  overflow:hidden
 }
 
 .hero-copy h1{
@@ -88,9 +86,6 @@ button{font:inherit}
   margin:0 0 25px
 }
 
-
-/* Lily — теперь целиком */
-
 .hero-img{
   width:100%;
   height:460px;
@@ -98,14 +93,9 @@ button{font:inherit}
   object-position:center;
   border-radius:28px;
   background:#f7f4ff;
-  padding:10px;
-  box-shadow:0 10px 25px #0002
+  box-shadow:0 10px 25px #0002;
+  padding:12px
 }
-
-
-/* =========================
-   BUTTONS
-========================= */
 
 .primary,
 .secondary,
@@ -162,65 +152,33 @@ button{font:inherit}
   margin-top:12px
 }
 
-
-/* =========================
-   GAMES BUTTON
-========================= */
+/* ================= GAMES BUTTON ================= */
 
 .home-games{
-  margin-top:18px;
+  margin-top:18px
 }
 
 .games-main-btn{
+  display:block;
   width:100%;
-  min-height:82px;
+  padding:22px 24px;
   border:0;
-  border-radius:26px;
-  padding:15px 24px;
-  cursor:pointer;
+  border-radius:24px;
+  background:linear-gradient(135deg,#6b55d9,#ff5f8d);
   color:#fff;
-  background:linear-gradient(135deg,#ff5f8d 0%,#9b5cff 55%,#6355d9 100%);
-  box-shadow:0 12px 28px #6339a633;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  font-weight:900;
   font-size:27px;
-  transition:.2s;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 10px 24px #00000018;
+  transition:.18s
 }
 
 .games-main-btn:hover{
-  transform:translateY(-3px) scale(1.01);
-  box-shadow:0 16px 34px #6339a644;
+  transform:translateY(-3px);
+  box-shadow:0 14px 30px #00000022
 }
 
-.games-main-btn .game-icon{
-  font-size:38px;
-}
-
-.games-main-btn .game-text{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  line-height:1.05;
-}
-
-.games-main-btn .game-title{
-  font-size:27px;
-}
-
-.games-main-btn .game-subtitle{
-  font-size:14px;
-  font-weight:700;
-  opacity:.9;
-  margin-top:5px;
-}
-
-
-/* =========================
-   MAP
-========================= */
+/* ================= MAP ================= */
 
 .map-head{
   display:flex;
@@ -269,17 +227,13 @@ button{font:inherit}
   opacity:.72
 }
 
-
-/* Все изображения карты целиком */
-
 .zone-img{
   width:100%;
   height:145px;
   object-fit:contain;
   object-position:center;
-  background:#f7f4ff;
-  padding:8px;
-  display:block;
+  background:#e9e3f5;
+  padding:8px
 }
 
 .zone-body{
@@ -314,10 +268,7 @@ button{font:inherit}
   z-index:2
 }
 
-
-/* =========================
-   LESSON
-========================= */
+/* ================= LESSON ================= */
 
 .lesson-head{
   display:flex;
@@ -345,10 +296,6 @@ button{font:inherit}
   width:0
 }
 
-.lesson-card{
-  text-align:center
-}
-
 .question{
   font-size:28px;
   font-weight:900;
@@ -359,9 +306,12 @@ button{font:inherit}
   width:min(100%,500px);
   height:285px;
   object-fit:contain;
+  object-position:center;
   border-radius:24px;
   margin:auto;
-  background:#f7f4ff
+  background:#f7f4ff;
+  padding:10px;
+  display:block
 }
 
 .answer-grid{
@@ -379,11 +329,13 @@ button{font:inherit}
   cursor:pointer;
   font-size:19px;
   font-weight:800;
-  color:#45416d
+  color:#45416d;
+  transition:.15s
 }
 
 .answer:hover{
-  background:#f6f0ff
+  background:#f6f0ff;
+  transform:translateY(-2px)
 }
 
 .answer.correct{
@@ -410,10 +362,7 @@ button{font:inherit}
   flex-wrap:wrap
 }
 
-
-/* =========================
-   STORY
-========================= */
+/* ================= STORY ================= */
 
 .story{
   display:grid;
@@ -426,8 +375,10 @@ button{font:inherit}
   width:100%;
   height:390px;
   object-fit:contain;
+  object-position:center;
   border-radius:25px;
-  background:#f6f1ff
+  background:#f6f1ff;
+  padding:10px
 }
 
 .story-text{
@@ -443,10 +394,7 @@ button{font:inherit}
   margin-bottom:12px
 }
 
-
-/* =========================
-   REWARD
-========================= */
+/* ================= REWARD ================= */
 
 .reward{
   text-align:center;
@@ -463,10 +411,7 @@ button{font:inherit}
   font-size:55px
 }
 
-
-/* =========================
-   MOBILE
-========================= */
+/* ================= MOBILE ================= */
 
 @media(max-width:760px){
 
@@ -488,8 +433,7 @@ button{font:inherit}
   }
 
   .hero-img{
-    height:330px;
-    max-height:330px
+    height:330px
   }
 
   .map-grid{
@@ -500,17 +444,8 @@ button{font:inherit}
     grid-template-columns:1fr
   }
 
-  .games-main-btn{
-    min-height:76px;
-    font-size:23px;
-  }
-
-  .games-main-btn .game-title{
-    font-size:23px;
-  }
-
-  .games-main-btn .game-icon{
-    font-size:32px;
+  .story img{
+    height:300px
   }
 }
 
@@ -530,254 +465,242 @@ button{font:inherit}
   }
 
   .hero-img{
-    height:290px;
+    height:280px
   }
 
   .games-main-btn{
-    gap:9px;
-    padding:12px 15px;
-  }
-
-  .games-main-btn .game-subtitle{
-    font-size:12px;
+    font-size:22px;
+    padding:19px
   }
 }
 </style>
 </head>
 
-
 <body>
 
 <div id="app">
 
-  <!-- =========================
-       HOME
-  ========================= -->
+<!-- ================= HOME ================= -->
 
-  <section id="home" class="screen active">
+<section id="home" class="screen active">
 
-    <div class="card hero">
+  <div class="card hero">
 
-      <div class="hero-copy">
-
-        <div class="brand">🌈 English Quest</div>
-
-        <h1>English can be an adventure!</h1>
-
-        <p>
-          Meet Lily, explore new worlds, listen, speak and earn
-          ⭐ XP and 💎 gems.
-        </p>
-
-        <button class="primary" onclick="showMap()">
-          Start Quest 🚀
-        </button>
-
-        <div class="small">
-          Mistakes are OK. Try, listen and try again.
-        </div>
-
-      </div>
-
-
-      <img
-        class="hero-img"
-        src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
-        alt="Lily"
-      >
-
-    </div>
-
-
-    <!-- GAMES BUTTON -->
-
-    <div class="home-games">
-
-      <button
-        class="games-main-btn"
-        onclick="window.location.href='games.html'"
-      >
-
-        <span class="game-icon">🎮</span>
-
-        <span class="game-text">
-          <span class="game-title">GAMES</span>
-          <span class="game-subtitle">
-            Play • Learn • Have Fun
-          </span>
-        </span>
-
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       MAP
-  ========================= -->
-
-  <section id="map" class="screen">
-
-    <div class="top">
+    <div class="hero-copy">
 
       <div class="brand">
         🌈 English Quest
       </div>
 
-      <div class="stats">
+      <h1>
+        English can be an adventure!
+      </h1>
 
-        <div class="pill">
-          ⭐ <span id="xp">0</span> XP
-        </div>
-
-        <div class="pill">
-          💎 <span id="gems">0</span>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="map-head">
-
-        <div>
-
-          <h2>🗺️ Adventure Map</h2>
-
-          <div class="map-intro">
-            Complete a world to unlock the next one.
-          </div>
-
-        </div>
-
-        <button
-          class="secondary"
-          onclick="goHome()"
-        >
-          ⌂ Home
-        </button>
-
-      </div>
-
-
-      <div id="mapGrid" class="map-grid"></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       LESSON
-  ========================= -->
-
-  <section id="lesson" class="screen">
-
-    <div class="top">
-
-      <button
-        class="secondary"
-        onclick="showMap()"
-      >
-        ← Map
-      </button>
-
-
-      <div class="stats">
-
-        <div class="pill">
-          ⭐ <span id="lessonXp">0</span>
-        </div>
-
-        <div class="pill">
-          💎 <span id="lessonGems">0</span>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="lesson-head">
-
-        <h2
-          id="lessonTitle"
-          class="lesson-title"
-        ></h2>
-
-        <div id="counter"></div>
-
-      </div>
-
-
-      <div class="progress">
-
-        <div
-          id="progressFill"
-          class="progress-fill"
-        ></div>
-
-      </div>
-
-
-      <div id="lessonContent"></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       REWARD
-  ========================= -->
-
-  <section id="reward" class="screen">
-
-    <div class="card reward">
-
-      <div class="stars">
-        🌟🏆🌟
-      </div>
-
-      <h2 id="rewardTitle">
-        Well done!
-      </h2>
-
-      <p
-        id="rewardText"
-        style="font-size:20px"
-      ></p>
+      <p>
+        Meet Lily, explore new worlds, listen, speak and earn ⭐ XP and 💎 gems.
+      </p>
 
       <button
         class="primary"
         onclick="showMap()"
       >
-        Continue Adventure 🗺️
+        Start Quest 🚀
+      </button>
+
+      <div class="small">
+        Mistakes are OK. Try, listen and try again.
+      </div>
+
+    </div>
+
+    <img
+      class="hero-img"
+      src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
+      alt="Lily"
+    >
+
+  </div>
+
+
+  <div class="home-games">
+
+    <button
+      class="games-main-btn"
+      onclick="window.location.href='https://yuliaishtar-hub.github.io/inglish-adventure/games.html'"
+    >
+      🎮 Games — Play & Learn!
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MAP ================= -->
+
+<section id="map" class="screen">
+
+  <div class="top">
+
+    <div class="brand">
+      🌈 English Quest
+    </div>
+
+    <div class="stats">
+
+      <div class="pill">
+        ⭐ <span id="xp">0</span> XP
+      </div>
+
+      <div class="pill">
+        💎 <span id="gems">0</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="map-head">
+
+      <div>
+
+        <h2>
+          🗺️ Adventure Map
+        </h2>
+
+        <div class="map-intro">
+          Complete a world to unlock the next one.
+        </div>
+
+      </div>
+
+      <button
+        class="secondary"
+        onclick="goHome()"
+      >
+        ⌂ Home
       </button>
 
     </div>
 
-  </section>
+    <div
+      id="mapGrid"
+      class="map-grid"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= LESSON ================= -->
+
+<section id="lesson" class="screen">
+
+  <div class="top">
+
+    <button
+      class="secondary"
+      onclick="showMap()"
+    >
+      ← Map
+    </button>
+
+    <div class="stats">
+
+      <div class="pill">
+        ⭐ <span id="lessonXp">0</span>
+      </div>
+
+      <div class="pill">
+        💎 <span id="lessonGems">0</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="lesson-head">
+
+      <h2
+        id="lessonTitle"
+        class="lesson-title"
+      ></h2>
+
+      <div id="counter"></div>
+
+    </div>
+
+
+    <div class="progress">
+
+      <div
+        id="progressFill"
+        class="progress-fill"
+      ></div>
+
+    </div>
+
+
+    <div id="lessonContent"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= REWARD ================= -->
+
+<section id="reward" class="screen">
+
+  <div class="card reward">
+
+    <div class="stars">
+      🌟🏆🌟
+    </div>
+
+    <h2 id="rewardTitle">
+      Well done!
+    </h2>
+
+    <p
+      id="rewardText"
+      style="font-size:20px"
+    ></p>
+
+    <button
+      class="primary"
+      onclick="showMap()"
+    >
+      Continue Adventure 🗺️
+    </button>
+
+  </div>
+
+</section>
 
 </div>
 
 
 <script>
 
+/* =========================================================
+   IMAGE BASE
+========================================================= */
+
 const IMG =
   "https://yuliaishtar-hub.github.io/inglish-adventure/";
 
 
-/* =========================
+/* =========================================================
    ADVENTURE ZONES
-========================= */
+========================================================= */
 
 const zones = [
 
@@ -856,9 +779,9 @@ const zones = [
 ];
 
 
-/* =========================
+/* =========================================================
    LEVELS
-========================= */
+========================================================= */
 
 const levels = {
 
@@ -1463,14 +1386,12 @@ boss:{
 
   ]
 
-}
-
 };
 
 
-/* =========================
-   QUESTION HELPER
-========================= */
+/* =========================================================
+   QUESTION FUNCTION
+========================================================= */
 
 function q(
   question,
@@ -1483,13 +1404,13 @@ function q(
     image,
     options,
     correctIndex
-  }
+  };
 }
 
 
-/* =========================
+/* =========================================================
    PLAYER STATE
-========================= */
+========================================================= */
 
 let state =
   JSON.parse(
@@ -1508,12 +1429,11 @@ let currentKey="";
 let currentIndex=0;
 let answered=false;
 let storyMode=false;
-let lilyVoice=null;
 
 
-/* =========================
+/* =========================================================
    SAVE
-========================= */
+========================================================= */
 
 function save(){
 
@@ -1523,18 +1443,20 @@ function save(){
   );
 
   updateStats();
+
 }
 
 
-/* =========================
-   STATS
-========================= */
+/* =========================================================
+   UPDATE STATS
+========================================================= */
 
 function updateStats(){
 
   ["xp","lessonXp"].forEach(id=>{
 
-    const e=document.getElementById(id);
+    const e =
+      document.getElementById(id);
 
     if(e){
       e.textContent=state.xp;
@@ -1545,7 +1467,8 @@ function updateStats(){
 
   ["gems","lessonGems"].forEach(id=>{
 
-    const e=document.getElementById(id);
+    const e =
+      document.getElementById(id);
 
     if(e){
       e.textContent=state.gems;
@@ -1556,9 +1479,9 @@ function updateStats(){
 }
 
 
-/* =========================
-   SCREEN
-========================= */
+/* =========================================================
+   SHOW SCREEN
+========================================================= */
 
 function show(id){
 
@@ -1568,36 +1491,48 @@ function show(id){
       s=>s.classList.remove("active")
     );
 
+
   document
     .getElementById(id)
     .classList.add("active");
 
+
   window.scrollTo(0,0);
+
 }
 
+
+/* =========================================================
+   HOME
+========================================================= */
 
 function goHome(){
+
   show("home");
+
 }
 
+
+/* =========================================================
+   MAP
+========================================================= */
 
 function showMap(){
 
   renderMap();
+
   updateStats();
+
   show("map");
 
 }
 
 
-/* =========================
-   RENDER MAP
-========================= */
-
 function renderMap(){
 
   const grid =
     document.getElementById("mapGrid");
+
 
   grid.innerHTML="";
 
@@ -1606,6 +1541,7 @@ function renderMap(){
 
     const unlocked =
       state.unlocked.includes(z.key);
+
 
     const done =
       state.completed.includes(z.key);
@@ -1616,42 +1552,56 @@ function renderMap(){
 
 
     b.className =
-      "zone"+(unlocked?"":" locked");
+      "zone" +
+      (unlocked ? "" : " locked");
 
 
     b.innerHTML=`
 
-      ${!unlocked
+      ${
+        !unlocked
         ? '<div class="lock">🔒</div>'
         : ''
       }
 
+
       ${
         z.image
+
         ?
-        `<img
-          class="zone-img"
-          src="${z.image}"
-          alt=""
-        >`
+
+        `
+          <img
+            class="zone-img"
+            src="${z.image}"
+            alt=""
+          >
+        `
+
         :
-        `<div
-          class="zone-img"
-          style="
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:70px;
-          "
-        >
-          ${z.icon}
-        </div>`
+
+        `
+
+          <div
+            class="zone-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:70px
+            "
+          >
+            ${z.icon}
+          </div>
+
+        `
       }
+
 
       <div class="zone-body">
 
         <div class="zone-num">
-          ZONE ${i+1} ${done?"✓":""}
+          ZONE ${i+1} ${done ? "✓" : ""}
         </div>
 
         <div class="zone-title">
@@ -1682,23 +1632,27 @@ function renderMap(){
 }
 
 
-/* =========================
+/* =========================================================
    START LEVEL
-========================= */
+========================================================= */
 
 function startLevel(key){
 
   currentKey=key;
+
   currentIndex=0;
+
   answered=false;
 
   storyMode =
     levels[key].type==="story";
 
-  document
-    .getElementById("lessonTitle")
-    .textContent =
-      levels[key].name;
+
+  document.getElementById(
+    "lessonTitle"
+  ).textContent =
+    levels[key].name;
+
 
   show("lesson");
 
@@ -1707,9 +1661,9 @@ function startLevel(key){
 }
 
 
-/* =========================
+/* =========================================================
    RENDER LESSON
-========================= */
+========================================================= */
 
 function renderLesson(){
 
@@ -1723,18 +1677,20 @@ function renderLesson(){
     : data.questions.length;
 
 
-  document
-    .getElementById("counter")
-    .textContent =
-      `${currentIndex+1} / ${total}`;
+  document.getElementById(
+    "counter"
+  ).textContent =
+    `${currentIndex+1} / ${total}`;
 
 
-  document
-    .getElementById("progressFill")
-    .style.width =
-      (
-        currentIndex / total * 100
-      )+"%";
+  document.getElementById(
+    "progressFill"
+  ).style.width =
+    (
+      currentIndex /
+      total *
+      100
+    ) + "%";
 
 
   const box =
@@ -1758,44 +1714,50 @@ function renderLesson(){
   const item =
     data.questions[currentIndex];
 
+
   answered=false;
 
 
   const image =
-    typeof item.image==="string"
-    &&
+    typeof item.image==="string" &&
     item.image.startsWith("http")
 
     ?
 
-    `<img
-      class="big-image"
-      src="${item.image}"
-      alt=""
-    >`
+    `
+      <img
+        class="big-image"
+        src="${item.image}"
+        alt=""
+      >
+    `
 
     :
 
-    `<div
-      class="big-image"
-      style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:100px;
-      "
-    >
-      ${item.image}
-    </div>`;
+    `
+      <div
+        class="big-image"
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:100px
+        "
+      >
+        ${item.image}
+      </div>
+    `;
 
 
   box.innerHTML=`
 
     ${image}
 
+
     <div class="question">
       ${item.question}
     </div>
+
 
     <button
       class="listen"
@@ -1804,15 +1766,18 @@ function renderLesson(){
       🔊 Listen to question
     </button>
 
+
     <div
       id="answers"
       class="answer-grid"
     ></div>
 
+
     <div
       id="feedback"
       class="feedback"
     ></div>
+
 
     <div class="actions">
 
@@ -1824,6 +1789,7 @@ function renderLesson(){
       >
         🎤 Say it!
       </button>
+
 
       <button
         id="next"
@@ -1853,11 +1819,15 @@ function renderLesson(){
           "button"
         );
 
+
       btn.className="answer";
+
       btn.textContent=text;
+
 
       btn.onclick =
         ()=>selectAnswer(i,btn);
+
 
       answers.appendChild(btn);
 
@@ -1867,14 +1837,11 @@ function renderLesson(){
 }
 
 
-/* =========================
+/* =========================================================
    STORY
-========================= */
+========================================================= */
 
-function renderStory(
-  box,
-  scene
-){
+function renderStory(box,scene){
 
   box.innerHTML=`
 
@@ -1885,16 +1852,18 @@ function renderStory(
         alt="Lily story"
       >
 
+
       <div>
 
         <div class="story-step">
-          LILY'S STORY • SCENE
-          ${currentIndex+1}
+          LILY'S STORY • SCENE ${currentIndex+1}
         </div>
+
 
         <div class="story-text">
           ${scene.text}
         </div>
+
 
         <div
           class="actions"
@@ -1908,13 +1877,14 @@ function renderStory(
             🔊 Listen
           </button>
 
+
           <button
             class="next"
             onclick="nextItem()"
           >
 
             ${
-              currentIndex===
+              currentIndex ===
               levels[currentKey].scenes.length-1
 
               ? "Finish story"
@@ -1935,14 +1905,11 @@ function renderStory(
 }
 
 
-/* =========================
-   ANSWERS
-========================= */
+/* =========================================================
+   CHECK ANSWER
+========================================================= */
 
-function selectAnswer(
-  index,
-  btn
-){
+function selectAnswer(index,btn){
 
   if(answered)return;
 
@@ -1956,6 +1923,7 @@ function selectAnswer(
 
     answered=true;
 
+
     btn.classList.add("correct");
 
 
@@ -1966,34 +1934,36 @@ function selectAnswer(
       );
 
 
-    state.xp+=10;
-    state.gems+=1;
+    state.xp += 10;
+
+    state.gems += 1;
+
 
     save();
 
 
-    document
-      .getElementById("feedback")
-      .textContent =
-        "Great! Now say it aloud! +10 XP ⭐";
+    document.getElementById(
+      "feedback"
+    ).textContent =
+      "Great! Now say it aloud! +10 XP ⭐";
 
 
-    document
-      .getElementById("feedback")
-      .style.color =
-        "#39964e";
+    document.getElementById(
+      "feedback"
+    ).style.color =
+      "#39964e";
 
 
-    document
-      .getElementById("mic")
-      .style.display =
-        "inline-block";
+    document.getElementById(
+      "mic"
+    ).style.display =
+      "inline-block";
 
 
-    document
-      .getElementById("next")
-      .style.display =
-        "inline-block";
+    document.getElementById(
+      "next"
+    ).style.display =
+      "inline-block";
 
 
     speak(
@@ -2005,19 +1975,20 @@ function selectAnswer(
   }else{
 
     btn.classList.add("wrong");
+
     btn.disabled=true;
 
 
-    document
-      .getElementById("feedback")
-      .textContent =
-        "Oops! Try again!";
+    document.getElementById(
+      "feedback"
+    ).textContent =
+      "Oops! Try again!";
 
 
-    document
-      .getElementById("feedback")
-      .style.color =
-        "#e2536c";
+    document.getElementById(
+      "feedback"
+    ).style.color =
+      "#e2536c";
 
 
     speak(
@@ -2030,9 +2001,9 @@ function selectAnswer(
 }
 
 
-/* =========================
-   NEXT
-========================= */
+/* =========================================================
+   NEXT ITEM
+========================================================= */
 
 function nextItem(){
 
@@ -2059,21 +2030,17 @@ function nextItem(){
 }
 
 
-/* =========================
+/* =========================================================
    FINISH LEVEL
-========================= */
+========================================================= */
 
 function finishLevel(){
 
   if(
-    !state.completed.includes(
-      currentKey
-    )
+    !state.completed.includes(currentKey)
   ){
 
-    state.completed.push(
-      currentKey
-    );
+    state.completed.push(currentKey);
 
   }
 
@@ -2088,17 +2055,17 @@ function finishLevel(){
     zones[pos+1];
 
 
+  /*
+    The next zone unlocks silently.
+    No announcement about the next block.
+  */
+
   if(
-    next
-    &&
-    !state.unlocked.includes(
-      next.key
-    )
+    next &&
+    !state.unlocked.includes(next.key)
   ){
 
-    state.unlocked.push(
-      next.key
-    );
+    state.unlocked.push(next.key);
 
   }
 
@@ -2106,71 +2073,74 @@ function finishLevel(){
   save();
 
 
-  const nextText =
-    next
-    ?
-      "🔓 "+next.title+
-      " is now unlocked!"
-
-    :
-      "You reached the end of the current adventure!";
+  document.getElementById(
+    "rewardTitle"
+  ).textContent =
+    levels[currentKey].name +
+    " complete!";
 
 
-  document
-    .getElementById("rewardTitle")
-    .textContent =
-      levels[currentKey].name+
-      " complete!";
-
-
-  document
-    .getElementById("rewardText")
-    .textContent =
-      nextText;
+  document.getElementById(
+    "rewardText"
+  ).textContent =
+    "Amazing job! You completed this adventure! 🌟";
 
 
   show("reward");
 
 
+  /*
+    SAME VOICE SETTINGS AS GAMES
+  */
+
   speak(
-    "Well done! "+nextText,
+    "Well done! Great job!",
     true
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    VOICE
-========================= */
+   EXACTLY LIKE GAMES
+========================================================= */
 
-function speak(
-  text,
-  slow=false
-){
+function speak(text,slow=false){
 
   if(
     !("speechSynthesis" in window)
-  )return;
+  ){
+
+    return;
+
+  }
 
 
   speechSynthesis.cancel();
 
 
   const u =
-    new SpeechSynthesisUtterance(
-      text
-    );
+    new SpeechSynthesisUtterance(text);
 
 
   u.lang="en-US";
-  u.rate=slow?.72:.9;
+
+
+  /*
+    EXACT SAME SETTINGS AS games.html
+  */
+
+  u.rate =
+    slow
+    ? 0.72
+    : 0.82;
+
+
   u.pitch=1.08;
 
 
-  if(lilyVoice){
-    u.voice=lilyVoice;
-  }
+  u.volume=1;
 
 
   speechSynthesis.speak(u);
@@ -2178,63 +2148,14 @@ function speak(
 }
 
 
-/* =========================
-   VOICE SETUP
-========================= */
-
-function setupVoice(){
-
-  const choose=()=>{
-
-    const voices =
-      speechSynthesis.getVoices();
-
-
-    lilyVoice =
-      voices.find(
-        v=>
-          /Google UK English Female|Zira|Samantha|Female/i
-          .test(v.name)
-      )
-
-      ||
-
-      voices.find(
-        v=>
-          v.lang==="en-US"
-          ||
-          v.lang==="en-GB"
-      )
-
-      ||
-
-      voices[0]
-
-      ||
-
-      null;
-
-  };
-
-
-  choose();
-
-
-  speechSynthesis.onvoiceschanged =
-    choose;
-
-}
-
-
-/* =========================
-   SPEECH RECOGNITION
-========================= */
+/* =========================================================
+   MICROPHONE
+========================================================= */
 
 function listenAnswer(){
 
   const SR =
-    window.SpeechRecognition
-    ||
+    window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
 
@@ -2267,7 +2188,9 @@ function listenAnswer(){
 
 
   r.lang="en-US";
+
   r.interimResults=false;
+
   r.maxAlternatives=3;
 
 
@@ -2307,42 +2230,38 @@ function listenAnswer(){
 
 
     if(
-      heard===correct
-      ||
-      heard.includes(correct)
-      ||
+      heard===correct ||
+      heard.includes(correct) ||
       hits>=Math.max(
         1,
-        Math.ceil(
-          words.length*.65
-        )
+        Math.ceil(words.length*.65)
       )
     ){
 
-      document
-        .getElementById("feedback")
-        .textContent =
-          "Excellent speaking! 🎉";
+      document.getElementById(
+        "feedback"
+      ).textContent =
+        "Excellent speaking! 🎉";
 
 
-      document
-        .getElementById("feedback")
-        .style.color =
-          "#39964e";
+      document.getElementById(
+        "feedback"
+      ).style.color =
+        "#39964e";
 
 
     }else{
 
-      document
-        .getElementById("feedback")
-        .textContent =
-          "Good try! Listen once more and repeat.";
+      document.getElementById(
+        "feedback"
+      ).textContent =
+        "Good try! Listen once more and repeat.";
 
 
-      document
-        .getElementById("feedback")
-        .style.color =
-          "#8a5a9e";
+      document.getElementById(
+        "feedback"
+      ).style.color =
+        "#8a5a9e";
 
 
       speak(
@@ -2373,9 +2292,9 @@ function listenAnswer(){
 }
 
 
-/* =========================
-   ESCAPE
-========================= */
+/* =========================================================
+   ESCAPE TEXT
+========================================================= */
 
 function escapeJS(s){
 
@@ -2387,11 +2306,10 @@ function escapeJS(s){
 }
 
 
-/* =========================
+/* =========================================================
    START
-========================= */
+========================================================= */
 
-setupVoice();
 updateStats();
 
 </script>
