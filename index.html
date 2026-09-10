@@ -16,7 +16,6 @@ body{
 }
 
 button{font:inherit}
-
 #app{max-width:980px;margin:0 auto;padding:18px}
 
 .screen{display:none}
@@ -31,7 +30,6 @@ button{font:inherit}
 }
 
 .brand{font-size:30px;font-weight:900;color:#6339a6}
-
 .stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
 .pill{
@@ -58,13 +56,7 @@ button{font:inherit}
   overflow:hidden;
 }
 
-.hero-copy h1{
-  font-size:58px;
-  line-height:.98;
-  margin:0 0 16px;
-  color:#6339a6;
-}
-
+.hero-copy h1{font-size:58px;line-height:.98;margin:0 0 16px;color:#6339a6}
 .hero-copy p{font-size:22px;line-height:1.45;margin:0 0 25px}
 
 .hero-img{
@@ -103,7 +95,6 @@ button{font:inherit}
 }
 
 .small{font-size:14px;color:#777;margin-top:12px}
-
 .home-games{margin-top:18px}
 
 .games-main-btn{
@@ -132,7 +123,6 @@ button{font:inherit}
 
 .map-head h2{font-size:38px;margin:0}
 .map-intro{font-size:18px;color:#666;margin:8px 0 20px}
-
 .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 
 .zone{
@@ -149,7 +139,6 @@ button{font:inherit}
 }
 
 .zone:hover{transform:translateY(-4px)}
-
 .zone.locked{cursor:not-allowed;filter:saturate(.55);opacity:.72}
 
 .zone-img{
@@ -211,6 +200,19 @@ button{font:inherit}
   display:block;
 }
 
+/* CSS-квадрат для цвета, у которого нет картинки */
+.color-box{
+  width:min(100%,500px);
+  height:285px;
+  border-radius:24px;
+  margin:auto;
+  display:block;
+  box-shadow:
+    inset 0 0 0 10px #fff,
+    0 8px 24px #00000022;
+  border:1px solid #ddd;
+}
+
 .answer-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -235,7 +237,6 @@ button{font:inherit}
 .answer.wrong{background:#ffd1d8;border-color:#f05c70}
 
 .feedback{min-height:32px;font-size:18px;font-weight:900;margin:15px}
-
 .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
 .back-task{
@@ -270,7 +271,6 @@ button{font:inherit}
 
 .story-text{font-size:28px;font-weight:900;line-height:1.3}
 .story-step{font-size:14px;color:#8b7ba7;font-weight:900;margin-bottom:12px}
-
 .reward{text-align:center;padding:30px}
 .reward h2{font-size:42px;color:#6339a6;margin:8px}
 .reward .stars{font-size:55px}
@@ -383,15 +383,15 @@ function q(question,image,options,correctIndex){
 /* ZONES */
 
 const zones = [
-  { key:"family",  icon:"👨‍👩‍👧", title:"Family",       sub:"Family & people",   image:IMG+"Lili.jpg" },
-  { key:"school",  icon:"🏫",   title:"School",       sub:"Things & actions", image:IMG+"Notebook.jpg" },
-  { key:"animals", icon:"🐾",   title:"Pet World",    sub:"Animals & speaking", image:IMG+"monkey.jpg" },
-  { key:"colours", icon:"🎨",   title:"Colour Garden", sub:"Colours",          image:IMG+"red.jpg" },
-  { key:"food",    icon:"🍕",   title:"Yummy Café",   sub:"Food & drinks",    image:IMG+"Pizza.jpg" },
-  { key:"seasons", icon:"🌦️",   title:"Weather Park", sub:"Four seasons",     image:null },
-  { key:"toys",    icon:"🧸",   title:"Toy Town",     sub:"Toys",             image:IMG+"Taddybear.jpg" },
-  { key:"home",    icon:"🏡",   title:"My Home",      sub:"Rooms & things",   image:IMG+"bedroom.jpg" },
-  { key:"boss",    icon:"👑",   title:"Boss Castle",  sub:"Big conversation", image:IMG+"Lili.jpg" }
+  { key:"family",  icon:"👨‍👩‍👧", title:"Family",        sub:"Family & people",    image:IMG+"Lili.jpg" },
+  { key:"school",  icon:"🏫",   title:"School",        sub:"Things & actions",   image:IMG+"Notebook.jpg" },
+  { key:"animals", icon:"🐾",   title:"Pet World",     sub:"Animals & speaking", image:IMG+"monkey.jpg" },
+  { key:"colours", icon:"🎨",   title:"Colour Garden", sub:"Colours",            image:IMG+"colours.jpg" },
+  { key:"food",    icon:"🍕",   title:"Yummy Café",    sub:"Food & drinks",      image:IMG+"Pizza.jpg" },
+  { key:"seasons", icon:"🌦️",   title:"Weather Park",  sub:"Four seasons",       image:IMG+"weather.jpg" },
+  { key:"toys",    icon:"🧸",   title:"Toy Town",      sub:"Toys",               image:IMG+"Taddybear.jpg" },
+  { key:"home",    icon:"🏡",   title:"My Home",       sub:"Rooms & things",     image:IMG+"bedroom.jpg" },
+  { key:"boss",    icon:"👑",   title:"Boss Castle",   sub:"Big conversation",   image:IMG+"Lili green.jpg" }
 ];
 
 
@@ -429,7 +429,6 @@ const levels = {
     q("What is it?", IMG+"frog.jpg",   ["It's a frog.","It's a bird.","It's a chimp."], 0)
   ]},
 
-  /* COLOURS — теперь с картинками (как ты сказала — они работают) */
   colours:{ name:"🎨 Colour Garden", questions:[
     q("What colour is it?", IMG+"red.jpg",    ["It's red.","It's blue.","It's yellow."], 0),
     q("What colour is it?", IMG+"blue.jpg",   ["It's yellow.","It's green.","It's blue."], 2),
@@ -437,27 +436,27 @@ const levels = {
     q("What colour is it?", IMG+"yellow.jpg", ["It's yellow.","It's blue.","It's red."], 0),
     q("What colour is it?", IMG+"white.jpg",  ["It's white.","It's black.","It's red."], 0),
     q("What colour is it?", IMG+"black.jpg",  ["It's white.","It's black.","It's blue."], 1),
-    q("What colour is it?", IMG+"orange.jpg", ["It's orange.","It's green.","It's red."], 0),
-    q("What colour is it?", IMG+"brown.jpg",  ["It's brown.","It's pink.","It's black."], 0)
+    q("What colour is it?", "color:orange",   ["It's orange.","It's green.","It's red."], 0),
+    q("What colour is it?", "color:brown",    ["It's brown.","It's pink.","It's black."], 0)
   ]},
 
   food:{ name:"🍕 Yummy Café", questions:[
-    q("What is it?", IMG+"Apple.jpg",           ["It's an apple.","It's a pizza.","It's a burger."], 0),
-    q("What is it?", IMG+"Burger.jpg",          ["It's an apple.","It's a burger.","It's a sandwich."], 1),
-    q("What is it?", IMG+"Chips.jpg",           ["It's a pizza.","It's a burger.","It's chips."], 2),
-    q("What is it?", IMG+"Chocolate cake.jpg",  ["It's a chocolate cake.","It's an apple.","It's ice cream."], 0),
-    q("What is it?", IMG+"Ice cream.jpg",       ["It's a burger.","It's ice cream.","It's a sandwich."], 1),
-    q("What is it?", IMG+"Milk.jpg",            ["It's milk.","It's pizza.","It's chips."], 0),
-    q("What is it?", IMG+"Orange juice.jpg",    ["It's orange juice.","It's milk.","It's water."], 0),
-    q("What is it?", IMG+"Pizza.jpg",           ["It's pizza.","It's an apple.","It's a burger."], 0),
-    q("What is it?", IMG+"Sandwich.jpg",        ["It's a sandwich.","It's an apple.","It's chips."], 0)
+    q("What is it?", IMG+"Apple.jpg",          ["It's an apple.","It's a pizza.","It's a burger."], 0),
+    q("What is it?", IMG+"Burger.jpg",         ["It's an apple.","It's a burger.","It's a sandwich."], 1),
+    q("What is it?", IMG+"Chips.jpg",          ["It's a pizza.","It's a burger.","It's chips."], 2),
+    q("What is it?", IMG+"Chocolate cake.jpg", ["It's a chocolate cake.","It's an apple.","It's ice cream."], 0),
+    q("What is it?", IMG+"Ice cream.jpg",      ["It's a burger.","It's ice cream.","It's a sandwich."], 1),
+    q("What is it?", IMG+"Milk.jpg",           ["It's milk.","It's pizza.","It's chips."], 0),
+    q("What is it?", IMG+"Orange juice.jpg",   ["It's orange juice.","It's milk.","It's water."], 0),
+    q("What is it?", IMG+"Pizza.jpg",          ["It's pizza.","It's an apple.","It's a burger."], 0),
+    q("What is it?", IMG+"Sandwich.jpg",       ["It's a sandwich.","It's an apple.","It's chips."], 0)
   ]},
 
   seasons:{ name:"🌦️ Weather Park", questions:[
-    q("What season is it?", "❄️", ["It's winter.","It's summer.","It's spring."], 0),
-    q("What season is it?", "🌸", ["It's autumn.","It's spring.","It's winter."], 1),
-    q("What season is it?", "☀️", ["It's winter.","It's spring.","It's summer."], 2),
-    q("What season is it?", "🍂", ["It's autumn.","It's winter.","It's summer."], 0)
+    q("What season is it?", IMG+"winter.jpg", ["It's winter.","It's summer.","It's spring."], 0),
+    q("What season is it?", IMG+"spring.jpg", ["It's autumn.","It's spring.","It's winter."], 1),
+    q("What season is it?", IMG+"summer.jpg", ["It's winter.","It's spring.","It's summer."], 2),
+    q("What season is it?", IMG+"autumn.jpg", ["It's autumn.","It's winter.","It's summer."], 0)
   ]},
 
   toys:{ name:"🧸 Toy Town", questions:[
@@ -468,16 +467,17 @@ const levels = {
   ]},
 
   home:{ name:"🏡 My Home", questions:[
-    q("What is it?", IMG+"bed.jpg",   ["It's a chair.","It's a table.","It's a bed."], 2),
-    q("What is it?", IMG+"chair.jpg", ["It's a chair.","It's a table.","It's a shelf."], 0),
-    q("What is it?", IMG+"table.jpg", ["It's a table.","It's a chair.","It's a shelf."], 0),
-    q("What is it?", IMG+"book.jpg",  ["It's a book.","It's a pen.","It's a ruler."], 0)
+    q("What is it?", IMG+"bed.jpg",     ["It's a chair.","It's a table.","It's a bed."], 2),
+    q("What is it?", IMG+"chair.jpg",   ["It's a chair.","It's a table.","It's a shelf."], 0),
+    q("What is it?", IMG+"table.jpg",   ["It's a table.","It's a chair.","It's a shelf."], 0),
+    q("What is it?", IMG+"kitchen.jpg", ["It's a kitchen.","It's a bedroom.","It's a bathroom."], 0),
+    q("What is it?", IMG+"bathroom.jpg",["It's a kitchen.","It's a bathroom.","It's a bedroom."], 1)
   ]},
 
   boss:{ name:"👑 Boss Castle", questions:[
-    q("Who is she?", IMG+"mummy.jpg", ["She's my mummy.","She's my sister.","She's my grandma."], 0),
-    q("Who is he?",  IMG+"daddy.jpg", ["He's my brother.","He's my daddy.","He's my grandpa."], 1),
-    q("What is it?", IMG+"Apple.jpg", ["It's an apple.","It's a pizza.","It's a burger."], 0),
+    q("Who is she?", IMG+"mummy.jpg",      ["She's my mummy.","She's my sister.","She's my grandma."], 0),
+    q("Who is he?",  IMG+"daddy.jpg",      ["He's my brother.","He's my daddy.","He's my grandpa."], 1),
+    q("What is it?", IMG+"Apple.jpg",      ["It's an apple.","It's a pizza.","It's a burger."], 0),
     q("What is it?", IMG+"School bag.jpg", ["It's a school bag.","It's a pen.","It's a ruler."], 0)
   ]}
 
@@ -627,9 +627,14 @@ function renderLesson(){
 
   let imageHTML = "";
 
-  if(typeof item.image === "string" && item.image.startsWith("http")){
+  if(typeof item.image === "string" && item.image.startsWith("color:")){
+    const colorValue = item.image.replace("color:","");
+    imageHTML = `<div class="color-box" style="background:${colorValue};"></div>`;
+  }
+  else if(typeof item.image === "string" && item.image.startsWith("http")){
     imageHTML = `<img class="big-image" src="${item.image}" alt="">`;
-  }else{
+  }
+  else{
     imageHTML = `<div class="big-image" style="display:flex;align-items:center;justify-content:center;font-size:100px">${item.image}</div>`;
   }
 
@@ -862,38 +867,4 @@ function listenAnswer(){
     }
   };
 
-  recognition.onerror = function(){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-    const feedback = document.getElementById("feedback");
-    if(feedback){
-      feedback.textContent = "I couldn't hear that. Please try again.";
-      feedback.style.color = "#8a5a9e";
-    }
-  };
-
-  recognition.onend = function(){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-  };
-
-  try{ recognition.start(); }
-  catch(error){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-  }
-}
-
-
-/* BUTTONS */
-
-document.getElementById("startQuestBtn").addEventListener("click", showMap);
-document.getElementById("homeBtn").addEventListener("click", goHome);
-document.getElementById("mapBtn").addEventListener("click", showMap);
-document.getElementById("continueBtn").addEventListener("click", showMap);
-document.getElementById("gamesBtn").addEventListener("click", ()=>{ window.location.href = "games.html"; });
-
-
-updateStats();
-
-</script>
-
-</body>
-</html>
+  recognition.on
