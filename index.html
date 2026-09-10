@@ -854,4 +854,51 @@ function listenAnswer(){
       const feedback = document.getElementById("feedback");
       if(feedback){
         feedback.textContent = "Excellent speaking! 🎉 +1 💎";
-        feedback.style.color = "#
+        feedback.style.color = "#39964e";
+      }
+    }
+    else{
+      const feedback = document.getElementById("feedback");
+      if(feedback){
+        feedback.textContent = "Good try! Listen once more and repeat.";
+        feedback.style.color = "#8a5a9e";
+      }
+      speak(item.options[item.correctIndex], true);
+    }
+  };
+
+  recognition.onerror = function(){
+    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
+    const feedback = document.getElementById("feedback");
+    if(feedback){
+      feedback.textContent = "I couldn't hear that. Please try again.";
+      feedback.style.color = "#8a5a9e";
+    }
+  };
+
+  recognition.onend = function(){
+    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
+  };
+
+  try{ recognition.start(); }
+  catch(error){
+    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
+  }
+}
+
+
+/* BUTTONS */
+
+document.getElementById("startQuestBtn").addEventListener("click", showMap);
+document.getElementById("homeBtn").addEventListener("click", goHome);
+document.getElementById("mapBtn").addEventListener("click", showMap);
+document.getElementById("continueBtn").addEventListener("click", showMap);
+document.getElementById("gamesBtn").addEventListener("click", ()=>{ window.location.href = "games.html"; });
+
+
+updateStats();
+
+</script>
+
+</body>
+</html>
