@@ -200,7 +200,6 @@ button{font:inherit}
   display:block;
 }
 
-/* CSS-квадрат для цвета, у которого нет картинки */
 .color-box{
   width:min(100%,500px);
   height:285px;
@@ -622,7 +621,8 @@ function renderLesson(){
   const item = data.questions[currentIndex];
   const taskKey = getTaskKey();
 
-  answered = state.xpRewards.includes(taskKey);
+  /* ---- БОЛЬШЕ НЕ ПОДСВЕЧИВАЕМ ПРАВИЛЬНЫЙ ОТВЕТ ПРИ ЗАГРУЗКЕ ---- */
+  answered = false;
   spokenRewarded = state.spokenRewards.includes(taskKey);
 
   let imageHTML = "";
@@ -646,8 +646,8 @@ function renderLesson(){
     <div id="feedback" class="feedback"></div>
     <div class="actions">
       <button id="previous" class="back-task" type="button">← Back</button>
-      <button id="mic" class="mic" type="button" style="${answered ? "display:inline-block" : "display:none"}">🎤 Say it!</button>
-      <button id="next" class="next" type="button" style="${answered ? "display:inline-block" : "display:none"}">Next ➡️</button>
+      <button id="mic" class="mic" type="button" style="display:none">🎤 Say it!</button>
+      <button id="next" class="next" type="button" style="display:none">Next ➡️</button>
     </div>`;
 
   document.getElementById("listenQuestion").addEventListener("click", ()=>speak(item.question));
@@ -662,22 +662,11 @@ function renderLesson(){
     button.className = "answer";
     button.textContent = text;
 
-    if(answered && index === item.correctIndex) button.classList.add("correct");
-    if(answered) button.disabled = true;
+    /* ---- БЕЗ АВТО-ПОДСВЕТКИ ---- */
 
     button.addEventListener("click", ()=>selectAnswer(index, button));
     answers.appendChild(button);
   });
-
-  if(answered){
-    const feedback = document.getElementById("feedback");
-    if(feedback){
-      feedback.textContent = spokenRewarded
-        ? "Excellent! You already completed this question. 💎"
-        : "Great! Now say it aloud! +10 XP ⭐";
-      feedback.style.color = "#39964e";
-    }
-  }
 }
 
 
@@ -863,42 +852,4 @@ function listenAnswer(){
         feedback.textContent = "Good try! Listen once more and repeat.";
         feedback.style.color = "#8a5a9e";
       }
-      speak(item.options[item.correctIndex], true);
-    }
-  };
-
-  recognition.onerror = function(){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-    const feedback = document.getElementById("feedback");
-    if(feedback){
-      feedback.textContent = "I couldn't hear that. Please try again.";
-      feedback.style.color = "#8a5a9e";
-    }
-  };
-
-  recognition.onend = function(){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-  };
-
-  try{ recognition.start(); }
-  catch(error){
-    if(mic){ mic.textContent = "🎤 Say it!"; mic.disabled = false; }
-  }
-}
-
-
-/* BUTTONS */
-
-document.getElementById("startQuestBtn").addEventListener("click", showMap);
-document.getElementById("homeBtn").addEventListener("click", goHome);
-document.getElementById("mapBtn").addEventListener("click", showMap);
-document.getElementById("continueBtn").addEventListener("click", showMap);
-document.getElementById("gamesBtn").addEventListener("click", ()=>{ window.location.href = "games.html"; });
-
-
-updateStats();
-
-</script>
-
-</body>
-</html>
+      speak(item.options[item.correctIndex],
