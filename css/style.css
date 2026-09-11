@@ -44,8 +44,20 @@ button {
 }
 
 button:disabled {
-  opacity: 0.55;
+  opacity: 1;
   cursor: default;
+}
+
+.choice-btn.correct:disabled {
+  background: #dff8e7;
+  outline: 3px solid var(--green);
+  opacity: 1;
+}
+
+.choice-btn.wrong:disabled {
+  background: #ffe1e7;
+  outline: 3px solid var(--pink);
+  opacity: 1;
 }
 
 .screen {
