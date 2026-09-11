@@ -17,6 +17,7 @@ body{
 }
 
 button{font:inherit}
+
 #app{max-width:980px;margin:0 auto;padding:18px}
 
 .screen{display:none}
@@ -31,6 +32,7 @@ button{font:inherit}
 }
 
 .brand{font-size:30px;font-weight:900;color:#6339a6}
+
 .stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
 .pill{
@@ -57,7 +59,13 @@ button{font:inherit}
   overflow:hidden;
 }
 
-.hero-copy h1{font-size:58px;line-height:.98;margin:0 0 16px;color:#6339a6}
+.hero-copy h1{
+  font-size:58px;
+  line-height:.98;
+  margin:0 0 16px;
+  color:#6339a6;
+}
+
 .hero-copy p{font-size:22px;line-height:1.45;margin:0 0 25px}
 
 .hero-img{
@@ -96,6 +104,7 @@ button{font:inherit}
 }
 
 .small{font-size:14px;color:#777;margin-top:12px}
+
 .home-games{margin-top:18px}
 
 .games-main-btn{
@@ -113,7 +122,10 @@ button{font:inherit}
   transition:.18s;
 }
 
-.games-main-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px #00000022}
+.games-main-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 30px #00000022
+}
 
 .map-head{
   display:flex;
@@ -124,7 +136,12 @@ button{font:inherit}
 
 .map-head h2{font-size:38px;margin:0}
 .map-intro{font-size:18px;color:#666;margin:8px 0 20px}
-.map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+.map-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px
+}
 
 .zone{
   border:0;
@@ -201,19 +218,6 @@ button{font:inherit}
   display:block;
 }
 
-/* CSS-квадрат для цвета, у которого нет картинки */
-.color-box{
-  width:min(100%,500px);
-  height:285px;
-  border-radius:24px;
-  margin:auto;
-  display:block;
-  box-shadow:
-    inset 0 0 0 10px #fff,
-    0 8px 24px #00000022;
-  border:1px solid #ddd;
-}
-
 .answer-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -233,12 +237,34 @@ button{font:inherit}
   transition:.15s;
 }
 
-.answer:hover{background:#f6f0ff;transform:translateY(-2px)}
-.answer.correct{background:#c9f5d0;border-color:#4caf68}
-.answer.wrong{background:#ffd1d8;border-color:#f05c70}
+.answer:hover{
+  background:#f6f0ff;
+  transform:translateY(-2px)
+}
 
-.feedback{min-height:32px;font-size:18px;font-weight:900;margin:15px}
-.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.answer.correct{
+  background:#c9f5d0;
+  border-color:#4caf68
+}
+
+.answer.wrong{
+  background:#ffd1d8;
+  border-color:#f05c70
+}
+
+.feedback{
+  min-height:32px;
+  font-size:18px;
+  font-weight:900;
+  margin:15px
+}
+
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap
+}
 
 .back-task{
   background:#fff;
@@ -252,7 +278,10 @@ button{font:inherit}
   box-shadow:0 7px 16px #00000018;
 }
 
-.back-task:hover{transform:translateY(-2px);background:#f8f3ff}
+.back-task:hover{
+  transform:translateY(-2px);
+  background:#f8f3ff
+}
 
 .story{
   display:grid;
@@ -272,6 +301,7 @@ button{font:inherit}
 
 .story-text{font-size:28px;font-weight:900;line-height:1.3}
 .story-step{font-size:14px;color:#8b7ba7;font-weight:900;margin-bottom:12px}
+
 .reward{text-align:center;padding:30px}
 .reward h2{font-size:42px;color:#6339a6;margin:8px}
 .reward .stars{font-size:55px}
@@ -310,7 +340,12 @@ button{font:inherit}
       <button id="startQuestBtn" class="primary" type="button">Start Quest 🚀</button>
       <div class="small">Mistakes are OK. Try, listen and try again.</div>
     </div>
-    <img class="hero-img" src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg" alt="Lily">
+
+    <img
+      class="hero-img"
+      src="https://yuliaishtar-hub.github.io/inglish-adventure/Lili.jpg"
+      alt="Lily"
+    >
   </div>
 
   <div class="home-games">
@@ -322,8 +357,10 @@ button{font:inherit}
 
 
 <section id="map" class="screen">
+
   <div class="top">
     <div class="brand">🌈 English Quest</div>
+
     <div class="stats">
       <div class="pill">⭐ <span id="xp">0</span> XP</div>
       <div class="pill">💎 <span id="gems">0</span></div>
@@ -331,30 +368,43 @@ button{font:inherit}
   </div>
 
   <div class="card">
+
     <div class="map-head">
       <div>
         <h2>🗺️ Adventure Map</h2>
-        <div class="map-intro">Complete a world to unlock the next one.</div>
+        <div class="map-intro">
+          Complete a world to unlock the next one.
+        </div>
       </div>
-      <button id="homeBtn" class="secondary" type="button">⌂ Home</button>
+
+      <button id="homeBtn" class="secondary" type="button">
+        ⌂ Home
+      </button>
     </div>
 
     <div id="mapGrid" class="map-grid"></div>
+
   </div>
 </section>
 
 
 <section id="lesson" class="screen">
+
   <div class="top">
-    <button id="mapBtn" class="secondary" type="button">← Back to Map</button>
+
+    <button id="mapBtn" class="secondary" type="button">
+      ← Back to Map
+    </button>
 
     <div class="stats">
       <div class="pill">⭐ <span id="lessonXp">0</span></div>
       <div class="pill">💎 <span id="lessonGems">0</span></div>
     </div>
+
   </div>
 
   <div class="card">
+
     <div class="lesson-head">
       <h2 id="lessonTitle" class="lesson-title"></h2>
       <div id="counter"></div>
@@ -365,19 +415,27 @@ button{font:inherit}
     </div>
 
     <div id="lessonContent"></div>
+
   </div>
 </section>
 
 
 <section id="reward" class="screen">
+
   <div class="card reward">
+
     <div class="stars">🌟🏆🌟</div>
+
     <h2 id="rewardTitle">Well done!</h2>
+
     <p id="rewardText" style="font-size:20px"></p>
+
     <button id="continueBtn" class="primary" type="button">
       Continue Adventure 🗺️
     </button>
+
   </div>
+
 </section>
 
 </div>
@@ -395,15 +453,79 @@ function q(question,image,options,correctIndex){
 /* ZONES */
 
 const zones = [
-  { key:"family",  icon:"👨‍👩‍👧", title:"Family",        sub:"Family & people",    image:IMG+"Lili.jpg" },
-  { key:"school",  icon:"🏫",   title:"School",        sub:"Things & actions",   image:IMG+"Notebook.jpg" },
-  { key:"animals", icon:"🐾",   title:"Pet World",     sub:"Animals & speaking", image:IMG+"monkey.jpg" },
-  { key:"colours", icon:"🎨",   title:"Colour Garden", sub:"Colours",            image:IMG+"colours.jpg" },
-  { key:"food",    icon:"🍕",   title:"Yummy Café",    sub:"Food & drinks",      image:IMG+"Pizza.jpg" },
-  { key:"seasons", icon:"🌦️",   title:"Weather Park",  sub:"Four seasons",       image:IMG+"weather.jpg" },
-  { key:"toys",    icon:"🧸",   title:"Toy Town",      sub:"Toys",               image:IMG+"Taddybear.jpg" },
-  { key:"home",    icon:"🏡",   title:"My Home",       sub:"Rooms & things",     image:IMG+"bedroom.jpg" },
-  { key:"boss",    icon:"👑",   title:"Boss Castle",   sub:"Big conversation",   image:IMG+"Lili green.jpg" }
+
+  {
+    key:"family",
+    icon:"👨‍👩‍👧",
+    title:"Family",
+    sub:"Family & people",
+    image:IMG+"Lili.jpg"
+  },
+
+  {
+    key:"school",
+    icon:"🏫",
+    title:"School",
+    sub:"Things & actions",
+    image:IMG+"Notebook.jpg"
+  },
+
+  {
+    key:"animals",
+    icon:"🐾",
+    title:"Pet World",
+    sub:"Animals & speaking",
+    image:IMG+"monkey.jpg"
+  },
+
+  {
+    key:"colours",
+    icon:"🎨",
+    title:"Colour Garden",
+    sub:"Colours",
+    image:IMG+"red.jpg"
+  },
+
+  {
+    key:"food",
+    icon:"🍕",
+    title:"Yummy Café",
+    sub:"Food & drinks",
+    image:IMG+"Pizza.jpg"
+  },
+
+  {
+    key:"seasons",
+    icon:"🌦️",
+    title:"Weather Park",
+    sub:"Four seasons",
+    image:null
+  },
+
+  {
+    key:"toys",
+    icon:"🧸",
+    title:"Toy Town",
+    sub:"Toys",
+    image:IMG+"Taddybear.jpg"
+  },
+
+  {
+    key:"home",
+    icon:"🏡",
+    title:"My Home",
+    sub:"Rooms & things",
+    image:IMG+"bedroom.jpg"
+  },
+
+  {
+    key:"boss",
+    icon:"👑",
+    title:"Boss Castle",
+    sub:"Big conversation",
+    image:IMG+"Lili.jpg"
+  }
+
 ];
 
 
@@ -414,6 +536,7 @@ const levels = {
   family:{
     name:"👨‍👩‍👧 Family",
     type:"story",
+
     scenes:[
       { text:"Hello! I'm Lily!", image:IMG+"Lili.jpg" },
       { text:"I have a mummy. Her name is Anna.", image:IMG+"mummy.jpg" },
@@ -425,73 +548,364 @@ const levels = {
     ]
   },
 
-  school:{ name:"🏫 School", questions:[
-    q("What is it?", IMG+"pen.jpg",        ["It's a pen.","It's a ruler.","It's an eraser."], 0),
-    q("What is it?", IMG+"pencil.jpg",     ["It's a pencil.","It's a ruler.","It's a pen."], 0),
-    q("What is it?", IMG+"ruler.jpg",      ["It's a pencil.","It's a ruler.","It's a pen."], 1),
-    q("What is it?", IMG+"Eraser.jpg",     ["It's a ruler.","It's a pen.","It's an eraser."], 2),
-    q("What is it?", IMG+"School bag.jpg", ["It's a school bag.","It's a pen.","It's a ruler."], 0)
-  ]},
 
-  animals:{ name:"🐾 Pet World", questions:[
-    q("What is it?", IMG+"monkey.jpg", ["It's a chimp.","It's a fish.","It's a bird."], 0),
-    q("What is it?", IMG+"fish.jpg",   ["It's a mouse.","It's a frog.","It's a fish."], 2),
-    q("What is it?", IMG+"bird.jpg",   ["It's a bird.","It's a chimp.","It's a mouse."], 0),
-    q("What is it?", IMG+"mouse.jpg",  ["It's a fish.","It's a mouse.","It's a frog."], 1),
-    q("What is it?", IMG+"frog.jpg",   ["It's a frog.","It's a bird.","It's a chimp."], 0)
-  ]},
+  school:{
+    name:"🏫 School",
 
-  colours:{ name:"🎨 Colour Garden", questions:[
-    q("What colour is it?", IMG+"red.jpg",    ["It's red.","It's blue.","It's yellow."], 0),
-    q("What colour is it?", IMG+"blue.jpg",   ["It's yellow.","It's green.","It's blue."], 2),
-    q("What colour is it?", IMG+"green.jpg",  ["It's green.","It's yellow.","It's blue."], 0),
-    q("What colour is it?", IMG+"yellow.jpg", ["It's yellow.","It's blue.","It's red."], 0),
-    q("What colour is it?", IMG+"white.jpg",  ["It's white.","It's black.","It's red."], 0),
-    q("What colour is it?", IMG+"black.jpg",  ["It's white.","It's black.","It's blue."], 1),
-    q("What colour is it?", "color:orange",   ["It's orange.","It's green.","It's red."], 0),
-    q("What colour is it?", "color:brown",    ["It's brown.","It's pink.","It's black."], 0)
-  ]},
+    questions:[
+      q(
+        "What is it?",
+        IMG+"pen.jpg",
+        ["It's a pen.","It's a ruler.","It's an eraser."],
+        0
+      ),
 
-  food:{ name:"🍕 Yummy Café", questions:[
-    q("What is it?", IMG+"Apple.jpg",          ["It's an apple.","It's a pizza.","It's a burger."], 0),
-    q("What is it?", IMG+"Burger.jpg",         ["It's an apple.","It's a burger.","It's a sandwich."], 1),
-    q("What is it?", IMG+"Chips.jpg",          ["It's a pizza.","It's a burger.","It's chips."], 2),
-    q("What is it?", IMG+"Chocolate cake.jpg", ["It's a chocolate cake.","It's an apple.","It's ice cream."], 0),
-    q("What is it?", IMG+"Ice cream.jpg",      ["It's a burger.","It's ice cream.","It's a sandwich."], 1),
-    q("What is it?", IMG+"Milk.jpg",           ["It's milk.","It's pizza.","It's chips."], 0),
-    q("What is it?", IMG+"Orange juice.jpg",   ["It's orange juice.","It's milk.","It's water."], 0),
-    q("What is it?", IMG+"Pizza.jpg",          ["It's pizza.","It's an apple.","It's a burger."], 0),
-    q("What is it?", IMG+"Sandwich.jpg",       ["It's a sandwich.","It's an apple.","It's chips."], 0)
-  ]},
+      q(
+        "What is it?",
+        IMG+"pencil.jpg",
+        ["It's a pencil.","It's a ruler.","It's a pen."],
+        0
+      ),
 
-  seasons:{ name:"🌦️ Weather Park", questions:[
-    q("What season is it?", IMG+"winter.jpg", ["It's winter.","It's summer.","It's spring."], 0),
-    q("What season is it?", IMG+"spring.jpg", ["It's autumn.","It's spring.","It's winter."], 1),
-    q("What season is it?", IMG+"summer.jpg", ["It's winter.","It's spring.","It's summer."], 2),
-    q("What season is it?", IMG+"autumn.jpg", ["It's autumn.","It's winter.","It's summer."], 0)
-  ]},
+      q(
+        "What is it?",
+        IMG+"ruler.jpg",
+        ["It's a pencil.","It's a ruler.","It's a pen."],
+        1
+      ),
 
-  toys:{ name:"🧸 Toy Town", questions:[
-    q("What is it?", IMG+"Taddybear.jpg", ["It's a teddy bear.","It's a doll.","It's a ball."], 0),
-    q("What is it?", IMG+"yoyo.jpg",      ["It's a yoyo.","It's a puppet.","It's a toy soldier."], 0),
-    q("What is it?", IMG+"puppet.jpg",    ["It's a puppet.","It's a yoyo.","It's a ball."], 0),
-    q("What is it?", IMG+"ball.jpg",      ["It's a ball.","It's a teddy bear.","It's a doll."], 0)
-  ]},
+      q(
+        "What is it?",
+        IMG+"Eraser.jpg",
+        ["It's a ruler.","It's a pen.","It's an eraser."],
+        2
+      ),
 
-  home:{ name:"🏡 My Home", questions:[
-    q("What is it?", IMG+"bed.jpg",     ["It's a chair.","It's a table.","It's a bed."], 2),
-    q("What is it?", IMG+"chair.jpg",   ["It's a chair.","It's a table.","It's a shelf."], 0),
-    q("What is it?", IMG+"table.jpg",   ["It's a table.","It's a chair.","It's a shelf."], 0),
-    q("What is it?", IMG+"kitchen.jpg", ["It's a kitchen.","It's a bedroom.","It's a bathroom."], 0),
-    q("What is it?", IMG+"bathroom.jpg",["It's a kitchen.","It's a bathroom.","It's a bedroom."], 1)
-  ]},
+      q(
+        "What is it?",
+        IMG+"School bag.jpg",
+        ["It's a school bag.","It's a pen.","It's a ruler."],
+        0
+      )
+    ]
+  },
 
-  boss:{ name:"👑 Boss Castle", questions:[
-    q("Who is she?", IMG+"mummy.jpg",      ["She's my mummy.","She's my sister.","She's my grandma."], 0),
-    q("Who is he?",  IMG+"daddy.jpg",      ["He's my brother.","He's my daddy.","He's my grandpa."], 1),
-    q("What is it?", IMG+"Apple.jpg",      ["It's an apple.","It's a pizza.","It's a burger."], 0),
-    q("What is it?", IMG+"School bag.jpg", ["It's a school bag.","It's a pen.","It's a ruler."], 0)
-  ]}
+
+  animals:{
+    name:"🐾 Pet World",
+
+    questions:[
+      q(
+        "What is it?",
+        IMG+"monkey.jpg",
+        ["It's a chimp.","It's a fish.","It's a bird."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"fish.jpg",
+        ["It's a mouse.","It's a frog.","It's a fish."],
+        2
+      ),
+
+      q(
+        "What is it?",
+        IMG+"bird.jpg",
+        ["It's a bird.","It's a chimp.","It's a mouse."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"mouse.jpg",
+        ["It's a fish.","It's a mouse.","It's a frog."],
+        1
+      ),
+
+      q(
+        "What is it?",
+        IMG+"frog.jpg",
+        ["It's a frog.","It's a bird.","It's a chimp."],
+        0
+      )
+    ]
+  },
+
+
+  /* COLOURS */
+
+  colours:{
+    name:"🎨 Colour Garden",
+
+    questions:[
+      q(
+        "What colour is it?",
+        IMG+"red.jpg",
+        ["It's red.","It's blue.","It's yellow."],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"blue.jpg",
+        ["It's yellow.","It's green.","It's blue."],
+        2
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"green.jpg",
+        ["It's green.","It's yellow.","It's blue."],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"yellow.jpg",
+        ["It's yellow.","It's blue.","It's red."],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"white.jpg",
+        ["It's white.","It's black.","It's red."],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"black.jpg",
+        ["It's white.","It's black.","It's blue."],
+        1
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"orange.jpg",
+        ["It's orange.","It's green.","It's red."],
+        0
+      ),
+
+      q(
+        "What colour is it?",
+        IMG+"brown.jpg",
+        ["It's brown.","It's pink.","It's black."],
+        0
+      )
+    ]
+  },
+
+
+  food:{
+    name:"🍕 Yummy Café",
+
+    questions:[
+      q(
+        "What is it?",
+        IMG+"Apple.jpg",
+        ["It's an apple.","It's a pizza.","It's a burger."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Burger.jpg",
+        ["It's an apple.","It's a burger.","It's a sandwich."],
+        1
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Chips.jpg",
+        ["It's a pizza.","It's a burger.","It's chips."],
+        2
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Chocolate cake.jpg",
+        ["It's a chocolate cake.","It's an apple.","It's ice cream."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Ice cream.jpg",
+        ["It's a burger.","It's ice cream.","It's a sandwich."],
+        1
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Milk.jpg",
+        ["It's milk.","It's pizza.","It's chips."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Orange juice.jpg",
+        ["It's orange juice.","It's milk.","It's water."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Pizza.jpg",
+        ["It's pizza.","It's an apple.","It's a burger."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Sandwich.jpg",
+        ["It's a sandwich.","It's an apple.","It's chips."],
+        0
+      )
+    ]
+  },
+
+
+  seasons:{
+    name:"🌦️ Weather Park",
+
+    questions:[
+      q(
+        "What season is it?",
+        "❄️",
+        ["It's winter.","It's summer.","It's spring."],
+        0
+      ),
+
+      q(
+        "What season is it?",
+        "🌸",
+        ["It's autumn.","It's spring.","It's winter."],
+        1
+      ),
+
+      q(
+        "What season is it?",
+        "☀️",
+        ["It's winter.","It's spring.","It's summer."],
+        2
+      ),
+
+      q(
+        "What season is it?",
+        "🍂",
+        ["It's autumn.","It's winter.","It's summer."],
+        0
+      )
+    ]
+  },
+
+
+  toys:{
+    name:"🧸 Toy Town",
+
+    questions:[
+      q(
+        "What is it?",
+        IMG+"Taddybear.jpg",
+        ["It's a teddy bear.","It's a doll.","It's a ball."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"yoyo.jpg",
+        ["It's a yoyo.","It's a puppet.","It's a toy soldier."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"puppet.jpg",
+        ["It's a puppet.","It's a yoyo.","It's a ball."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"ball.jpg",
+        ["It's a ball.","It's a teddy bear.","It's a doll."],
+        0
+      )
+    ]
+  },
+
+
+  home:{
+    name:"🏡 My Home",
+
+    questions:[
+      q(
+        "What is it?",
+        IMG+"bed.jpg",
+        ["It's a chair.","It's a table.","It's a bed."],
+        2
+      ),
+
+      q(
+        "What is it?",
+        IMG+"chair.jpg",
+        ["It's a chair.","It's a table.","It's a shelf."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"table.jpg",
+        ["It's a table.","It's a chair.","It's a shelf."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"book.jpg",
+        ["It's a book.","It's a pen.","It's a ruler."],
+        0
+      )
+    ]
+  },
+
+
+  boss:{
+    name:"👑 Boss Castle",
+
+    questions:[
+      q(
+        "Who is she?",
+        IMG+"mummy.jpg",
+        ["She's my mummy.","She's my sister.","She's my grandma."],
+        0
+      ),
+
+      q(
+        "Who is he?",
+        IMG+"daddy.jpg",
+        ["He's my brother.","He's my daddy.","He's my grandpa."],
+        1
+      ),
+
+      q(
+        "What is it?",
+        IMG+"Apple.jpg",
+        ["It's an apple.","It's a pizza.","It's a burger."],
+        0
+      ),
+
+      q(
+        "What is it?",
+        IMG+"School bag.jpg",
+        ["It's a school bag.","It's a pen.","It's a ruler."],
+        0
+      )
+    ]
+  }
 
 };
 
@@ -516,14 +930,27 @@ try{
   state = null;
 }
 
-if(!state || typeof state !== "object") state = { ...DEFAULT_STATE };
+if(!state || typeof state !== "object"){
+  state = { ...DEFAULT_STATE };
+}
 
-if(!Array.isArray(state.completed)) state.completed = [];
-if(!Array.isArray(state.unlocked)) state.unlocked = ["family"];
-if(!Array.isArray(state.xpRewards)) state.xpRewards = [];
-if(!Array.isArray(state.spokenRewards)) state.spokenRewards = [];
-if(typeof state.xp !== "number") state.xp = 0;
-if(typeof state.gems !== "number") state.gems = 0;
+if(!Array.isArray(state.completed))
+  state.completed = [];
+
+if(!Array.isArray(state.unlocked))
+  state.unlocked = ["family"];
+
+if(!Array.isArray(state.xpRewards))
+  state.xpRewards = [];
+
+if(!Array.isArray(state.spokenRewards))
+  state.spokenRewards = [];
+
+if(typeof state.xp !== "number")
+  state.xp = 0;
+
+if(typeof state.gems !== "number")
+  state.gems = 0;
 
 
 let currentKey = "";
@@ -534,10 +961,13 @@ let storyMode = false;
 
 
 function save(){
+
   try{
-    localStorage.setItem("english_quest_v2", JSON.stringify(state));
-  }
-  catch(error){
+    localStorage.setItem(
+      "english_quest_v2",
+      JSON.stringify(state)
+    );
+  }catch(error){
     console.warn("Could not save.", error);
   }
 
@@ -546,23 +976,39 @@ function save(){
 
 
 function updateStats(){
+
   ["xp","lessonXp"].forEach(id=>{
+
     const e = document.getElementById(id);
-    if(e) e.textContent = state.xp;
+
+    if(e)
+      e.textContent = state.xp;
+
   });
 
+
   ["gems","lessonGems"].forEach(id=>{
+
     const e = document.getElementById(id);
-    if(e) e.textContent = state.gems;
+
+    if(e)
+      e.textContent = state.gems;
+
   });
+
 }
 
 
 function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(s=>s.classList.remove("active"));
 
   const target = document.getElementById(id);
-  if(target) target.classList.add("active");
+
+  if(target)
+    target.classList.add("active");
 
   window.scrollTo(0,0);
 }
@@ -574,60 +1020,107 @@ function goHome(){
 
 
 function showMap(){
+
   renderMap();
   updateStats();
   show("map");
+
 }
 
 
 function renderMap(){
+
   const grid = document.getElementById("mapGrid");
-  if(!grid) return;
+
+  if(!grid)
+    return;
 
   grid.innerHTML = "";
 
   zones.forEach((zone,index)=>{
+
     const unlocked = state.unlocked.includes(zone.key);
     const done = state.completed.includes(zone.key);
 
     const button = document.createElement("button");
+
     button.type = "button";
-    button.className = "zone" + (unlocked ? "" : " locked");
+
+    button.className =
+      "zone" + (unlocked ? "" : " locked");
+
 
     const imageHTML = zone.image
+
       ? `<img class="zone-img" src="${zone.image}" alt="">`
-      : `<div class="zone-img" style="display:flex;align-items:center;justify-content:center;font-size:70px">${zone.icon}</div>`;
+
+      : `<div class="zone-img"
+          style="display:flex;align-items:center;justify-content:center;font-size:70px">
+          ${zone.icon}
+         </div>`;
+
 
     button.innerHTML = `
       ${!unlocked ? '<div class="lock">🔒</div>' : ''}
       ${imageHTML}
-      <div class="zone-body">
-        <div class="zone-num">ZONE ${index+1} ${done ? "✓" : ""}</div>
-        <div class="zone-title">${zone.icon} ${zone.title}</div>
-        <div class="zone-sub">${zone.sub}</div>
-      </div>`;
 
-    if(unlocked) button.addEventListener("click", ()=>startLevel(zone.key));
+      <div class="zone-body">
+
+        <div class="zone-num">
+          ZONE ${index+1} ${done ? "✓" : ""}
+        </div>
+
+        <div class="zone-title">
+          ${zone.icon} ${zone.title}
+        </div>
+
+        <div class="zone-sub">
+          ${zone.sub}
+        </div>
+
+      </div>
+    `;
+
+
+    if(unlocked)
+      button.addEventListener(
+        "click",
+        ()=>startLevel(zone.key)
+      );
+
 
     grid.appendChild(button);
+
   });
+
 }
 
 
 function startLevel(key){
-  if(!levels[key]) return;
+
+  if(!levels[key])
+    return;
 
   currentKey = key;
   currentIndex = 0;
+
   answered = false;
   spokenRewarded = false;
+
   storyMode = levels[key].type === "story";
 
-  const title = document.getElementById("lessonTitle");
-  if(title) title.textContent = levels[key].name;
+
+  const title =
+    document.getElementById("lessonTitle");
+
+  if(title)
+    title.textContent = levels[key].name;
+
 
   show("lesson");
+
   renderLesson();
+
 }
 
 
@@ -637,6 +1130,7 @@ function getTaskKey(){
 
 
 function renderLesson(){
+
   const data = levels[currentKey];
 
   if(!data){
@@ -644,47 +1138,112 @@ function renderLesson(){
     return;
   }
 
-  const total = storyMode ? data.scenes.length : data.questions.length;
 
-  const counter = document.getElementById("counter");
-  if(counter) counter.textContent = `${currentIndex+1} / ${total}`;
+  const total =
+    storyMode
+      ? data.scenes.length
+      : data.questions.length;
 
-  const progress = document.getElementById("progressFill");
-  if(progress) progress.style.width = ((currentIndex+1)/total*100) + "%";
 
-  const box = document.getElementById("lessonContent");
-  if(!box) return;
+  const counter =
+    document.getElementById("counter");
+
+  if(counter)
+    counter.textContent =
+      `${currentIndex+1} / ${total}`;
+
+
+  const progress =
+    document.getElementById("progressFill");
+
+  if(progress)
+    progress.style.width =
+      ((currentIndex+1)/total*100) + "%";
+
+
+  const box =
+    document.getElementById("lessonContent");
+
+  if(!box)
+    return;
+
 
   if(storyMode){
-    renderStory(box, data.scenes[currentIndex]);
+
+    renderStory(
+      box,
+      data.scenes[currentIndex]
+    );
+
     return;
   }
 
-  const item = data.questions[currentIndex];
-  const taskKey = getTaskKey();
 
-  answered = state.xpRewards.includes(taskKey);
-  spokenRewarded = state.spokenRewards.includes(taskKey);
+  const item =
+    data.questions[currentIndex];
+
+  const taskKey =
+    getTaskKey();
+
+
+  /*
+    Проверяем, выполнялся ли этот вопрос раньше.
+    Если XP уже выдавался — вопрос считается выполненным.
+  */
+
+  answered =
+    state.xpRewards.includes(taskKey);
+
+  spokenRewarded =
+    state.spokenRewards.includes(taskKey);
+
 
   let imageHTML = "";
 
-  if(typeof item.image === "string" && item.image.startsWith("color:")){
-    const colorValue = item.image.replace("color:","");
-    imageHTML = `<div class="color-box" style="background:${colorValue};"></div>`;
+
+  if(
+    typeof item.image === "string" &&
+    item.image.startsWith("http")
+  ){
+
+    imageHTML =
+      `<img
+        class="big-image"
+        src="${item.image}"
+        alt=""
+      >`;
+
+  }else{
+
+    imageHTML =
+      `<div
+        class="big-image"
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:100px
+        "
+      >
+        ${item.image}
+      </div>`;
+
   }
-  else if(typeof item.image === "string" && item.image.startsWith("http")){
-    imageHTML = `<img class="big-image" src="${item.image}" alt="">`;
-  }
-  else{
-    imageHTML = `<div class="big-image" style="display:flex;align-items:center;justify-content:center;font-size:100px">${item.image}</div>`;
-  }
+
 
   box.innerHTML = `
+
     ${imageHTML}
 
-    <div class="question">${item.question}</div>
+    <div class="question">
+      ${item.question}
+    </div>
 
-    <button id="listenQuestion" class="listen" type="button">
+    <button
+      id="listenQuestion"
+      class="listen"
+      type="button"
+    >
       🔊 Listen to question
     </button>
 
@@ -693,7 +1252,14 @@ function renderLesson(){
     <div id="feedback" class="feedback"></div>
 
     <div class="actions">
-      <button id="previous" class="back-task" type="button">← Back</button>
+
+      <button
+        id="previous"
+        class="back-task"
+        type="button"
+      >
+        ← Back
+      </button>
 
       <button
         id="mic"
@@ -712,72 +1278,128 @@ function renderLesson(){
       >
         Next ➡️
       </button>
-    </div>`;
+
+    </div>
+  `;
+
 
   document
     .getElementById("listenQuestion")
-    .addEventListener("click", ()=>speak(item.question));
+    .addEventListener(
+      "click",
+      ()=>speak(item.question)
+    );
+
 
   document
     .getElementById("previous")
-    .addEventListener("click", previousItem);
+    .addEventListener(
+      "click",
+      previousItem
+    );
+
 
   document
     .getElementById("mic")
-    .addEventListener("click", listenAnswer);
+    .addEventListener(
+      "click",
+      listenAnswer
+    );
+
 
   document
     .getElementById("next")
-    .addEventListener("click", nextItem);
+    .addEventListener(
+      "click",
+      nextItem
+    );
 
 
-  const answers = document.getElementById("answers");
+  const answers =
+    document.getElementById("answers");
+
 
   item.options.forEach((text,index)=>{
-    const button = document.createElement("button");
+
+    const button =
+      document.createElement("button");
 
     button.type = "button";
+
     button.className = "answer";
+
     button.textContent = text;
+
 
     /*
       ВАЖНО:
-      Если вопрос уже был выполнен раньше,
-      все варианты остаются белыми.
-      Мы только блокируем их повторное нажатие.
+
+      Здесь НЕТ добавления .correct.
+
+      Поэтому при повторном открытии
+      уже выполненного вопроса все кнопки
+      остаются белыми.
+
+      Они просто блокируются.
     */
+
     if(answered){
       button.disabled = true;
     }
 
-    button.addEventListener("click", ()=>selectAnswer(index, button));
+
+    button.addEventListener(
+      "click",
+      ()=>selectAnswer(index,button)
+    );
+
 
     answers.appendChild(button);
+
   });
 
 
   if(answered){
-    const feedback = document.getElementById("feedback");
+
+    const feedback =
+      document.getElementById("feedback");
 
     if(feedback){
-      feedback.textContent = spokenRewarded
-        ? "Excellent! You already completed this question. 💎"
-        : "Great! Now say it aloud! +10 XP ⭐";
 
-      feedback.style.color = "#39964e";
+      feedback.textContent =
+        spokenRewarded
+
+          ? "Excellent! You already completed this question. 💎"
+
+          : "Great! Now say it aloud! +10 XP ⭐";
+
+      feedback.style.color =
+        "#39964e";
+
     }
+
   }
+
 }
 
 
 function renderStory(box,scene){
-  const total = levels[currentKey].scenes.length;
+
+  const total =
+    levels[currentKey].scenes.length;
+
 
   box.innerHTML = `
+
     <div class="story">
-      <img src="${scene.image}" alt="Lily story">
+
+      <img
+        src="${scene.image}"
+        alt="Lily story"
+      >
 
       <div>
+
         <div class="story-step">
           LILY'S STORY • SCENE ${currentIndex+1}
         </div>
@@ -786,162 +1408,309 @@ function renderStory(box,scene){
           ${scene.text}
         </div>
 
-        <div class="actions" style="margin-top:24px">
-          <button id="storyPrevious" class="back-task" type="button">
+        <div
+          class="actions"
+          style="margin-top:24px"
+        >
+
+          <button
+            id="storyPrevious"
+            class="back-task"
+            type="button"
+          >
             ← Back
           </button>
 
-          <button id="storyListen" class="listen" type="button">
+          <button
+            id="storyListen"
+            class="listen"
+            type="button"
+          >
             🔊 Listen
           </button>
 
-          <button id="storyNext" class="next" type="button">
-            ${currentIndex === total-1 ? "Finish story" : "Next ➡️"}
+          <button
+            id="storyNext"
+            class="next"
+            type="button"
+          >
+            ${
+              currentIndex === total-1
+                ? "Finish story"
+                : "Next ➡️"
+            }
           </button>
+
         </div>
+
       </div>
-    </div>`;
+
+    </div>
+  `;
+
 
   document
     .getElementById("storyPrevious")
-    .addEventListener("click", previousItem);
+    .addEventListener(
+      "click",
+      previousItem
+    );
+
 
   document
     .getElementById("storyListen")
-    .addEventListener("click", ()=>speak(scene.text,true));
+    .addEventListener(
+      "click",
+      ()=>speak(scene.text,true)
+    );
+
 
   document
     .getElementById("storyNext")
-    .addEventListener("click", nextItem);
+    .addEventListener(
+      "click",
+      nextItem
+    );
+
 }
 
 
 function selectAnswer(index,button){
-  if(answered) return;
 
-  const item = levels[currentKey].questions[currentIndex];
+  if(answered)
+    return;
+
+
+  const item =
+    levels[currentKey].questions[currentIndex];
+
 
   if(index === item.correctIndex){
+
+    /*
+      ВОТ ЗДЕСЬ зелёный цвет появляется
+      при ПЕРВОМ правильном ответе.
+    */
 
     answered = true;
 
     button.classList.add("correct");
 
+
     document
       .querySelectorAll(".answer")
       .forEach(b=>b.disabled=true);
 
-    const taskKey = getTaskKey();
+
+    const taskKey =
+      getTaskKey();
+
+
+    /*
+      XP выдаём только один раз.
+    */
 
     if(!state.xpRewards.includes(taskKey)){
+
       state.xp += 10;
+
       state.xpRewards.push(taskKey);
+
     }
+
 
     save();
 
-    const feedback = document.getElementById("feedback");
+
+    const feedback =
+      document.getElementById("feedback");
+
 
     if(feedback){
-      feedback.textContent = spokenRewarded
-        ? "Great job! You already earned the 💎 for this question."
-        : "Great! Now say it aloud! +10 XP ⭐";
 
-      feedback.style.color = "#39964e";
+      feedback.textContent =
+        spokenRewarded
+
+          ? "Great job! You already earned the 💎 for this question."
+
+          : "Great! Now say it aloud! +10 XP ⭐";
+
+      feedback.style.color =
+        "#39964e";
+
     }
 
-    document.getElementById("mic").style.display = "inline-block";
-    document.getElementById("next").style.display = "inline-block";
 
-    speak(item.options[item.correctIndex], true);
+    document
+      .getElementById("mic")
+      .style.display = "inline-block";
+
+
+    document
+      .getElementById("next")
+      .style.display = "inline-block";
+
+
+    speak(
+      item.options[item.correctIndex],
+      true
+    );
 
   }
+
   else{
 
     button.classList.add("wrong");
+
     button.disabled = true;
 
-    const feedback = document.getElementById("feedback");
+
+    const feedback =
+      document.getElementById("feedback");
+
 
     if(feedback){
-      feedback.textContent = "Oops! Try again!";
-      feedback.style.color = "#e2536c";
+
+      feedback.textContent =
+        "Oops! Try again!";
+
+      feedback.style.color =
+        "#e2536c";
+
     }
 
-    speak(item.options[item.correctIndex], true);
+
+    speak(
+      item.options[item.correctIndex],
+      true
+    );
+
   }
+
 }
 
 
 function previousItem(){
+
   if(currentIndex > 0){
+
     currentIndex--;
+
     renderLesson();
+
     return;
   }
 
   showMap();
+
 }
 
 
 function nextItem(){
 
-  const total = storyMode
-    ? levels[currentKey].scenes.length
-    : levels[currentKey].questions.length;
+  const total =
+    storyMode
+
+      ? levels[currentKey].scenes.length
+
+      : levels[currentKey].questions.length;
+
 
   currentIndex++;
 
+
   if(currentIndex >= total){
+
     finishLevel();
+
     return;
+
   }
 
+
   renderLesson();
+
 }
 
 
 function finishLevel(){
 
-  if(!state.completed.includes(currentKey)){
+  if(!state.completed.includes(currentKey))
     state.completed.push(currentKey);
-  }
 
-  const position = zones.findIndex(z=>z.key === currentKey);
-  const nextZone = zones[position+1];
 
-  if(nextZone && !state.unlocked.includes(nextZone.key)){
+  const position =
+    zones.findIndex(
+      z=>z.key === currentKey
+    );
+
+
+  const nextZone =
+    zones[position+1];
+
+
+  if(
+    nextZone &&
+    !state.unlocked.includes(nextZone.key)
+  ){
+
     state.unlocked.push(nextZone.key);
+
   }
+
 
   save();
 
-  document.getElementById("rewardTitle").textContent =
-    levels[currentKey].name + " complete!";
 
-  document.getElementById("rewardText").textContent =
-    "Amazing job! You completed this adventure! 🌟";
+  document
+    .getElementById("rewardTitle")
+    .textContent =
+      levels[currentKey].name +
+      " complete!";
+
+
+  document
+    .getElementById("rewardText")
+    .textContent =
+      "Amazing job! You completed this adventure! 🌟";
+
 
   show("reward");
 
-  speak("Well done! Great job!", true);
+
+  speak(
+    "Well done! Great job!",
+    true
+  );
+
 }
 
 
 function speak(text,slow=false){
 
-  if(!("speechSynthesis" in window)) return;
+  if(!("speechSynthesis" in window))
+    return;
+
 
   speechSynthesis.cancel();
 
-  const utterance = new SpeechSynthesisUtterance(text);
+
+  const utterance =
+    new SpeechSynthesisUtterance(text);
+
 
   utterance.lang = "en-US";
-  utterance.rate = slow ? 0.72 : 0.82;
+
+  utterance.rate =
+    slow ? 0.72 : 0.82;
+
   utterance.pitch = 1.08;
+
   utterance.volume = 1;
 
+
   speechSynthesis.speak(utterance);
+
 }
 
 
@@ -952,6 +1721,7 @@ function normalizeSpeech(text){
     .replace(/[.,!?;:'"’`]/g,"")
     .replace(/\s+/g," ")
     .trim();
+
 }
 
 
@@ -959,21 +1729,26 @@ function listenAnswer(){
 
   if(spokenRewarded){
 
-    const feedback = document.getElementById("feedback");
+    const feedback =
+      document.getElementById("feedback");
 
-    if(feedback){
+    if(feedback)
       feedback.textContent =
         "You already earned the 💎 for this question!";
-    }
 
     return;
+
   }
 
-  if(!answered) return;
+
+  if(!answered)
+    return;
+
 
   const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
+
 
   if(!SpeechRecognition){
 
@@ -982,77 +1757,168 @@ function listenAnswer(){
     );
 
     return;
+
   }
 
-  const item = levels[currentKey].questions[currentIndex];
-  const mic = document.getElementById("mic");
+
+  const item =
+    levels[currentKey].questions[currentIndex];
+
+
+  const mic =
+    document.getElementById("mic");
+
 
   if(mic){
-    mic.textContent = "🎤 Listening...";
+
+    mic.textContent =
+      "🎤 Listening...";
+
     mic.disabled = true;
+
   }
 
-  const recognition = new SpeechRecognition();
 
-  recognition.lang = "en-US";
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 3;
+  const recognition =
+    new SpeechRecognition();
 
 
-  recognition.onresult = function(event){
+  recognition.lang =
+    "en-US";
 
-    const heard =
-      normalizeSpeech(
-        event.results[0][0].transcript
-      );
+  recognition.interimResults =
+    false;
 
-    const correct =
-      normalizeSpeech(
-        item.options[item.correctIndex]
-      );
-
-    const words =
-      correct
-        .split(/\s+/)
-        .filter(w=>w.length>2);
-
-    const hits =
-      words.filter(w=>heard.includes(w)).length;
-
-    const goodSpeech =
-      heard === correct ||
-      heard.includes(correct) ||
-      (
-        words.length>0 &&
-        hits >= Math.max(
-          1,
-          Math.ceil(words.length*0.65)
-        )
-      );
+  recognition.maxAlternatives =
+    3;
 
 
-    if(mic){
-      mic.textContent = "🎤 Say it!";
-      mic.disabled = false;
-    }
+  recognition.onresult =
+    function(event){
+
+      const heard =
+        normalizeSpeech(
+          event.results[0][0].transcript
+        );
 
 
-    if(goodSpeech){
+      const correct =
+        normalizeSpeech(
+          item.options[item.correctIndex]
+        );
 
-      const taskKey = getTaskKey();
 
-      if(!state.spokenRewards.includes(taskKey)){
+      const words =
+        correct
+          .split(/\s+/)
+          .filter(w=>w.length>2);
 
-        state.spokenRewards.push(taskKey);
-        state.gems += 1;
-        spokenRewarded = true;
 
-        save();
+      const hits =
+        words.filter(
+          w=>heard.includes(w)
+        ).length;
+
+
+      const goodSpeech =
+        heard === correct ||
+        heard.includes(correct) ||
+        (
+          words.length>0 &&
+          hits >= Math.max(
+            1,
+            Math.ceil(words.length*0.65)
+          )
+        );
+
+
+      if(mic){
+
+        mic.textContent =
+          "🎤 Say it!";
+
+        mic.disabled = false;
 
       }
+
+
+      if(goodSpeech){
+
+        const taskKey =
+          getTaskKey();
+
+
+        if(
+          !state.spokenRewards.includes(taskKey)
+        ){
+
+          state.spokenRewards.push(taskKey);
+
+          state.gems += 1;
+
+          spokenRewarded = true;
+
+          save();
+
+        }else{
+
+          spokenRewarded = true;
+
+        }
+
+
+        const feedback =
+          document.getElementById("feedback");
+
+
+        if(feedback){
+
+          feedback.textContent =
+            "Excellent speaking! 🎉 +1 💎";
+
+          feedback.style.color =
+            "#39964e";
+
+        }
+
+      }
+
       else{
 
-        spokenRewarded = true;
+        const feedback =
+          document.getElementById("feedback");
+
+
+        if(feedback){
+
+          feedback.textContent =
+            "Good try! Listen once more and repeat.";
+
+          feedback.style.color =
+            "#8a5a9e";
+
+        }
+
+
+        speak(
+          item.options[item.correctIndex],
+          true
+        );
+
+      }
+
+    };
+
+
+  recognition.onerror =
+    function(){
+
+      if(mic){
+
+        mic.textContent =
+          "🎤 Say it!";
+
+        mic.disabled = false;
 
       }
 
@@ -1060,66 +1926,33 @@ function listenAnswer(){
       const feedback =
         document.getElementById("feedback");
 
-      if(feedback){
-
-        feedback.textContent =
-          "Excellent speaking! 🎉 +1 💎";
-
-        feedback.style.color = "#39964e";
-
-      }
-
-    }
-    else{
-
-      const feedback =
-        document.getElementById("feedback");
 
       if(feedback){
 
         feedback.textContent =
-          "Good try! Listen once more and repeat.";
+          "I couldn't hear that. Please try again.";
 
-        feedback.style.color = "#8a5a9e";
+        feedback.style.color =
+          "#8a5a9e";
 
       }
 
-      speak(
-        item.options[item.correctIndex],
-        true
-      );
-    }
-  };
+    };
 
 
-  recognition.onerror = function(){
+  recognition.onend =
+    function(){
 
-    if(mic){
-      mic.textContent = "🎤 Say it!";
-      mic.disabled = false;
-    }
+      if(mic){
 
-    const feedback =
-      document.getElementById("feedback");
+        mic.textContent =
+          "🎤 Say it!";
 
-    if(feedback){
+        mic.disabled = false;
 
-      feedback.textContent =
-        "I couldn't hear that. Please try again.";
+      }
 
-      feedback.style.color = "#8a5a9e";
-
-    }
-  };
-
-
-  recognition.onend = function(){
-
-    if(mic){
-      mic.textContent = "🎤 Say it!";
-      mic.disabled = false;
-    }
-  };
+    };
 
 
   try{
@@ -1127,14 +1960,20 @@ function listenAnswer(){
     recognition.start();
 
   }
+
   catch(error){
 
     if(mic){
-      mic.textContent = "🎤 Say it!";
+
+      mic.textContent =
+        "🎤 Say it!";
+
       mic.disabled = false;
+
     }
 
   }
+
 }
 
 
@@ -1142,25 +1981,44 @@ function listenAnswer(){
 
 document
   .getElementById("startQuestBtn")
-  .addEventListener("click", showMap);
+  .addEventListener(
+    "click",
+    showMap
+  );
+
 
 document
   .getElementById("homeBtn")
-  .addEventListener("click", goHome);
+  .addEventListener(
+    "click",
+    goHome
+  );
+
 
 document
   .getElementById("mapBtn")
-  .addEventListener("click", showMap);
+  .addEventListener(
+    "click",
+    showMap
+  );
+
 
 document
   .getElementById("continueBtn")
-  .addEventListener("click", showMap);
+  .addEventListener(
+    "click",
+    showMap
+  );
+
 
 document
   .getElementById("gamesBtn")
-  .addEventListener("click", ()=>{
-    window.location.href = "games.html";
-  });
+  .addEventListener(
+    "click",
+    ()=>{
+      window.location.href = "games.html";
+    }
+  );
 
 
 updateStats();
