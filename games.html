@@ -4,67 +4,2562 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Quest — Games 🎮</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Verdana,sans-serif;background:linear-gradient(135deg,#cfeeff,#f7d9ff,#ffe1ee);color:#30305c}
-#app{max-width:980px;margin:0 auto;padding:18px}
-.card{background:#fff;border-radius:30px;padding:28px;box-shadow:0 16px 40px #54317b22}
-h1{font-size:48px;color:#6339a6;margin:0 0 8px}.subtitle{font-size:20px;color:#666;margin-bottom:22px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}button{font:inherit}
-.secondary,.primary,.listen,.speak{border:0;border-radius:16px;padding:12px 18px;font-weight:900;cursor:pointer;box-shadow:0 7px 16px #00000018;transition:.18s}
-.secondary{background:#fff;color:#6339a6;border:2px solid #d8c6f7}.primary{background:linear-gradient(135deg,#ff5f8d,#9b5cff);color:#fff}.listen{background:#eadbff;color:#6339a6}.speak{background:#ff638d;color:#fff}
-button:hover{transform:translateY(-2px)}button:disabled{cursor:default;opacity:1}button:disabled:hover{transform:none}
-.screen{display:none}.screen.active{display:block}
-.games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.game-card{border:0;border-radius:24px;background:#fff;padding:0;overflow:hidden;cursor:pointer;text-align:left;box-shadow:0 9px 22px #00000013;transition:.18s}.game-card:hover{transform:translateY(-5px);box-shadow:0 14px 28px #00000018}
-.game-img{width:100%;height:150px;object-fit:contain;background:#f1ebfa;padding:8px}.game-body{padding:15px}.game-title{font-size:22px;font-weight:900;color:#6339a6}.game-sub{font-size:14px;color:#777;margin-top:5px}
-.game-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.game-head h2{margin:0;font-size:30px;color:#6339a6}.game-progress{margin-top:10px;color:#777;font-weight:800}
-.question{text-align:center;font-size:28px;font-weight:900;margin:20px 0}.big-image{width:min(100%,520px);height:280px;object-fit:contain;background:#f7f4ff;border-radius:24px;display:block;margin:auto;padding:10px}
-.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.answer{border:2px solid #e2ddec;background:#fff;border-radius:18px;padding:15px;cursor:pointer;font-size:18px;font-weight:800;color:#45416d;transition:.15s}.answer:hover{background:#f6f0ff;transform:translateY(-2px)}
-.answer.correct{background:#c9f5d0!important;border-color:#4caf68!important;color:#245c32!important}.answer.wrong{background:#ffd1d8!important;border-color:#f05c70!important;color:#8b2435!important}
-.feedback{text-align:center;min-height:38px;font-size:19px;font-weight:900;margin:15px}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
-.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.memory-card{height:145px;border:0;border-radius:20px;background:linear-gradient(135deg,#9b5cff,#ff638d);color:#fff;cursor:pointer;font-size:45px;font-weight:900;box-shadow:0 7px 16px #00000018;transition:.18s}.memory-card:hover{transform:scale(1.02)}
-.memory-card.revealed,.memory-card.matched{background:#fff;color:#30305c;border:2px solid #d8c6f7}.memory-card img{width:100%;height:100%;object-fit:contain;padding:8px;border-radius:18px}.memory-word{font-size:21px}
-.finish{text-align:center;padding:25px 5px}.finish-stars{font-size:60px}.finish h2{color:#6339a6;font-size:36px}
-@media(max-width:760px){.games-grid{grid-template-columns:1fr 1fr}.memory-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){#app{padding:10px}.card{padding:18px;border-radius:22px}h1{font-size:38px}.games-grid{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.memory-grid{grid-template-columns:1fr 1fr}.memory-card{height:125px}.question{font-size:23px}}
+
+body{
+  margin:0;
+  font-family:Arial,Verdana,sans-serif;
+  background:linear-gradient(135deg,#cfeeff,#f7d9ff,#ffe1ee);
+  color:#30305c
+}
+
+#app{
+  max-width:980px;
+  margin:0 auto;
+  padding:18px
+}
+
+.card{
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 16px 40px #54317b22
+}
+
+h1{
+  font-size:48px;
+  color:#6339a6;
+  margin:0 0 8px
+}
+
+.subtitle{
+  font-size:20px;
+  color:#666;
+  margin-bottom:22px
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px
+}
+
+button{
+  font:inherit
+}
+
+.secondary,
+.primary,
+.listen,
+.speak{
+  border:0;
+  border-radius:16px;
+  padding:12px 18px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 7px 16px #00000018;
+  transition:.18s
+}
+
+.secondary{
+  background:#fff;
+  color:#6339a6;
+  border:2px solid #d8c6f7
+}
+
+.primary{
+  background:linear-gradient(135deg,#ff5f8d,#9b5cff);
+  color:#fff
+}
+
+.listen{
+  background:#eadbff;
+  color:#6339a6
+}
+
+.speak{
+  background:#ff638d;
+  color:#fff
+}
+
+button:hover{
+  transform:translateY(-2px)
+}
+
+button:disabled{
+  cursor:default;
+  opacity:1
+}
+
+button:disabled:hover{
+  transform:none
+}
+
+.screen{
+  display:none
+}
+
+.screen.active{
+  display:block
+}
+
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px
+}
+
+.game-card{
+  border:0;
+  border-radius:24px;
+  background:#fff;
+  padding:0;
+  overflow:hidden;
+  cursor:pointer;
+  text-align:left;
+  box-shadow:0 9px 22px #00000013;
+  transition:.18s
+}
+
+.game-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 14px 28px #00000018
+}
+
+.game-img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+  background:#f1ebfa;
+  padding:8px
+}
+
+.game-body{
+  padding:15px
+}
+
+.game-title{
+  font-size:22px;
+  font-weight:900;
+  color:#6339a6
+}
+
+.game-sub{
+  font-size:14px;
+  color:#777;
+  margin-top:5px
+}
+
+.game-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
+}
+
+.game-head h2{
+  margin:0;
+  font-size:30px;
+  color:#6339a6
+}
+
+.game-progress{
+  margin-top:10px;
+  color:#777;
+  font-weight:800
+}
+
+.question{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin:20px 0
+}
+
+.big-image{
+  width:min(100%,520px);
+  height:280px;
+  object-fit:contain;
+  background:#f7f4ff;
+  border-radius:24px;
+  display:block;
+  margin:auto;
+  padding:10px
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px
+}
+
+.answer{
+  border:2px solid #e2ddec;
+  background:#fff;
+  border-radius:18px;
+  padding:15px;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:800;
+  color:#45416d;
+  transition:.15s
+}
+
+.answer:hover{
+  background:#f6f0ff;
+  transform:translateY(-2px)
+}
+
+.answer.correct{
+  background:#c9f5d0!important;
+  border-color:#4caf68!important;
+  color:#245c32!important
+}
+
+.answer.wrong{
+  background:#ffd1d8!important;
+  border-color:#f05c70!important;
+  color:#8b2435!important
+}
+
+.feedback{
+  text-align:center;
+  min-height:38px;
+  font-size:19px;
+  font-weight:900;
+  margin:15px
+}
+
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px
+}
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:20px
+}
+
+.memory-card{
+  height:145px;
+  border:0;
+  border-radius:20px;
+  background:linear-gradient(135deg,#9b5cff,#ff638d);
+  color:#fff;
+  cursor:pointer;
+  font-size:45px;
+  font-weight:900;
+  box-shadow:0 7px 16px #00000018;
+  transition:.18s
+}
+
+.memory-card:hover{
+  transform:scale(1.02)
+}
+
+.memory-card.revealed,
+.memory-card.matched{
+  background:#fff;
+  color:#30305c;
+  border:2px solid #d8c6f7
+}
+
+.memory-card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:8px;
+  border-radius:18px
+}
+
+.memory-word{
+  font-size:21px
+}
+
+.finish{
+  text-align:center;
+  padding:25px 5px
+}
+
+.finish-stars{
+  font-size:60px
+}
+
+.finish h2{
+  color:#6339a6;
+  font-size:36px
+}
+
+.reward-box{
+  background:linear-gradient(135deg,#fff4b8,#f5e5ff);
+  border-radius:22px;
+  padding:18px;
+  margin:20px auto;
+  max-width:500px;
+  font-size:21px;
+  font-weight:900
+}
+
+.weather-options,
+.find-options,
+.home-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:20px
+}
+
+.choice-card{
+  border:3px solid #e2ddec;
+  background:#fff;
+  border-radius:22px;
+  padding:14px;
+  cursor:pointer;
+  font-weight:900;
+  font-size:20px;
+  color:#45416d;
+  transition:.18s
+}
+
+.choice-card img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+  margin-bottom:8px
+}
+
+.choice-card:hover{
+  transform:translateY(-3px);
+  background:#f7f1ff
+}
+
+.choice-card.correct{
+  background:#c9f5d0!important;
+  border-color:#4caf68!important;
+  color:#245c32!important
+}
+
+.choice-card.wrong{
+  background:#ffd1d8!important;
+  border-color:#f05c70!important;
+  color:#8b2435!important
+}
+
+@media(max-width:760px){
+  .games-grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .memory-grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .weather-options,
+  .find-options,
+  .home-options{
+    grid-template-columns:1fr 1fr
+  }
+}
+
+@media(max-width:480px){
+  #app{
+    padding:10px
+  }
+
+  .card{
+    padding:18px;
+    border-radius:22px
+  }
+
+  h1{
+    font-size:38px
+  }
+
+  .games-grid{
+    grid-template-columns:1fr
+  }
+
+  .answers{
+    grid-template-columns:1fr
+  }
+
+  .memory-grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .memory-card{
+    height:125px
+  }
+
+  .question{
+    font-size:23px
+  }
+
+  .weather-options,
+  .find-options,
+  .home-options{
+    grid-template-columns:1fr
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div id="app">
-<section id="gamesHome" class="screen active"><div class="topbar"><div><h1>🎮 Games</h1><div class="subtitle">Play, practise and learn English!</div></div><button class="secondary" onclick="goMenu()">← Menu</button></div><div class="card"><div id="gamesGrid" class="games-grid"></div></div></section>
-<section id="gameScreen" class="screen"><div class="topbar"><button class="secondary" onclick="showGamesMap()">← Games</button><div id="gameScore">⭐ 0</div></div><div class="card"><div class="game-head"><div><h2 id="gameTitle"></h2><div id="gameProgress" class="game-progress"></div></div></div><div id="gameContent"></div></div></section>
+
+<section id="gamesHome" class="screen active">
+
+  <div class="topbar">
+    <div>
+      <h1>🎮 Games</h1>
+      <div class="subtitle">Play, practise and learn English!</div>
+    </div>
+
+    <button class="secondary" onclick="goMenu()">← Menu</button>
+  </div>
+
+  <div class="card">
+    <div id="gamesGrid" class="games-grid"></div>
+  </div>
+
+</section>
+
+
+<section id="gameScreen" class="screen">
+
+  <div class="topbar">
+    <button class="secondary" onclick="showGamesMap()">← Games</button>
+    <div id="gameScore">⭐ 0</div>
+  </div>
+
+  <div class="card">
+
+    <div class="game-head">
+
+      <div>
+        <h2 id="gameTitle"></h2>
+        <div id="gameProgress" class="game-progress"></div>
+      </div>
+
+    </div>
+
+    <div id="gameContent"></div>
+
+  </div>
+
+</section>
+
 </div>
+
+
 <script>
-const SITE="https://yuliaishtar-hub.github.io/inglish-adventure/";const IMG=SITE;
-function goMenu(){window.location.href=SITE+"index.html"}
+
+const SITE="https://yuliaishtar-hub.github.io/inglish-adventure/";
+const IMG=SITE;
+
+
+/* =========================================================
+   НАСТРОЙКИ НАГРАД
+   ========================================================= */
+
+const GAME_REWARD_XP=20;
+const GAME_REWARD_GEMS=2;
+
+
+/* =========================================================
+   ОБЩЕЕ СОХРАНЕНИЕ
+   ========================================================= */
+
+const PLAYER_KEY="english_quest_v2";
+
+function loadPlayer(){
+
+  try{
+
+    const saved=JSON.parse(localStorage.getItem(PLAYER_KEY));
+
+    if(saved && typeof saved==="object"){
+
+      if(!Array.isArray(saved.gameRewards)){
+        saved.gameRewards=[];
+      }
+
+      if(typeof saved.xp!=="number") saved.xp=0;
+      if(typeof saved.gems!=="number") saved.gems=0;
+
+      return saved;
+    }
+
+  }catch(e){}
+
+  return {
+    xp:0,
+    gems:0,
+    completed:[],
+    unlocked:["family"],
+    xpRewards:[],
+    spokenRewards:[],
+    gameRewards:[]
+  };
+}
+
+
+let player=loadPlayer();
+
+
+function savePlayer(){
+
+  localStorage.setItem(
+    PLAYER_KEY,
+    JSON.stringify(player)
+  );
+
+}
+
+
+/* =========================================================
+   НАГРАДА ЗА ПЕРВОЕ ПРОХОЖДЕНИЕ
+   ========================================================= */
+
+function giveGameReward(gameId){
+
+  if(!player.gameRewards){
+    player.gameRewards=[];
+  }
+
+  /*
+     Если эта игра уже была полностью пройдена,
+     второй раз награда НЕ выдаётся.
+  */
+
+  if(player.gameRewards.includes(gameId)){
+    return false;
+  }
+
+  player.gameRewards.push(gameId);
+
+  player.xp += GAME_REWARD_XP;
+  player.gems += GAME_REWARD_GEMS;
+
+  savePlayer();
+
+  return true;
+}
+
+
+/* =========================================================
+   НАВИГАЦИЯ
+   ========================================================= */
+
+function goMenu(){
+  window.location.href=SITE+"index.html";
+}
+
+
+function show(id){
+
+  document
+    .querySelectorAll('.screen')
+    .forEach(s=>s.classList.remove('active'));
+
+  document
+    .getElementById(id)
+    .classList.add('active');
+
+  window.scrollTo(0,0);
+}
+
+
+function showGamesMap(){
+
+  clearTimeout(memoryFinishTimer);
+
+  renderThemes();
+
+  show('gamesHome');
+}
+
+
+/* =========================================================
+   ЗОНЫ
+   ========================================================= */
+
 const themes=[
-{key:"family",title:"👨‍👩‍👧 Family",sub:"Mummy • Daddy • Grandma • Sister",image:IMG+"Lili.jpg",items:[["mummy",IMG+"mummy.jpg"],["daddy",IMG+"daddy.jpg"],["grandma",IMG+"grandma.jpg"],["sister",IMG+"Lilissisterbig.jpg"]],games:["quiz","memory"]},
-{key:"school",title:"🏫 School",sub:"Pen • Pencil • Ruler • School bag",image:IMG+"School bag.jpg",items:[["pen",IMG+"pen.jpg"],["pencil",IMG+"pencil.jpg"],["ruler",IMG+"ruler.jpg"],["school bag",IMG+"School bag.jpg"]],games:["quiz","memory"]},
-{key:"animals",title:"🐾 Pet World",sub:"Chimp • Fish • Bird • Mouse",image:IMG+"monkey.jpg",items:[["chimp",IMG+"monkey.jpg"],["fish",IMG+"fish.jpg"],["bird",IMG+"bird.jpg"],["mouse",IMG+"mouse.jpg"]],games:["quiz","memory"]},
-{key:"colours",title:"🎨 Colours",sub:"Red • Blue • Green • Yellow",image:IMG+"colours.jpg",items:[["red",IMG+"red.jpg"],["blue",IMG+"blue.jpg"],["green",IMG+"green.jpg"],["yellow",IMG+"yellow.jpg"]],games:["quiz","memory"]},
-{key:"food",title:"🍕 Food",sub:"Apple • Pizza • Burger • Ice cream",image:IMG+"Pizza.jpg",items:[["apple",IMG+"Apple.jpg"],["pizza",IMG+"Pizza.jpg"],["burger",IMG+"Burger.jpg"],["ice cream",IMG+"Ice cream.jpg"]],games:["quiz","memory"]}
+
+  {
+    key:"family",
+    title:"👨‍👩‍👧 Family",
+    sub:"Mummy • Daddy • Grandma • Sister",
+    image:IMG+"Lili.jpg",
+
+    items:[
+      ["mummy",IMG+"mummy.jpg"],
+      ["daddy",IMG+"daddy.jpg"],
+      ["grandma",IMG+"grandma.jpg"],
+      ["sister",IMG+"Lilissisterbig.jpg"]
+    ],
+
+    games:["quiz","memory"]
+  },
+
+
+  {
+    key:"school",
+    title:"🏫 School",
+    sub:"Pen • Pencil • Ruler • School bag",
+    image:IMG+"School bag.jpg",
+
+    items:[
+      ["pen",IMG+"pen.jpg"],
+      ["pencil",IMG+"pencil.jpg"],
+      ["ruler",IMG+"ruler.jpg"],
+      ["school bag",IMG+"School bag.jpg"]
+    ],
+
+    games:["quiz","memory"]
+  },
+
+
+  {
+    key:"animals",
+    title:"🐾 Pet World",
+    sub:"Chimp • Fish • Bird • Mouse",
+    image:IMG+"monkey.jpg",
+
+    items:[
+      ["chimp",IMG+"monkey.jpg"],
+      ["fish",IMG+"fish.jpg"],
+      ["bird",IMG+"bird.jpg"],
+      ["mouse",IMG+"mouse.jpg"]
+    ],
+
+    games:["quiz","memory"]
+  },
+
+
+  {
+    key:"colours",
+    title:"🎨 Colours",
+    sub:"Red • Blue • Green • Yellow",
+    image:IMG+"colours.jpg",
+
+    items:[
+      ["red",IMG+"red.jpg"],
+      ["blue",IMG+"blue.jpg"],
+      ["green",IMG+"green.jpg"],
+      ["yellow",IMG+"yellow.jpg"]
+    ],
+
+    games:["quiz","memory"]
+  },
+
+
+  {
+    key:"food",
+    title:"🍕 Food",
+    sub:"Apple • Pizza • Burger • Ice cream",
+    image:IMG+"Pizza.jpg",
+
+    items:[
+      ["apple",IMG+"Apple.jpg"],
+      ["pizza",IMG+"Pizza.jpg"],
+      ["burger",IMG+"Burger.jpg"],
+      ["ice cream",IMG+"Ice cream.jpg"]
+    ],
+
+    games:["quiz","memory"]
+  },
+
+
+  /* =======================================================
+     НОВАЯ ИГРА 6 — SEASONS
+     ======================================================= */
+
+  {
+    key:"seasons",
+    title:"🌦️ Seasons",
+    sub:"Weather • Clothes • Seasons",
+    image:IMG+"autumn.jpg",
+
+    games:["seasons"]
+  },
+
+
+  /* =======================================================
+     НОВАЯ ИГРА 7 — TOYS
+     ======================================================= */
+
+  {
+    key:"toys",
+    title:"🧸 Toys",
+    sub:"Find the toy!",
+    image:IMG+"Taddybear.jpg",
+
+    games:["toys"]
+  },
+
+
+  /* =======================================================
+     НОВАЯ ИГРА 8 — HOME
+     ======================================================= */
+
+  {
+    key:"home",
+    title:"🏠 My Home",
+    sub:"Find things around the house",
+    image:IMG+"bedroom.jpg",
+
+    games:["home"]
+  }
+
 ];
-let currentTheme=null,currentGame="",score=0,questionIndex=0,quizItems=[],quizResults=[];let memoryCards=[],memoryFirst=null,memorySecond=null,memoryLocked=false,memoryMatches=0,memoryMatchedPairs=[],memoryScoredPairs=new Set(),memoryFinishTimer=null;
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function showGamesMap(){clearTimeout(memoryFinishTimer);renderThemes();show('gamesHome')}
-function renderThemes(){const grid=document.getElementById('gamesGrid');grid.innerHTML='';themes.forEach(theme=>{const b=document.createElement('button');b.className='game-card';b.innerHTML=`<img class="game-img" src="${theme.image}" alt=""><div class="game-body"><div class="game-title">${theme.title}</div><div class="game-sub">${theme.sub}</div></div>`;b.onclick=()=>openThemeGames(theme.key);grid.appendChild(b)})}
-function openThemeGames(key){clearTimeout(memoryFinishTimer);currentTheme=themes.find(t=>t.key===key);document.getElementById('gameTitle').textContent=currentTheme.title;document.getElementById('gameScore').textContent='⭐ 0';document.getElementById('gameProgress').textContent='Choose a game';document.getElementById('gameContent').innerHTML=`<div class="question">Choose your game! 🎮</div><div class="games-grid"><button class="game-card" onclick="startGame('quiz')"><div class="game-img" style="display:flex;align-items:center;justify-content:center;font-size:75px">🧠</div><div class="game-body"><div class="game-title">Quiz</div><div class="game-sub">Look, choose and say!</div></div></button><button class="game-card" onclick="startGame('memory')"><div class="game-img" style="display:flex;align-items:center;justify-content:center;font-size:75px">🃏</div><div class="game-body"><div class="game-title">Memory</div><div class="game-sub">Find the matching pairs!</div></div></button></div>`;show('gameScreen')}
-function startGame(type){clearTimeout(memoryFinishTimer);currentGame=type;score=0;document.getElementById('gameScore').textContent='⭐ 0';if(type==='quiz')startQuiz();if(type==='memory')startMemory()}
-function startQuiz(){questionIndex=0;quizItems=[...currentTheme.items].sort(()=>Math.random()-.5);quizResults=Array(quizItems.length).fill(null);renderQuiz()}
-function renderQuiz(){const item=quizItems[questionIndex];if(!item)return;document.getElementById('gameProgress').textContent=`Question ${questionIndex+1} / ${quizItems.length}`;const box=document.getElementById('gameContent');const imageHTML=`<img class="big-image" src="${item[1]}" alt="">`;const correct=item[0];const otherWords=currentTheme.items.map(x=>x[0]).filter(x=>x!==correct).sort(()=>Math.random()-.5).slice(0,2);const options=[correct,...otherWords].sort(()=>Math.random()-.5);box.innerHTML=`${imageHTML}<div class="question">What is it?</div><button class="listen" onclick="speak('What is it?')">🔊 Listen</button><div id="answers" class="answers"></div><div id="feedback" class="feedback"></div><div class="actions"><button class="secondary" onclick="previousQuiz()">← Back</button><button id="nextQuiz" class="primary" style="display:none" onclick="nextQuiz()">Next ➡️</button></div>`;const answers=document.getElementById('answers');options.forEach(word=>{const b=document.createElement('button');b.className='answer';b.textContent="It's a "+word+".";b.onclick=()=>checkQuiz(word,b,correct);answers.appendChild(b)});const previous=quizResults[questionIndex];if(previous){document.querySelectorAll('.answer').forEach(b=>{b.disabled=true;const word=b.textContent.replace("It's a ",'').replace('.','');if(word===correct)b.classList.add('correct');if(word===previous.selected&&!previous.correct)b.classList.add('wrong')});const feedback=document.getElementById('feedback');feedback.textContent=previous.correct?'Great! ⭐':'Good try! The answer is '+correct+'.';feedback.style.color=previous.correct?'#39964e':'#e2536c';document.getElementById('nextQuiz').style.display='inline-block'}}
-function checkQuiz(word,button,correct){if(quizResults[questionIndex])return;document.querySelectorAll('.answer').forEach(b=>b.disabled=true);const feedback=document.getElementById('feedback');const isCorrect=word===correct;quizResults[questionIndex]={correct:isCorrect,selected:word};button.classList.add(isCorrect?'correct':'wrong');if(isCorrect){score++;document.getElementById('gameScore').textContent='⭐ '+score;feedback.textContent='Great! ⭐ Say it aloud!';feedback.style.color='#39964e'}else{feedback.textContent='Good try! The answer is '+correct+'.';feedback.style.color='#e2536c'}speak("It's a "+correct+'.',true);document.getElementById('nextQuiz').style.display='inline-block'}
-function nextQuiz(){if(questionIndex>=quizItems.length-1){finishGame();return}questionIndex++;renderQuiz()}
-function previousQuiz(){if(questionIndex>=quizItems.length){questionIndex=quizItems.length-1;renderQuiz();return}if(questionIndex>0){questionIndex--;renderQuiz();return}openThemeGames(currentTheme.key)}
-function startMemory(){clearTimeout(memoryFinishTimer);memoryFirst=null;memorySecond=null;memoryLocked=false;memoryMatches=0;memoryMatchedPairs=[];memoryScoredPairs=new Set();memoryCards=[];currentTheme.items.forEach((item,index)=>{memoryCards.push({id:index,type:'picture',word:item[0],image:item[1],pair:index,matched:false});memoryCards.push({id:index+100,type:'word',word:item[0],image:item[1],pair:index,matched:false})});memoryCards.sort(()=>Math.random()-.5);document.getElementById('gameProgress').textContent='Find all the pairs';renderMemory()}
-function memoryCardFace(card){if(card.type==='picture')return `<img src="${card.image}" alt="">`;return `<div class="memory-word">${card.word}</div>`}
-function renderMemory(){const box=document.getElementById('gameContent');box.innerHTML=`<div class="question">Find the picture and the matching word! 🃏</div><div id="memoryGrid" class="memory-grid"></div><div id="memoryFeedback" class="feedback"></div><div class="actions"><button class="secondary" onclick="previousMemory()">← Back</button></div>`;const grid=document.getElementById('memoryGrid');memoryCards.forEach(card=>{const button=document.createElement('button');button.className='memory-card';button.dataset.id=card.id;if(card.matched){button.classList.add('matched');button.innerHTML=memoryCardFace(card)}else button.innerHTML='<span>❓</span>';button.onclick=()=>revealMemory(card,button);grid.appendChild(button)})}
-function revealMemory(card,button){if(memoryLocked||card.matched||button.classList.contains('revealed'))return;button.classList.add('revealed');button.innerHTML=memoryCardFace(card);if(!memoryFirst){memoryFirst={card,button};return}memorySecond={card,button};memoryLocked=true;if(memoryFirst.card.pair===memorySecond.card.pair){const pair=memoryFirst.card.pair;memoryFirst.card.matched=true;memorySecond.card.matched=true;memoryFirst.button.classList.add('matched');memorySecond.button.classList.add('matched');memoryMatches++;if(!memoryScoredPairs.has(pair)){memoryScoredPairs.add(pair);score++;document.getElementById('gameScore').textContent='⭐ '+score}memoryMatchedPairs.push(pair);const feedback=document.getElementById('memoryFeedback');feedback.textContent='Match! Great job! 🎉';feedback.style.color='#39964e';speak(memoryFirst.card.word);memoryFirst=null;memorySecond=null;memoryLocked=false;if(memoryMatches>=currentTheme.items.length){clearTimeout(memoryFinishTimer);memoryFinishTimer=setTimeout(finishGame,700)}return}const first=memoryFirst,second=memorySecond;const feedback=document.getElementById('memoryFeedback');feedback.textContent='Not a match. Try again!';feedback.style.color='#e2536c';setTimeout(()=>{first.button.classList.remove('revealed');second.button.classList.remove('revealed');first.button.innerHTML='<span>❓</span>';second.button.innerHTML='<span>❓</span>';memoryFirst=null;memorySecond=null;memoryLocked=false},800)}
-function previousMemory(){if(memoryLocked)return;if(memoryFirst&&!memorySecond){memoryFirst.button.classList.remove('revealed');memoryFirst.button.innerHTML='<span>❓</span>';memoryFirst=null;return}if(memoryMatchedPairs.length>0){clearTimeout(memoryFinishTimer);memoryFinishTimer=null;const lastPair=memoryMatchedPairs.pop();memoryCards.forEach(card=>{if(card.pair===lastPair)card.matched=false});memoryMatches--;renderMemory();document.getElementById('memoryFeedback').textContent='Back to the previous round.';return}openThemeGames(currentTheme.key)}
-function finishGame(){clearTimeout(memoryFinishTimer);memoryFinishTimer=null;document.getElementById('gameProgress').textContent='Complete!';document.getElementById('gameContent').innerHTML=`<div class="finish"><div class="finish-stars">🌟🏆🌟</div><h2>Well done!</h2><p style="font-size:21px;line-height:1.5">You finished the game!<br>Your score: ⭐ ${score}</p><div class="actions"><button class="secondary" onclick="previousGameStep()">← Back</button><button class="primary" onclick="startGame(currentGame)">🔄 Play again</button><button class="secondary" onclick="openThemeGames(currentTheme.key)">🎮 Other game</button><button class="secondary" onclick="showGamesMap()">← Games</button></div></div>`}
-function previousGameStep(){if(currentGame==='quiz')previousQuiz();if(currentGame==='memory')previousMemory()}
-function speak(text,slow=false){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=slow?.72:.82;u.pitch=1.08;u.volume=1;speechSynthesis.speak(u)}
+
+
+let currentTheme=null;
+let currentGame="";
+let score=0;
+
+let questionIndex=0;
+let quizItems=[];
+let quizResults=[];
+
+let memoryCards=[];
+let memoryFirst=null;
+let memorySecond=null;
+let memoryLocked=false;
+let memoryMatches=0;
+let memoryMatchedPairs=[];
+let memoryScoredPairs=new Set();
+let memoryFinishTimer=null;
+
+
+/* =========================================================
+   КАРТА ИГР
+   ========================================================= */
+
+function renderThemes(){
+
+  const grid=document.getElementById('gamesGrid');
+
+  grid.innerHTML='';
+
+  themes.forEach(theme=>{
+
+    const b=document.createElement('button');
+
+    b.className='game-card';
+
+    b.innerHTML=`
+
+      <img
+        class="game-img"
+        src="${theme.image||IMG+"Lili.jpg"}"
+        alt=""
+      >
+
+      <div class="game-body">
+
+        <div class="game-title">
+          ${theme.title}
+        </div>
+
+        <div class="game-sub">
+          ${theme.sub}
+        </div>
+
+      </div>
+    `;
+
+    b.onclick=()=>openThemeGames(theme.key);
+
+    grid.appendChild(b);
+
+  });
+
+}
+
+
+/* =========================================================
+   ВЫБОР ИГРЫ
+   ========================================================= */
+
+function openThemeGames(key){
+
+  clearTimeout(memoryFinishTimer);
+
+  currentTheme=themes.find(t=>t.key===key);
+
+  document.getElementById('gameTitle').textContent=
+    currentTheme.title;
+
+  document.getElementById('gameScore').textContent='⭐ 0';
+
+  document.getElementById('gameProgress').textContent=
+    'Choose a game';
+
+  let html=`
+
+    <div class="question">
+      Choose your game! 🎮
+    </div>
+
+    <div class="games-grid">
+  `;
+
+
+  currentTheme.games.forEach(game=>{
+
+    if(game==="quiz"){
+
+      html+=`
+
+        <button
+          class="game-card"
+          onclick="startGame('quiz')"
+        >
+
+          <div
+            class="game-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:75px
+            "
+          >
+            🧠
+          </div>
+
+          <div class="game-body">
+
+            <div class="game-title">
+              Quiz
+            </div>
+
+            <div class="game-sub">
+              Look, choose and say!
+            </div>
+
+          </div>
+
+        </button>
+
+      `;
+    }
+
+
+    if(game==="memory"){
+
+      html+=`
+
+        <button
+          class="game-card"
+          onclick="startGame('memory')"
+        >
+
+          <div
+            class="game-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:75px
+            "
+          >
+            🃏
+          </div>
+
+          <div class="game-body">
+
+            <div class="game-title">
+              Memory
+            </div>
+
+            <div class="game-sub">
+              Find the matching pairs!
+            </div>
+
+          </div>
+
+        </button>
+
+      `;
+    }
+
+
+    if(game==="seasons"){
+
+      html+=`
+
+        <button
+          class="game-card"
+          onclick="startGame('seasons')"
+        >
+
+          <div
+            class="game-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:75px
+            "
+          >
+            🌦️
+          </div>
+
+          <div class="game-body">
+
+            <div class="game-title">
+              Dress Lily
+            </div>
+
+            <div class="game-sub">
+              Choose the right clothes!
+            </div>
+
+          </div>
+
+        </button>
+
+      `;
+    }
+
+
+    if(game==="toys"){
+
+      html+=`
+
+        <button
+          class="game-card"
+          onclick="startGame('toys')"
+        >
+
+          <div
+            class="game-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:75px
+            "
+          >
+            🧸
+          </div>
+
+          <div class="game-body">
+
+            <div class="game-title">
+              Find the Toy
+            </div>
+
+            <div class="game-sub">
+              Listen and find it!
+            </div>
+
+          </div>
+
+        </button>
+
+      `;
+    }
+
+
+    if(game==="home"){
+
+      html+=`
+
+        <button
+          class="game-card"
+          onclick="startGame('home')"
+        >
+
+          <div
+            class="game-img"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:75px
+            "
+          >
+            🏠
+          </div>
+
+          <div class="game-body">
+
+            <div class="game-title">
+              Find at Home
+            </div>
+
+            <div class="game-sub">
+              Where is the object?
+            </div>
+
+          </div>
+
+        </button>
+
+      `;
+    }
+
+  });
+
+
+  html+=`</div>`;
+
+  document.getElementById('gameContent').innerHTML=html;
+
+  show('gameScreen');
+}
+
+
+/* =========================================================
+   ЗАПУСК ИГРЫ
+   ========================================================= */
+
+function startGame(type){
+
+  clearTimeout(memoryFinishTimer);
+
+  currentGame=type;
+
+  score=0;
+
+  document.getElementById('gameScore').textContent='⭐ 0';
+
+  if(type==='quiz') startQuiz();
+
+  if(type==='memory') startMemory();
+
+  if(type==='seasons') startSeasons();
+
+  if(type==='toys') startToys();
+
+  if(type==='home') startHome();
+
+}
+
+
+/* =========================================================
+   QUIZ — СТАРАЯ ИГРА
+   ========================================================= */
+
+function startQuiz(){
+
+  questionIndex=0;
+
+  quizItems=[...currentTheme.items]
+    .sort(()=>Math.random()-.5);
+
+  quizResults=
+    Array(quizItems.length).fill(null);
+
+  renderQuiz();
+}
+
+
+function renderQuiz(){
+
+  const item=quizItems[questionIndex];
+
+  if(!item)return;
+
+  document.getElementById('gameProgress').textContent=
+    `Question ${questionIndex+1} / ${quizItems.length}`;
+
+  const box=document.getElementById('gameContent');
+
+  const imageHTML=`
+
+    <img
+      class="big-image"
+      src="${item[1]}"
+      alt=""
+    >
+  `;
+
+  const correct=item[0];
+
+  const otherWords=
+    currentTheme.items
+      .map(x=>x[0])
+      .filter(x=>x!==correct)
+      .sort(()=>Math.random()-.5)
+      .slice(0,2);
+
+  const options=
+    [correct,...otherWords]
+      .sort(()=>Math.random()-.5);
+
+
+  box.innerHTML=`
+
+    ${imageHTML}
+
+    <div class="question">
+      What is it?
+    </div>
+
+    <button
+      class="listen"
+      onclick="speak('What is it?')"
+    >
+      🔊 Listen
+    </button>
+
+    <div id="answers" class="answers"></div>
+
+    <div id="feedback" class="feedback"></div>
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="previousQuiz()"
+      >
+        ← Back
+      </button>
+
+      <button
+        id="nextQuiz"
+        class="primary"
+        style="display:none"
+        onclick="nextQuiz()"
+      >
+        Next ➡️
+      </button>
+
+    </div>
+
+  `;
+
+
+  const answers=document.getElementById('answers');
+
+
+  options.forEach(word=>{
+
+    const b=document.createElement('button');
+
+    b.className='answer';
+
+    b.textContent="It's a "+word+".";
+
+    b.onclick=()=>
+      checkQuiz(word,b,correct);
+
+    answers.appendChild(b);
+
+  });
+
+
+  const previous=quizResults[questionIndex];
+
+  if(previous){
+
+    document
+      .querySelectorAll('.answer')
+      .forEach(b=>{
+
+        b.disabled=true;
+
+        const word=
+          b.textContent
+            .replace("It's a ",'')
+            .replace('.','');
+
+        if(word===correct)
+          b.classList.add('correct');
+
+        if(
+          word===previous.selected &&
+          !previous.correct
+        )
+          b.classList.add('wrong');
+
+      });
+
+
+    const feedback=
+      document.getElementById('feedback');
+
+    feedback.textContent=
+      previous.correct
+        ? 'Great! ⭐'
+        : 'Good try! The answer is '+correct+'.';
+
+    feedback.style.color=
+      previous.correct
+        ? '#39964e'
+        : '#e2536c';
+
+    document.getElementById('nextQuiz')
+      .style.display='inline-block';
+
+  }
+
+}
+
+
+function checkQuiz(word,button,correct){
+
+  if(quizResults[questionIndex])return;
+
+  document
+    .querySelectorAll('.answer')
+    .forEach(b=>b.disabled=true);
+
+  const feedback=
+    document.getElementById('feedback');
+
+  const isCorrect=word===correct;
+
+  quizResults[questionIndex]={
+    correct:isCorrect,
+    selected:word
+  };
+
+
+  button.classList.add(
+    isCorrect?'correct':'wrong'
+  );
+
+
+  if(isCorrect){
+
+    score++;
+
+    document.getElementById('gameScore')
+      .textContent='⭐ '+score;
+
+    feedback.textContent=
+      'Great! ⭐ Say it aloud!';
+
+    feedback.style.color='#39964e';
+
+  }else{
+
+    feedback.textContent=
+      'Good try! The answer is '+correct+'.';
+
+    feedback.style.color='#e2536c';
+
+  }
+
+
+  speak("It's a "+correct+'.',true);
+
+  document.getElementById('nextQuiz')
+    .style.display='inline-block';
+
+}
+
+
+function nextQuiz(){
+
+  if(questionIndex>=quizItems.length-1){
+
+    finishGame();
+
+    return;
+  }
+
+  questionIndex++;
+
+  renderQuiz();
+
+}
+
+
+function previousQuiz(){
+
+  if(questionIndex>=quizItems.length){
+
+    questionIndex=quizItems.length-1;
+
+    renderQuiz();
+
+    return;
+  }
+
+  if(questionIndex>0){
+
+    questionIndex--;
+
+    renderQuiz();
+
+    return;
+  }
+
+  openThemeGames(currentTheme.key);
+
+}
+
+
+/* =========================================================
+   MEMORY — СТАРАЯ ИГРА
+   ========================================================= */
+
+function startMemory(){
+
+  clearTimeout(memoryFinishTimer);
+
+  memoryFirst=null;
+  memorySecond=null;
+  memoryLocked=false;
+  memoryMatches=0;
+  memoryMatchedPairs=[];
+  memoryScoredPairs=new Set();
+  memoryCards=[];
+
+
+  currentTheme.items.forEach((item,index)=>{
+
+    memoryCards.push({
+      id:index,
+      type:'picture',
+      word:item[0],
+      image:item[1],
+      pair:index,
+      matched:false
+    });
+
+
+    memoryCards.push({
+      id:index+100,
+      type:'word',
+      word:item[0],
+      image:item[1],
+      pair:index,
+      matched:false
+    });
+
+  });
+
+
+  memoryCards.sort(()=>Math.random()-.5);
+
+  document.getElementById('gameProgress')
+    .textContent='Find all the pairs';
+
+  renderMemory();
+
+}
+
+
+function memoryCardFace(card){
+
+  if(card.type==='picture'){
+
+    return `
+      <img
+        src="${card.image}"
+        alt=""
+      >
+    `;
+
+  }
+
+  return `
+    <div class="memory-word">
+      ${card.word}
+    </div>
+  `;
+
+}
+
+
+function renderMemory(){
+
+  const box=document.getElementById('gameContent');
+
+  box.innerHTML=`
+
+    <div class="question">
+      Find the picture and the matching word! 🃏
+    </div>
+
+    <div id="memoryGrid" class="memory-grid"></div>
+
+    <div id="memoryFeedback" class="feedback"></div>
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="previousMemory()"
+      >
+        ← Back
+      </button>
+
+    </div>
+
+  `;
+
+
+  const grid=document.getElementById('memoryGrid');
+
+
+  memoryCards.forEach(card=>{
+
+    const button=document.createElement('button');
+
+    button.className='memory-card';
+
+    button.dataset.id=card.id;
+
+
+    if(card.matched){
+
+      button.classList.add('matched');
+
+      button.innerHTML=
+        memoryCardFace(card);
+
+    }else{
+
+      button.innerHTML='<span>❓</span>';
+
+    }
+
+
+    button.onclick=()=>
+      revealMemory(card,button);
+
+    grid.appendChild(button);
+
+  });
+
+}
+
+
+function revealMemory(card,button){
+
+  if(
+    memoryLocked ||
+    card.matched ||
+    button.classList.contains('revealed')
+  )
+    return;
+
+
+  button.classList.add('revealed');
+
+  button.innerHTML=
+    memoryCardFace(card);
+
+
+  if(!memoryFirst){
+
+    memoryFirst={
+      card,
+      button
+    };
+
+    return;
+
+  }
+
+
+  memorySecond={
+    card,
+    button
+  };
+
+  memoryLocked=true;
+
+
+  if(
+    memoryFirst.card.pair===
+    memorySecond.card.pair
+  ){
+
+    const pair=
+      memoryFirst.card.pair;
+
+
+    memoryFirst.card.matched=true;
+    memorySecond.card.matched=true;
+
+
+    memoryFirst.button.classList.add('matched');
+    memorySecond.button.classList.add('matched');
+
+
+    memoryMatches++;
+
+
+    if(!memoryScoredPairs.has(pair)){
+
+      memoryScoredPairs.add(pair);
+
+      score++;
+
+      document.getElementById('gameScore')
+        .textContent='⭐ '+score;
+
+    }
+
+
+    memoryMatchedPairs.push(pair);
+
+
+    const feedback=
+      document.getElementById('memoryFeedback');
+
+    feedback.textContent=
+      'Match! Great job! 🎉';
+
+    feedback.style.color='#39964e';
+
+
+    speak(memoryFirst.card.word);
+
+
+    memoryFirst=null;
+    memorySecond=null;
+    memoryLocked=false;
+
+
+    if(
+      memoryMatches>=
+      currentTheme.items.length
+    ){
+
+      clearTimeout(memoryFinishTimer);
+
+      memoryFinishTimer=
+        setTimeout(finishGame,700);
+
+    }
+
+    return;
+
+  }
+
+
+  const first=memoryFirst;
+  const second=memorySecond;
+
+
+  const feedback=
+    document.getElementById('memoryFeedback');
+
+  feedback.textContent=
+    'Not a match. Try again!';
+
+  feedback.style.color='#e2536c';
+
+
+  setTimeout(()=>{
+
+    first.button.classList.remove('revealed');
+    second.button.classList.remove('revealed');
+
+    first.button.innerHTML='<span>❓</span>';
+    second.button.innerHTML='<span>❓</span>';
+
+    memoryFirst=null;
+    memorySecond=null;
+    memoryLocked=false;
+
+  },800);
+
+}
+
+
+function previousMemory(){
+
+  if(memoryLocked)return;
+
+
+  if(
+    memoryFirst &&
+    !memorySecond
+  ){
+
+    memoryFirst.button.classList.remove('revealed');
+
+    memoryFirst.button.innerHTML=
+      '<span>❓</span>';
+
+    memoryFirst=null;
+
+    return;
+
+  }
+
+
+  if(memoryMatchedPairs.length>0){
+
+    clearTimeout(memoryFinishTimer);
+
+    memoryFinishTimer=null;
+
+    const lastPair=
+      memoryMatchedPairs.pop();
+
+    memoryCards.forEach(card=>{
+
+      if(card.pair===lastPair)
+        card.matched=false;
+
+    });
+
+
+    memoryMatches--;
+
+    renderMemory();
+
+    document.getElementById('memoryFeedback')
+      .textContent=
+      'Back to the previous round.';
+
+    return;
+
+  }
+
+
+  openThemeGames(currentTheme.key);
+
+}
+
+
+/* =========================================================
+   НОВАЯ ИГРА — SEASONS
+   ========================================================= */
+
+const seasonsQuestions=[
+
+  {
+    weather:"It's cold and snowy!",
+    image:IMG+"winter.jpg",
+    options:[
+      ["Coat",IMG+"winter.jpg",true],
+      ["Ice cream",IMG+"Ice cream.jpg",false],
+      ["Sandwich",IMG+"Sandwich.jpg",false],
+      ["Apple",IMG+"Apple.jpg",false]
+    ]
+  },
+
+  {
+    weather:"It's sunny and hot!",
+    image:IMG+"summer.jpg",
+    options:[
+      ["Ice cream",IMG+"Ice cream.jpg",true],
+      ["Coat",IMG+"winter.jpg",false],
+      ["Umbrella",IMG+"autumn.jpg",false],
+      ["Book",IMG+"book.jpg",false]
+    ]
+  },
+
+  {
+    weather:"It's autumn!",
+    image:IMG+"autumn.jpg",
+    options:[
+      ["Autumn",IMG+"autumn.jpg",true],
+      ["Summer",IMG+"summer.jpg",false],
+      ["Winter",IMG+"winter.jpg",false],
+      ["Spring",IMG+"spring.jpg",false]
+    ]
+  },
+
+  {
+    weather:"It's spring!",
+    image:IMG+"spring.jpg",
+    options:[
+      ["Spring",IMG+"spring.jpg",true],
+      ["Winter",IMG+"winter.jpg",false],
+      ["Autumn",IMG+"autumn.jpg",false],
+      ["Summer",IMG+"summer.jpg",false]
+    ]
+  }
+
+];
+
+
+let seasonsIndex=0;
+let seasonsCorrect=0;
+
+
+function startSeasons(){
+
+  seasonsIndex=0;
+  seasonsCorrect=0;
+
+  renderSeasons();
+
+}
+
+
+function renderSeasons(){
+
+  const q=seasonsQuestions[seasonsIndex];
+
+  document.getElementById('gameProgress')
+    .textContent=
+      `Question ${seasonsIndex+1} / ${seasonsQuestions.length}`;
+
+
+  const box=document.getElementById('gameContent');
+
+
+  box.innerHTML=`
+
+    <img
+      class="big-image"
+      src="${q.image}"
+      alt=""
+    >
+
+    <div class="question">
+      ${q.weather}
+      <br>
+      What should Lily choose?
+    </div>
+
+    <div class="weather-options" id="weatherOptions"></div>
+
+    <div id="feedback" class="feedback"></div>
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="previousSeasons()"
+      >
+        ← Back
+      </button>
+
+      <button
+        id="nextSeasons"
+        class="primary"
+        style="display:none"
+        onclick="nextSeasons()"
+      >
+        Next ➡️
+      </button>
+
+    </div>
+
+  `;
+
+
+  const options=
+    document.getElementById('weatherOptions');
+
+
+  q.options
+    .sort(()=>Math.random()-.5)
+    .forEach(option=>{
+
+      const b=document.createElement('button');
+
+      b.className='choice-card';
+
+      b.innerHTML=`
+
+        <img
+          src="${option[1]}"
+          alt=""
+        >
+
+        <div>${option[0]}</div>
+
+      `;
+
+      b.onclick=()=>
+        checkSeasons(option,b,q);
+
+      options.appendChild(b);
+
+    });
+
+}
+
+
+function checkSeasons(option,button,q){
+
+  if(button.dataset.answered)return;
+
+  document
+    .querySelectorAll('.choice-card')
+    .forEach(b=>b.dataset.answered="true");
+
+
+  const feedback=
+    document.getElementById('feedback');
+
+
+  if(option[2]){
+
+    button.classList.add('correct');
+
+    seasonsCorrect++;
+
+    score++;
+
+    document.getElementById('gameScore')
+      .textContent='⭐ '+score;
+
+    feedback.textContent=
+      'Great choice! 🌟';
+
+    feedback.style.color='#39964e';
+
+  }else{
+
+    button.classList.add('wrong');
+
+    q.options.forEach(option=>{
+
+      if(option[2]){
+
+        document
+          .querySelectorAll('.choice-card')
+          .forEach(b=>{
+
+            if(
+              b.textContent.trim()
+              ===option[0]
+            )
+              b.classList.add('correct');
+
+          });
+
+      }
+
+    });
+
+    feedback.textContent=
+      'Good try! Look at the correct choice.';
+
+    feedback.style.color='#e2536c';
+
+  }
+
+
+  document.getElementById('nextSeasons')
+    .style.display='inline-block';
+
+}
+
+
+function nextSeasons(){
+
+  if(
+    seasonsIndex>=
+    seasonsQuestions.length-1
+  ){
+
+    finishGame();
+
+    return;
+
+  }
+
+  seasonsIndex++;
+
+  renderSeasons();
+
+}
+
+
+function previousSeasons(){
+
+  if(seasonsIndex>0){
+
+    seasonsIndex--;
+
+    renderSeasons();
+
+    return;
+
+  }
+
+  openThemeGames('seasons');
+
+}
+
+
+/* =========================================================
+   НОВАЯ ИГРА — TOYS
+   ========================================================= */
+
+const toyQuestions=[
+
+  ["Find the ball!",IMG+"ball.jpg"],
+  ["Find the teddy bear!",IMG+"Taddybear.jpg"],
+  ["Find the puppet!",IMG+"puppet.jpg"],
+  ["Find the yo-yo!",IMG+"yoyo.jpg"]
+
+];
+
+
+let toyIndex=0;
+let toyCorrect=0;
+
+
+function startToys(){
+
+  toyIndex=0;
+  toyCorrect=0;
+
+  renderToys();
+
+}
+
+
+function renderToys(){
+
+  const correct=
+    toyQuestions[toyIndex];
+
+  const allToys=[
+    ["ball",IMG+"ball.jpg"],
+    ["teddy bear",IMG+"Taddybear.jpg"],
+    ["puppet",IMG+"puppet.jpg"],
+    ["yo-yo",IMG+"yoyo.jpg"]
+  ];
+
+
+  document.getElementById('gameProgress')
+    .textContent=
+      `Question ${toyIndex+1} / ${toyQuestions.length}`;
+
+
+  const box=
+    document.getElementById('gameContent');
+
+
+  box.innerHTML=`
+
+    <div class="question">
+      🔊 ${correct[0]}
+    </div>
+
+    <button
+      class="listen"
+      onclick="speak('${correct[0]}')"
+    >
+      🔊 Listen again
+    </button>
+
+    <div
+      class="find-options"
+      id="toyOptions"
+    ></div>
+
+    <div
+      id="feedback"
+      class="feedback"
+    ></div>
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="previousToys()"
+      >
+        ← Back
+      </button>
+
+      <button
+        id="nextToys"
+        class="primary"
+        style="display:none"
+        onclick="nextToys()"
+      >
+        Next ➡️
+      </button>
+
+    </div>
+
+  `;
+
+
+  const options=
+    document.getElementById('toyOptions');
+
+
+  allToys
+    .sort(()=>Math.random()-.5)
+    .forEach(toy=>{
+
+      const b=
+        document.createElement('button');
+
+      b.className='choice-card';
+
+      b.innerHTML=`
+
+        <img
+          src="${toy[1]}"
+          alt=""
+        >
+
+        <div>${toy[0]}</div>
+
+      `;
+
+
+      b.onclick=()=>{
+
+        if(b.dataset.answered)return;
+
+        document
+          .querySelectorAll('.choice-card')
+          .forEach(x=>x.dataset.answered="true");
+
+
+        const wanted=
+          correct[1]===toy[1];
+
+        const feedback=
+          document.getElementById('feedback');
+
+
+        if(wanted){
+
+          b.classList.add('correct');
+
+          toyCorrect++;
+          score++;
+
+          document.getElementById('gameScore')
+            .textContent='⭐ '+score;
+
+          feedback.textContent=
+            'Yes! You found it! 🎉';
+
+          feedback.style.color='#39964e';
+
+        }else{
+
+          b.classList.add('wrong');
+
+          feedback.textContent=
+            'Not this one. Try again!';
+
+          feedback.style.color='#e2536c';
+
+
+          document
+            .querySelectorAll('.choice-card')
+            .forEach(x=>{
+
+              if(
+                x.querySelector('img') &&
+                x.querySelector('img').src===correct[1]
+              )
+                x.classList.add('correct');
+
+            });
+
+        }
+
+
+        document.getElementById('nextToys')
+          .style.display='inline-block';
+
+      };
+
+
+      options.appendChild(b);
+
+    });
+
+
+  speak(correct[0],true);
+
+}
+
+
+function nextToys(){
+
+  if(toyIndex>=toyQuestions.length-1){
+
+    finishGame();
+
+    return;
+
+  }
+
+  toyIndex++;
+
+  renderToys();
+
+}
+
+
+function previousToys(){
+
+  if(toyIndex>0){
+
+    toyIndex--;
+
+    renderToys();
+
+    return;
+
+  }
+
+  openThemeGames('toys');
+
+}
+
+
+/* =========================================================
+   НОВАЯ ИГРА — HOME
+   ========================================================= */
+
+const homeQuestions=[
+
+  {
+    question:"Where is the bed?",
+    correct:"bed",
+    image:IMG+"bed.jpg"
+  },
+
+  {
+    question:"Where is the chair?",
+    correct:"chair",
+    image:IMG+"chair.jpg"
+  },
+
+  {
+    question:"Where is the table?",
+    correct:"table",
+    image:IMG+"table.jpg"
+  },
+
+  {
+    question:"Where is the bathroom?",
+    correct:"bathroom",
+    image:IMG+"bathroom.jpg"
+  }
+
+];
+
+
+let homeIndex=0;
+let homeCorrect=0;
+
+
+function startHome(){
+
+  homeIndex=0;
+  homeCorrect=0;
+
+  renderHome();
+
+}
+
+
+function renderHome(){
+
+  const q=homeQuestions[homeIndex];
+
+
+  document.getElementById('gameProgress')
+    .textContent=
+      `Question ${homeIndex+1} / ${homeQuestions.length}`;
+
+
+  const allHome=[
+    ["bed",IMG+"bed.jpg"],
+    ["chair",IMG+"chair.jpg"],
+    ["table",IMG+"table.jpg"],
+    ["bathroom",IMG+"bathroom.jpg"]
+  ];
+
+
+  const options=
+    allHome
+      .sort(()=>Math.random()-.5);
+
+
+  const box=
+    document.getElementById('gameContent');
+
+
+  box.innerHTML=`
+
+    <div class="question">
+      ${q.question}
+    </div>
+
+    <button
+      class="listen"
+      onclick="speak('${q.question}')"
+    >
+      🔊 Listen
+    </button>
+
+    <div
+      class="home-options"
+      id="homeOptions"
+    ></div>
+
+    <div
+      id="feedback"
+      class="feedback"
+    ></div>
+
+    <div class="actions">
+
+      <button
+        class="secondary"
+        onclick="previousHome()"
+      >
+        ← Back
+      </button>
+
+      <button
+        id="nextHome"
+        class="primary"
+        style="display:none"
+        onclick="nextHome()"
+      >
+        Next ➡️
+      </button>
+
+    </div>
+
+  `;
+
+
+  const container=
+    document.getElementById('homeOptions');
+
+
+  options.forEach(item=>{
+
+    const b=
+      document.createElement('button');
+
+    b.className='choice-card';
+
+    b.innerHTML=`
+
+      <img
+        src="${item[1]}"
+        alt=""
+      >
+
+      <div>${item[0]}</div>
+
+    `;
+
+
+    b.onclick=()=>{
+
+      if(b.dataset.answered)return;
+
+
+      document
+        .querySelectorAll('.choice-card')
+        .forEach(x=>x.dataset.answered="true");
+
+
+      const correct=
+        item[0]===q.correct;
+
+
+      const feedback=
+        document.getElementById('feedback');
+
+
+      if(correct){
+
+        b.classList.add('correct');
+
+        homeCorrect++;
+        score++;
+
+        document.getElementById('gameScore')
+          .textContent='⭐ '+score;
+
+        feedback.textContent=
+          'Yes! That is it! 🌟';
+
+        feedback.style.color='#39964e';
+
+      }else{
+
+        b.classList.add('wrong');
+
+        feedback.textContent=
+          'Good try! Look carefully.';
+
+        feedback.style.color='#e2536c';
+
+
+        document
+          .querySelectorAll('.choice-card')
+          .forEach(x=>{
+
+            if(
+              x.textContent.trim()===
+              q.correct
+            )
+              x.classList.add('correct');
+
+          });
+
+      }
+
+
+      document.getElementById('nextHome')
+        .style.display='inline-block';
+
+    };
+
+
+    container.appendChild(b);
+
+  });
+
+}
+
+
+function nextHome(){
+
+  if(homeIndex>=homeQuestions.length-1){
+
+    finishGame();
+
+    return;
+
+  }
+
+  homeIndex++;
+
+  renderHome();
+
+}
+
+
+function previousHome(){
+
+  if(homeIndex>0){
+
+    homeIndex--;
+
+    renderHome();
+
+    return;
+
+  }
+
+  openThemeGames('home');
+
+}
+
+
+/* =========================================================
+   ЗАВЕРШЕНИЕ ЛЮБОЙ ИГРЫ
+   ========================================================= */
+
+function finishGame(){
+
+  clearTimeout(memoryFinishTimer);
+
+  memoryFinishTimer=null;
+
+
+  /*
+     У каждой конкретной мини-игры
+     есть собственный ID.
+  */
+
+  const rewardId=
+    currentTheme.key+"_"+currentGame;
+
+
+  const rewardReceived=
+    giveGameReward(rewardId);
+
+
+  let rewardHTML='';
+
+
+  if(rewardReceived){
+
+    rewardHTML=`
+
+      <div class="reward-box">
+
+        🎉 First completion!<br><br>
+
+        +${GAME_REWARD_XP} XP
+        &nbsp;&nbsp;
+        +${GAME_REWARD_GEMS} 💎
+
+      </div>
+
+    `;
+
+  }else{
+
+    rewardHTML=`
+
+      <div class="reward-box">
+
+        ⭐ You already earned the reward
+        for this game.<br><br>
+
+        You can play again for practice!
+
+      </div>
+
+    `;
+
+  }
+
+
+  document.getElementById('gameProgress')
+    .textContent='Complete!';
+
+
+  document.getElementById('gameContent')
+    .innerHTML=`
+
+      <div class="finish">
+
+        <div class="finish-stars">
+          🌟🏆🌟
+        </div>
+
+        <h2>
+          Well done!
+        </h2>
+
+        <p
+          style="
+            font-size:21px;
+            line-height:1.5
+          "
+        >
+          You finished the game!<br>
+          Your score: ⭐ ${score}
+        </p>
+
+        ${rewardHTML}
+
+
+        <div class="actions">
+
+          <button
+            class="secondary"
+            onclick="previousGameStep()"
+          >
+            ← Back
+          </button>
+
+
+          <button
+            class="primary"
+            onclick="startGame(currentGame)"
+          >
+            🔄 Play again
+          </button>
+
+
+          <button
+            class="secondary"
+            onclick="openThemeGames(currentTheme.key)"
+          >
+            🎮 Other game
+          </button>
+
+
+          <button
+            class="secondary"
+            onclick="showGamesMap()"
+          >
+            ← Games
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   НАЗАД
+   ========================================================= */
+
+function previousGameStep(){
+
+  if(currentGame==='quiz')
+    previousQuiz();
+
+  if(currentGame==='memory')
+    previousMemory();
+
+  if(currentGame==='seasons')
+    previousSeasons();
+
+  if(currentGame==='toys')
+    previousToys();
+
+  if(currentGame==='home')
+    previousHome();
+
+}
+
+
+/* =========================================================
+   ОЗВУЧКА
+   ========================================================= */
+
+function speak(text,slow=false){
+
+  if(!('speechSynthesis' in window))
+    return;
+
+  speechSynthesis.cancel();
+
+  const u=
+    new SpeechSynthesisUtterance(text);
+
+  u.lang='en-US';
+
+  u.rate=slow?.72:.82;
+
+  u.pitch=1.08;
+
+  u.volume=1;
+
+  speechSynthesis.speak(u);
+
+}
+
+
+/* =========================================================
+   ЗАПУСК
+   ========================================================= */
+
 showGamesMap();
+
 </script>
+
 </body>
 </html>
