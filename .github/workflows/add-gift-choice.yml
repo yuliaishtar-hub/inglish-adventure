@@ -21,21 +21,18 @@ jobs:
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
 
-          # Reward screen
           old = '<section id="reward" class="screen"><div class="card reward"><div class="stars">🌟🏆🌟</div><h2 id="rewardTitle">Well done!</h2><p id="rewardText" style="font-size:20px"></p><button id="continueBtn" class="primary" type="button">Continue Adventure 🗺️</button></div></section>'
           new = '<section id="reward" class="screen"><div class="card reward"><div class="stars" id="rewardIcon">🌟🏆🌟</div><h2 id="rewardTitle">Well done!</h2><p id="rewardText" style="font-size:20px"></p><div id="giftChoices" style="display:none;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0"></div><button id="continueBtn" class="primary" type="button">Continue Adventure 🗺️</button></div></section>'
           if old in s:
               s = s.replace(old, new)
 
-          # Gift map card
           s = s.replace('{key:"boss",icon:"👑",title:"Boss Castle",sub:"Big conversation",image:IMG+"Lili.jpg"}', '{key:"boss",icon:"🎁",title:"Gift",sub:"Choose your gift",image:IMG+"Lili.jpg"}')
           s = s.replace('{key:"boss",icon:"👑",title:"Gift",sub:"Big conversation",image:IMG+"Lili.jpg"}', '{key:"boss",icon:"🎁",title:"Gift",sub:"Choose your gift",image:IMG+"Lili.jpg"}')
+          s = s.replace('{key:"boss",icon:"🎁",title:"Gift",sub:"Big conversation",image:IMG+"Lili.jpg"}', '{key:"boss",icon:"🎁",title:"Gift",sub:"Choose your gift",image:IMG+"Lili.jpg"}')
 
-          # Gift level
           s = s.replace('boss:{name:"👑 Boss Castle",questions:', 'boss:{name:"🎁 Gift",type:"gift",questions:')
           s = s.replace('boss:{name:"🎁 Gift",questions:', 'boss:{name:"🎁 Gift",type:"gift",questions:')
 
-          # Gift data
           if 'const giftChoices=' not in s:
               marker = 'const DEFAULT_STATE='
               gift_data = '''const giftChoices=[
@@ -51,15 +48,11 @@ jobs:
                   raise SystemExit('DEFAULT_STATE marker not found')
               s = s.replace(marker, gift_data + marker)
 
-          # Start Gift directly instead of lesson
           old_start = 'function startLevel(key){if(!levels[key])return;currentKey=key;currentIndex=0;answered=false;spokenRewarded=false;storyMode=levels[key].type==="story";const title=document.getElementById("lessonTitle");if(title)title.textContent=levels[key].name;show("lesson");renderLesson()}'
           new_start = 'function startLevel(key){if(!levels[key])return;currentKey=key;currentIndex=0;answered=false;spokenRewarded=false;storyMode=levels[key].type==="story";if(levels[key].type==="gift"){showGift();return}const title=document.getElementById("lessonTitle");if(title)title.textContent=levels[key].name;show("lesson");renderLesson()}'
           if old_start in s:
               s = s.replace(old_start, new_start)
-          else:
-              raise SystemExit('startLevel target not found')
 
-          # Gift screen functions
           if 'function showGift()' not in s:
               marker = 'function finishLevel(){'
               gift_funcs = '''function showGift(){
