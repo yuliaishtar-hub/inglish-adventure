@@ -1,0 +1,52 @@
+name: Add hover translation to repeat-game message
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-hover-translations.yml'
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Patch games.html
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('games.html')
+          s=p.read_text(encoding='utf-8')
+
+          old_css='''.reward-box{\n  background:linear-gradient(135deg,#fff4b8,#f5e5ff);\n  border-radius:22px;\n  padding:18px;\n  margin:20px auto;\n  max-width:500px;\n  font-size:21px;\n  font-weight:900\n}'''
+          new_css='''.reward-box{\n  background:linear-gradient(135deg,#fff4b8,#f5e5ff);\n  border-radius:22px;\n  padding:18px;\n  margin:20px auto;\n  max-width:500px;\n  font-size:21px;\n  font-weight:900\n}\n\n.learn-sentence{\n  margin:10px 0;\n  line-height:1.8\n}\n\n.learn-word{\n  display:inline-block;\n  padding:2px 4px;\n  border-radius:7px;\n  cursor:pointer;\n  transition:.15s\n}\n\n.learn-word:hover{\n  background:#eadbff;\n  transform:translateY(-1px)\n}\n\n.word-translation{\n  min-height:30px;\n  margin-top:10px;\n  color:#6339a6;\n  font-size:18px;\n  font-weight:900\n}'''
+
+          if old_css not in s:
+              raise SystemExit('reward-box CSS not found')
+          s=s.replace(old_css,new_css,1)
+
+          old='''      <div class="reward-box">\n\n        ⭐ You already earned the reward\n        for this game.<br><br>\n\n        You can play again for practice!\n\n      </div>'''
+          new='''      <div class="reward-box">\n\n        ⭐\n        <div class="learn-sentence">\n          <span class="learn-word" data-ru="Ты уже получил(а) награду" onmouseenter="learnWord(this)" onclick="learnWord(this)">You</span>\n          <span class="learn-word" data-ru="уже" onmouseenter="learnWord(this)" onclick="learnWord(this)">already</span>\n          <span class="learn-word" data-ru="получил(а)" onmouseenter="learnWord(this)" onclick="learnWord(this)">earned</span>\n          <span class="learn-word" data-ru="награду" onmouseenter="learnWord(this)" onclick="learnWord(this)">the reward</span>\n          <span class="learn-word" data-ru="для" onmouseenter="learnWord(this)" onclick="learnWord(this)">for</span>\n          <span class="learn-word" data-ru="этой" onmouseenter="learnWord(this)" onclick="learnWord(this)">this</span>\n          <span class="learn-word" data-ru="игры" onmouseenter="learnWord(this)" onclick="learnWord(this)">game.</span>\n        </div>\n\n        <div class="learn-sentence">\n          <span class="learn-word" data-ru="Ты можешь" onmouseenter="learnWord(this)" onclick="learnWord(this)">You</span>\n          <span class="learn-word" data-ru="можешь" onmouseenter="learnWord(this)" onclick="learnWord(this)">can</span>\n          <span class="learn-word" data-ru="играть" onmouseenter="learnWord(this)" onclick="learnWord(this)">play</span>\n          <span class="learn-word" data-ru="снова" onmouseenter="learnWord(this)" onclick="learnWord(this)">again</span>\n          <span class="learn-word" data-ru="для" onmouseenter="learnWord(this)" onclick="learnWord(this)">for</span>\n          <span class="learn-word" data-ru="тренировки" onmouseenter="learnWord(this)" onclick="learnWord(this)">practice!</span>\n        </div>\n\n        <div id="wordTranslation" class="word-translation">Наведи на слово 🔊</div>\n\n      </div>'''
+
+          if old not in s:
+              raise SystemExit('repeat reward block not found')
+          s=s.replace(old,new,1)
+
+          marker='''function finishGame(){'''
+          helper='''function learnWord(el){\n\n  const word=el.textContent.trim();\n  const translation=el.dataset.ru || '';\n\n  speak(word);\n\n  const box=document.getElementById('wordTranslation');\n  if(box){\n    box.textContent=translation;\n  }\n\n}\n\n\n'''
+          if marker not in s:
+              raise SystemExit('finishGame marker not found')
+          s=s.replace(marker,helper+marker,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git diff --cached --quiet || git commit -m "Add word pronunciation and translation on hover"
+          git push
