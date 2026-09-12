@@ -440,7 +440,7 @@ button:disabled:hover{
 
   <div class="topbar">
     <button class="secondary" onclick="showGamesMap()">← Games</button>
-    <div id="gameScore">⭐ 0</div>
+    <div id="gameScore" style="font-weight:900;font-size:18px;">XP: <span id="gamesXP">0</span> &nbsp; 💎 <span id="gamesGems">0</span></div>
   </div>
 
   <div class="card">
@@ -553,6 +553,7 @@ function giveGameReward(gameId){
   player.gems += GAME_REWARD_GEMS;
 
   savePlayer();
+  updateGameHud();
 
   return true;
 }
@@ -581,7 +582,17 @@ function show(id){
 }
 
 
+function updateGameHud(){
+  const xp=document.getElementById("gamesXP");
+  const gems=document.getElementById("gamesGems");
+  if(xp)xp.textContent=player.xp||0;
+  if(gems)gems.textContent=player.gems||0;
+}
+
+
 function showGamesMap(){
+
+  updateGameHud();
 
   clearTimeout(memoryFinishTimer);
 
@@ -803,7 +814,7 @@ function openThemeGames(key){
   document.getElementById('gameTitle').textContent=
     currentTheme.title;
 
-  document.getElementById('gameScore').textContent='⭐ 0';
+  document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0';
 
   document.getElementById('gameProgress').textContent=
     'Choose a game';
@@ -1030,6 +1041,7 @@ function openThemeGames(key){
    ========================================================= */
 
 function startGame(type){
+  updateGameHud();
 
   clearTimeout(memoryFinishTimer);
 
@@ -1037,7 +1049,7 @@ function startGame(type){
 
   score=0;
 
-  document.getElementById('gameScore').textContent='⭐ 0';
+  document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0';
 
   if(type==='quiz') startQuiz();
 
@@ -1057,6 +1069,7 @@ function startGame(type){
    ========================================================= */
 
 function startQuiz(){
+  updateGameHud();
 
   questionIndex=0;
 
@@ -1313,6 +1326,7 @@ function previousQuiz(){
    ========================================================= */
 
 function startMemory(){
+  updateGameHud();
 
   clearTimeout(memoryFinishTimer);
 
