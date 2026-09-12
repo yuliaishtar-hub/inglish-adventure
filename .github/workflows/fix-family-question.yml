@@ -1,0 +1,35 @@
+name: Fix Family question
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-family-question.yml'
+  workflow_dispatch:
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Change Family quiz question
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('games.html')
+          s = p.read_text(encoding='utf-8')
+          old = "<div class=\"question\">\n      What is it?\n    </div>"
+          new = "<div class=\"question\">\n      Who is it?\n    </div>"
+          if old not in s:
+              raise SystemExit('Family question text was not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Change Family question to Who is it"
+          git push
