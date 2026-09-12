@@ -1,0 +1,38 @@
+name: Link Gift Shop
+on:
+  push:
+    paths:
+      - '.github/workflows/link-gift-shop.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link Gift zone
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='function startLevel(key){if(!levels[key])return;currentKey=key;currentIndex=0;answered=false;spokenRewarded=false;storyMode=levels[key].type==="story";if(levels[key].type==="gift"){showGift();return}const title=document.getElementById("lessonTitle");if(title)title.textContent=levels[key].name;show("lesson");renderLesson()}'
+          new='function startLevel(key){if(!levels[key])return;if(key==="boss"){window.location.href="gift-shop.html";return}currentKey=key;currentIndex=0;answered=false;spokenRewarded=false;storyMode=levels[key].type==="story";const title=document.getElementById("lessonTitle");if(title)title.textContent=levels[key].name;show("lesson");renderLesson()}'
+          if old in s:
+              s=s.replace(old,new)
+          else:
+              marker='function startLevel(key){'
+              i=s.find(marker)
+              if i<0: raise SystemExit('startLevel not found')
+              j=s.find('}',i)
+              raise SystemExit('Exact startLevel signature changed; manual patch needed')
+          p.write_text(s,encoding='utf-8')
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/workflows/link-gift-shop.yml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Open Gift Shop from Gift zone'
+          git push
