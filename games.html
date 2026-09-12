@@ -310,6 +310,32 @@ button:disabled:hover{
   font-weight:900
 }
 
+.learn-sentence{
+  margin:10px 0;
+  line-height:1.8
+}
+
+.learn-word{
+  display:inline-block;
+  padding:2px 4px;
+  border-radius:7px;
+  cursor:pointer;
+  transition:.15s
+}
+
+.learn-word:hover{
+  background:#eadbff;
+  transform:translateY(-1px)
+}
+
+.word-translation{
+  min-height:30px;
+  margin-top:10px;
+  color:#6339a6;
+  font-size:18px;
+  font-weight:900
+}
+
 .weather-options,
 .find-options,
 .home-options{
@@ -2403,6 +2429,21 @@ function previousHome(){
    ЗАВЕРШЕНИЕ ЛЮБОЙ ИГРЫ
    ========================================================= */
 
+function learnWord(el){
+
+  const word=el.textContent.trim();
+  const translation=el.dataset.ru || '';
+
+  speak(word);
+
+  const box=document.getElementById('wordTranslation');
+  if(box){
+    box.textContent=translation;
+  }
+
+}
+
+
 function finishGame(){
 
   clearTimeout(memoryFinishTimer);
@@ -2448,10 +2489,27 @@ function finishGame(){
 
       <div class="reward-box">
 
-        ⭐ You already earned the reward
-        for this game.<br><br>
+        ⭐
+        <div class="learn-sentence">
+          <span class="learn-word" data-ru="Ты уже получил(а) награду" onmouseenter="learnWord(this)" onclick="learnWord(this)">You</span>
+          <span class="learn-word" data-ru="уже" onmouseenter="learnWord(this)" onclick="learnWord(this)">already</span>
+          <span class="learn-word" data-ru="получил(а)" onmouseenter="learnWord(this)" onclick="learnWord(this)">earned</span>
+          <span class="learn-word" data-ru="награду" onmouseenter="learnWord(this)" onclick="learnWord(this)">the reward</span>
+          <span class="learn-word" data-ru="для" onmouseenter="learnWord(this)" onclick="learnWord(this)">for</span>
+          <span class="learn-word" data-ru="этой" onmouseenter="learnWord(this)" onclick="learnWord(this)">this</span>
+          <span class="learn-word" data-ru="игры" onmouseenter="learnWord(this)" onclick="learnWord(this)">game.</span>
+        </div>
 
-        You can play again for practice!
+        <div class="learn-sentence">
+          <span class="learn-word" data-ru="Ты можешь" onmouseenter="learnWord(this)" onclick="learnWord(this)">You</span>
+          <span class="learn-word" data-ru="можешь" onmouseenter="learnWord(this)" onclick="learnWord(this)">can</span>
+          <span class="learn-word" data-ru="играть" onmouseenter="learnWord(this)" onclick="learnWord(this)">play</span>
+          <span class="learn-word" data-ru="снова" onmouseenter="learnWord(this)" onclick="learnWord(this)">again</span>
+          <span class="learn-word" data-ru="для" onmouseenter="learnWord(this)" onclick="learnWord(this)">for</span>
+          <span class="learn-word" data-ru="тренировки" onmouseenter="learnWord(this)" onclick="learnWord(this)">practice!</span>
+        </div>
+
+        <div id="wordTranslation" class="word-translation">Наведи на слово 🔊</div>
 
       </div>
 
