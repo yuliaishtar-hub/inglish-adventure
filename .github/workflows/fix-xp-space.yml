@@ -1,0 +1,39 @@
+name: Fix XP HUD spacing
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-xp-space.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Remove HTML nbsp from XP HUD
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('games.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'XP: <span id="gamesXP">0</span> &nbsp; 💎 <span id="gamesGems">0</span>'
+          new = 'XP: <span id="gamesXP">0</span>   💎 <span id="gamesGems">0</span>'
+          if old not in s:
+              raise SystemExit('Target XP HUD string not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Remove nbsp from XP HUD"
+          git push
