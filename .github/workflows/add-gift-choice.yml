@@ -1,0 +1,72 @@
+name: Add Gift choice
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-gift-choice.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add gift choice screen
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = '<section id="reward" class="screen"><div class="card reward"><div class="stars">🌟🏆🌟</div><h2 id="rewardTitle">Well done!</h2><p id="rewardText" style="font-size:20px"></p><button id="continueBtn" class="primary" type="button">Continue Adventure 🗺️</button></div></section>'
+          new = '<section id="reward" class="screen"><div class="card reward"><div class="stars" id="rewardIcon">🌟🏆🌟</div><h2 id="rewardTitle">Well done!</h2><p id="rewardText" style="font-size:20px"></p><div id="giftChoices" style="display:none;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0"></div><button id="continueBtn" class="primary" type="button">Continue Adventure 🗺️</button></div></section>'
+          if old in s:
+              s=s.replace(old,new)
+          elif 'id="giftChoices"' not in s:
+              raise SystemExit('Reward section target not found')
+
+          old_zone = '{key:"boss",icon:"👑",title:"Gift",sub:"Big conversation",image:IMG+"Lili.jpg"}'
+          new_zone = '{key:"boss",icon:"🎁",title:"Gift",sub:"Choose your gift",image:IMG+"Lili.jpg"}'
+          s=s.replace(old_zone,new_zone)
+
+          old_level = 'boss:{name:"🎁 Gift"}'
+          new_level = 'boss:{name:"🎁 Gift",type:"gift"}'
+          s=s.replace(old_level,new_level)
+
+          marker = 'const PLAYER_KEY="english_quest_v2";'
+          gift_data = '''const giftChoices=[\n  {icon:"🎒",name:"School Bag",text:"A new school bag for Lily!"},\n  {icon:"🧸",name:"Teddy Bear",text:"A cute teddy bear for Lily!"},\n  {icon:"👗",name:"Dress",text:"A beautiful dress for Lily!"},\n  {icon:"🎨",name:"Art Set",text:"A colourful art set for Lily!"},\n  {icon:"📚",name:"Books",text:"New English books for Lily!"},\n  {icon:"🎮",name:"Game",text:"A fun new game for Lily!"}\n];\n\n'''
+          if 'const giftChoices=' not in s:
+              if marker not in s: raise SystemExit('Player marker not found')
+              s=s.replace(marker,gift_data+marker)
+
+          old_start = 'function startLevel(key){currentKey=key;currentIndex=0;answered=false;storyMode=levels[key].type==="story";renderLesson();show("lesson")}'
+          new_start = 'function startLevel(key){currentKey=key;currentIndex=0;answered=false;storyMode=levels[key].type==="story";if(levels[key].type==="gift"){showGift();return}renderLesson();show("lesson")}'
+          if old_start in s:
+              s=s.replace(old_start,new_start)
+
+          old_finish = 'function finishLevel(){if(!state.completed.includes(currentKey))state.completed.push(currentKey);save();renderMap();show("reward");document.getElementById("rewardTitle").textContent="Well done! 🎉";document.getElementById("rewardText").textContent="World complete!"}'
+          new_finish = 'function finishLevel(){if(!state.completed.includes(currentKey))state.completed.push(currentKey);save();renderMap();if(currentKey==="boss"){showGift();return}show("reward");document.getElementById("rewardTitle").textContent="Well done! 🎉";document.getElementById("rewardText").textContent="World complete!";document.getElementById("giftChoices").style.display="none"}'
+          if old_finish in s:
+              s=s.replace(old_finish,new_finish)
+
+          marker2 = 'function finishLevel(){'
+          gift_funcs = '''function showGift(){\n  show("reward");\n  document.getElementById("rewardIcon").textContent="🎁";\n  document.getElementById("rewardTitle").textContent="Choose your gift!";\n  document.getElementById("rewardText").textContent="Choose one gift for Lily!";\n  const box=document.getElementById("giftChoices");\n  box.style.display="grid";\n  box.innerHTML="";\n  giftChoices.forEach(g=>{\n    const b=document.createElement("button");\n    b.className="secondary";\n    b.style.cssText="padding:18px 10px;font-weight:900;font-size:17px;min-height:120px";\n    b.innerHTML=`<div style="font-size:42px">${g.icon}</div><div>${g.name}</div>`;\n    b.onclick=()=>chooseGift(g);\n    box.appendChild(b);\n  });\n  document.getElementById("continueBtn").textContent="Back to Map 🗺️";\n}\n\nfunction chooseGift(g){\n  document.getElementById("giftChoices").innerHTML=`<div style="grid-column:1/-1;font-size:24px;font-weight:900;padding:25px">${g.icon} ${g.text}<br><span style="font-size:18px;color:#777">Gift chosen! 🎉</span></div>`;\n  document.getElementById("continueBtn").textContent="Continue Adventure 🗺️";\n}\n\n'''
+          if 'function showGift()' not in s:
+              if marker2 not in s: raise SystemExit('Finish function marker not found')
+              s=s.replace(marker2,gift_funcs+marker2)
+
+          p.write_text(s,encoding='utf-8')
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/workflows/add-gift-choice.yml
+          if git diff --cached --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git commit -m 'Add gift choice to Gift zone'
+          git push
