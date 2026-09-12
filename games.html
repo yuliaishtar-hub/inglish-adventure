@@ -814,7 +814,7 @@ function openThemeGames(key){
   document.getElementById('gameTitle').textContent=
     currentTheme.title;
 
-  document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0';
+  updateGameHud();
 
   document.getElementById('gameProgress').textContent=
     'Choose a game';
@@ -1049,7 +1049,7 @@ function startGame(type){
 
   score=0;
 
-  document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0';
+  updateGameHud();
 
   if(type==='quiz') startQuiz();
 
@@ -2468,7 +2468,7 @@ function finishGame(){
           "
         >
           You finished the game!<br>
-          Your score: ⭐ ${score}
+          Your score: +${GAME_REWARD_XP} XP 💎 +${GAME_REWARD_GEMS}
         </p>
 
         ${rewardHTML}
