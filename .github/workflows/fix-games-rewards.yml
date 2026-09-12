@@ -1,0 +1,81 @@
+name: Fix games XP and crystal rewards
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-games:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fix games rewards UI
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          p = Path('games.html')
+          s = p.read_text(encoding='utf-8')
+          original = s
+
+          # Replace the old star counter with the real persistent currencies.
+          s = s.replace(
+              '<div id="gameScore">⭐ 0</div>',
+              '<div id="gameScore" style="font-weight:900;font-size:18px;">XP: <span id="gamesXP">0</span> &nbsp; 💎 <span id="gamesGems">0</span></div>'
+          )
+
+          # Add a single HUD updater if it is not already present.
+          marker = 'function showGamesMap(){'
+          hud = '''function updateGameHud(){\n  const xp=document.getElementById("gamesXP");\n  const gems=document.getElementById("gamesGems");\n  if(xp)xp.textContent=player.xp||0;\n  if(gems)gems.textContent=player.gems||0;\n}\n\n\n'''
+          if 'function updateGameHud()' not in s and marker in s:
+              s = s.replace(marker, hud + marker, 1)
+
+          # Make every reward update the visible HUD immediately.
+          old = '''  savePlayer();\n\n  return true;'''
+          new = '''  savePlayer();\n  updateGameHud();\n\n  return true;'''
+          if old in s and 'updateGameHud();' not in s[s.find('function giveGameReward'):s.find('function giveGameReward')+1500]:
+              s = s.replace(old, new, 1)
+
+          # Refresh the HUD whenever the games map is opened.
+          if 'updateGameHud();' not in s[s.find('function showGamesMap'):s.find('function showGamesMap')+500]:
+              s = s.replace(marker, 'function showGamesMap(){\n\n  updateGameHud();', 1)
+
+          # Refresh the HUD when a game starts too, so it never shows stale values.
+          for needle in ['function startGame(', 'function startQuiz(', 'function startMemory(', 'function startSpecialGame(']:
+              if needle in s:
+                  pos=s.find(needle)
+                  end=s.find('{',pos)
+                  if end!=-1:
+                      tail=s[end+1:end+100]
+                      if 'updateGameHud();' not in tail:
+                          s=s[:end+1]+'\n  updateGameHud();'+s[end+1:]
+
+          # Stars remain allowed as decoration on the finish screen, but not as a currency/counter.
+          s = s.replace('⭐ 0', 'XP: 0 &nbsp; 💎 0')
+
+          if s == original:
+              print('No changes needed.')
+          else:
+              p.write_text(s, encoding='utf-8')
+              print('games.html updated')
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          if git diff --quiet -- games.html; then
+            echo "No games.html changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git commit -m "Fix games XP and crystal rewards"
+          git push
