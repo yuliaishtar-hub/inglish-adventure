@@ -3,142 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gift Shop 🎁 — English Quest</title>
+<title>Gift Shop 🎁 — English Adventure</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Verdana,sans-serif;background:linear-gradient(135deg,#cfeeff,#f7d9ff 52%,#ffe1ee);color:#30305c}
-#app{max-width:1100px;margin:auto;padding:18px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{font-size:30px;font-weight:900;color:#6339a6}.stats{display:flex;gap:8px}.pill{background:#fff;border-radius:999px;padding:9px 15px;box-shadow:0 5px 16px #00000012;font-weight:800}
-.card{background:#fff;border-radius:30px;padding:26px;box-shadow:0 16px 40px #54317b22;margin-top:18px}h1,h2{color:#6339a6}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.tab{border:0;border-radius:18px;padding:12px 18px;background:#eee7fa;color:#6339a6;font-weight:900;cursor:pointer}.tab.active{background:#6b55d9;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.item{border:2px solid #eadff8;background:#fff;border-radius:24px;padding:16px;text-align:center;cursor:pointer;box-shadow:0 7px 18px #00000010;transition:.18s}.item:hover{transform:translateY(-4px)}
-.item img{width:100%;height:180px;object-fit:contain;border-radius:18px;background:#f7f4ff}.emoji{height:180px;display:grid;place-items:center;font-size:90px;border-radius:18px;background:#f7f4ff}.name{font-size:20px;font-weight:900;color:#6339a6;margin-top:10px}.price{font-size:15px;color:#777;margin-top:5px}
-.room-preview{height:310px;border-radius:24px;position:relative;overflow:hidden;margin-bottom:18px;border:3px solid #fff;box-shadow:inset 0 0 0 2px #d8c6f7}.room1{background:linear-gradient(#dff4ff 0 62%,#c89b72 62%)}.room2{background:linear-gradient(#ffe6f2 0 62%,#b995c9 62%)}.room3{background:linear-gradient(#fff2cf 0 62%,#8db6a0 62%)}
-.room-preview:before{content:'🪟';position:absolute;left:10%;top:10%;font-size:72px}.room-preview:after{content:'🧸';position:absolute;right:12%;top:12%;font-size:55px;opacity:.8}
-.room-bed{position:absolute;left:36%;bottom:8%;font-size:100px;z-index:2}.placed{position:absolute;font-size:70px;z-index:4;transition:.2s;cursor:pointer}.placed:hover{transform:scale(1.12)}.placed.bag{right:12%;bottom:17%}.placed.bed{left:36%;bottom:8%}.placed.chair{right:8%;bottom:13%}.placed.table{left:12%;bottom:13%}.placed.pet{left:67%;bottom:12%}.placed.dress{left:15%;top:25%}
-.chosen{outline:4px solid #8b6be8}.notice{text-align:center;font-weight:900;font-size:20px;min-height:30px;margin:12px}.hidden{display:none}.back{border:2px solid #d8c6f7;background:#fff;color:#6339a6;border-radius:18px;padding:12px 18px;font-weight:900;cursor:pointer}
-.room-choice{height:210px;border-radius:18px;position:relative;overflow:hidden;border:2px solid #eee0fa}.room-choice span{position:absolute}.room-choice .window{left:12%;top:12%;font-size:52px}.room-choice .bed{left:37%;bottom:7%;font-size:75px}.room-choice .lamp{right:12%;top:18%;font-size:48px}
-@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:18px}.room-preview{height:250px}}
+#app{max-width:1100px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:30px;font-weight:900;color:#6339a6}.stats{display:flex;gap:8px}.pill{background:#fff;border-radius:999px;padding:9px 15px;box-shadow:0 5px 16px #00000012;font-weight:800}
+.card{background:#fff;border-radius:30px;padding:26px;box-shadow:0 16px 40px #54317b22;margin-top:18px}h1,h2{color:#6339a6}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.tab{border:0;border-radius:18px;padding:12px 18px;background:#eee7fa;color:#6339a6;font-weight:900;cursor:pointer}.tab.active{background:#6b55d9;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.item{border:2px solid #eadff8;background:#fff;border-radius:24px;padding:16px;text-align:center;cursor:pointer;box-shadow:0 7px 18px #00000010;transition:.18s}.item:hover{transform:translateY(-4px);border-color:#b99bea}.item img{width:100%;height:180px;object-fit:contain;border-radius:18px;background:#f7f4ff}.visual{height:180px;display:grid;place-items:center;font-size:88px;border-radius:18px;background:#f7f4ff}.name{font-size:20px;font-weight:900;color:#6339a6;margin-top:10px}.price{font-size:15px;color:#777;margin-top:5px}.notice{text-align:center;font-weight:900;font-size:20px;min-height:30px;margin:12px}.hidden{display:none}.back{border:2px solid #d8c6f7;background:#fff;color:#6339a6;border-radius:18px;padding:12px 18px;font-weight:900;cursor:pointer}
+.room-preview{height:340px;border-radius:24px;position:relative;overflow:hidden;margin-bottom:18px;border:3px solid #fff;box-shadow:inset 0 0 0 2px #d8c6f7}.room1{background:linear-gradient(#dff4ff 0 62%,#c89b72 62%)}.room2{background:linear-gradient(#ffe6f2 0 62%,#b995c9 62%)}.room3{background:linear-gradient(#fff2cf 0 62%,#8db6a0 62%)}.room-preview:before{content:'🪟';position:absolute;left:8%;top:7%;font-size:72px}.room-preview:after{content:'💡';position:absolute;right:9%;top:12%;font-size:52px}.room-choice{height:210px;border-radius:18px;position:relative;overflow:hidden;border:2px solid #eee0fa}.room-choice span{position:absolute}.room-choice .window{left:12%;top:12%;font-size:52px}.room-choice .bed{left:37%;bottom:7%;font-size:75px}.room-choice .lamp{right:12%;top:18%;font-size:48px}
+.placed{position:absolute;font-size:70px;z-index:4;transition:.2s;cursor:pointer}.placed:hover{transform:scale(1.12)}.room-bed-base{position:absolute;left:37%;bottom:5%;font-size:105px;z-index:2}.placed.bag{right:10%;bottom:18%}.placed.pet{left:67%;bottom:14%}.placed.dress{left:12%;top:25%}.placed.toy{left:48%;top:23%}
+.small-label{margin-top:4px;color:#777;font-size:14px}.chosen{outline:4px solid #8b6be8}
+@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:18px}.room-preview{height:280px}}
 </style>
 </head>
 <body>
 <div id="app">
-<div class="top"><div class="brand">🎁 English Quest</div><div class="stats"><div class="pill">💎 <span id="gems">0</span></div><div class="pill">⭐ <span id="xp">0</span> XP</div></div></div>
+<div class="top"><div class="brand">🎁 English Adventure</div><div class="stats"><div class="pill">💎 <span id="gems">0</span></div><div class="pill">⭐ <span id="xp">0</span> XP</div></div></div>
 <div class="card">
 <button class="back" onclick="location.href='index.html'">← Back to Adventure</button>
-<h1>Gift Shop 🎁</h1>
-<p>Choose things for Lily. Clothes and furniture use XP. Pets use crystals. No real money.</p>
+<h1>Gift 🎁</h1>
+<p>Choose a room, then choose a toy, school bag, dress and pet for Lily. Everything is bought with game rewards — no real money.</p>
 <div class="tabs">
-<button class="tab active" onclick="showTab('clothes',this)">👗 Dresses</button>
+<button class="tab active" onclick="showTab('rooms',this)">🏠 Choose a Room</button>
+<button class="tab" onclick="showTab('toys',this)">🧸 Choose a Toy</button>
 <button class="tab" onclick="showTab('bags',this)">🎒 School Bags</button>
-<button class="tab" onclick="showTab('pets',this)">🐾 Pets · 💎</button>
-<button class="tab" onclick="showTab('rooms',this)">🏠 Rooms</button>
-<button class="tab" onclick="showTab('furniture',this)">🪑 Furniture</button>
+<button class="tab" onclick="showTab('dresses',this)">👗 Dresses</button>
+<button class="tab" onclick="showTab('pets',this)">🐾 Pets</button>
 </div>
 <div id="notice" class="notice"></div>
 
-<section id="clothes"><div class="grid">
-<div class="item" onclick="buy('dress1','New Dress 1',10,'👗')"><div class="emoji">👗</div><div class="name">Dress 1</div><div class="price">⭐ 10 XP</div></div>
-<div class="item" onclick="buy('dress2','New Dress 2',15,'👗')"><div class="emoji">👗</div><div class="name">Dress 2</div><div class="price">⭐ 15 XP</div></div>
-<div class="item" onclick="buy('dress3','New Dress 3',20,'👗')"><div class="emoji">👗</div><div class="name">Dress 3</div><div class="price">⭐ 20 XP</div></div>
+<section id="rooms"><div class="grid">
+<div class="item" onclick="chooseRoom('room1','Blue Room')"><div class="room-choice room1"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Blue Room</div><div class="price">Free</div></div>
+<div class="item" onclick="chooseRoom('room2','Pink Room')"><div class="room-choice room2"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Pink Room</div><div class="price">Free</div></div>
+<div class="item" onclick="chooseRoom('room3','Sunny Room')"><div class="room-choice room3"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Sunny Room</div><div class="price">Free</div></div>
+</div></section>
+
+<section id="toys" class="hidden"><div class="grid">
+<div class="item" onclick="buyItem('toy1','Teddy Bear',10,'🧸')"><div class="visual">🧸</div><div class="name">Teddy Bear</div><div class="price">⭐ 10 XP</div></div>
+<div class="item" onclick="buyItem('toy2','Ball',15,'⚽')"><div class="visual">⚽</div><div class="name">Ball</div><div class="price">⭐ 15 XP</div></div>
+<div class="item" onclick="buyItem('toy3','Doll',20,'🪆')"><div class="visual">🪆</div><div class="name">Doll</div><div class="price">⭐ 20 XP</div></div>
 </div></section>
 
 <section id="bags" class="hidden"><div class="grid">
-<div class="item" onclick="buy('bag1','School Bag 1',10,'🎒')"><img src="School bag.jpg" alt="School bag"><div class="name">School Bag 1</div><div class="price">⭐ 10 XP</div></div>
-<div class="item" onclick="buy('bag2','School Bag 2',15,'🎒')"><img src="School bag.jpg" alt="School bag"><div class="name">School Bag 2</div><div class="price">⭐ 15 XP</div></div>
-<div class="item" onclick="buy('bag3','School Bag 3',20,'🎒')"><img src="School bag.jpg" alt="School bag"><div class="name">School Bag 3</div><div class="price">⭐ 20 XP</div></div>
+<div class="item" onclick="buyItem('bag1','School Bag 1',10,'🎒')"><div class="visual">🎒</div><div class="name">School Bag 1</div><div class="price">⭐ 10 XP</div></div>
+<div class="item" onclick="buyItem('bag2','School Bag 2',15,'🎒')"><div class="visual">🎒</div><div class="name">School Bag 2</div><div class="price">⭐ 15 XP</div></div>
+<div class="item" onclick="buyItem('bag3','School Bag 3',20,'🎒')"><div class="visual">🎒</div><div class="name">School Bag 3</div><div class="price">⭐ 20 XP</div></div>
+</div></section>
+
+<section id="dresses" class="hidden"><div class="grid">
+<div class="item" onclick="buyItem('dress1','New Dress 1',15,'👗')"><div class="visual">👗</div><div class="name">Dress 1</div><div class="price">⭐ 15 XP</div></div>
+<div class="item" onclick="buyItem('dress2','New Dress 2',20,'👗')"><div class="visual">👗</div><div class="name">Dress 2</div><div class="price">⭐ 20 XP</div></div>
+<div class="item" onclick="buyItem('dress3','New Dress 3',25,'👗')"><div class="visual">👗</div><div class="name">Dress 3</div><div class="price">⭐ 25 XP</div></div>
 </div></section>
 
 <section id="pets" class="hidden"><div class="grid">
-<div class="item" onclick="buy('cat','Cat',5,'🐱','gems')"><div class="emoji">🐱</div><div class="name">Cat</div><div class="price">💎 5 crystals</div></div>
-<div class="item" onclick="buy('dog','Dog',8,'🐶','gems')"><div class="emoji">🐶</div><div class="name">Dog</div><div class="price">💎 8 crystals</div></div>
-<div class="item" onclick="buy('unicorn','Unicorn',12,'🦄','gems')"><div class="emoji">🦄</div><div class="name">Unicorn</div><div class="price">💎 12 crystals</div></div>
-</div></section>
-
-<section id="rooms" class="hidden"><div class="grid">
-<div class="item" onclick="chooseRoom('room1','Blue Room')"><div class="room-choice room1"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Blue Room</div></div>
-<div class="item" onclick="chooseRoom('room2','Pink Room')"><div class="room-choice room2"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Pink Room</div></div>
-<div class="item" onclick="chooseRoom('room3','Sunny Room')"><div class="room-choice room3"><span class="window">🪟</span><span class="bed">🛏️</span><span class="lamp">💡</span></div><div class="name">Sunny Room</div></div>
-</div></section>
-
-<section id="furniture" class="hidden"><div class="grid">
-<div class="item" onclick="place('table','Table','🪑',8)"><div class="emoji">🪑</div><div class="name">Table</div><div class="price">⭐ 8 XP</div></div>
-<div class="item" onclick="place('bed','Bed','🛏️',12)"><div class="emoji">🛏️</div><div class="name">Bed</div><div class="price">⭐ 12 XP</div></div>
-<div class="item" onclick="place('chair','Chair','🪑',6)"><div class="emoji">🪑</div><div class="name">Chair</div><div class="price">⭐ 6 XP</div></div>
+<div class="item" onclick="buyItem('cat','Cat',5,'🐱','gems')"><div class="visual">🐱</div><div class="name">Cat</div><div class="price">💎 5 crystals</div></div>
+<div class="item" onclick="buyItem('dog','Dog',8,'🐶','gems')"><div class="visual">🐶</div><div class="name">Dog</div><div class="price">💎 8 crystals</div></div>
+<div class="item" onclick="buyItem('unicorn','Unicorn',12,'🦄','gems')"><div class="visual">🦄</div><div class="name">Unicorn</div><div class="price">💎 12 crystals</div></div>
 </div></section>
 </div>
 
 <div class="card"><h2>🏠 Lily's Room</h2>
 <div id="room" class="room-preview room1">
-<span id="roomBedBase" class="room-bed">🛏️</span>
-<span id="roomBag" class="placed bag" onclick="sayItem('school bag')"></span>
-<span id="roomBed" class="placed bed" onclick="sayItem('bed')"></span>
-<span id="roomChair" class="placed chair" onclick="sayItem('chair')"></span>
-<span id="roomTable" class="placed table" onclick="sayItem('table')"></span>
+<span id="roomBedBase" class="room-bed-base">🛏️</span>
+<span id="roomToy" class="placed toy" onclick="sayPlaced('toy')"></span>
+<span id="roomBag" class="placed bag" onclick="sayPlaced('bag')"></span>
 <span id="roomPet" class="placed pet" onclick="sayPet()"></span>
-<span id="roomDress" class="placed dress" onclick="sayItem('dress')"></span>
+<span id="roomDress" class="placed dress" onclick="sayPlaced('dress')"></span>
 </div>
-<p id="roomText" class="notice">Choose a room, then add furniture, clothes, bags and a pet.</p></div>
+<p id="roomText" class="notice">Choose a room, then choose a toy, school bag, dress and pet.</p></div>
 </div>
 
 <script>
-const state=JSON.parse(localStorage.getItem('english_adventure_player_v3')||'{}');
+const PLAYER_KEY='english_adventure_player_v3';
+const ROOM_KEY='english_quest_room_v3';
+const state=JSON.parse(localStorage.getItem(PLAYER_KEY)||'{}');
 let xp=Number(state.xp||0),gems=Number(state.gems||0);
-const key='english_quest_room_v2';
-const roomState=JSON.parse(localStorage.getItem(key)||'{}');
+const saved=JSON.parse(localStorage.getItem(ROOM_KEY)||'{}');
+const roomState={room:saved.room||'room1',owned:Array.isArray(saved.owned)?saved.owned:[]};
 
-function sync(){
- document.getElementById('xp').textContent=xp;
- document.getElementById('gems').textContent=gems;
+function save(){
  state.xp=xp;state.gems=gems;
- localStorage.setItem('english_adventure_player_v3',JSON.stringify(state));
- localStorage.setItem(key,JSON.stringify(roomState));
- renderRoom();
+ localStorage.setItem(PLAYER_KEY,JSON.stringify(state));
+ localStorage.setItem(ROOM_KEY,JSON.stringify(roomState));
+ updateStats();renderRoom();
 }
+function updateStats(){document.getElementById('xp').textContent=xp;document.getElementById('gems').textContent=gems}
 function showTab(id,btn){
- ['clothes','bags','pets','rooms','furniture'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));
+ ['rooms','toys','bags','dresses','pets'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));
  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
 }
-function buy(id,name,price,icon,currency='xp'){
- const owned=roomState.items||[];
- if(owned.includes(id)){say('It is already yours!');return}
- const balance=currency==='xp'?xp:gems;
- if(balance<price){say(currency==='xp'?`You need ${price} XP.`:`You need ${price} crystals.`);return}
- if(currency==='xp')xp-=price;else gems-=price;
- owned.push(id);roomState.items=owned;roomState.last=name;
- document.getElementById('notice').textContent=`${name} chosen! 🎉`;
- say(`It's a ${name.toLowerCase()}.`);sync();
-}
-function chooseRoom(id,name){roomState.room=id;document.getElementById('notice').textContent=`${name} chosen! 🏠`;say(`This is my ${name.toLowerCase()}.`);sync()}
-function place(id,name,icon,price){
- const owned=roomState.items||[];
- if(!owned.includes(id)){
-  if(xp<price){say(`You need ${price} XP for the ${name.toLowerCase()}.`);return}
-  xp-=price;owned.push(id);roomState.items=owned;
- }
- document.getElementById('notice').textContent=`${name} is in Lily's room!`;
- say(`It's a ${name.toLowerCase()}.`);sync();
+function chooseRoom(id,name){roomState.room=id;document.getElementById('notice').textContent=`${name} chosen! 🏠`;say(`This is my ${name.toLowerCase()}.`);save()}
+function buyItem(id,name,price,icon,currency='xp'){
+ if(roomState.owned.includes(id)){document.getElementById('notice').textContent=`You already have the ${name.toLowerCase()}.`;say('You already have it.');return}
+ const balance=currency==='gems'?gems:xp;
+ if(balance<price){document.getElementById('notice').textContent=currency==='gems'?`You need ${price} crystals.`:`You need ${price} XP.`;say(currency==='gems'?`You need ${price} crystals.`:`You need ${price} XP.`);return}
+ if(currency==='gems')gems-=price;else xp-=price;
+ roomState.owned.push(id);
+ document.getElementById('notice').textContent=`${name} is yours! 🎉`;
+ say(`It's a ${name.toLowerCase()}.`);save();
 }
 function renderRoom(){
- const r=roomState.room||'room1';
- const el=document.getElementById('room');el.className='room-preview '+r;
- const items=roomState.items||[];
- document.getElementById('roomBedBase').style.display=items.includes('bed')?'none':'block';
- document.getElementById('roomBed').textContent=items.includes('bed')?'🛏️':'';
- document.getElementById('roomChair').textContent=items.includes('chair')?'🪑':'';
- document.getElementById('roomTable').textContent=items.includes('table')?'🪑':'';
- document.getElementById('roomBag').textContent=items.some(x=>x.startsWith('bag'))?'🎒':'';
- const pet=items.find(x=>['cat','dog','unicorn'].includes(x));
- document.getElementById('roomPet').textContent=pet==='cat'?'🐱':pet==='dog'?'🐶':pet==='unicorn'?'🦄':'';
- const dress=items.find(x=>x.startsWith('dress'));
+ const room=document.getElementById('room');room.className='room-preview '+roomState.room;
+ const has=id=>roomState.owned.includes(id);
+ const toy=roomState.owned.find(x=>x.startsWith('toy'));
+ const bag=roomState.owned.find(x=>x.startsWith('bag'));
+ const dress=roomState.owned.find(x=>x.startsWith('dress'));
+ const pet=roomState.owned.find(x=>['cat','dog','unicorn'].includes(x));
+ document.getElementById('roomToy').textContent=toy==='toy1'?'🧸':toy==='toy2'?'⚽':toy==='toy3'?'🪆':'';
+ document.getElementById('roomBag').textContent=bag?'🎒':'';
  document.getElementById('roomDress').textContent=dress?'👗':'';
- document.getElementById('roomText').textContent=`${r==='room1'?'Blue Room':r==='room2'?'Pink Room':'Sunny Room'} selected. Click an item in the room to hear its English name.`;
+ document.getElementById('roomPet').textContent=pet==='cat'?'🐱':pet==='dog'?'🐶':pet==='unicorn'?'🦄':'';
+ document.getElementById('roomText').textContent=`${roomState.room==='room1'?'Blue Room':roomState.room==='room2'?'Pink Room':'Sunny Room'} selected. Click an item to hear its English name.`;
 }
-function sayItem(word){if(document.getElementById('room').textContent==='')return;say(word==='school bag'?"It's a school bag.":`It's a ${word}.`)}
-function sayPet(){const p=document.getElementById('roomPet').textContent;if(p==='🐱')say("It's a cat.");if(p==='🐶')say("It's a dog.");if(p==='🦄')say("It's a unicorn.")}
-function say(text){if('speechSynthesis' in window){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(text))}}
-sync();
+function itemName(type){
+ const items=roomState.owned;
+ if(type==='toy'){const x=items.find(v=>v.startsWith('toy'));return x==='toy1'?'teddy bear':x==='toy2'?'ball':x==='toy3'?'doll':''}
+ if(type==='bag')return items.some(v=>v.startsWith('bag'))?'school bag':'';
+ if(type==='dress')return items.some(v=>v.startsWith('dress'))?'new dress':'';
+ return '';
+}
+function sayPlaced(type){const name=itemName(type);if(name)say(`It's a ${name}.`)}
+function sayPet(){const p=roomState.owned.find(x=>['cat','dog','unicorn'].includes(x));if(p)say(`It's a ${p}.`)}
+function say(text){if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.82;speechSynthesis.speak(u)}}
+updateStats();renderRoom();
 </script>
 </body>
 </html>
