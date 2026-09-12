@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lily's Gift Room 🎁</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Verdana,sans-serif;background:linear-gradient(135deg,#cfeeff,#f7d9ff 52%,#ffe1ee);color:#30305c}#app{max-width:1000px;margin:auto;padding:18px}.card{background:#fff;border-radius:30px;padding:24px;box-shadow:0 16px 40px #54317b22}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.brand{font-size:30px;font-weight:900;color:#6339a6}.back{border:2px solid #d8c6f7;background:#fff;color:#6339a6;border-radius:16px;padding:12px 18px;font-weight:900;cursor:pointer}.room{position:relative;min-height:610px;border-radius:28px;overflow:hidden;background:linear-gradient(#dff5ff 0 58%,#f7d9c7 58%);border:5px solid #eadff8}.room:before{content:"";position:absolute;left:0;right:0;top:58%;height:5px;background:#c99f87}.window{position:absolute;left:7%;top:7%;width:190px;height:150px;background:#bdeaff;border:12px solid #fff;box-shadow:inset 0 0 0 4px #b8a3cf}.window:after{content:"☀️ ☁️";font-size:35px;position:absolute;left:25px;top:42px}.bed{position:absolute;left:7%;bottom:8%;width:330px;height:150px;background:#d9b8f0;border-radius:25px 25px 12px 12px;border:8px solid #b78dd7}.bed:before{content:"🛏️";font-size:95px;position:absolute;left:105px;top:22px}.desk{position:absolute;right:8%;bottom:10%;width:260px;height:125px;background:#c98f68;border-radius:15px;border-bottom:25px solid #a96f4d}.desk:before{content:"📚 ✏️ 🎨";font-size:38px;position:absolute;left:35px;top:25px}.rug{position:absolute;left:39%;bottom:4%;width:250px;height:110px;background:#e7c7ef;border-radius:50%;border:5px solid #c6a1d4}.gift-item{position:absolute;border:0;background:transparent;cursor:pointer;font-size:70px;transition:.18s;filter:drop-shadow(0 7px 6px #0002)}.gift-item:hover{transform:scale(1.12)}#bag{right:9%;top:15%}#teddy{right:35%;top:32%}#dress{left:42%;top:9%}#art{right:8%;bottom:34%}#books{left:28%;bottom:25%}#game{right:23%;bottom:16%}.bubble{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);background:#fff;border-radius:24px;padding:18px 25px;box-shadow:0 10px 30px #0002;text-align:center;font-size:25px;font-weight:900;display:none;z-index:5}.bubble.show{display:block}.hint{text-align:center;margin:15px 0 0;color:#777;font-weight:800}@media(max-width:700px){.room{min-height:650px}.window{width:130px;height:110px}.bed{width:240px}.desk{width:200px}.gift-item{font-size:55px}}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="top"><div class="brand">🏡 Lily's Room</div><button class="back" onclick="goBack()">← Back to Gift</button></div>
+<div class="card"><div class="room">
+<div class="window"></div><div class="bed"></div><div class="desk"></div><div class="rug"></div>
+<button id="bag" class="gift-item" onclick="say("It's a bag!")" aria-label="School bag">🎒</button>
+<button id="teddy" class="gift-item" onclick="say("It's a teddy bear!")" aria-label="Teddy bear">🧸</button>
+<button id="dress" class="gift-item" onclick="say("It's a new dress!")" aria-label="Dress">👗</button>
+<button id="art" class="gift-item" onclick="say("It's an art set!")" aria-label="Art set">🎨</button>
+<button id="books" class="gift-item" onclick="say("They're new books!")" aria-label="Books">📚</button>
+<button id="game" class="gift-item" onclick="say("It's a new game!")" aria-label="Game">🎮</button>
+<div id="bubble" class="bubble"></div>
+</div><div class="hint">Click an object and read the English sentence aloud. 🔊</div></div>
+</div>
+<script>
+function say(text){const b=document.getElementById('bubble');b.textContent=text;b.classList.add('show');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.78;u.pitch=1.08;speechSynthesis.speak(u);clearTimeout(window.bubbleTimer);window.bubbleTimer=setTimeout(()=>b.classList.remove('show'),3000)}
+function goBack(){window.location.href='index.html'}
+</script>
+</body>
+</html>
