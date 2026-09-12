@@ -1,0 +1,56 @@
+name: Fix game rewards display
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-game-rewards-display.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fix game HUD and star rewards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('games.html')
+          s = p.read_text(encoding='utf-8')
+          original = s
+
+          # Do not overwrite the real XP/gem HUD with the old hard-coded score.
+          s = s.replace("document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0';", "updateGameHud();")
+          s = s.replace("document.getElementById('gameScore').textContent='XP: 0 &nbsp; 💎 0'", "updateGameHud()")
+          s = s.replace("document.getElementById('gameScore').textContent='⭐ 0';", "updateGameHud();")
+          s = s.replace("document.getElementById('gameScore').textContent='⭐ 0'", "updateGameHud()")
+
+          # Replace the old completion score shown as stars with the actual reward.
+          s = s.replace('⭐ ${score}', '+${GAME_REWARD_XP} XP 💎 +${GAME_REWARD_GEMS}')
+          s = s.replace('⭐ ${score}', '+${GAME_REWARD_XP} XP 💎 +${GAME_REWARD_GEMS}')
+
+          # Remove HTML nbsp from the XP/gem HUD if any remains.
+          s = re.sub(r'(XP:\s*<span id="gamesXP">0</span>)\s*&nbsp;\s*(💎)', r'\1  \2', s)
+
+          if s == original:
+              raise SystemExit('No changes made')
+
+          p.write_text(s, encoding='utf-8')
+          print('games.html patched')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Fix game XP gem reward display"
+          git push
