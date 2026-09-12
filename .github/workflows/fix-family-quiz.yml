@@ -1,0 +1,50 @@
+name: Fix Family quiz and wrong-answer retry
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-family-quiz.yml'
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Patch games.html
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('games.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = '''  box.innerHTML=`\n\n    ${imageHTML}\n\n    <div class="question">\n      Who is it?\n    </div>\n\n    <button\n      class="listen"\n      onclick="speak('What is it?')"\n    >'''
+
+          new = '''  const questionText =\n    currentTheme.key === "family"\n      ? "Who is it?"\n      : "What is it?";\n\n  box.innerHTML=`\n\n    ${imageHTML}\n\n    <div class="question">\n      ${questionText}\n    </div>\n\n    <button\n      class="listen"\n      onclick="speak('${questionText}')"\n    >'''
+
+          if old not in s:
+              raise SystemExit('Question block not found; aborting')
+          s = s.replace(old, new, 1)
+
+          old2 = '''function checkQuiz(word,button,correct){\n\n  if(quizResults[questionIndex])return;\n\n  document\n    .querySelectorAll('.answer')\n    .forEach(b=>b.disabled=true);\n\n  const feedback=\n    document.getElementById('feedback');\n\n  const isCorrect=word===correct;\n\n  quizResults[questionIndex]={\n    correct:isCorrect,\n    selected:word\n  };\n\n\n  button.classList.add(\n    isCorrect?'correct':'wrong'\n  );\n\n\n  if(isCorrect){'''
+
+          new2 = '''function checkQuiz(word,button,correct){\n\n  if(quizResults[questionIndex])return;\n\n  const feedback=\n    document.getElementById('feedback');\n\n  const isCorrect=word===correct;\n\n  if(!isCorrect){\n\n    button.classList.add('wrong');\n    button.disabled=true;\n\n    feedback.textContent=\n      'Good try! Try again.';\n\n    feedback.style.color='#e2536c';\n\n    speak("Try again.");\n\n    return;\n  }\n\n  document\n    .querySelectorAll('.answer')\n    .forEach(b=>b.disabled=true);\n\n  quizResults[questionIndex]={\n    correct:true,\n    selected:word\n  };\n\n  button.classList.add('correct');\n\n  if(isCorrect){'''
+
+          if old2 not in s:
+              raise SystemExit('checkQuiz block not found; aborting')
+          s = s.replace(old2, new2, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Fix quiz wrong-answer retry and Family question"
+          git push
