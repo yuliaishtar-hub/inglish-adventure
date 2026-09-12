@@ -1,0 +1,48 @@
+name: Integrate Gift into Adventure Map
+
+on:
+  push:
+    paths:
+      - '.github/workflows/integrate-gift.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Patch index.html
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_click = 'if(unlocked)button.addEventListener("click",()=>startLevel(zone.key));'
+          new_click = '''if(unlocked){button.addEventListener("click",()=>{if(zone.key==="boss"){window.location.href="gift-shop.html";return}startLevel(zone.key)})}'''
+
+          if old_click not in text:
+              raise SystemExit('Map click handler not found; no changes made.')
+
+          text = text.replace(old_click, new_click, 1)
+          text = text.replace('title:"Boss Castle",sub:"Big conversation"', 'title:"Gift",sub:"Choose your gift"', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Integrate Gift into adventure map"
+          git push
