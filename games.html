@@ -1117,17 +1117,22 @@ function renderQuiz(){
       .sort(()=>Math.random()-.5);
 
 
+  const questionText =
+    currentTheme.key === "family"
+      ? "Who is it?"
+      : "What is it?";
+
   box.innerHTML=`
 
     ${imageHTML}
 
     <div class="question">
-      Who is it?
+      ${questionText}
     </div>
 
     <button
       class="listen"
-      onclick="speak('What is it?')"
+      onclick="speak('${questionText}')"
     >
       🔊 Listen
     </button>
@@ -1230,25 +1235,36 @@ function checkQuiz(word,button,correct){
 
   if(quizResults[questionIndex])return;
 
-  document
-    .querySelectorAll('.answer')
-    .forEach(b=>b.disabled=true);
-
   const feedback=
     document.getElementById('feedback');
 
   const isCorrect=word===correct;
 
+  if(!isCorrect){
+
+    button.classList.add('wrong');
+    button.disabled=true;
+
+    feedback.textContent=
+      'Good try! Try again.';
+
+    feedback.style.color='#e2536c';
+
+    speak("Try again.");
+
+    return;
+  }
+
+  document
+    .querySelectorAll('.answer')
+    .forEach(b=>b.disabled=true);
+
   quizResults[questionIndex]={
-    correct:isCorrect,
+    correct:true,
     selected:word
   };
 
-
-  button.classList.add(
-    isCorrect?'correct':'wrong'
-  );
-
+  button.classList.add('correct');
 
   if(isCorrect){
 
